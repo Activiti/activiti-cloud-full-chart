@@ -1,6 +1,5 @@
-#CHART_REPO := http://jenkins-x-chartmuseum:8080
 CURRENT=$(pwd)
-NAME := activiti-cloud-full-example
+NAME := activiti-cloud-full-chart
 OS := $(shell uname)
 RELEASE_VERSION := $(shell cat ../../VERSION)
 
@@ -11,14 +10,12 @@ ORG:=$(or $(ORG),activiti)
 build: clean
 	helm init --client-only
 	helm repo add activiti-cloud-helm-charts https://activiti.github.io/activiti-cloud-helm-charts/
-	helm repo add activiti-cloud-charts https://activiti.github.io/activiti-cloud-charts/
 	helm dependency build
 	helm lint
-
+	helm install . --name ${HELM_RELEASE_NAME} --namespace ${PREVIEW_NAMESPACE} --debug --dry-run
 
 install: clean build
 	sed -i -e "s/jx-staging/${PREVIEW_NAMESPACE}/g" values.yaml
-	helm install . --name ${HELM_RELEASE_NAME} --namespace ${PREVIEW_NAMESPACE} --debug --dry-run
 	helm install . --name ${HELM_RELEASE_NAME} --namespace ${PREVIEW_NAMESPACE} --wait --timeout 3000
 
 upgrade: clean build
