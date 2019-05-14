@@ -29,8 +29,8 @@ pipeline {
          SSO_HOST = "activiti-keycloak.$PREVIEW_NAMESPACE.35.228.195.195.nip.io"
         }
         steps {
-          sh 'make validate'
           container('maven') {
+          sh 'make validate'
            dir ("./charts/$APP_NAME") {
 	           // sh 'make build'
               sh 'make install'
