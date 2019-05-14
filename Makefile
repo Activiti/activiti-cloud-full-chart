@@ -1,4 +1,4 @@
-NAME := activiti-cloud-application-chart
+NAME := activiti-cloud-full-chart
 OS := $(shell uname)
 
 ACTIVITI_CLOUD_DEPENDENCIES_ARTIFACT_ID := activiti-cloud-dependencies
