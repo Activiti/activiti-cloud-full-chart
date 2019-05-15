@@ -18,7 +18,7 @@ install: clean build
 	helm install . --set global.gateway.domain=${GLOBAL_GATEWAY_DOMAIN} --name ${HELM_RELEASE_NAME} --namespace ${PREVIEW_NAMESPACE} --debug --wait --timeout 3000
 
 install-security: clean build
-	sed -i -e "s/jx-staging/${PREVIEW_NAMESPACE}/g" values.yaml
+	sed -i -e "s/jx-staging/${PREVIEW_NAMESPACE}/g" values-security.yaml
 	helm install . -f values-security.yaml --set global.gateway.domain=${GLOBAL_GATEWAY_DOMAIN} --name ${HELM_RELEASE_NAME}-security --namespace ${PREVIEW_NAMESPACE} --debug --wait --timeout 3000
 
 upgrade: clean build
