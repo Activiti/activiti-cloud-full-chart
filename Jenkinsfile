@@ -25,8 +25,8 @@ pipeline {
           branch 'PR-*'
         }
         environment {
-         GATEWAY_HOST = "activiti-cloud-gateway.$PREVIEW_NAMESPACE.35.228.195.195.nip.io"
-         SSO_HOST = "activiti-cloud-gateway.$PREVIEW_NAMESPACE.35.228.195.195.nip.io"
+         GATEWAY_HOST = "activiti-cloud-gateway.$PREVIEW_NAMESPACE.$GLOBAL_GATEWAY_DOMAIN"
+         SSO_HOST = "activiti-cloud-gateway.$PREVIEW_NAMESPACE.$GLOBAL_GATEWAY_DOMAIN"
         }
         steps {
           container('maven') {
@@ -49,8 +49,8 @@ pipeline {
           branch 'master'
         }
 	environment {
-         GATEWAY_HOST = "activiti-cloud-gateway.$PREVIEW_NAMESPACE.35.228.195.195.nip.io"
-         SSO_HOST = "activiti-cloud-gateway.$PREVIEW_NAMESPACE.35.228.195.195.nip.io"
+         GATEWAY_HOST = "activiti-cloud-gateway.$PREVIEW_NAMESPACE.$GLOBAL_GATEWAY_DOMAIN"
+         SSO_HOST = "activiti-cloud-gateway.$PREVIEW_NAMESPACE.$GLOBAL_GATEWAY_DOMAIN"
         }      
         steps {
           container('maven') {
