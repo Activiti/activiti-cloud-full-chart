@@ -77,14 +77,14 @@ activiti-cloud-modeling:
       nginx.ingress.kubernetes.io/x-forwarded-prefix: "true"
     frontend:
       image:
-        repository: activiti/activiti-modeling-app
-#        tag: 7.0.0.SR1
+        repository: docker.io/activiti)/activiti-cloud-full-chart
+#        tag: 0.0.1
         pullPolicy: Always
       annotations: {}
     backend:
       image:
-        repository: activiti/activiti-cloud-modeling
-#        tag: 7.0.0.SR1
+        repository: docker.io/activiti)/activiti-cloud-full-chart
+#        tag: 0.0.1
         pullPolicy: Always
       annotations: {}
 
@@ -94,8 +94,8 @@ runtime-bundle:
     name: rb-my-app
   image:
     pullPolicy: Always
-    repository: activiti/example-runtime-bundle
-#    tag: 7.0.0.SR1
+    repository: docker.io/activiti)/activiti-cloud-full-chart
+#    tag: 0.0.1
 activiti-cloud-query:
   service: 
     name: query
@@ -108,8 +108,8 @@ activiti-cloud-connector:
     name: example-cloud-connector
   image:
     pullPolicy: Always
-    repository: activiti/example-cloud-connector
-#    tag: 7.0.0.SR1
+    repository: docker.io/activiti)/activiti-cloud-full-chart
+#    tag: 0.0.1
 
 activiti-cloud-notifications-graphql:
   enabled: true
@@ -117,16 +117,16 @@ activiti-cloud-notifications-graphql:
     name: activiti-cloud-notifications
   image:
     pullPolicy: Always
-    repository: activiti/activiti-cloud-notifications-graphql
-#    tag: 7.0.0.SR1
+    repository: docker.io/activiti)/activiti-cloud-full-chart
+#    tag: 0.0.1
 
 activiti-cloud-audit:
   service: 
     name: audit
   image:
     pullPolicy: Always
-    repository: activiti/activiti-cloud-audit
-#    tag: 7.0.0.SR1
+    repository: docker.io/activiti)/activiti-cloud-full-chart
+#    tag: 0.0.1
 
 activiti-keycloak:
   enabled: true
@@ -145,8 +145,8 @@ activiti-cloud-gateway:
   service:
     name: activiti-cloud-gateway
   image:
-    repository: activiti/activiti-cloud-gateway
-#    tag: 7.0.0.SR1
+    repository: docker.io/activiti)/activiti-cloud-full-chart
+#    tag: 0.0.1
     pullPolicy: IfNotPresent
   ingress:
     enabled: true
@@ -186,7 +186,7 @@ rabbitmq:
   replicaCount: 1
   ingress:
     enabled: false
-    #    hostName: "rabbitmq.jx-staging.X.X.X.X.nip.io"
+    #    hostName: "rabbitmq.example-master-19.X.X.X.X.nip.io"
     path: /
     annotations:
       kubernetes.io/ingress.class: nginx
