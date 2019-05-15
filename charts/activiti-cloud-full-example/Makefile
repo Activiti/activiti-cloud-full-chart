@@ -1,5 +1,5 @@
 CURRENT=$(pwd)
-NAME := activiti-cloud-full-chart
+NAME := activiti-cloud-full-example
 OS := $(shell uname)
 RELEASE_VERSION := $(shell cat ../../VERSION)
 
