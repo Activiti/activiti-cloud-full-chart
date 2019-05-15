@@ -61,23 +61,45 @@ pipeline {
             sh "jx step git credentials"
             // so we can retrieve the version in later steps
             sh "echo \$(jx-release-version) > VERSION"
+        //RUNTIME bundle tests
             dir ("./charts/$APP_NAME") {
 	           // sh 'make build'
               sh 'make install'
             }
-	   //run tests	
+	    //run RB and modeling tests
             dir("./activiti-cloud-acceptance-scenarios") {
               git 'https://github.com/Activiti/activiti-cloud-acceptance-scenarios.git'
               sh 'sleep 30'
-              sh "mvn clean install -DskipTests && mvn -pl 'runtime-acceptance-tests' clean verify"
+              sh "mvn clean install -DskipTests && mvn -pl 'runtime-acceptance-tests,modeling-acceptance-tests' clean verify"
             }	  
-	    //end run tests	  
+	    //end run RB and modeling tests
+	         dir ("./charts/$APP_NAME") {
+                sh 'make delete'
+             }
+
+         //SECURITY tests
             dir ("./charts/$APP_NAME") {
-	      retry(5) {    
+	           // sh 'make build'
+              sh 'make install-security'
+            }
+	     //run SECURITY tests
+            dir("./activiti-cloud-acceptance-scenarios") {
+              git 'https://github.com/Activiti/activiti-cloud-acceptance-scenarios.git'
+              sh 'sleep 30'
+              sh "mvn clean install -DskipTests && mvn -pl 'security-policies-acceptance-tests' clean verify"
+            }
+	     //end run SECURITY tests
+	         dir ("./charts/$APP_NAME") {
+               sh 'make delete-security'
+             }
+
+
+            dir ("./charts/$APP_NAME") {
+	          retry(5) {
                 sh 'make tag'
               }
             sh 'make release'
-	      retry(5) {    
+	          retry(5) {
                 sh 'make github'
               }
             }
@@ -104,9 +126,9 @@ pipeline {
    post {
         always {
           container('maven') {
-            dir("./charts/$APP_NAME") {
-               sh "make delete" 
-            }
+//            dir("./charts/$APP_NAME") {
+//               sh "make delete"
+//            }
             sh "kubectl delete namespace $PREVIEW_NAMESPACE" 
           }
           cleanWs()
