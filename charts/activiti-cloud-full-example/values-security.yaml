@@ -175,7 +175,7 @@ activiti-cloud-connector:
       - name: ACTIVITI_SECURITY_POLICIES_1_SERVICENAME
         value: "rb-my-app"
       - name: ACTIVITI_SECURITY_POLICIES_1_KEYS
-        value: "*"1
+        value: "*"
 
 activiti-cloud-notifications-graphql:
   enabled: true
