@@ -155,6 +155,23 @@ activiti-cloud-connector:
     repository: activiti/example-cloud-connector
     #    tag: 7.0.0.SR1
 
+
+activiti-cloud-notifications-graphql:
+  enabled: true
+  service:
+    name: activiti-cloud-notifications
+  image:
+    pullPolicy: Always
+    repository: activiti/activiti-cloud-notifications-graphql
+#    tag: 7.0.0.SR1
+
+activiti-cloud-audit:
+  service:
+    name: audit
+  image:
+    pullPolicy: Always
+    repository: activiti/activiti-cloud-audit
+#    tag: 7.0.0.SR1
   extraEnv: |
     - name: ACTIVITI_SECURITY_POLICIES_0_NAME
       value: "HR Group restricted to SimpleProcess and ConnectorProcess"
@@ -176,23 +193,6 @@ activiti-cloud-connector:
       value: "rb-my-app"
     - name: ACTIVITI_SECURITY_POLICIES_1_KEYS
       value: "*"
-
-activiti-cloud-notifications-graphql:
-  enabled: true
-  service:
-    name: activiti-cloud-notifications
-  image:
-    pullPolicy: Always
-    repository: activiti/activiti-cloud-notifications-graphql
-#    tag: 7.0.0.SR1
-
-activiti-cloud-audit:
-  service:
-    name: audit
-  image:
-    pullPolicy: Always
-    repository: activiti/activiti-cloud-audit
-#    tag: 7.0.0.SR1
 
 activiti-keycloak:
   enabled: true
