@@ -62,20 +62,20 @@ pipeline {
             // so we can retrieve the version in later steps
             sh "echo \$(jx-release-version) > VERSION"
         //RUNTIME bundle tests
-        //    dir ("./charts/$APP_NAME") {
+            dir ("./charts/$APP_NAME") {
 	           // sh 'make build'
-        //      sh 'make install'
-        //    }
+              sh 'make install'
+            }
 	    //run RB and modeling tests
-         //   dir("./activiti-cloud-acceptance-scenarios") {
-         //     git 'https://github.com/Activiti/activiti-cloud-acceptance-scenarios.git'
-         //     sh 'sleep 30'
-         //     sh "mvn clean install -DskipTests && mvn -pl 'runtime-acceptance-tests,modeling-acceptance-tests' clean verify"
-         //   }	  
+            dir("./activiti-cloud-acceptance-scenarios") {
+              git 'https://github.com/Activiti/activiti-cloud-acceptance-scenarios.git'
+              sh 'sleep 30'
+              sh "mvn clean install -DskipTests && mvn -pl 'runtime-acceptance-tests,modeling-acceptance-tests' clean verify"
+            }	  
 	    //end run RB and modeling tests
-	   //      dir ("./charts/$APP_NAME") {
-           //     sh 'make delete'
-           //  }
+            dir ("./charts/$APP_NAME") {
+               sh 'make delete'
+            }
 
          //SECURITY tests
             dir ("./charts/$APP_NAME") {
@@ -92,8 +92,6 @@ pipeline {
 	         dir ("./charts/$APP_NAME") {
                sh 'make delete-security'
              }
-
-
             dir ("./charts/$APP_NAME") {
 	          retry(5) {
                 sh 'make tag'
