@@ -70,3 +70,5 @@ endif
 	git commit -m "release $(RELEASE_VERSION)" --allow-empty # if first release then no verion update is performed
 	git tag -fa v$(RELEASE_VERSION) -m "Release version $(RELEASE_VERSION)"
 	git push origin v$(RELEASE_VERSION)
+updatebot/push-version: 	
+	cd ../../ && updatebot push-version --kind helm  $(RELEASE_ARTIFACT) $(RELEASE_VERSION)
