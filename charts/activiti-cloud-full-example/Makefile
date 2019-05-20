@@ -15,11 +15,11 @@ build: clean
 
 install: clean build
 	sed -i -e "s/jx-staging/${PREVIEW_NAMESPACE}/g" values.yaml
-	helm install . --set global.gateway.domain=${GLOBAL_GATEWAY_DOMAIN} --name ${HELM_RELEASE_NAME} --namespace ${PREVIEW_NAMESPACE} --debug --wait --timeout 3000
+	helm install . --set global.gateway.domain=${GLOBAL_GATEWAY_DOMAIN} --name ${HELM_RELEASE_NAME} --namespace ${PREVIEW_NAMESPACE} --debug --wait 
 
 install-security: clean build
 	sed -i -e "s/jx-staging/${PREVIEW_NAMESPACE}/g" values-security.yaml
-	helm install . -f values-security.yaml --set global.gateway.domain=${GLOBAL_GATEWAY_DOMAIN} --name ${HELM_RELEASE_NAME}-security --namespace ${PREVIEW_NAMESPACE} --debug --wait --timeout 3000
+	helm install . -f values-security.yaml --set global.gateway.domain=${GLOBAL_GATEWAY_DOMAIN} --name ${HELM_RELEASE_NAME}-security --namespace ${PREVIEW_NAMESPACE} --debug --wait 
 
 upgrade: clean build
 	helm upgrade ${HELM_RELEASE_NAME} .
@@ -60,7 +60,7 @@ ifeq ($(OS),Darwin)
 	sed -i "" -e "s/tag: .*/tag: $(RELEASE_VERSION)/" values.yaml
 else ifeq ($(OS),Linux)
 	sed -i -e "s/version:.*/version: $(RELEASE_VERSION)/" Chart.yaml
-	sed -i -e "s|repository: .*|repository: $(DOCKER_REGISTRY)/$(ORG))/$(NAME)|" values.yaml
+#	sed -i -e "s|repository: .*|repository: $(DOCKER_REGISTRY)/$(ORG))/$(NAME)|" values.yaml
 	sed -i -e "s/tag: .*/tag: $(RELEASE_VERSION)/" values.yaml
 else
 	echo "platfrom $(OS) not supported to release from"
@@ -70,3 +70,5 @@ endif
 	git commit -m "release $(RELEASE_VERSION)" --allow-empty # if first release then no verion update is performed
 	git tag -fa v$(RELEASE_VERSION) -m "Release version $(RELEASE_VERSION)"
 	git push origin v$(RELEASE_VERSION)
+updatebot/push-version: 	
+	cd ../../ && updatebot push-version --kind helm  $(RELEASE_ARTIFACT) $(RELEASE_VERSION)

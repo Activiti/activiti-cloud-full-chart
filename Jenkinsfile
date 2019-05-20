@@ -76,22 +76,6 @@ pipeline {
             dir ("./charts/$APP_NAME") {
                sh 'make delete'
             }
-
-         //SECURITY tests
-            dir ("./charts/$APP_NAME") {
-	           // sh 'make build'
-              sh 'make install-security'
-            }
-	     //run SECURITY tests
-            dir("./activiti-cloud-acceptance-scenarios") {
-              git 'https://github.com/Activiti/activiti-cloud-acceptance-scenarios.git'
-              sh 'sleep 30'
-              sh "mvn clean install -DskipTests && mvn -pl 'security-policies-acceptance-tests' clean verify"
-            }
-	     //end run SECURITY tests
-	         dir ("./charts/$APP_NAME") {
-               sh 'make delete-security'
-             }
             dir ("./charts/$APP_NAME") {
 	          retry(5) {
                 sh 'make tag'
