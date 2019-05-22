@@ -91,7 +91,7 @@ activiti-cloud-modeling:
 runtime-bundle:
   enabled: true
   service: 
-    name: rb-my-app
+    name: rb
   image:
     pullPolicy: Always
     repository: activiti/example-runtime-bundle
