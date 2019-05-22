@@ -114,7 +114,7 @@ activiti-cloud-connector:
 activiti-cloud-notifications-graphql:
   enabled: true
   service: 
-    name: activiti-cloud-notifications
+    name: notifications
   image:
     pullPolicy: Always
     repository: activiti/activiti-cloud-notifications-graphql
