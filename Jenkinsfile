@@ -75,9 +75,9 @@ pipeline {
 
 	    }	  
 	    //end run RB and modeling tests
-            dir ("./charts/$APP_NAME") {
-               sh 'make delete'
-            }
+            //dir ("./charts/$APP_NAME") {
+            //   sh 'make delete'
+            //}
             dir ("./charts/$APP_NAME") {
 	          retry(5) {
                 sh 'make tag'
