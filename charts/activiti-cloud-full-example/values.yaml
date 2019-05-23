@@ -67,7 +67,7 @@ global:
 activiti-cloud-modeling:
   enabled: true
   service:
-    name: activiti-cloud-modeling
+    name: modeling
   ingress:
     enabled: false
     annotations:
