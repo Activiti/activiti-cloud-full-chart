@@ -12,10 +12,10 @@ build: clean
 	helm repo add activiti-cloud-helm-charts https://activiti.github.io/activiti-cloud-helm-charts/
 	helm repo add activiti-cloud-charts https://activiti.github.io/activiti-cloud-charts/
 	helm repo add alfresco https://kubernetes-charts.alfresco.com/stable
-        helm repo add alfresco-incubator https://kubernetes-charts.alfresco.com/incubator
-	helm dependency build
+    helm repo add alfresco-incubator https://kubernetes-charts.alfresco.com/incubator
+	helm dependency up
 	helm lint
-	helm install . --name ${NAME} --debug --dry-run
+#	helm install . --set global.gateway.domain=35.228.195.195.nip.io --name ${NAME} --debug --dry-run
 
 install:  build
 	helm install . --name ${NAME}

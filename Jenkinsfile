@@ -48,18 +48,18 @@ pipeline {
               //sh 'make install'
             }
             dir ("./charts/$APP_NAME") {
-	     // retry(5) {    
-              sh 'make tag'
-              //}
-              sh 'make release'
-	      //retry(5) {    
-              sh 'make github'
-              //}
-              sh 'jx step git credentials'
-              //sh 'sleep 30'
-              //retry(5) {
-              sh 'make updatebot/push-version'
-              //}
+                retry(5) {
+                  sh 'make tag'
+                }
+                sh 'make release'
+                retry(5) {
+                  sh 'make github'
+                }
+                 sh 'jx step git credentials'
+                  //sh 'sleep 30'
+                retry(5) {
+                  sh 'make updatebot/push-version'
+                }
             }
           }
         }
