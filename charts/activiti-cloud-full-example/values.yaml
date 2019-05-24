@@ -68,6 +68,7 @@ activiti-cloud-modeling:
   enabled: true
   service:
     name: modeling
+  
   ingress:
     enabled: false
     annotations:
@@ -76,12 +77,14 @@ activiti-cloud-modeling:
       nginx.ingress.kubernetes.io/cors-allow-headers: "*"
       nginx.ingress.kubernetes.io/x-forwarded-prefix: "true"
     frontend:
+      basepath: "/modeling"
       image:
         repository: activiti/activiti-modeling-app
 #        tag: 7.0.0.SR1
         pullPolicy: Always
       annotations: {}
     backend:
+      prefix: "modeling-service"
       image:
         repository: activiti/activiti-cloud-modeling
 #        tag: 7.0.0.SR1
