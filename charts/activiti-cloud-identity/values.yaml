@@ -1,0 +1,32 @@
+global:
+  gateway:
+    annotations: {}
+  keycloak:
+    host: ""    
+ingress:
+  enabled: true
+  annotations: {}
+alfresco-identity-service:
+  enabled: true
+  ingress:
+    enabled: false
+  keycloak:
+    postgresql:
+      persistence:
+        existingClaim: null # use default postgresql PVC
+    keycloak:
+      service:
+        port: 80
+      extraArgs: "-Dkeycloak.import=/realm/alfresco-aps-realm.json"
+      # Add explicit support for HTTPS proxy address forwarding
+      extraEnv: |
+        - name: PROXY_ADDRESS_FORWARDING
+          value: "true"
+  realm:
+    alfresco:
+      client:
+        redirectUris:
+          - "*"
+        webOrigins:
+          - "*"
+      
