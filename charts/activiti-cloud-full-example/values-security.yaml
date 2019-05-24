@@ -193,9 +193,10 @@ activiti-cloud-audit:
       value: "rb-my-app"
     - name: ACTIVITI_SECURITY_POLICIES_1_KEYS
       value: "*"
-
-activiti-keycloak:
+activiti-cloud-identity:
   enabled: true
+activiti-keycloak:
+  enabled: false
   ingress:
     enabled: true
   keycloak:
