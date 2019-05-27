@@ -2,7 +2,8 @@ global:
   gateway:
     annotations: {}
   keycloak:
-    host: ""    
+    host: ""
+enabled: true
 ingress:
   enabled: true
   annotations: {}
