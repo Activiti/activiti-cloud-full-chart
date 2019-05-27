@@ -73,4 +73,4 @@ endif
 	git tag -fa v$(RELEASE_VERSION) -m "Release version $(RELEASE_VERSION)"
 	git push origin v$(RELEASE_VERSION)
 updatebot/push-version: 	
-	cd ../../ && updatebot push-version --kind helm  $(RELEASE_ARTIFACT) $(RELEASE_VERSION)
+	cd ../../ && updatebot push-version --kind helm  $(NAME) $(RELEASE_VERSION)
