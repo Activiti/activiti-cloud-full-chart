@@ -79,14 +79,17 @@ pipeline {
             //   sh 'make delete'
             //}
             dir ("./charts/$APP_NAME") {
-	          retry(5) {
+	    retry(5) {
                 sh 'make tag'
               }
             sh 'make release'
-	          retry(5) {
+	    retry(5) {
                 sh 'make github'
               }
             }
+             retry(5) {  
+               sh 'make updatebot/push-version'
+	     }
           }
         }
       }
