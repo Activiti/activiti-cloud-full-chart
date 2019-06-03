@@ -41,7 +41,7 @@ global:
 
   gateway:
     ## Set to configure single domain name for all services, i.e. "activiti-cloud-gateway.{{ .Release.Namespace }}.{{ .Values.global.gateway.domain }}"
-    host: 'activiti-cloud-gateway.{{ .Release.Namespace }}.{{ template "common.gateway-domain" . }}'
+    host: 'gateway.{{ .Release.Namespace }}.{{ template "common.gateway-domain" . }}'
 
     ## Set to false enables HTTPS configuration on all urls 
     http: "true"
