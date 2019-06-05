@@ -31,7 +31,7 @@ dependencies:
   alias: "postgres"
 - name: "runtime-bundle"
   repository: "https://activiti.github.io/activiti-cloud-helm-charts/"
-  version: "7.1.127"
+  version: "7.1.128"
   condition: "application.runtime-bundle.enabled,runtime-bundle.enabled"
 - name: "activiti-cloud-connector"
   repository: "https://activiti.github.io/activiti-cloud-helm-charts/"
