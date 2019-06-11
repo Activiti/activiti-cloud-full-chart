@@ -23,7 +23,8 @@ global:
 
   keycloak:
     ## Configure Activiti Keycloak host template, i.e. "activiti-keycloak.{{ .Release.Namespace }}.{{ .Values.global.gateway.domain }}"
-    host: '{{ template "common.gateway-host" . }}'
+    #host: '{{ template "common.gateway-host" . }}'
+    host: 'identity.{{ .Release.Namespace }}.{{ template "common.gateway-domain" . }}'
 
     ## Set full url to configure external Keycloak, https://my.keycloak.com/auth
     # if not set, keycloak deployment is automatically exposed on gaetway host, i.e. http://activiti-cloud-gateway.REPLACEME/auth
