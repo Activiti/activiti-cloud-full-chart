@@ -81,6 +81,8 @@ pipeline {
             //   sh 'make delete'
             //}
             dir ("./charts/$APP_NAME") {
+              sh "jx step changelog --version v\$(cat ../../VERSION)"
+
 	    retry(5) {
                 sh 'make tag'
               }
