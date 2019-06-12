@@ -79,6 +79,7 @@ activiti-cloud-modeling:
       repository: activiti/activiti-cloud-modeling
 #      tag: 7.0.0.SR1
       pullPolicy: Always
+
   ingress:
     enabled: false
     annotations:
@@ -88,6 +89,10 @@ activiti-cloud-modeling:
       nginx.ingress.kubernetes.io/x-forwarded-prefix: "true"
     frontend:
       basepath: "/modeling"
+      annotations: {}
+    backend:
+      prefix: "modeling-service"
+      image:
       annotations: {}
     backend:
       prefix: "modeling-service"
