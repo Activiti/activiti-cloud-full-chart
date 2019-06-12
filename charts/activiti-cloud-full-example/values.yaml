@@ -23,7 +23,8 @@ global:
 
   keycloak:
     ## Configure Activiti Keycloak host template, i.e. "activiti-keycloak.{{ .Release.Namespace }}.{{ .Values.global.gateway.domain }}"
-    host: '{{ template "common.gateway-host" . }}'
+    #host: '{{ template "common.gateway-host" . }}'
+    host: 'identity.{{ .Release.Namespace }}.{{ template "common.gateway-domain" . }}'
 
     ## Set full url to configure external Keycloak, https://my.keycloak.com/auth
     # if not set, keycloak deployment is automatically exposed on gaetway host, i.e. http://activiti-cloud-gateway.REPLACEME/auth
@@ -68,7 +69,16 @@ activiti-cloud-modeling:
   enabled: true
   service:
     name: modeling
-  
+  frontend:  
+    image:
+      repository: activiti/activiti-modeling-app
+#      tag: 7.0.0.SR1
+      pullPolicy: Always
+  backend:    
+    image:
+      repository: activiti/activiti-cloud-modeling
+#      tag: 7.0.0.SR1
+      pullPolicy: Always
   ingress:
     enabled: false
     annotations:
@@ -76,20 +86,12 @@ activiti-cloud-modeling:
       nginx.ingress.kubernetes.io/enable-cors: "true"
       nginx.ingress.kubernetes.io/cors-allow-headers: "*"
       nginx.ingress.kubernetes.io/x-forwarded-prefix: "true"
-  frontend:
-    basepath: "/modeling"
-    image:
-      repository: activiti/activiti-modeling-app
-#        tag: 7.0.0.SR1
-      pullPolicy: Always
-    annotations: {}
-  backend:
-    prefix: "modeling-service"
-    image:
-      repository: activiti/activiti-cloud-modeling
-#      tag: 7.0.0.SR1
-      pullPolicy: Always
-    annotations: {}
+    frontend:
+      basepath: "/modeling"
+      annotations: {}
+    backend:
+      prefix: "modeling-service"
+      annotations: {}
 
 runtime-bundle:
   enabled: true
