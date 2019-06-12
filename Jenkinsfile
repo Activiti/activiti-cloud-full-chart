@@ -64,7 +64,9 @@ pipeline {
         //RUNTIME bundle tests
             dir ("./charts/$APP_NAME") {
 	           // sh 'make build'
-              sh 'make install'
+	      retry(5) {	    
+                sh 'make install'
+	      }
             }
 	    //run RB and modeling tests
             dir("./activiti-cloud-acceptance-scenarios") {
