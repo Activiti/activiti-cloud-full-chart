@@ -106,11 +106,14 @@ runtime-bundle:
     pullPolicy: Always
     repository: activiti/example-runtime-bundle
 #    tag: 7.0.0.SR1
+
 activiti-cloud-query:
   service: 
     name: query
   image:
     pullPolicy: Always
+  postgres:
+    enabled: true
 
 activiti-cloud-connector:
   enabled: true
@@ -137,6 +140,9 @@ activiti-cloud-audit:
     pullPolicy: Always
     repository: activiti/activiti-cloud-audit
 #    tag: 7.0.0.SR1
+  postgres:
+    enabled: true    
+
 activiti-cloud-identity:
   enabled: true
 activiti-keycloak:
