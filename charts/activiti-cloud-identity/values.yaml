@@ -15,7 +15,19 @@ alfresco-identity-service:
     postgresql:
       persistence:
         existingClaim: null # use default postgresql PVC
+      resources:
+        requests:
+          memory: "750Mi"
+          cpu: "300m"
+        limits:
+          memory: "1024Mi"
+          cpu: "1"
     keycloak:
+      resources:
+        requests:
+          memory: "750Mi"
+        limits:
+          memory: "1024Mi"
       service:
         port: 80
       extraArgs: "-Dkeycloak.import=/realm/alfresco-aps-realm.json"
