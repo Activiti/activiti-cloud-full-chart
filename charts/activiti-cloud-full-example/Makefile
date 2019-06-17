@@ -1,7 +1,7 @@
 CURRENT=$(pwd)
 NAME := activiti-cloud-full-example
 OS := $(shell uname)
-RELEASE_VERSION := $(or $(shell cat ../../VERSION),$(APP_VERSION))
+RELEASE_VERSION := $(or $(shell cat ../../VERSION),$(APP_ACTIVITI_VERSION))
 HELM_VERSION := $(or $(HELM_VERSION),$(RELEASE_VERSION))
 
 GITHUB_CHARTS_REPO := $(or $(GITHUB_CHARTS_REPO),$(shell git config --get remote.origin.url))
