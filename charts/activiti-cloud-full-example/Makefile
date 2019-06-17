@@ -56,7 +56,7 @@ github:
 	   helm repo index . && \
 	   git add . && \
 	   git status && \
-	   git commit -m "fix:(version) release $(NAME)-$(RELEASE_VERSION).tgz" && \
+	   git commit -m "fix:(version) release $(NAME)-$(HELM_VERSION).tgz" && \
 	   git pull && \
 	   git push origin "$(GITHUB_CHARTS_BRANCH)"
 	rm -rf $(GITHUB_CHARTS_DIR)
