@@ -66,16 +66,15 @@ pipeline {
             dir ("./charts/$APP_NAME") {
 	           // sh 'make build'
 	      retry(5) {	    
-//almer                sh 'make install'
+                sh 'make install'
 	      }
             }
 	    //run RB and modeling tests
             dir("./activiti-cloud-acceptance-scenarios") {
-//almer              git 'https://github.com/Activiti/activiti-cloud-acceptance-scenarios.git'
-//              sh 'sleep 30'
-//              sh "mvn clean install -DskipTests && mvn -pl 'runtime-acceptance-tests,modeling-acceptance-tests' clean verify"
+              git 'https://github.com/Activiti/activiti-cloud-acceptance-scenarios.git'
+              sh 'sleep 30'
+              sh "mvn clean install -DskipTests && mvn -pl 'runtime-acceptance-tests,modeling-acceptance-tests' clean verify"
              // sh "mvn clean install -DskipTests && mvn -pl 'runtime-acceptance-tests' clean verify"
-
 	    }	  
 	    //end run RB and modeling tests
             //dir ("./charts/$APP_NAME") {
