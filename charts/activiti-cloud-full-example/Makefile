@@ -11,6 +11,7 @@ ORG:=$(or $(ORG),activiti)
 printrelease:
 	echo RELEASE_VERSION $(RELEASE_VERSION)
 	echo HELM_VERSION $(HELM_VERSION)
+	echo APP_VERSION $(APP_VERSION)
 
 build: clean
 	helm init --client-only
