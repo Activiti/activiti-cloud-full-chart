@@ -2,7 +2,7 @@ CURRENT=$(pwd)
 NAME := activiti-cloud-full-example
 OS := $(shell uname)
 RELEASE_VERSION := $(or $(shell cat ../../VERSION),$(APP_ACTIVITI_VERSION))
-HELM_VERSION := $(or $(HELM_VERSION),$(RELEASE_VERSION))
+HELM_ACTIVITI_VERSION := $(or $(HELM_ACTIVITI_VERSION),$(RELEASE_VERSION))
 
 GITHUB_CHARTS_REPO := $(or $(GITHUB_CHARTS_REPO),$(shell git config --get remote.origin.url))
 GITHUB_CHARTS_BRANCH := $(or $(GITHUB_CHARTS_BRANCH),gh-pages)
@@ -10,7 +10,7 @@ ORG:=$(or $(ORG),activiti)
 
 printrelease:
 	echo RELEASE_VERSION $(RELEASE_VERSION)
-	echo HELM_VERSION $(HELM_VERSION)
+	echo HELM_ACTIVITI_VERSION $(HELM_ACTIVITI_VERSION)
 	echo APP_VERSION $(APP_VERSION)
 
 build: clean
@@ -46,23 +46,23 @@ release: build
 github:
 	$(eval GITHUB_CHARTS_DIR := $(shell basename $(GITHUB_CHARTS_REPO) .git))
 	[[ -d $(GITHUB_CHARTS_DIR) ]] ||git clone -b "$(GITHUB_CHARTS_BRANCH)" "$(GITHUB_CHARTS_REPO)" $(GITHUB_CHARTS_DIR)
-	cp "$(NAME)-$(HELM_VERSION).tgz" $(GITHUB_CHARTS_DIR)
+	cp "$(NAME)-$(HELM_ACTIVITI_VERSION).tgz" $(GITHUB_CHARTS_DIR)
 	cd $(GITHUB_CHARTS_DIR) && \
 	   helm repo index . && \
 	   git add . && \
 	   git status && \
-	   git commit -m "fix:(version) release $(NAME)-$(HELM_VERSION).tgz" && \
+	   git commit -m "fix:(version) release $(NAME)-$(HELM_ACTIVITI_VERSION).tgz" && \
 	   git pull && \
 	   git push origin "$(GITHUB_CHARTS_BRANCH)"
 	rm -rf $(GITHUB_CHARTS_DIR)
 
 tag:
 ifeq ($(OS),Darwin)
-	sed -i "" -e "s/version:.*/version: $(HELM_VERSION)/" Chart.yaml
+	sed -i "" -e "s/version:.*/version: $(HELM_ACTIVITI_VERSION)/" Chart.yaml
 	sed -i "" -e "s/tag: .*/tag: $(RELEASE_VERSION)/" values.yaml
 
 else ifeq ($(OS),Linux)
-	sed -i -e "s/version:.*/version: $(HELM_VERSION)/" Chart.yaml
+	sed -i -e "s/version:.*/version: $(HELM_ACTIVITI_VERSION)/" Chart.yaml
 #	sed -i -e "s|repository: .*|repository: $(DOCKER_REGISTRY)/$(ORG))/$(NAME)|" values.yaml
 	sed -i -e "s/tag: .*/tag: $(RELEASE_VERSION)/" values.yaml
 else
