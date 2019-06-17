@@ -1,11 +1,16 @@
 CURRENT=$(pwd)
 NAME := activiti-cloud-full-example
 OS := $(shell uname)
-RELEASE_VERSION := $(shell cat ../../VERSION)
+RELEASE_VERSION := $(or $(shell cat ../../VERSION),$(APP_VERSION))
+HELM_VERSION := $(or $(HELM_VERSION),$(RELEASE_VERSION))
 
 GITHUB_CHARTS_REPO := $(or $(GITHUB_CHARTS_REPO),$(shell git config --get remote.origin.url))
 GITHUB_CHARTS_BRANCH := $(or $(GITHUB_CHARTS_BRANCH),gh-pages)
 ORG:=$(or $(ORG),activiti)
+
+printrelease:
+	echo RELEASE_VERSION $(RELEASE_VERSION)
+	echo HELM_VERSION $(HELM_VERSION)
 
 build: clean
 	helm init --client-only
@@ -58,10 +63,11 @@ github:
 
 tag:
 ifeq ($(OS),Darwin)
-	sed -i "" -e "s/version:.*/version: $(RELEASE_VERSION)/" Chart.yaml
+	sed -i "" -e "s/version:.*/version: $(HELM_VERSION)/" Chart.yaml
 	sed -i "" -e "s/tag: .*/tag: $(RELEASE_VERSION)/" values.yaml
+
 else ifeq ($(OS),Linux)
-	sed -i -e "s/version:.*/version: $(RELEASE_VERSION)/" Chart.yaml
+	sed -i -e "s/version:.*/version: $(HELM_VERSION)/" Chart.yaml
 #	sed -i -e "s|repository: .*|repository: $(DOCKER_REGISTRY)/$(ORG))/$(NAME)|" values.yaml
 	sed -i -e "s/tag: .*/tag: $(RELEASE_VERSION)/" values.yaml
 else
