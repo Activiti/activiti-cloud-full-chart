@@ -24,10 +24,6 @@ install: clean build
 	sed -i -e "s/jx-staging/${PREVIEW_NAMESPACE}/g" values.yaml
 	helm install . --set global.gateway.domain=${GLOBAL_GATEWAY_DOMAIN} --name ${HELM_RELEASE_NAME} --namespace ${PREVIEW_NAMESPACE} --debug --wait 
 
-install-security: clean build
-	sed -i -e "s/jx-staging/${PREVIEW_NAMESPACE}/g" values-security.yaml
-	helm install . -f values-security.yaml --set global.gateway.domain=${GLOBAL_GATEWAY_DOMAIN} --name ${HELM_RELEASE_NAME}-security --namespace ${PREVIEW_NAMESPACE} --debug --wait 
-
 upgrade: clean build
 	helm upgrade ${HELM_RELEASE_NAME} .
 
@@ -43,10 +39,8 @@ clean:
 	rm -rf ${NAME}*.tgz
 
 release: build
-#	sed -i -e "s/${PREVIEW_NAMESPACE}/jx-staging/g" values.yaml  
 	helm package .
-#	curl  -u $(CHARTMUSEUM_CREDS_USR):$(CHARTMUSEUM_CREDS_PSW) --data-binary "@$(NAME)-$(shell sed -n 's/^version: //p' Chart.yaml).tgz" $(CHART_REPO)/api/charts
-#	rm -rf ${NAME}*.tgz%
+
 
 github:
 	$(eval GITHUB_CHARTS_DIR := $(shell basename $(GITHUB_CHARTS_REPO) .git))
