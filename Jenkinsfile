@@ -16,7 +16,8 @@ pipeline {
       PREVIEW_VERSION = "0.0.0-SNAPSHOT-$BRANCH_NAME-$BUILD_NUMBER"
       PREVIEW_NAMESPACE = "example-$BRANCH_NAME-$BUILD_NUMBER".toLowerCase()
       GLOBAL_GATEWAY_DOMAIN="35.228.195.195.nip.io"
-      REALM = "activiti"
+      REALM = "activiti"    
+      LOGGING_LEVEL_ORG_ACTIVITI_CLOUD_ACC_CORE_SERVICES=INFO 
 
     }
     stages {
