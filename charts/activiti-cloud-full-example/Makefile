@@ -49,7 +49,7 @@ github:
 	cp "$(NAME)-$(HELM_ACTIVITI_VERSION).tgz" $(GITHUB_CHARTS_DIR)
 	cd $(GITHUB_CHARTS_DIR) && \
 	   helm repo index . && \
-	   git add Chart.yaml values.yaml requirements.yaml && \
+	   git add . && \
 	   git status && \
 	   git commit -m "fix:(version) release $(NAME)-$(HELM_ACTIVITI_VERSION).tgz" && \
 	   git pull && \
@@ -69,7 +69,7 @@ else
 	echo "platfrom $(OS) not supported to release from"
 	exit -1
 endif
-	git add --all
+	git add Chart.yaml values.yaml requirements.yaml
 	git commit -m "release $(RELEASE_VERSION)" --allow-empty # if first release then no verion update is performed
 	git tag -fa v$(RELEASE_VERSION) -m "Release version $(RELEASE_VERSION)"
 	git push origin v$(RELEASE_VERSION)
