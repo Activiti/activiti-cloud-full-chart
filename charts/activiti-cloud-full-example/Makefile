@@ -49,7 +49,7 @@ github:
 	cp "$(NAME)-$(HELM_ACTIVITI_VERSION).tgz" $(GITHUB_CHARTS_DIR)
 	cd $(GITHUB_CHARTS_DIR) && \
 	   helm repo index . && \
-	   git add . && \
+	   git add Chart.yaml values.yaml requirements.yaml && \
 	   git status && \
 	   git commit -m "fix:(version) release $(NAME)-$(HELM_ACTIVITI_VERSION).tgz" && \
 	   git pull && \
