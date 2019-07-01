@@ -4,3 +4,6 @@
 <br>Full chart located at https://github.com/Activiti/activiti-cloud-full-chart 
 <br>Common chart is a base chart for all charts now located at https://github.com/Activiti/activiti-cloud-common-chart 
 <br>Charts for components located at component folders like: runtime https://github.com/Activiti/example-runtime-bundle/tree/master/charts/runtime-bundle and example cloud connector https://github.com/Activiti/example-cloud-connector/tree/master/charts/activiti-cloud-connector
+
+
+## Getting started located at https://activiti.gitbook.io/activiti-7-developers-guide/getting-started/getting-started-activiti-cloud
