@@ -11,7 +11,7 @@ ORG:=$(or $(ORG),activiti)
 printrelease:
 	echo RELEASE_VERSION $(RELEASE_VERSION)
 	echo HELM_ACTIVITI_VERSION $(HELM_ACTIVITI_VERSION)
-	echo APP_VERSION $(APP_VERSION)
+	echo APP_ACTIVITI_VERSION $(APP_ACTIVITI_VERSION)
 
 build: clean
 	helm init --client-only
@@ -57,21 +57,13 @@ github:
 	rm -rf $(GITHUB_CHARTS_DIR)
 
 tag:
-ifeq ($(OS),Darwin)
-	sed -i "" -e "s/version:.*/version: $(HELM_ACTIVITI_VERSION)/" Chart.yaml
-	sed -i "" -e "s/tag: .*/tag: $(RELEASE_VERSION)/" values.yaml
-
-else ifeq ($(OS),Linux)
 	sed -i -e "s/version:.*/version: $(HELM_ACTIVITI_VERSION)/" Chart.yaml
-#	sed -i -e "s|repository: .*|repository: $(DOCKER_REGISTRY)/$(ORG))/$(NAME)|" values.yaml
 	sed -i -e "s/tag: .*/tag: $(RELEASE_VERSION)/" values.yaml
-else
-	echo "platfrom $(OS) not supported to release from"
-	exit -1
-endif
+
 	git add Chart.yaml values.yaml requirements.yaml
-	git commit -m "release $(RELEASE_VERSION)" --allow-empty # if first release then no verion update is performed
-	git tag -fa v$(RELEASE_VERSION) -m "Release version $(RELEASE_VERSION)"
-	git push origin v$(RELEASE_VERSION)
+	git commit -m "release $(HELM_ACTIVITI_VERSION)" --allow-empty # if first release then no verion update is performed
+	git tag -fa v$(HELM_ACTIVITI_VERSION) -m "Release version $(HELM_ACTIVITI_VERSION)"
+	git push origin v$(HELM_ACTIVITI_VERSION)
+
 updatebot/push-version: 	
-	cd ../../ && updatebot push-version --kind helm  $(NAME) $(RELEASE_VERSION)
+	cd ../../ && updatebot push-version --kind helm  $(NAME) $(HELM_ACTIVITI_VERSION)
