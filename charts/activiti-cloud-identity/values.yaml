@@ -14,7 +14,7 @@ alfresco-identity-service:
   keycloak:
     postgresql:
       persistence:
-        existingClaim: null # use default postgresql PVC
+        existingClaim: "" # use default postgresql PVC
       resources:
         requests:
           memory: "750Mi"
