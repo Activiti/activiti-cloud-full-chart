@@ -26,6 +26,7 @@ pipeline {
           branch 'feature-*'
         }
         environment {
+          HELM_RELEASE_NAME = "$BRANCH_NAME".toLowerCase()
           PREVIEW_NAMESPACE = "$BRANCH_NAME".toLowerCase()
           GATEWAY_HOST = "gateway.$PREVIEW_NAMESPACE.$GLOBAL_GATEWAY_DOMAIN"
           SSO_HOST = "identity.$PREVIEW_NAMESPACE.$GLOBAL_GATEWAY_DOMAIN"
