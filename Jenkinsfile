@@ -47,12 +47,7 @@ pipeline {
       }
       post{ 
         aborted {
-          container('maven') {
-            dir("./charts/$APP_NAME") {
-              sh "make delete"
-              sh "kubectl delete namespace $PREVIEW_NAMESPACE" 
-            }
-          }
+          delete_deployment()
         }
       }
     }
@@ -81,12 +76,7 @@ pipeline {
       }
       post {
         always {
-          container('maven') {
-            dir("./charts/$APP_NAME") {
-              sh "make delete"
-            }
-            sh "kubectl delete namespace $PREVIEW_NAMESPACE" 
-          }
+          delete_deployment()
         }
       }
     }
@@ -141,12 +131,7 @@ pipeline {
       }
       post {
         always {
-          container('maven') {
-            dir("./charts/$APP_NAME") {
-              sh "make delete"
-            }
-            sh "kubectl delete namespace $PREVIEW_NAMESPACE" 
-          }
+          delete_deployment()
         }
       }
     }
@@ -170,6 +155,14 @@ pipeline {
   post {
     always {
       cleanWs()
+    }
+  }
+  def delete_deployment() {
+    container('maven') {
+      dir("./charts/$APP_NAME") {
+        sh "make delete"
+      }
+      sh "kubectl delete namespace $PREVIEW_NAMESPACE" 
     }
   }
 }
