@@ -21,6 +21,26 @@ pipeline {
 
     }
     stages {
+      stage('Create Preview Environment') {
+        when {
+          branch 'feature-*'
+        }
+        environment {
+          PREVIEW_NAMESPACE = "$BRANCH_NAME".toLowerCase()
+          GATEWAY_HOST = "gateway.$PREVIEW_NAMESPACE.$GLOBAL_GATEWAY_DOMAIN"
+          SSO_HOST = "identity.$PREVIEW_NAMESPACE.$GLOBAL_GATEWAY_DOMAIN"
+        }
+        steps {
+          container('maven') {
+          sh 'make validate'
+           dir ("./charts/$APP_NAME") {
+              sh 'make install'
+            }
+
+            input "Wait"
+          }
+        }
+      }
       stage('CI Build and push snapshot') {
         when {
           branch 'PR-*'
