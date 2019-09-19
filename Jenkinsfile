@@ -44,14 +44,16 @@ pipeline {
           input "Click Abort to delete preview environment: ${HELM_RELEASE_NAME}"
         }
       }
-      aborted {
-        container('maven') {
-          dir("./charts/$APP_NAME") {
-            sh "make delete"
-            sh "kubectl delete namespace $PREVIEW_NAMESPACE" 
+      post{ 
+        aborted {
+          container('maven') {
+            dir("./charts/$APP_NAME") {
+              sh "make delete"
+              sh "kubectl delete namespace $PREVIEW_NAMESPACE" 
+            }
           }
-        }          
-      }        
+        }
+      }
     }
     stage('CI Build and push snapshot') {
       when {
