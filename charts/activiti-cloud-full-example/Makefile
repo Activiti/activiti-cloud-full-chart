@@ -22,8 +22,12 @@ build: clean
 	helm lint
 
 install: clean build
-	sed -i -e "s/jx-staging/${PREVIEW_NAMESPACE}/g" values.yaml
-	helm install . --set global.gateway.domain=${GLOBAL_GATEWAY_DOMAIN} --name ${HELM_RELEASE_NAME} --namespace ${PREVIEW_NAMESPACE} --debug --wait 
+	helm upgrade ${HELM_RELEASE_NAME} . \
+		--install \
+		--set global.gateway.domain=${GLOBAL_GATEWAY_DOMAIN} \
+		--namespace ${PREVIEW_NAMESPACE} \
+		--debug \
+		--wait 
 
 upgrade: clean build
 	helm upgrade ${HELM_RELEASE_NAME} .

@@ -37,4 +37,8 @@ clean:
 linux:
 	echo "do nothing"
 
+preview:
+	git checkout -b feature-${PREVIEW}
+	git push -u origin feature-${PREVIEW}
+
 .PHONY: release clean
