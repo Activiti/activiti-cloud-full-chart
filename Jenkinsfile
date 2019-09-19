@@ -157,12 +157,13 @@ pipeline {
       cleanWs()
     }
   }
-  def delete_deployment() {
-    container('maven') {
-      dir("./charts/$APP_NAME") {
-        sh "make delete"
-      }
-      sh "kubectl delete namespace $PREVIEW_NAMESPACE" 
+}
+
+def delete_deployment() {
+  container('maven') {
+    dir("./charts/$APP_NAME") {
+      sh "make delete"
     }
+    sh "kubectl delete namespace $PREVIEW_NAMESPACE" 
   }
 }
