@@ -37,6 +37,7 @@ pipeline {
             sh 'make install'
           }
           print "Preview environment detais:"
+          print "REALM=${REALM}"
           print "HELM_RELEASE_NAME=${HELM_RELEASE_NAME}"
           print "GATEWAY_HOST=${GATEWAY_HOST}"
           print "SSO_HOST=${SSO_HOST}"
