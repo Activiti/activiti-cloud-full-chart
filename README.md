@@ -32,3 +32,7 @@ After pushing branch to remote, check your branch deployment status on Github: h
 If you make any changes and push the commit to remote, it will trigger preview stage again and upgrade the environment automatically.
 
 To delete preview environment, simply delete your feature-* branch from remote. Once Jenkins runs the clean up, it will trigger another Jenkins pipeline to delete deployed release and namespace in the K8s cluster.
+
+## Skipping CI
+
+You want to skip running release pipeline stages, simply add `[ci skip]` to commit message.
