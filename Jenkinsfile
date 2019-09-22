@@ -21,6 +21,9 @@ pipeline {
   }
   stages {
     stage('Create Preview Environment') {
+      options {
+        timeout(time: 30, unit: 'MINUTES') 
+      }        
       when {
         branch 'feature-*'
       }
