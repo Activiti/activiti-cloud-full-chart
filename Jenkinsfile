@@ -39,11 +39,8 @@ pipeline {
           dir ("./charts/$APP_NAME") {
             sh 'make install'
           }
-          print "Preview environment detais:"
-          print "REALM=${REALM}"
-          print "HELM_RELEASE_NAME=${HELM_RELEASE_NAME}"
-          print "GATEWAY_HOST=${GATEWAY_HOST}"
-          print "SSO_HOST=${SSO_HOST}"
+
+          print_environment()
 
           input "Click Abort to delete preview environment: ${HELM_RELEASE_NAME}"
         }
@@ -64,7 +61,10 @@ pipeline {
       }
       steps {
         container('maven') {
-        sh 'make validate'
+          sh 'make validate'
+
+          print_environment()
+
           dir ("./charts/$APP_NAME") {
             // sh 'make build'
             sh 'make install'
@@ -107,6 +107,9 @@ pipeline {
             sh 'make install'
             }
           }
+
+          print_environment()
+
           //run RB and modeling tests
           dir("./activiti-cloud-acceptance-scenarios") {
             git 'https://github.com/Activiti/activiti-cloud-acceptance-scenarios.git'
@@ -169,4 +172,13 @@ def delete_deployment() {
     }
     sh "kubectl delete namespace $PREVIEW_NAMESPACE" 
   }
+}
+
+def print_environment() {
+  print """Preview environment detais:
+HELM_RELEASE_NAME=${HELM_RELEASE_NAME}
+export REALM=${REALM}
+export GATEWAY_HOST=${GATEWAY_HOST}
+export SSO_HOST=${SSO_HOST}
+  """  
 }
