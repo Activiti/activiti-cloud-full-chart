@@ -87,7 +87,7 @@ pipeline {
       when {
         branch 'master'
         not {
-          changelog '.*^\\[ci skip\\] .+$'
+          changelog '.*\\[ci skip\\].*'
         }
       }
       environment {
@@ -148,6 +148,9 @@ pipeline {
     stage('Promote to Environments') {
       when {
         branch 'master'
+        not {
+          changelog '^.*\\[ci skip\\].*$'
+        }
       }
       steps {
         container('maven') {
