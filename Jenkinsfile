@@ -86,6 +86,9 @@ pipeline {
     stage('Build Release') {
       when {
         branch 'master'
+        not {
+          changelog '.*^\\[ci skip\\] .+$'
+        }
       }
       environment {
         GATEWAY_HOST = "gateway.$PREVIEW_NAMESPACE.$GLOBAL_GATEWAY_DOMAIN"
