@@ -37,20 +37,13 @@ clean:
 linux:
 	echo "do nothing"
 
-preview/from: 
-	@test ${FROM}
-	git checkout $(or ${FROM},master)
-
-preview/feature: 
-	@test ${FEATURE}
-	git checkout -b feature-${FEATURE}
-
-preview/push-origin: 
-	@test ${FEATURE}
-	git push -u origin feature-${FEATURE}
-
 # required FROM=<tag or branch> and FEATURE=<feature name>
-preview: preview/from preview/feature preview/push-origin
+preview: 
+	@test ${FROM}
+	@test ${FEATURE}
+	git checkout $(or ${FROM},master)
+	git checkout -b feature-${FEATURE}
+	git push -u origin feature-${FEATURE}
 	@echo '-----------------------------------------------------------------------------------------'
 	@echo 'Successfully created branch "feature-${FEATURE}" to deploy your preview environment'
 	@echo 'Check your feature branch deployment status on Github: https://github.com/activiti/${NAME}/branches'
