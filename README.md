@@ -8,7 +8,7 @@
 
 ## Getting started located at https://activiti.gitbook.io/activiti-7-developers-guide/getting-started/getting-started-activiti-cloud
 
-## Preivew Environments 
+## Preview Environments 
 
 There is a stage in Jenkinsfile pipeline triggered on feature-* branch pattern. It installs Helm chart from feature branch commit into preview namespace for development and testing.
 
