@@ -23,7 +23,7 @@ update-ea:
 	mvn versions:set-property -Dproperty=activiti-cloud.version -DnewVersion=${ACTIVITI_CLOUD_VERSION}
 	git diff --word-diff
 	git commit -a -m "update activiti-cloud-version to ${ACTIVITI_CLOUD_VERSION} ACTIVITI-0000"
-	git push origin update-cloud-to-${ACTIVITI_CLOUD_VERSION}
+	git push  --set-upstream origin update-cloud-to-${ACTIVITI_CLOUD_VERSION}
 	git request-pull update-cloud-to-${ACTIVITI_CLOUD_VERSION} https://oauth2:$GITLAB_TOKEN@git.alfresco.com/process-services/alfresco-process-parent.git
 
 build: clean
