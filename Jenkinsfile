@@ -96,7 +96,6 @@ pipeline {
       }      
       steps {
         container('maven') {
-          sh 'git clone https://oauth2:$GITLAB_TOKEN@git.alfresco.com/process-services/alfresco-process-parent.git'
           // ensure we're not on a detached head
           sh "git checkout master"
           sh "git config --global credential.helper store"
@@ -136,7 +135,7 @@ pipeline {
             retry(5) {  
               sh 'make updatebot/push-version'
             }
-            //sh 'git clone https://oauth2:$GITLAB_TOKEN@git.alfresco.com/process-services/alfresco-process-parent.git'
+            sh 'make update-ea'
           }
         }
       }
