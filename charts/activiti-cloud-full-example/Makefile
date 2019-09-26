@@ -14,10 +14,10 @@ printrelease:
 	echo HELM_ACTIVITI_VERSION $(HELM_ACTIVITI_VERSION)
 	echo APP_ACTIVITI_VERSION $(APP_ACTIVITI_VERSION)
 update-ea:
-	git clone https://oauth2:$GITLAB_TOKEN@git.alfresco.com/process-services/alfresco-process-parent.git
+	git clone https://oauth2:${GITLAB_TOKEN}@git.alfresco.com/process-services/alfresco-process-parent.git
 	@echo "Clone for alfresco-process-parent done"
 	export ACTIVITI_CLOUD_VERSION=`../../make get-cloud-dependencies-version`
-	@echo "ACTIVITI_CLOUD_VERSION=$ACTIVITI_CLOUD_VERSION"
+	@echo "ACTIVITI_CLOUD_VERSION=${ACTIVITI_CLOUD_VERSION}"
 	cd alfresco-process-parent;
 	git checkout -b update-cloud-to-${ACTIVITI_CLOUD_VERSION}
 	mvn versions:set-property -Dproperty=activiti-cloud.version -DnewVersion=${ACTIVITI_CLOUD_VERSION}
