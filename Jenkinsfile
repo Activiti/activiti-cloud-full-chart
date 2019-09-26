@@ -136,7 +136,7 @@ pipeline {
             retry(5) {  
               sh 'make updatebot/push-version'
             }
-            sh 'git clone https://oauth2:$GITLAB_TOKEN@git.alfresco.com/process-services/alfresco-process-parent.git'
+            //sh 'git clone https://oauth2:$GITLAB_TOKEN@git.alfresco.com/process-services/alfresco-process-parent.git'
           }
         }
       }
