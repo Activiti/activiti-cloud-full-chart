@@ -7,6 +7,7 @@ HELM_ACTIVITI_VERSION := $(or $(HELM_ACTIVITI_VERSION),$(RELEASE_VERSION))
 GITHUB_CHARTS_REPO := $(or $(GITHUB_CHARTS_REPO),$(shell git config --get remote.origin.url))
 GITHUB_CHARTS_BRANCH := $(or $(GITHUB_CHARTS_BRANCH),gh-pages)
 ORG:=$(or $(ORG),activiti)
+RELEASE_GREP_EXPR := '^[Rr]elease'
 
 printrelease:
 	echo RELEASE_VERSION $(RELEASE_VERSION)
@@ -71,3 +72,17 @@ tag:
 
 updatebot/push-version: 	
 	cd ../../ && updatebot push-version --kind helm  $(NAME) $(HELM_ACTIVITI_VERSION)
+
+RELEASE_GREP_EXPR := '^[Rr]elease'
+
+git-rev-list:
+	$(eval REV = $(shell git rev-list --tags --max-count=1 --grep $(RELEASE_GREP_EXPR)))
+	$(eval PREVIOUS_REV = $(shell git rev-list --tags --max-count=1 --skip=1 --grep $(RELEASE_GREP_EXPR)))
+	$(eval REV_TAG = $(shell git describe ${PREVIOUS_REV}))
+	$(eval PREVIOUS_REV_TAG = $(shell git describe ${REV}))
+	@echo Found commits between $(PREVIOUS_REV_TAG) and $(REV_TAG) tags:
+	git rev-list $(PREVIOUS_REV)..$(REV) --first-parent --pretty
+
+changelog: git-rev-list
+	@echo Creating Github changelog for release: $(HELM_ACTIVITI_VERSION)
+	jx step changelog --version v$(HELM_ACTIVITI_VERSION) --generate-yaml=false --rev=$(REV) --previous-rev=$(PREVIOUS_REV)
