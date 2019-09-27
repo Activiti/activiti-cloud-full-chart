@@ -19,12 +19,13 @@ update-ea:
 	export ACTIVITI_CLOUD_VERSION=`../../make get-cloud-dependencies-version`
 	@echo "ACTIVITI_CLOUD_VERSION=${ACTIVITI_CLOUD_VERSION}"
 	cd alfresco-process-parent && \
-	 git checkout -b update-cloud-to-${ACTIVITI_CLOUD_VERSION} && \
-	 mvn versions:set-property -Dproperty=activiti-cloud.version -DnewVersion=${ACTIVITI_CLOUD_VERSION} && \
-	 git diff --word-diff && \
-	 git commit -a -m "update activiti-cloud-version to ${ACTIVITI_CLOUD_VERSION} ACTIVITI-0000" && \
-	 git push  --set-upstream origin update-cloud-to-${ACTIVITI_CLOUD_VERSION} && \
-	 git request-pull update-cloud-to-${ACTIVITI_CLOUD_VERSION} https://oauth2:$GITLAB_TOKEN@git.alfresco.com/process-services/alfresco-process-parent.git
+	  git checkout develop && \
+	  git checkout -b update-cloud-to-${ACTIVITI_CLOUD_VERSION} && \
+	  mvn versions:set-property -Dproperty=activiti-cloud.version -DnewVersion=${ACTIVITI_CLOUD_VERSION} && \
+	  git diff --word-diff && \
+	  git commit -a -m "update activiti-cloud-version to ${ACTIVITI_CLOUD_VERSION} ACTIVITI-0000" && \
+	  git push  --set-upstream origin update-cloud-to-${ACTIVITI_CLOUD_VERSION} && \
+	  git request-pull update-cloud-to-${ACTIVITI_CLOUD_VERSION} https://oauth2:$GITLAB_TOKEN@git.alfresco.com/process-services/alfresco-process-parent.git
 
 build: clean
 	helm init --client-only
