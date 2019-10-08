@@ -27,13 +27,12 @@ get-modeling-dependencies-version:
 get-core-dependecies-version:
 	@echo $(ACTIVITI_CORE_DEPENDENCIES_VERSION)
 get-core-dependecies-version-from-git:
-
-	#rm -rf activiti-cloud-runtime-bundle-service||echo removing activiti-cloud-runtime-bundle-service
-	#git clone  https://github.com/Activiti/activiti-cloud-runtime-bundle-service.git
-	#git fetch --all --tags --prune
-	#git checkout tags/$(RB_ACTIVITI_CLOUD_DEPENDENCIES_VERSION)	
-	#cd  activiti-cloud-runtime-bundle-service  && \
-	#$(eval ACTIVITI_CORE_DEPENDENCIES_VERSION = $(mvn help:evaluate -Dexpression=activiti-dependencies.version -q -DforceStdout)) && \
+	rm -rf activiti-cloud-runtime-bundle-service||echo removing activiti-cloud-runtime-bundle-service
+	git clone  https://github.com/Activiti/activiti-cloud-runtime-bundle-service.git
+	git fetch --all --tags --prune
+	git checkout tags/$(RB_ACTIVITI_CLOUD_DEPENDENCIES_VERSION)	
+	cd  activiti-cloud-runtime-bundle-service  && \
+	$(eval ACTIVITI_CORE_DEPENDENCIES_VERSION = $(mvn help:evaluate -Dexpression=activiti-dependencies.version -q -DforceStdout)) && \
 all: build
 
 check: build test
