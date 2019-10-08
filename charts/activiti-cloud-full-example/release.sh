@@ -1,7 +1,7 @@
 #!/bin/bash
 
-export HELM_ACTIVITI_VERSION=7.1.0-M3.1
-export APP_ACTIVITI_VERSION=7.1.0.M3.1
+export HELM_ACTIVITI_VERSION=7.1.0-M4
+export APP_ACTIVITI_VERSION=7.1.0.M4
 export GITHUB_CHARTS_REPO="https://github.com/Activiti/activiti-cloud-helm-charts.git"
 
 make printrelease
