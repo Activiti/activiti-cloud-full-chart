@@ -135,7 +135,7 @@ pipeline {
             retry(5) {  
               sh 'make updatebot/push-version'
             }
-            sh 'make update-ea'||echo updating EE
+            sh 'make update-ea || echo updating EE'
           }
         }
       }
