@@ -7,9 +7,7 @@ AUDIT_ACTIVITI_CLOUD_DEPENDENCIES_VERSION := 7.1.160
 CONNECTOR_ACTIVITI_CLOUD_DEPENDENCIES_VERSION := 7.1.160
 RB_ACTIVITI_CLOUD_DEPENDENCIES_VERSION := 7.1.160
 NOTIFICATIONS_ACTIVITI_CLOUD_DEPENDENCIES_VERSION := 7.1.160
-ACTIVITI_CORE_DEPENDENCIES_VERSION := 7.1.83
 MODELING_DEPENDENCIES_VERSION := 7.1.194
-
 
 DEPENDENCIES_VERSIONS := ${QUERY_ACTIVITI_CLOUD_DEPENDENCIES_VERSION} ${AUDIT_ACTIVITI_CLOUD_DEPENDENCIES_VERSION} ${CONNECTOR_ACTIVITI_CLOUD_DEPENDENCIES_VERSION} ${RB_ACTIVITI_CLOUD_DEPENDENCIES_VERSION} ${NOTIFICATIONS_ACTIVITI_CLOUD_DEPENDENCIES_VERSION}
 validate:
@@ -24,15 +22,6 @@ get-cloud-dependencies-version:
 	@echo $(RB_ACTIVITI_CLOUD_DEPENDENCIES_VERSION)
 get-modeling-dependencies-version:
 	@echo $(MODELING_DEPENDENCIES_VERSION)
-get-core-dependecies-version:
-	@echo $(ACTIVITI_CORE_DEPENDENCIES_VERSION)
-get-core-dependecies-version-from-git:
-	rm -rf activiti-cloud-runtime-bundle-service||echo removing activiti-cloud-runtime-bundle-service
-	git clone  https://github.com/Activiti/activiti-cloud-runtime-bundle-service.git
-	git fetch --all --tags --prune
-	git checkout tags/$(RB_ACTIVITI_CLOUD_DEPENDENCIES_VERSION)	
-	cd  activiti-cloud-runtime-bundle-service  && \
-	$(eval ACTIVITI_CORE_DEPENDENCIES_VERSION = $(mvn help:evaluate -Dexpression=activiti-dependencies.version -q -DforceStdout)) && \
 all: build
 
 check: build test
