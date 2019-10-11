@@ -2,12 +2,12 @@ NAME := activiti-cloud-full-chart
 OS := $(shell uname)
 
 ACTIVITI_CLOUD_DEPENDENCIES_ARTIFACT_ID := activiti-cloud-dependencies
+
 QUERY_ACTIVITI_CLOUD_DEPENDENCIES_VERSION := 7.1.161
 AUDIT_ACTIVITI_CLOUD_DEPENDENCIES_VERSION := 7.1.161
 CONNECTOR_ACTIVITI_CLOUD_DEPENDENCIES_VERSION := 7.1.161
 RB_ACTIVITI_CLOUD_DEPENDENCIES_VERSION := 7.1.161
 NOTIFICATIONS_ACTIVITI_CLOUD_DEPENDENCIES_VERSION := 7.1.161
-ACTIVITI_CORE_DEPENDENCIES_VERSION := 7.1.83
 MODELING_DEPENDENCIES_VERSION := 7.1.199
 
 
@@ -24,15 +24,6 @@ get-cloud-dependencies-version:
 	@echo $(RB_ACTIVITI_CLOUD_DEPENDENCIES_VERSION)
 get-modeling-dependencies-version:
 	@echo $(MODELING_DEPENDENCIES_VERSION)
-get-core-dependecies-version:
-	@echo $(ACTIVITI_CORE_DEPENDENCIES_VERSION)
-get-core-dependecies-version-from-git:
-	rm -rf activiti-cloud-runtime-bundle-service||echo removing activiti-cloud-runtime-bundle-service
-	git clone  https://github.com/Activiti/activiti-cloud-runtime-bundle-service.git
-	git fetch --all --tags --prune
-	git checkout tags/$(RB_ACTIVITI_CLOUD_DEPENDENCIES_VERSION)	
-	cd  activiti-cloud-runtime-bundle-service  && \
-	$(eval ACTIVITI_CORE_DEPENDENCIES_VERSION = $(mvn help:evaluate -Dexpression=activiti-dependencies.version -q -DforceStdout)) && \
 all: build
 
 check: build test
