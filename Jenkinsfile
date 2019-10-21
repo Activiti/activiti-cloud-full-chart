@@ -106,20 +106,20 @@ pipeline {
           //RUNTIME bundle tests
           dir ("./charts/$APP_NAME") {
           // sh 'make build'
-          retry(5) {	    
-            sh 'make install'
-            }
+         // retry(5) {
+         //   sh 'make install'
+         //   }
           }
 
           print_environment()
 
           //run RB and modeling tests
-          dir("./activiti-cloud-acceptance-scenarios") {
-            git 'https://github.com/Activiti/activiti-cloud-acceptance-scenarios.git'
-            sh 'sleep 30'
-            sh "mvn clean install -DskipTests && mvn -pl 'runtime-acceptance-tests,modeling-acceptance-tests' clean verify"
+          //dir("./activiti-cloud-acceptance-scenarios") {
+          //  git 'https://github.com/Activiti/activiti-cloud-acceptance-scenarios.git'
+          //  sh 'sleep 30'
+          //  sh "mvn clean install -DskipTests && mvn -pl 'runtime-acceptance-tests,modeling-acceptance-tests' clean verify"
             // sh "mvn clean install -DskipTests && mvn -pl 'runtime-acceptance-tests' clean verify"
-          }
+          //}
           //end run RB and modeling tests
           //dir ("./charts/$APP_NAME") {
           //   sh 'make delete'
@@ -135,7 +135,7 @@ pipeline {
             retry(5) {  
               sh 'make updatebot/push-version'
             }
-            sh 'make update-ea || echo updating EE'
+//            sh 'make update-ea || echo updating EE'
           }
         }
       }
