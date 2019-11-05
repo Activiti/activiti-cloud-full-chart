@@ -106,9 +106,9 @@ pipeline {
           //RUNTIME bundle tests
           dir ("./charts/$APP_NAME") {
           // sh 'make build'
-         // retry(5) {
-         //   sh 'make install'
-         //   }
+            retry(5) {
+             sh 'make install'
+            }
           }
 
           print_environment()
