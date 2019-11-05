@@ -105,10 +105,10 @@ pipeline {
           sh "echo \$(jx-release-version) > VERSION"
           //RUNTIME bundle tests
           dir ("./charts/$APP_NAME") {
-          // sh 'make build'
-            retry(5) {
-             sh 'make install'
-            }
+            sh 'make build'
+            //retry(5) {
+             //sh 'make install'
+            //}
           }
 
           print_environment()
@@ -139,10 +139,10 @@ pipeline {
           }
         }
       }
-      post {
-        always {
-          delete_deployment()
-        }
+      //post {
+        //always {
+         // delete_deployment()
+        //}
       }
     }
 
