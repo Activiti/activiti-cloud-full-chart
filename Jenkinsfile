@@ -35,13 +35,10 @@ pipeline {
       }
       steps {
         container('maven') {
-        //sh 'make validate'
           dir ("./charts/$APP_NAME") {
             sh 'make install'
           }
-
           print_environment()
-
           input "Click Abort to delete preview environment: ${HELM_RELEASE_NAME}"
         }
       }
@@ -55,33 +52,13 @@ pipeline {
       when {
         branch 'PR-*'
       }
-      environment {
-        GATEWAY_HOST = "gateway.$PREVIEW_NAMESPACE.$GLOBAL_GATEWAY_DOMAIN"
-        SSO_HOST = "identity.$PREVIEW_NAMESPACE.$GLOBAL_GATEWAY_DOMAIN"
-      }
       steps {
         container('maven') {
-          //sh 'make validate'
-
-          print_environment()
-
-          //dir ("./charts/$APP_NAME") {
+          dir ("./charts/$APP_NAME") {
              sh 'make build'
-           // sh 'make install'
-          //}
-
-          //dir("./activiti-cloud-acceptance-scenarios") {
-          //  git 'https://github.com/Activiti/activiti-cloud-acceptance-scenarios.git'
-          //  sh 'sleep 30'
-          //  sh "mvn clean install -DskipTests && mvn -pl 'runtime-acceptance-tests,modeling-acceptance-tests' clean verify"
-          //}
+          }
         }
       }
-      //post {
-        //always {
-          //delete_deployment()
-        //}
-      //}
     }
     stage('Build Release') {
       when {
@@ -99,31 +76,11 @@ pipeline {
           // ensure we're not on a detached head
           sh "git checkout master"
           sh "git config --global credential.helper store"
-
           sh "jx step git credentials"
-          // so we can retrieve the version in later steps
           sh "echo \$(jx-release-version) > VERSION"
-          //RUNTIME bundle tests
           dir ("./charts/$APP_NAME") {
             sh 'make build'
-            //retry(5) {
-             //sh 'make install'
-            //}
           }
-
-          print_environment()
-
-          //run RB and modeling tests
-          //dir("./activiti-cloud-acceptance-scenarios") {
-          //  git 'https://github.com/Activiti/activiti-cloud-acceptance-scenarios.git'
-          //  sh 'sleep 30'
-          //  sh "mvn clean install -DskipTests && mvn -pl 'runtime-acceptance-tests,modeling-acceptance-tests' clean verify"
-            // sh "mvn clean install -DskipTests && mvn -pl 'runtime-acceptance-tests' clean verify"
-          //}
-          //end run RB and modeling tests
-          //dir ("./charts/$APP_NAME") {
-          //   sh 'make delete'
-          //}
           dir ("./charts/$APP_NAME") {
             retry(5) {
               sh 'make tag'
@@ -135,15 +92,9 @@ pipeline {
             retry(5) {  
               sh 'make updatebot/push-version'
             }
-//            sh 'make update-ea || echo updating EE'
           }
         }
       }
-      //post {
-        //always {
-         // delete_deployment()
-        //}
-      //}
     }
 
     stage('Promote to Environments') {
