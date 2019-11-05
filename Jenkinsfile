@@ -143,7 +143,7 @@ pipeline {
         //always {
          // delete_deployment()
         //}
-      }
+      //}
     }
 
     stage('Promote to Environments') {
