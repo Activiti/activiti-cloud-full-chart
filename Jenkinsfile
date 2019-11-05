@@ -65,10 +65,10 @@ pipeline {
 
           print_environment()
 
-          dir ("./charts/$APP_NAME") {
-            // sh 'make build'
-            sh 'make install'
-          }
+          //dir ("./charts/$APP_NAME") {
+             sh 'make build'
+           // sh 'make install'
+          //}
 
           //dir("./activiti-cloud-acceptance-scenarios") {
           //  git 'https://github.com/Activiti/activiti-cloud-acceptance-scenarios.git'
@@ -77,11 +77,11 @@ pipeline {
           //}
         }
       }
-      post {
-        always {
-          delete_deployment()
-        }
-      }
+      //post {
+        //always {
+          //delete_deployment()
+        //}
+      //}
     }
     stage('Build Release') {
       when {
