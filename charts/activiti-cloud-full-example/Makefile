@@ -80,7 +80,7 @@ github:
 	   git status && \
 	   git commit -m "fix:(version) release $(NAME)-$(HELM_ACTIVITI_VERSION).tgz" && \
 	   git pull && \
-	   git push origin "$(GITHUB_CHARTS_BRANCH)"
+	   git push --force origin "$(GITHUB_CHARTS_BRANCH)"
 	rm -rf $(GITHUB_CHARTS_DIR)
 tag:
 	sed -i -e "s/version:.*/version: $(HELM_ACTIVITI_VERSION)/" Chart.yaml
