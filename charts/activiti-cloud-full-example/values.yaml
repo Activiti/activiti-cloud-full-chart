@@ -163,7 +163,6 @@ activiti-cloud-gateway:
     name: activiti-cloud-gateway
   image:
     repository: activiti/activiti-cloud-gateway
-    #tag: 7.1.0.M4
     pullPolicy: IfNotPresent
   ingress:
     enabled: true
