@@ -72,7 +72,7 @@ activiti-cloud-modeling:
   frontend:  
     image:
       repository: activiti/activiti-modeling-app
-      ##tag: 7.1.0.M4
+      #tag: 7.1.0.M4
       pullPolicy: Always
   backend:    
     image:
