@@ -181,6 +181,8 @@ postgres:
 
 rabbitmq:
   enabled: true
+  service:
+    clusterIP: None
   persistentVolume:
     enabled: true
   rabbitmqUsername: "guest"
@@ -190,6 +192,8 @@ rabbitmq:
     requests:
       cpu: 350m
       memory: 512Mi
+  rbac:
+    create: true
   replicaCount: 1
   ingress:
     enabled: false
