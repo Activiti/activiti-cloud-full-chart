@@ -181,21 +181,15 @@ postgres:
 
 rabbitmq:
   enabled: true
-  service:
-    clusterIP: None
   persistentVolume:
     enabled: true
   rabbitmqUsername: "guest"
   rabbitmqPassword: "guest"
   rabbitmqErlangCookie: 124567890abcdefghijklmnopqrstuv
-  rabbitmqSTOMPPlugin:
-    enabled: true
   resources:
     requests:
       cpu: 350m
       memory: 512Mi
-  rbac:
-    create: true
   replicaCount: 1
   ingress:
     enabled: false
