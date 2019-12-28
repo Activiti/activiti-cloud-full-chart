@@ -188,8 +188,6 @@ rabbitmq:
   rabbitmqUsername: "guest"
   rabbitmqPassword: "guest"
   rabbitmqErlangCookie: 124567890abcdefghijklmnopqrstuv
-  rabbitmqSTOMPPlugin:
-    enabled: true
   resources:
     requests:
       cpu: 350m
