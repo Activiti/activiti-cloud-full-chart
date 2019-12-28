@@ -35,7 +35,7 @@ dependencies:
   alias: "postgres"
 - name: "runtime-bundle"
   repository: "http://chartmuseum.jx.35.228.195.195.nip.io"
-  version: "7.1.0-PR-442-6-SNAPSHOT"
+  version: "7.1.0-PR-442-10-SNAPSHOT"
   condition: "application.runtime-bundle.enabled,runtime-bundle.enabled"
 - name: "activiti-cloud-connector"
   repository: "https://activiti.github.io/activiti-cloud-helm-charts/"
