@@ -112,8 +112,19 @@ activiti-cloud-query:
     name: query
   image:
     pullPolicy: Always
+    repository: activiti/activiti-cloud-query
+    #tag: 7.1.0.M4
   postgres:
     enabled: true
+
+activiti-cloud-messages:
+  enabled: true
+  service: 
+    name: messages
+  image:
+    pullPolicy: Always
+    repository: activiti/activiti-cloud-messages
+    #tag: 7.1.0.M4
 
 activiti-cloud-connector:
   enabled: true
@@ -171,6 +182,7 @@ activiti-cloud-gateway:
       nginx.ingress.kubernetes.io/enable-cors: "true"
       nginx.ingress.kubernetes.io/cors-allow-headers: "*"
       nginx.ingress.kubernetes.io/x-forwarded-prefix: "true"
+
 postgres:
   enabled: true
   postgresqlPassword: password

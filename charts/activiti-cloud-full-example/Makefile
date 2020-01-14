@@ -13,6 +13,7 @@ printrelease:
 	echo RELEASE_VERSION $(RELEASE_VERSION)
 	echo HELM_ACTIVITI_VERSION $(HELM_ACTIVITI_VERSION)
 	echo APP_ACTIVITI_VERSION $(APP_ACTIVITI_VERSION)
+	
 update-ea:
 	$(eval ACTIVITI_CLOUD_VERSION = $(shell make -f ../../Makefile get-cloud-dependencies-version)) 
 	@echo "ACTIVITI_CLOUD_VERSION =<$(ACTIVITI_CLOUD_VERSION)>" 
@@ -39,6 +40,7 @@ update-ea:
 
 build: clean
 	helm init --client-only
+	helm repo add chartmuseum http://chartmuseum.jx.35.228.195.195.nip.io
 	helm repo add activiti-cloud-helm-charts https://activiti.github.io/activiti-cloud-helm-charts/
 	helm repo add alfresco https://kubernetes-charts.alfresco.com/stable	
 	helm repo add alfresco-incubator https://kubernetes-charts.alfresco.com/incubator
@@ -82,10 +84,12 @@ github:
 	   git pull && \
 	   git push --force origin "$(GITHUB_CHARTS_BRANCH)"
 	rm -rf $(GITHUB_CHARTS_DIR)
-tag:
+
+version:
 	sed -i -e "s/version:.*/version: $(HELM_ACTIVITI_VERSION)/" Chart.yaml
 	sed -i -e "s/tag: .*/tag: $(RELEASE_VERSION)/" values.yaml
 
+tag: version
 	git add Chart.yaml values.yaml requirements.yaml
 	git commit -m "release $(HELM_ACTIVITI_VERSION)" --allow-empty # if first release then no verion update is performed
 	git tag -fa v$(HELM_ACTIVITI_VERSION) -m "Release version $(HELM_ACTIVITI_VERSION)"
