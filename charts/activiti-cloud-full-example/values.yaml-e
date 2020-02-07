@@ -74,11 +74,11 @@ activiti-cloud-modeling:
       repository: activiti/activiti-modeling-app
       tag: 7.1.0.M6
       pullPolicy: Always
-      extraEnv: |
-        - name: APP_CONFIG_IDENTITY_HOST
-         value: '{{ include "common.keycloak-url" . }}/admin/realms/{{ include "common.keycloak-realm" . }}'
-       #  - name : APP_CONFIG_AUTH_TYPE
-       #    value: "OAUTH"
+    # extraEnv: |
+    #  - name: APP_CONFIG_ECM_HOST
+    #    value: '{{ include "common.gateway-url" . }}' 
+    #  - name : APP_CONFIG_AUTH_TYPE
+    #    value: "OAUTH"
        
 
   backend:    
