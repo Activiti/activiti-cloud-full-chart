@@ -74,6 +74,13 @@ activiti-cloud-modeling:
       repository: activiti/activiti-modeling-app
       tag: 7.1.0.M6
       pullPolicy: Always
+    # extraEnv: |
+    #  - name: APP_CONFIG_ECM_HOST
+    #    value: '{{ include "common.gateway-url" . }}' 
+    #  - name : APP_CONFIG_AUTH_TYPE
+    #    value: "OAUTH"
+       
+
   backend:    
     image:
       repository: activiti/activiti-cloud-modeling
