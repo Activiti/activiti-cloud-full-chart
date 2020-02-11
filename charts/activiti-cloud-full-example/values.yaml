@@ -55,7 +55,7 @@ global:
     domain: "REPLACEME"
 
     ## Configure global annotations for all service ingresses, i.e. 
-    annotations: 
+    annotations:
       certmanager.k8s.io/issuer: letsencrypt-prod
 
     ## Or simply enable templated domain host coniguration in Jx environment
@@ -69,12 +69,12 @@ activiti-cloud-modeling:
   enabled: true
   service:
     name: modeling
-  frontend:  
+  frontend:
     image:
       repository: activiti/activiti-modeling-app
       #tag: 7.1.0.M4
       pullPolicy: Always
-  backend:    
+  backend:
     image:
       repository: activiti/activiti-cloud-modeling
       #tag: 7.1.0.M4
@@ -136,15 +136,6 @@ activiti-cloud-query:
     #tag: 7.1.0.M4
   postgres:
     enabled: true
-
-activiti-cloud-messages:
-  enabled: true
-  service:
-    name: messages
-  image:
-    pullPolicy: Always
-    repository: activiti/activiti-cloud-messages
-    #tag: 7.1.0.M4
 
 activiti-cloud-connector:
   enabled: true
