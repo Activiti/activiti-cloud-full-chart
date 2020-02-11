@@ -80,24 +80,6 @@ activiti-cloud-modeling:
       #tag: 7.1.0.M4
       pullPolicy: Always
 
-  ingress:
-    enabled: false
-    annotations:
-      kubernetes.io/ingress.class: nginx
-      nginx.ingress.kubernetes.io/enable-cors: "true"
-      nginx.ingress.kubernetes.io/cors-allow-headers: "*"
-      nginx.ingress.kubernetes.io/x-forwarded-prefix: "true"
-    frontend:
-      basepath: "/modeling"
-      annotations: {}
-    backend:
-      prefix: "modeling-service"
-      image:
-      annotations: {}
-    backend:
-      prefix: "modeling-service"
-      annotations: {}
-
 runtime-bundle:
   enabled: true
   service: 
@@ -108,7 +90,7 @@ runtime-bundle:
     #tag: 7.1.0.M4
 
 activiti-cloud-query:
-  service: 
+  service:
     name: query
   image:
     pullPolicy: Always
