@@ -23,7 +23,7 @@ Activiti Modeler         : {{ template "common.gateway-url" . }}/{{ index .Value
 Activiti Runtime Bundle  : {{ template "common.gateway-url" . }}/{{ index .Values "runtime-bundle" "service" "name" }}
 Activiti Cloud Connector : {{ template "common.gateway-url" . }}/{{ index .Values "activiti-cloud-connector" "service" "name" }}
 Activiti Query           : {{ template "common.gateway-url" . }}/{{ index .Values "activiti-cloud-query" "service" "name" }}
-Activiti Audit           : {{ template "common.gateway-url" . }}/{{ index .Values "activiti-cloud-query" "service" "name" }}
+Activiti Audit           : {{ template "common.gateway-url" . }}/audit
 Notifications GraphiQL   : {{ template "common.gateway-url" . }}{{ index .Values "activiti-cloud-query" "ingress" "path" }}/graphiql
 Notifications WebSockets : {{ template "common.gateway-url" . }}{{ index .Values "activiti-cloud-query" "ingress" "path" }}/ws/graphql
 Notifications Graphql    : {{ template "common.gateway-url" . }}{{ index .Values "activiti-cloud-query" "ingress" "path" }}/graphql
