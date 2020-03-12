@@ -22,11 +22,11 @@ Activiti Identity        : {{ template "common.keycloak-url" . }}
 Activiti Modeler         : {{ template "common.gateway-url" . }}/{{ index .Values "activiti-cloud-modeling" "service" "name" }}
 Activiti Runtime Bundle  : {{ template "common.gateway-url" . }}/{{ index .Values "runtime-bundle" "service" "name" }}
 Activiti Cloud Connector : {{ template "common.gateway-url" . }}/{{ index .Values "activiti-cloud-connector" "service" "name" }}
-Activiti Query           : {{ template "common.gateway-url" . }}/{{ index .Values "activiti-cloud-query" "service" "name" }}
-Activiti Audit           : {{ template "common.gateway-url" . }}/{{ index .Values "activiti-cloud-audit" "service" "name" }}
-Notifications GraphiQL   : {{ template "common.gateway-url" . }}{{ index .Values "activiti-cloud-notifications-graphql" "ingress" "path" }}/graphiql
-Notifications WebSockets : {{ template "common.gateway-url" . }}{{ index .Values "activiti-cloud-notifications-graphql" "ingress" "path" }}/ws/graphql
-Notifications Graphql    : {{ template "common.gateway-url" . }}{{ index .Values "activiti-cloud-notifications-graphql" "ingress" "path" }}/graphql
+Activiti Query           : {{ template "common.gateway-url" . }}/{{ index .Values "activiti-cloud-query" "service" "name" }}/query
+Activiti Audit           : {{ template "common.gateway-url" . }}/{{ index .Values "activiti-cloud-query" "service" "name" }}/audit
+Notifications GraphiQL   : {{ template "common.gateway-url" . }}{{ index .Values "activiti-cloud-query" "ingress" "path" }}/graphiql
+Notifications WebSockets : {{ template "common.gateway-url" . }}{{ index .Values "activiti-cloud-query" "ingress" "path" }}/ws/graphql
+Notifications Graphql    : {{ template "common.gateway-url" . }}{{ index .Values "activiti-cloud-query" "ingress" "path" }}/graphql
 
 To see deployment status, try:
 
