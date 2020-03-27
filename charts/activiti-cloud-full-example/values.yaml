@@ -117,9 +117,6 @@ runtime-bundle:
     #tag: 7.1.0.M4
 
 activiti-cloud-query:
-  ingress:
-    enabled: true
-
   service:
     name: query
   image:
