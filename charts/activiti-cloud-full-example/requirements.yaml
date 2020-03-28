@@ -5,7 +5,7 @@ dependencies:
   version: "0.0.14"
 - name: "activiti-cloud-query"
   repository: "https://activiti.github.io/activiti-cloud-helm-charts/"
-  version: "7.1.353"
+  version: "7.1.354"
   condition: "application.activiti-cloud-query.enabled,activiti-cloud-query.enabled"
 - name: "rabbitmq-ha"
   repository: "https://kubernetes-charts.storage.googleapis.com"
