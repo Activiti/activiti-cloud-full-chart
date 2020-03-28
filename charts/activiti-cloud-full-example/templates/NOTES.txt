@@ -24,9 +24,9 @@ Activiti Runtime Bundle  : {{ template "common.gateway-url" . }}/{{ index .Value
 Activiti Cloud Connector : {{ template "common.gateway-url" . }}/{{ index .Values "activiti-cloud-connector" "service" "name" }}
 Activiti Query           : {{ template "common.gateway-url" . }}/{{ index .Values "activiti-cloud-query" "service" "name" }}/query
 Activiti Audit           : {{ template "common.gateway-url" . }}/{{ index .Values "activiti-cloud-query" "service" "name" }}/audit
-Notifications GraphiQL   : {{ template "common.gateway-url" . }}{{ index .Values "activiti-cloud-query" "ingress" "path" }}/graphiql
-Notifications WebSockets : {{ template "common.gateway-url" . }}{{ index .Values "activiti-cloud-query" "ingress" "path" }}/ws/graphql
-Notifications Graphql    : {{ template "common.gateway-url" . }}{{ index .Values "activiti-cloud-query" "ingress" "path" }}/graphql
+Notifications GraphiQL   : {{ template "common.gateway-url" . }}{{ index .Values "activiti-cloud-query" "ingress" "path" }}/notifications/graphiql
+Notifications WebSockets : {{ template "common.gateway-url" . }}{{ index .Values "activiti-cloud-query" "ingress" "path" }}/notifications/ws/graphql
+Notifications Graphql    : {{ template "common.gateway-url" . }}{{ index .Values "activiti-cloud-query" "ingress" "path" }}/notifications/graphql
 
 To see deployment status, try:
 
