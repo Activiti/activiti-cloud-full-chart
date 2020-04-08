@@ -1,4 +1,4 @@
-      env:
+env:
   global:
     - ORG='activiti'
     - APP_NAME='activiti-cloud-full-example'
