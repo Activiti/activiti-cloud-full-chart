@@ -43,7 +43,7 @@ jobs:
   - name: Create a tag
     stage: tag
     script: 
-    - travis_wait ${TRAVIS_WAIT_TIMEOUT} cd charts/$APP_NAME && make tag 
+    - cd charts/$APP_NAME && make tag 
   - name: Deploy
     stage: deploy
     script:
