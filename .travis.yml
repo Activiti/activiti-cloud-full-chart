@@ -47,7 +47,7 @@ jobs:
   - name: Deploy
     stage: deploy
     script:
-    - travis_wait ${TRAVIS_WAIT_TIMEOUT} cd charts/$APP_NAME && make release
-    - travis_wait ${TRAVIS_WAIT_TIMEOUT} cd charts/$APP_NAME && make github
+    - cd charts/$APP_NAME && make release
+    - cd charts/$APP_NAME && make github
     
     
