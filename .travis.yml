@@ -38,7 +38,7 @@ jobs:
   - name: Verify build
     stage: verify
     script:
-    - travis_wait ${TRAVIS_WAIT_TIMEOUT} cd charts/$APP_NAME && make build 
+    - cd charts/$APP_NAME && make build 
     
   - name: Create a tag
     stage: tag
