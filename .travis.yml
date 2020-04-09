@@ -48,8 +48,8 @@ jobs:
   - name: Create a tag
     stage: tag
     script: |
-      sed -i -e "s/version:.*/version: $(HELM_ACTIVITI_VERSION)/" Chart.yaml
-      sed -i -e "s/tag: .*/tag: $(RELEASE_VERSION)/" values.yaml
+      sed -i -e "s/version:.*/version: $(HELM_ACTIVITI_VERSION)/" charts/$APP_NAME/Chart.yaml
+      sed -i -e "s/tag: .*/tag: $(RELEASE_VERSION)/" charts/$APP_NAME/values.yaml
       git add --all
       git commit -m "Release $(cat VERSION)" --allow-empty
       git tag -fa v$(cat VERSION) -m "Release version $(cat VERSION)"
