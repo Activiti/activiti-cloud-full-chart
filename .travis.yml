@@ -47,14 +47,8 @@ jobs:
     
   - name: Create a tag
     stage: tag
-    script: |
-      sed -i -e "s/version:.*/version: $(HELM_ACTIVITI_VERSION)/" charts/$APP_NAME/Chart.yaml
-      sed -i -e "s/tag: .*/tag: $(RELEASE_VERSION)/" charts/$APP_NAME/values.yaml
-      git add --all
-      git commit -m "Release $(cat VERSION)" --allow-empty
-      git tag -fa v$(cat VERSION) -m "Release version $(cat VERSION)"
-      git push -f -q https://${GITHUB_TOKEN}@github.com/Activiti/activiti-cloud-full-chart.git v$(cat VERSION)
-      
+    script: 
+    - cd charts/$APP_NAME && make tagtravis  
   - name: Deploy
     stage: deploy
     script:
