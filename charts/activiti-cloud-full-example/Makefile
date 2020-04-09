@@ -53,7 +53,8 @@ build: clean
 		--set global.gateway.domain=${GLOBAL_GATEWAY_DOMAIN} \
 		--namespace ${PREVIEW_NAMESPACE_LOWERCASE} \
 		--debug \
-		--wait 	
+		--wait 	\
+		--dry-run
 
 install: clean build
 	helm upgrade ${HELM_RELEASE_NAME_LOWERCASE} . \
