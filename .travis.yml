@@ -36,17 +36,17 @@ before_install: |
     
 stages:
 - name: verify
-- name: release
+- name: releasechart
  # if: branch = master
 jobs:
-  include:
+   include:
   - name: Verify build
     stage: verify
     script:
     - cd charts/$APP_NAME && make build 
     
   - name: Create a tag
-    stage: release
+    stage: releasechart
     script: 
     - cd charts/$APP_NAME 
     - make tagtravis  
