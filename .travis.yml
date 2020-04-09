@@ -54,6 +54,6 @@ jobs:
     script:
     - cd charts/$APP_NAME && make release
     - pwd
-    - make github
+    - make guthubtravis
     
     
