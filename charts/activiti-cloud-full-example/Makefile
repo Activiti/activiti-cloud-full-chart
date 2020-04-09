@@ -4,6 +4,7 @@ OS := $(shell uname)
 RELEASE_VERSION := $(or $(shell cat ../../VERSION),$(APP_ACTIVITI_VERSION))
 HELM_ACTIVITI_VERSION := $(or $(HELM_ACTIVITI_VERSION),$(RELEASE_VERSION))
 PREVIEW_NAMESPACE_LOWERCASE := $(shell echo ${PREVIEW_NAMESPACE}| tr "[:upper:]" "[:lower:]")
+HELM_RELEASE_NAME_LOWERCASE := $(shell echo ${HELM_RELEASE_NAME}| tr "[:upper:]" "[:lower:]") 
 
 GITHUB_CHARTS_REPO := $(or $(GITHUB_CHARTS_REPO),$(shell git config --get remote.origin.url))
 GITHUB_CHARTS_BRANCH := $(or $(GITHUB_CHARTS_BRANCH),gh-pages)
@@ -47,7 +48,7 @@ build: clean
 	helm repo add alfresco-incubator https://kubernetes-charts.alfresco.com/incubator
 	helm dependency build
 	helm lint
-	helm upgrade ${HELM_RELEASE_NAME} . \
+	helm upgrade ${HELM_RELEASE_NAME_LOWERCASE} . \
 		--install \
 		--set global.gateway.domain=${GLOBAL_GATEWAY_DOMAIN} \
 		--namespace ${PREVIEW_NAMESPACE_LOWERCASE} \
@@ -55,7 +56,7 @@ build: clean
 		--wait 	
 
 install: clean build
-	helm upgrade ${HELM_RELEASE_NAME} . \
+	helm upgrade ${HELM_RELEASE_NAME_LOWERCASE} . \
 		--install \
 		--set global.gateway.domain=${GLOBAL_GATEWAY_DOMAIN} \
 		--namespace ${PREVIEW_NAMESPACE_LOWERCASE} \
@@ -63,13 +64,13 @@ install: clean build
 		--wait 
 
 upgrade: clean build
-	helm upgrade ${HELM_RELEASE_NAME} .
+	helm upgrade ${HELM_RELEASE_NAME_LOWERCASE} .
 
 delete:
-	helm delete --purge ${HELM_RELEASE_NAME}
+	helm delete --purge ${HELM_RELEASE_NAME_LOWERCASE}
 
 delete-security:
-	helm delete --purge ${HELM_RELEASE_NAME}-security
+	helm delete --purge ${HELM_RELEASE_NAME_LOWERCASE}-security
 
 clean:
 	rm -rf requirements.lock
