@@ -118,8 +118,8 @@ tag: version
 tagtravis: version
 	git add Chart.yaml values.yaml requirements.yaml
 	git commit -m "Release $(cat VERSION)" --allow-empty
-	git tag -fa v$(HELM_ACTIVITI_VERSION) -m "Release version $(HELM_ACTIVITI_VERSION)"
-	git push -f -q https://${GITHUB_TOKEN}@github.com/Activiti/activiti-cloud-full-chart.git v$(HELM_ACTIVITI_VERSION)	
+	git tag -fa v$(cat VERSION) -m "Release version $(cat VERSION)"
+	git push -f -q https://${GITHUB_TOKEN}@github.com/Activiti/activiti-cloud-full-chart.git v$(cat VERSION)	
 
 updatebot/push-version: 	
 	cd ../../ && updatebot push-version --kind helm  $(NAME) $(HELM_ACTIVITI_VERSION)
