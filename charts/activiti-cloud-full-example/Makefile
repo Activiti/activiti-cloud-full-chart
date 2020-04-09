@@ -3,6 +3,7 @@ NAME := activiti-cloud-full-example
 OS := $(shell uname)
 RELEASE_VERSION := $(or $(shell cat ../../VERSION),$(APP_ACTIVITI_VERSION))
 HELM_ACTIVITI_VERSION := $(or $(HELM_ACTIVITI_VERSION),$(RELEASE_VERSION))
+PREVIEW_NAMESPACE_LOWERCASE | $(shell echo $PREVIEW_NAMESPACE| tr "[:upper:]" "[:lower:]")
 
 GITHUB_CHARTS_REPO := $(or $(GITHUB_CHARTS_REPO),$(shell git config --get remote.origin.url))
 GITHUB_CHARTS_BRANCH := $(or $(GITHUB_CHARTS_BRANCH),gh-pages)
@@ -49,7 +50,7 @@ build: clean
 	helm upgrade ${HELM_RELEASE_NAME} . \
 		--install \
 		--set global.gateway.domain=${GLOBAL_GATEWAY_DOMAIN} \
-		--namespace ${PREVIEW_NAMESPACE} \
+		--namespace ${PREVIEW_NAMESPACE_LOWERCASE} \
 		--debug \
 		--wait 	
 
@@ -57,7 +58,7 @@ install: clean build
 	helm upgrade ${HELM_RELEASE_NAME} . \
 		--install \
 		--set global.gateway.domain=${GLOBAL_GATEWAY_DOMAIN} \
-		--namespace ${PREVIEW_NAMESPACE} \
+		--namespace ${PREVIEW_NAMESPACE_LOWERCASE} \
 		--debug \
 		--wait 
 
