@@ -35,9 +35,9 @@ before_install: |
 stages:
 - name: verify
 - name: tag
-  if: branch = master
+ # if: branch = master
 - name: deploy
-  if: branch = master
+  #if: branch = master
 jobs:
   include:
   - name: Verify build
