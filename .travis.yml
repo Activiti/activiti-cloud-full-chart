@@ -53,6 +53,7 @@ jobs:
     stage: deploy
     script:
     - cd charts/$APP_NAME && make release
-    - cd charts/$APP_NAME && make github
+    - pwd
+    - make github
     
     
