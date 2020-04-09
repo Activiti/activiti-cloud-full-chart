@@ -36,11 +36,9 @@ before_install: |
     
 stages:
 - name: verify
-- name: tag
+- name: release
  # if: branch = master
-- name: deploy
-  #if: branch = master
-jobs:
+
   include:
   - name: Verify build
     stage: verify
@@ -48,14 +46,11 @@ jobs:
     - cd charts/$APP_NAME && make build 
     
   - name: Create a tag
-    stage: tag
+    stage: release
     script: 
-    - cd charts/$APP_NAME && make tagtravis  
-  - name: Deploy
-    stage: deploy
-    script:
-    - cd charts/$APP_NAME && make release
-    - pwd
+    - cd charts/$APP_NAME 
+    - make tagtravis  
+    - make release
     - make guthubtravis
     
     
