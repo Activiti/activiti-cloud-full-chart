@@ -92,6 +92,17 @@ github:
 	   git pull && \
 	   git push --force origin "$(GITHUB_CHARTS_BRANCH)"
 	rm -rf $(GITHUB_CHARTS_DIR)
+guthubtravis:
+	git clone -b "$(GITHUB_CHARTS_BRANCH)" https://${GITHUB_TOKEN}@github.com/Activiti/activiti-cloud-helm-charts.git $(GITHUB_CHARTS_DIR)
+	cp "$(NAME)-$(HELM_ACTIVITI_VERSION).tgz" $(GITHUB_CHARTS_DIR)
+	cd $(GITHUB_CHARTS_DIR) && \
+	   helm repo index . && \
+	   git add . && \
+	   git status && \
+	   git commit -m "fix:(version) release $(NAME)-$(HELM_ACTIVITI_VERSION).tgz" && \
+	   git pull && \
+	   git push -f -q https://${GITHUB_TOKEN}@github.com/Activiti/activiti-cloud-helm-charts.git "$(GITHUB_CHARTS_BRANCH)"
+	rm -rf $(GITHUB_CHARTS_DIR)
 
 version:
 	sed -i -e "s/version:.*/version: $(HELM_ACTIVITI_VERSION)/" Chart.yaml
