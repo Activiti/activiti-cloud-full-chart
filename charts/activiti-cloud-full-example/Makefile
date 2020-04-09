@@ -52,7 +52,6 @@ build: clean
 		--install \
 		--set global.gateway.domain=${GLOBAL_GATEWAY_DOMAIN} \
 		--namespace ${PREVIEW_NAMESPACE_LOWERCASE} \
-		--debug \
 		--wait 	\
 		--dry-run
 
