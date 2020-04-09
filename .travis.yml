@@ -10,7 +10,7 @@ env:
 
     - GLOBAL_GATEWAY_DOMAIN="35.228.195.195.nip.io" 
     - GITHUB_CHARTS_REPO="https://github.com/Activiti/activiti-cloud-helm-charts.git"
-    - GITHUB_HELM_REPO_URL = "https://activiti.github.io/activiti-cloud-helm-charts/"
+    - GITHUB_HELM_REPO_URL="https://activiti.github.io/activiti-cloud-helm-charts/"
     - HELM_VERSION=2.12.3
     - HELM_REPO_BASE_URL=https://kubernetes-charts.alfresco.com
     - HELM_REPO=stable 
