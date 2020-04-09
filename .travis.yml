@@ -22,7 +22,7 @@ before_install: |
   sudo cp jx-release-version /usr/bin/jx-release-version
   echo $(jx-release-version) > VERSION
   echo -e "https://$GITHUB_USER:$GITHUB_TOKEN@github.com" >>  ~/.git-credentials
-   
+  echo -e "http://$GITHUB_USER:$GITHUB_TOKEN@github.com" >>  ~/.git-credentials
   curl -s https://kubernetes-helm.storage.googleapis.com/helm-v${HELM_VERSION}-linux-amd64.tar.gz | tar zx
   sudo mv linux-amd64/helm /usr/local/bin/
   curl -Lo kubectl https://storage.googleapis.com/kubernetes-release/release/v${KUBERNETES_VERSION}/bin/linux/amd64/kubectl &&
@@ -47,7 +47,8 @@ jobs:
     
   - name: Create a tag
     stage: tag
-    script: 
+    script:
+    - cat ~/.git-credentials
     - cd charts/$APP_NAME && make tag 
   - name: Deploy
     stage: deploy
