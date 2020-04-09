@@ -46,6 +46,12 @@ build: clean
 	helm repo add alfresco-incubator https://kubernetes-charts.alfresco.com/incubator
 	helm dependency build
 	helm lint
+	helm upgrade ${HELM_RELEASE_NAME} . \
+		--install \
+		--set global.gateway.domain=${GLOBAL_GATEWAY_DOMAIN} \
+		--namespace ${PREVIEW_NAMESPACE} \
+		--debug \
+		--wait 	
 
 install: clean build
 	helm upgrade ${HELM_RELEASE_NAME} . \
