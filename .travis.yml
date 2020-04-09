@@ -38,7 +38,7 @@ stages:
 - name: verify
 - name: release
  # if: branch = master
-
+jobs:
   include:
   - name: Verify build
     stage: verify
