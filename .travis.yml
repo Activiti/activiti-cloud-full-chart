@@ -45,7 +45,7 @@ jobs:
     script:
     - cd charts/$APP_NAME && make build 
     
-  - name: Create a tag
+  - name: Create tag package helm chart and realease it
     stage: releasechart
     script: 
     - cd charts/$APP_NAME 
