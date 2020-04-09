@@ -10,6 +10,7 @@ GITHUB_CHARTS_REPO := $(or $(GITHUB_CHARTS_REPO),$(shell git config --get remote
 GITHUB_CHARTS_BRANCH := $(or $(GITHUB_CHARTS_BRANCH),gh-pages)
 ORG:=$(or $(ORG),activiti)
 RELEASE_GREP_EXPR := '^[Rr]elease'
+GITHUB_CHARTS_DIR := activiti-cloud-helm-charts
 
 printrelease:
 	echo RELEASE_VERSION $(RELEASE_VERSION)
@@ -95,7 +96,7 @@ github:
 guthubtravis:
 	git clone -b "$(GITHUB_CHARTS_BRANCH)" https://${GITHUB_TOKEN}@github.com/Activiti/activiti-cloud-helm-charts.git $(GITHUB_CHARTS_DIR)
 	cp "$(NAME)-$(HELM_ACTIVITI_VERSION).tgz" $(GITHUB_CHARTS_DIR)
-	cd activiti-cloud-helm-charts && \
+	cd $(GITHUB_CHARTS_DIR) && \
 	   helm repo index . && \
 	   git add . && \
 	   git status && \
