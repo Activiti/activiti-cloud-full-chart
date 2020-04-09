@@ -1,6 +1,8 @@
 branches:
-  only:
-    - master
+#   only:
+#     - master
+   except:
+    - /^v?\d+\.\d+(\.\d+)?(-\S*)?$/ 
 env:
   global:
     - ORG='activiti'
