@@ -39,7 +39,7 @@ stages:
 - name: releasechart
  # if: branch = master
 jobs:
-   include:
+  include:
   - name: Verify build
     stage: verify
     script:
