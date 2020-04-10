@@ -1,9 +1,7 @@
 language: minimal
 branches:
-#   only:
-#     - master
-   except:
-    - /^v?\d+\.\d+(\.\d+)?(-\S*)?$/ 
+   only:
+     - master
 env:
   global:
     - ORG='activiti'
@@ -38,7 +36,7 @@ before_install: |
 stages:
 - name: verify
 - name: releasechart
- # if: branch = master
+  if: branch = master
 jobs:
   include:
   - name: Verify build
