@@ -1,7 +1,10 @@
 language: minimal
+# branches:
+#    only:
+#      - master
 branches:
-   only:
-     - master
+  except:
+    - /^v?\d+\.\d+(\.\d+)?(-\S*)?$/     
 env:
   global:
     - ORG='activiti'
