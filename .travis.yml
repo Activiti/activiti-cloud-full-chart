@@ -18,7 +18,9 @@ env:
     - KUBERNETES_VERSION=1.14.8
     - TRAVIS_WAIT_TIMEOUT=${TRAVIS_WAIT_TIMEOUT:-180}
     
-before_install: |    
+before_install: |
+  echo TRAVIS_PULL_REQUEST_BRANCH=$(TRAVIS_PULL_REQUEST_BRANCH)
+  echo TRAVIS_BRANCH=$(TRAVIS_BRANCH)
   curl -Ls https://github.com/jenkins-x/jx-release-version/releases/download/v1.0.24/jx-release-version_1.0.24_linux_amd64.tar.gz|  tar xvz -C .
   sudo cp jx-release-version /usr/bin/jx-release-version
   echo $(jx-release-version) > VERSION
