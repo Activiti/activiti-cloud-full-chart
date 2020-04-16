@@ -6,8 +6,8 @@ env:
   global:
     - ORG='activiti'
     - APP_NAME='activiti-cloud-full-example'
-    - PREVIEW_NAMESPACE="example-$TRAVIS_PULL_REQUEST_BRANCH-$TRAVIS_BUILD_NUMBER";
-    - HELM_RELEASE_NAME="$TRAVIS_BRANCH -$TRAVIS_BUILD_NUMBER"
+    - PREVIEW_NAMESPACE="example-$TRAVIS_BRANCH-$TRAVIS_BUILD_NUMBER";
+    - HELM_RELEASE_NAME="$TRAVIS_BRANCH-$TRAVIS_BUILD_NUMBER"
 
     - GLOBAL_GATEWAY_DOMAIN="35.228.195.195.nip.io" 
     - GITHUB_CHARTS_REPO="https://github.com/Activiti/activiti-cloud-helm-charts.git"
