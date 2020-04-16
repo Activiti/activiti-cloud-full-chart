@@ -49,7 +49,7 @@ Running on Travis, requires the following environment variable to be set:
 | MAVEN_PASSWORD | Internal Maven repository password |
 | GITHUB_TOKEN | Github token for git service account |
 | GITHUB_USER | Github user name for git service account |
-| K8S_API_TOKEN | Kubernetes api token |
+| K8S_API_TOKEN | Kubernetes API token |
 | K8S_API_URL | Kubernetes API url |
 
 
