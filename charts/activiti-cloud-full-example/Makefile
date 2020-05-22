@@ -1,6 +1,6 @@
 NAME := activiti-cloud-full-example
 OS := $(shell uname)
-VERSION := $(or $(VERSION), $(shell cat ../../VERSION))
+#VERSION := $(or $(VERSION), $(shell cat ../../VERSION))
 PREVIEW_NAMESPACE_LOWERCASE := $(shell echo ${PREVIEW_NAMESPACE}| tr "[:upper:]" "[:lower:]")
 
 GITHUB_CHARTS_REPO := $(or $(GITHUB_CHARTS_REPO),$(shell git config --get remote.origin.url))
@@ -44,7 +44,7 @@ clean:
 release: build
 	helm package .
 
-guthub:
+github:
 	git clone -b "$(GITHUB_CHARTS_BRANCH)" https://${GITHUB_TOKEN}@github.com/Activiti/activiti-cloud-helm-charts.git $(GITHUB_CHARTS_DIR)
 	cp "$(NAME)-$(HELM_ACTIVITI_VERSION).tgz" $(GITHUB_CHARTS_DIR)
 	cd $(GITHUB_CHARTS_DIR) && \
