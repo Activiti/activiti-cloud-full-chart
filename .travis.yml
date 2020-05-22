@@ -51,6 +51,6 @@ jobs:
     - cd charts/$APP_NAME 
     - make tag
     - make release
-    - make guthub
+    - make github
     
     
