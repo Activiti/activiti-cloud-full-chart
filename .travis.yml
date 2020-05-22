@@ -50,8 +50,8 @@ jobs:
     stage: releasechart
     script: 
     - cd charts/$APP_NAME 
-    - make tagtravis  
+    - make tagt 
     - make release
-    - make guthubtravis
+    - make guthub
     
     
