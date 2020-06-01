@@ -14,7 +14,7 @@ dependencies:
   alias: "rabbitmq"
 - name: "postgresql"
   repository: "https://kubernetes-charts.storage.googleapis.com"
-  version: "3.11.3"
+  version: "6.3.9"
   condition: "application.postgres.enabled,postgres.enabled"
   alias: "postgres"
 - name: "runtime-bundle"
