@@ -60,7 +60,7 @@ version:
 	sed -i -e "s/version:.*/version: $(VERSION)/" Chart.yaml
 	sed -i -e "s/tag: .*/tag: $(VERSION)/" values.yaml
 	
-tag: version
+tag:
 	git add Chart.yaml values.yaml requirements.yaml
 	git commit -m "release $(VERSION)" --allow-empty # if first release then no verion update is performed
 	git tag -fa v$(VERSION) -m "Release version $(VERSION)"
