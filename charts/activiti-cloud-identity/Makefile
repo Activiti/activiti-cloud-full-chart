@@ -15,7 +15,6 @@ build: clean
 	helm repo add alfresco-incubator https://kubernetes-charts.alfresco.com/incubator
 	helm dependency up
 	helm lint
-#	helm install . --set global.gateway.domain=35.228.195.195.nip.io --name ${NAME} --debug --dry-run
 
 install:  build
 	helm install . --name ${NAME}
@@ -33,8 +32,7 @@ clean:
 
 release: build
 	helm package .
-#	curl  -u $(CHARTMUSEUM_CREDS_USR):$(CHARTMUSEUM_CREDS_PSW) --data-binary "@$(NAME)-$(shell sed -n 's/^version: //p' Chart.yaml).tgz" $(CHART_REPO)/api/charts
-#	rm -rf ${NAME}*.tgz%
+
 
 github:
 	$(eval GITHUB_CHARTS_DIR := $(shell basename $(GITHUB_CHARTS_REPO) .git))
@@ -49,22 +47,16 @@ github:
 	   git push -f -q https://${GITHUB_TOKEN}@github.com/Activiti/activiti-cloud-helm-charts.git "$(GITHUB_CHARTS_BRANCH)"
 	rm -rf $(GITHUB_CHARTS_DIR)
 
-
-tag:
-ifeq ($(OS),Darwin)
-	sed -i "" -e "s/version:.*/version: $(RELEASE_VERSION)/" Chart.yaml
-	sed -i "" -e "s/tag: .*/tag: $(RELEASE_VERSION)/" values.yaml
-else ifeq ($(OS),Linux)
+version:
 	sed -i -e "s/version:.*/version: $(RELEASE_VERSION)/" Chart.yaml
-	sed -i -e "s|repository: .*|repository: $(DOCKER_REGISTRY)/activiti/activiti-cloud-application-chart|" values.yaml
+	sed -i -e "s|repository: .*|repository: $(DOCKER_REGISTRY)/activiti/activiti-cloud-identity-chart|" values.yaml
 	sed -i -e "s/tag: .*/tag: $(RELEASE_VERSION)/" values.yaml
-else  
-	echo "platfrom $(OS) not supported to release from"
-	exit -1
-endif
+	
+tag:
 	git add --all
 	git commit -m "release $(RELEASE_VERSION)" --allow-empty # if first release then no verion update is performed
 	git tag -fa v$(RELEASE_VERSION) -m "Release version $(RELEASE_VERSION)"
-	git push origin v$(RELEASE_VERSION)
+	git push -f -q https://${GITHUB_TOKEN}@github.com/Activiti/activiti-cloud-full-chart.git v$(RELEASE_VERSION)
+	
 updatebot/push-version:
 	cd ../../ && updatebot push-version --kind helm $(NAME) $(RELEASE_VERSION)
