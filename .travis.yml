@@ -5,7 +5,7 @@ branches:
 env:
   global:
     - ORG='activiti'
-    - APP_NAME='activiti-cloud-identity-chart'
+    - APP_NAME='activiti-cloud-identity'
     - GITHUB_CHARTS_REPO="https://github.com/Activiti/activiti-cloud-helm-charts.git"
     - GITHUB_HELM_REPO_URL="https://activiti.github.io/activiti-cloud-helm-charts/"
     - HELM_VERSION=2.12.3
