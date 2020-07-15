@@ -1,0 +1,59 @@
+language: minimal
+branches:
+   only:
+     - master 
+env:
+  global:
+    - ORG='activiti'
+    - APP_NAME='activiti-cloud-identity-chart'
+    - GITHUB_CHARTS_REPO="https://github.com/Activiti/activiti-cloud-helm-charts.git"
+    - GITHUB_HELM_REPO_URL="https://activiti.github.io/activiti-cloud-helm-charts/"
+    - HELM_VERSION=2.12.3
+    - HELM_REPO_BASE_URL=https://kubernetes-charts.alfresco.com
+    - HELM_REPO=stable 
+    - KUBERNETES_VERSION=1.14.8
+    - TRAVIS_WAIT_TIMEOUT=${TRAVIS_WAIT_TIMEOUT:-180}
+    - GIT_EMAIL="build_user@alfresco.com"
+    
+before_install: |
+  git config --global user.email "${GIT_EMAIL}"
+  echo TRAVIS_PULL_REQUEST_BRANCH=$(TRAVIS_PULL_REQUEST_BRANCH)
+  echo TRAVIS_BRANCH=$(TRAVIS_BRANCH)
+  curl -Ls https://github.com/jenkins-x/jx-release-version/releases/download/v1.0.24/jx-release-version_1.0.24_linux_amd64.tar.gz|  tar xvz -C .
+  sudo cp jx-release-version /usr/bin/jx-release-version
+  echo $(jx-release-version) > VERSION
+  export VERSION=$(cat VERSION)
+  export PREVIEW_NAMESPACE=$(echo "$TRAVIS_BRANCH-$TRAVIS_BUILD_NUMBER"|  tr '[:upper:]' '[:lower:]'|tr . -)
+  echo -e "https://$GITHUB_USER:$GITHUB_TOKEN@github.com" >>  ~/.git-credentials
+  echo -e "http://$GITHUB_USER:$GITHUB_TOKEN@github.com" >>  ~/.git-credentials
+  curl -s https://kubernetes-helm.storage.googleapis.com/helm-v${HELM_VERSION}-linux-amd64.tar.gz | tar zx
+  sudo mv linux-amd64/helm /usr/local/bin/
+  curl -Lo kubectl https://storage.googleapis.com/kubernetes-release/release/v${KUBERNETES_VERSION}/bin/linux/amd64/kubectl &&
+  chmod +x kubectl && sudo mv kubectl /usr/local/bin/
+  kubectl config set-cluster default-cluster --server=${K8S_API_URL} &&
+  kubectl config set-credentials default-admin --token=${K8S_API_TOKEN} &&
+  kubectl config set-context default-system --cluster=default-cluster --user=default-admin &&
+  kubectl config use-context default-system
+    
+stages:
+- name: verify
+- name: releasechart
+  if: branch = master
+jobs:
+  include:
+  - name: Verify build
+    stage: verify
+    script:
+    - cd charts/$APP_NAME && make build 
+    
+  - name: Create tag package helm chart and realease it
+    stage: releasechart
+    script: 
+    - cd charts/$APP_NAME 
+    - make version
+    - make tag
+    - make release
+    - make github
+    - make updatebot/push-version
+    
+    
