@@ -15,13 +15,23 @@ env:
     - KUBERNETES_VERSION=1.14.8
     - TRAVIS_WAIT_TIMEOUT=${TRAVIS_WAIT_TIMEOUT:-180}
     - GIT_EMAIL="build_user@alfresco.com"
-    
+cache:
+  directories:
+    - ${HOME}/.m2/repository
+    - ${HOME}/tmp/    
 before_install: |
   git config --global user.email "${GIT_EMAIL}"
   echo TRAVIS_PULL_REQUEST_BRANCH=$(TRAVIS_PULL_REQUEST_BRANCH)
   echo TRAVIS_BRANCH=$(TRAVIS_BRANCH)
-  curl -Ls https://github.com/jenkins-x/jx-release-version/releases/download/v1.0.24/jx-release-version_1.0.24_linux_amd64.tar.gz|  tar xvz -C .
-  sudo cp jx-release-version /usr/bin/jx-release-version
+  mkdir $HOME/tmp || echo "~/tmp creation"
+  if ! [ -f $HOME/tmp/jx-release-version ]; then curl -Ls https://github.com/jenkins-x/jx-release-version/releases/download/v${JX_RELEASE_VERSION}/jx-release-version_${JX_RELEASE_VERSION}_linux_amd64.tar.gz|  tar xvz -C $HOME/tmp; fi
+  if ! [ -f $HOME/tmp/updatebot.jar ]; then curl -Ls -o $HOME/tmp/updatebot.jar   https://repo1.maven.org/maven2/io/jenkins/updatebot/updatebot/${UPDATEBOT_VERSION}/updatebot-${UPDATEBOT_VERSION}.jar; fi
+  sudo cp $HOME/tmp/jx-release-version /usr/bin/jx-release-version
+  sudo cp $HOME/tmp/updatebot.jar  /usr/bin/updatebot.jar
+  echo "java -jar /usr/bin/updatebot.jar \$@" > updatebot
+  sudo cp updatebot  /usr/bin/updatebot
+  sudo chmod a+x /usr/bin/updatebot
+
   echo $(jx-release-version) > VERSION
   export VERSION=$(cat VERSION)
   export PREVIEW_NAMESPACE=$(echo "$TRAVIS_BRANCH-$TRAVIS_BUILD_NUMBER"|  tr '[:upper:]' '[:lower:]'|tr . -)
