@@ -14,6 +14,8 @@ env:
     - KUBERNETES_VERSION=1.14.8
     - TRAVIS_WAIT_TIMEOUT=${TRAVIS_WAIT_TIMEOUT:-180}
     - GIT_EMAIL="build_user@alfresco.com"
+    - UPDATEBOT_VERSION="1.1.53"
+    - JX_RELEASE_VERSION="1.0.24"
 cache:
   directories:
     - ${HOME}/.m2/repository
