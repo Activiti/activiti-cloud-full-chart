@@ -1,6 +1,6 @@
 NAME := activiti-cloud-full-example
 OS := $(shell uname)
-#VERSION := $(or $(VERSION), $(shell cat ../../VERSION))
+VERSION := $(or $(VERSION), $(shell cat ../../VERSION))
 PREVIEW_NAMESPACE_LOWERCASE := $(shell echo ${PREVIEW_NAMESPACE}| tr "[:upper:]" "[:lower:]")
 
 GITHUB_CHARTS_REPO := $(or $(GITHUB_CHARTS_REPO),$(shell git config --get remote.origin.url))
