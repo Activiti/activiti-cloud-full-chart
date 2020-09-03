@@ -59,6 +59,7 @@ github:
 version:
 	sed -i -e "s/version:.*/version: $(VERSION)/" Chart.yaml
 	sed -i -e "s/#tag: .*/tag: $(VERSION)/" values.yaml
+	sed -i -e "s/apiVersion:.*/apiVersion: $(VERSION)/" Chart.yaml
 	
 tag:
 	git add Chart.yaml values.yaml requirements.yaml
