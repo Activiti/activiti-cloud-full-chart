@@ -72,12 +72,12 @@ activiti-cloud-modeling:
   frontend:
     image:
       repository: activiti/activiti-modeling-app
-      #tag: 7.1.0.M4
+      tag: 7.1.0-M10
       pullPolicy: Always
   backend:
     image:
       repository: activiti/activiti-cloud-modeling
-      #tag: 7.1.0.M4
+      tag: 7.1.0-M10
       pullPolicy: Always
 
   ingress:
@@ -114,7 +114,7 @@ runtime-bundle:
   image:
     pullPolicy: Always
     repository: activiti/example-runtime-bundle
-    #tag: 7.1.0.M4
+    tag: 7.1.0-M10
 
 activiti-cloud-query:
   service:
@@ -122,7 +122,7 @@ activiti-cloud-query:
   image:
     pullPolicy: Always
     repository: activiti/activiti-cloud-query
-    #tag: 7.1.0.M4
+    tag: 7.1.0-M10
   postgres:
     enabled: true
 
@@ -133,7 +133,7 @@ activiti-cloud-connector:
   image:
     pullPolicy: Always
     repository: activiti/example-cloud-connector
-    #tag: 7.1.0.M4
+    tag: 7.1.0-M10
 
 activiti-cloud-identity:
   enabled: true
