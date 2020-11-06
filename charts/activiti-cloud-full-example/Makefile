@@ -58,12 +58,11 @@ github:
 
 version:
 	sed -i -e "s/version:.*/version: $(VERSION)/" Chart.yaml
-	sed -i -e "s/#tag: .*/tag: $(VERSION)/" values.yaml
 	sed -i -e "s/appVersion:.*/appVersion: $(VERSION)/" Chart.yaml
 	
 tag:
-	git add Chart.yaml values.yaml requirements.yaml
-	git commit -m "release $(VERSION)" --allow-empty # if first release then no verion update is performed
+	git add Chart.yaml requirements.yaml
+	git commit -m "release $(VERSION)" --allow-empty # if first release then no version update is performed
 	git tag -fa v$(VERSION) -m "Release version $(VERSION)"
 	git push -f -q https://${GITHUB_TOKEN}@github.com/Activiti/activiti-cloud-full-chart.git v$(VERSION)	
 
