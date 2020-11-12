@@ -46,9 +46,12 @@ release: build
 
 github:
 	git clone -b "$(GITHUB_CHARTS_BRANCH)" https://${GITHUB_TOKEN}@github.com/Activiti/activiti-cloud-helm-charts.git $(GITHUB_CHARTS_DIR)
-	cp "$(NAME)-$(VERSION).tgz" $(GITHUB_CHARTS_DIR)
+	mkdir $(GITHUB_CHARTS_DIR)/new-charts
+	cp "$(NAME)-$(VERSION).tgz" $(GITHUB_CHARTS_DIR)/new-charts
 	cd $(GITHUB_CHARTS_DIR) && \
-	   helm repo index . && \
+	   helm repo index new-charts --merge index.yaml && \
+	   cp new-charts/* . && \
+	   rm -fr new-charts && \
 	   git add . && \
 	   git status && \
 	   git commit -m "fix:(version) release $(NAME)-$(VERSION).tgz" && \
