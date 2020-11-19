@@ -9,11 +9,7 @@ GITHUB_CHARTS_BRANCH := $(or $(GITHUB_CHARTS_BRANCH),gh-pages)
 GITHUB_CHARTS_DIR := activiti-cloud-helm-charts
 	
 build: clean
-	helm init --client-only
-	helm repo add activiti-cloud-helm-charts https://activiti.github.io/activiti-cloud-helm-charts/
-	helm repo add alfresco https://kubernetes-charts.alfresco.com/stable	
-	helm repo add alfresco-incubator https://kubernetes-charts.alfresco.com/incubator
-	helm dependency build
+	helm dep up
 	helm lint
 	helm upgrade ${PREVIEW_NAMESPACE_LOWERCASE} . \
 		--install \
@@ -34,7 +30,7 @@ upgrade: clean build
 	helm upgrade ${PREVIEW_NAMESPACE_LOWERCASE} .
 
 delete:
-	helm delete --purge ${PREVIEW_NAMESPACE_LOWERCASE}
+	helm delete ${PREVIEW_NAMESPACE_LOWERCASE}
 
 clean:
 	rm -rf requirements.lock

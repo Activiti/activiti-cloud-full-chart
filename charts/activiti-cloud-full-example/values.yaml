@@ -148,26 +148,14 @@ postgres:
 
 rabbitmq:
   enabled: true
-  service:
-    clusterIP: None
-  persistentVolume:
-    enabled: true
-  rabbitmqUsername: "guest"
-  rabbitmqPassword: "guest"
-  rabbitmqErlangCookie: 124567890abcdefghijklmnopqrstuv
+  persistence:
+    storageClass:
+  auth:
+    username: guest
+    password: guest
+    erlangCookie: ylY79lOdNUWsJEwAGdVQnhjSazV4QZKO=
   resources:
     requests:
-      cpu: 350m
-      memory: 512Mi
-  rbac:
-    create: true
-  replicaCount: 1
-  ingress:
-    enabled: false
-    #    hostName: "rabbitmq.jx-staging.X.X.X.X.nip.io"
-    path: /
-    annotations:
-      kubernetes.io/ingress.class: nginx
-      nginx.ingress.kubernetes.io/enable-cors: "true"
-      nginx.ingress.kubernetes.io/cors-allow-headers: "*"
-      nginx.ingress.kubernetes.io/x-forwarded-prefix: "true"
+      memory: 1500Mi
+    limits:
+      memory: 1500Mi
