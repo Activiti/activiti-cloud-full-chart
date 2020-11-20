@@ -1,7 +1,7 @@
 import:
   - source: Activiti/activiti-scripts:.travis.helm_install.yml@master
-  - source: Activiti/activiti-scripts:.travis.kubernetes_install.yml@master
   - source: Activiti/activiti-scripts:.travis.kubernetes_config.yml@master
+  - source: Activiti/activiti-scripts:.travis.kubernetes_install.yml@master
 
 language: minimal
 branches:
