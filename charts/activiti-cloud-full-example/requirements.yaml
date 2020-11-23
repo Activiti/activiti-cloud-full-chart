@@ -9,7 +9,7 @@ dependencies:
   condition: "application.activiti-cloud-query.enabled,activiti-cloud-query.enabled"
 - name: "rabbitmq"
   repository: "https://charts.bitnami.com/bitnami"
-  version: "8.0.4"
+  version: "7.6.8"
   condition: "application.rabbitmq.enabled,rabbitmq.enabled"
   alias: "rabbitmq"
 - name: "postgresql"
