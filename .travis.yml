@@ -1,17 +1,21 @@
+import:
+  - source: Activiti/activiti-scripts:.travis.helm_install.yml@master
+  - source: Activiti/activiti-scripts:.travis.kubernetes_config.yml@master
+  - source: Activiti/activiti-scripts:.travis.kubernetes_install.yml@master
+
 language: minimal
 branches:
    only:
-     - master 
+     - master
+
 env:
   global:
     - ORG='activiti'
     - APP_NAME='activiti-cloud-full-example'
     - GITHUB_CHARTS_REPO="https://github.com/Activiti/activiti-cloud-helm-charts.git"
     - GITHUB_HELM_REPO_URL="https://activiti.github.io/activiti-cloud-helm-charts/"
-    - HELM_VERSION=2.12.3
     - HELM_REPO_BASE_URL=https://kubernetes-charts.alfresco.com
     - HELM_REPO=stable 
-    - KUBERNETES_VERSION=1.14.8
     - TRAVIS_WAIT_TIMEOUT=${TRAVIS_WAIT_TIMEOUT:-180}
     - GIT_EMAIL="build_user@alfresco.com"
     - UPDATEBOT_VERSION="1.1.53"
@@ -20,33 +24,26 @@ cache:
   directories:
     - ${HOME}/.m2/repository
     - ${HOME}/tmp/    
-before_install: |
-  git config --global user.email "${GIT_EMAIL}"
-  echo TRAVIS_PULL_REQUEST_BRANCH=$(TRAVIS_PULL_REQUEST_BRANCH)
-  echo TRAVIS_BRANCH=$(TRAVIS_BRANCH)
-  mkdir $HOME/tmp || echo "~/tmp creation"
-  if ! [ -f $HOME/tmp/jx-release-version ]; then curl -Ls https://github.com/jenkins-x/jx-release-version/releases/download/v${JX_RELEASE_VERSION}/jx-release-version_${JX_RELEASE_VERSION}_linux_amd64.tar.gz|  tar xvz -C $HOME/tmp; fi
-  if ! [ -f $HOME/tmp/updatebot.jar ]; then curl -Ls -o $HOME/tmp/updatebot.jar   https://repo1.maven.org/maven2/io/jenkins/updatebot/updatebot/${UPDATEBOT_VERSION}/updatebot-${UPDATEBOT_VERSION}.jar; fi
-  sudo cp $HOME/tmp/jx-release-version /usr/bin/jx-release-version
-  sudo cp $HOME/tmp/updatebot.jar  /usr/bin/updatebot.jar
-  echo "java -jar /usr/bin/updatebot.jar \$@" > updatebot
-  sudo cp updatebot  /usr/bin/updatebot
-  sudo chmod a+x /usr/bin/updatebot
+before_install:
+  - |
+    git config --global user.email "${GIT_EMAIL}"
+    echo TRAVIS_PULL_REQUEST_BRANCH=$(TRAVIS_PULL_REQUEST_BRANCH)
+    echo TRAVIS_BRANCH=$(TRAVIS_BRANCH)
+    mkdir $HOME/tmp || echo "~/tmp creation"
+    if ! [ -f $HOME/tmp/jx-release-version ]; then curl -Ls https://github.com/jenkins-x/jx-release-version/releases/download/v${JX_RELEASE_VERSION}/jx-release-version_${JX_RELEASE_VERSION}_linux_amd64.tar.gz|  tar xvz -C $HOME/tmp; fi
+    if ! [ -f $HOME/tmp/updatebot.jar ]; then curl -Ls -o $HOME/tmp/updatebot.jar   https://repo1.maven.org/maven2/io/jenkins/updatebot/updatebot/${UPDATEBOT_VERSION}/updatebot-${UPDATEBOT_VERSION}.jar; fi
+    sudo cp $HOME/tmp/jx-release-version /usr/bin/jx-release-version
+    sudo cp $HOME/tmp/updatebot.jar  /usr/bin/updatebot.jar
+    echo "java -jar /usr/bin/updatebot.jar \$@" > updatebot
+    sudo cp updatebot  /usr/bin/updatebot
+    sudo chmod a+x /usr/bin/updatebot
 
-  echo $(jx-release-version) > VERSION
-  export VERSION=$(cat VERSION)
-  export PREVIEW_NAMESPACE=$(echo "$TRAVIS_BRANCH-$TRAVIS_BUILD_NUMBER"|  tr '[:upper:]' '[:lower:]'|tr . -)
-  echo -e "https://$GITHUB_USER:$GITHUB_TOKEN@github.com" >>  ~/.git-credentials
-  echo -e "http://$GITHUB_USER:$GITHUB_TOKEN@github.com" >>  ~/.git-credentials
-  curl -s https://kubernetes-helm.storage.googleapis.com/helm-v${HELM_VERSION}-linux-amd64.tar.gz | tar zx
-  sudo mv linux-amd64/helm /usr/local/bin/
-  curl -Lo kubectl https://storage.googleapis.com/kubernetes-release/release/v${KUBERNETES_VERSION}/bin/linux/amd64/kubectl &&
-  chmod +x kubectl && sudo mv kubectl /usr/local/bin/
-  kubectl config set-cluster default-cluster --server=${K8S_API_URL} &&
-  kubectl config set-credentials default-admin --token=${K8S_API_TOKEN} &&
-  kubectl config set-context default-system --cluster=default-cluster --user=default-admin &&
-  kubectl config use-context default-system
-    
+    echo $(jx-release-version) > VERSION
+    export VERSION=$(cat VERSION)
+    export PREVIEW_NAMESPACE=$(echo "$TRAVIS_BRANCH-$TRAVIS_BUILD_NUMBER"|  tr '[:upper:]' '[:lower:]'|tr . -)
+    echo -e "https://$GITHUB_USER:$GITHUB_TOKEN@github.com" >>  ~/.git-credentials
+    echo -e "http://$GITHUB_USER:$GITHUB_TOKEN@github.com" >>  ~/.git-credentials
+
 stages:
 - name: verify
 - name: releasechart
