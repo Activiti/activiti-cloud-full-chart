@@ -57,8 +57,7 @@ github:
 
 version:
 	sed -i -e "s/version:.*/version: $(VERSION)/" Chart.yaml
-	sed -i -e "s/appVersion:.*/appVersion: $(VERSION)/" Chart.yaml
-	
+
 tag:
 	git add Chart.yaml requirements.yaml
 	git commit -m "release $(VERSION)" --allow-empty # if first release then no version update is performed
