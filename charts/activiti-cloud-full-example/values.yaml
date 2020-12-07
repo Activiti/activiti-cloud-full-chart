@@ -2,160 +2,444 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-## i.e Jx environment
-# expose: 
-#   config:
-#     domain: &domain "1.2.3.4.nip.io"
-#     http: &http true
-
+# global -- for common values see https://github.com/Activiti/activiti-cloud-common-chart/blob/master/charts/common/README.md
 global:
-  ## Configure pull secrets for all deployments
+  # global.registryPullSecrets -- Configure pull secrets for all deployments
   registryPullSecrets: []
 
-  # Use Yaml formatted string to add extra environment properties to all deployments, i.e.
+  # global.extraEnv -- Use Yaml formatted string to add extra environment properties to all deployments, i.e.
   extraEnv: |
-    # - name: SERVER_USEFORWARDHEADERS
-    #   value: "true"
-    # - name: SERVER_TOMCAT_INTERNALPROXIES
-    #   value: ".*"
-    # - name: MANAGEMENT_ENDPOINTS_WEB_EXPOSURE_INCLUDE
-    #   value: "*"
+
+    # - name: PROPERTY_NAME
+    #   value: "propertyValue"
 
   keycloak:
-    ## Configure Activiti Keycloak host template, i.e. "activiti-keycloak.{{ .Release.Namespace }}.{{ .Values.global.gateway.domain }}"
-    #host: '{{ template "common.gateway-host" . }}'
+    # global.keycloak.host -- Configure Keycloak host template
     host: 'identity.{{ .Release.Namespace }}.{{ template "common.gateway-domain" . }}'
+    #host: '{{ template "common.gateway-host" . }}'
 
-    ## Set full url to configure external Keycloak, https://my.keycloak.com/auth
-    # if not set, keycloak deployment is automatically exposed on gaetway host, i.e. http://activiti-cloud-gateway.REPLACEME/auth
+    # global.keycloak.url -- Set full url to configure external Keycloak, otherwise will be generated based on host
     url: ""
 
-    ## Configure Keycloak realm
+    # global.keycloak.realm -- Configure Keycloak realm
     realm: "activiti"
-    resource: "activiti"
-    client: "activiti"
 
-    ## Use Yaml formatted string to add keycloak properties to deployments
+    # global.keycloak.resource -- Configure Keycloak resource
+    resource: "activiti"
+
+    # global.keycloak.extraEnv -- Use Yaml formatted string to add extra environment properties to keycloak deployment, i.e.
     extraEnv: |
-      # - name: KEYCLOAK_USERESOURCEROLEMAPPINGS
-      #   value: "false" 
+
+      # - name: PROPERTY_NAME
+      #   value: "propertyValue"
 
   gateway:
-    ## Set to configure single domain name for all services, i.e. "activiti-cloud-gateway.{{ .Release.Namespace }}.{{ .Values.global.gateway.domain }}"
+    # global.gateway.host -- Set to configure single host domain name for all services
     host: 'gateway.{{ .Release.Namespace }}.{{ template "common.gateway-domain" . }}'
+#    host: '{{ template "common.gateway-domain" . }}'
 
-    ## Set to false enables HTTPS configuration on all urls 
+    # global.gateway.http -- Set to false enables HTTPS configuration on all urls
     http: "true"
 
-    ## Set to enable automatic TLS for ingress if https is enabled
+    # global.gateway.tlsacme -- Set to enable automatic TLS for ingress if https is enabled
     tlsacme: "false"
 
-    ## Set to configure gateway domain template, i.e. {{ .Release.Namespace }}.1.3.4.5.nip.io
-    #  helm upgrade activiti . --install --set global.gateway.domain=1.2.3.4.nip.io
-    domain: "REPLACEME"
+    # global.gateway.domain -- Set to configure gateway domain template, i.e. {{ .Release.Namespace }}.1.3.4.5.nip.io
+    # $ helm upgrade aae . --install --set global.gateway.domain=1.2.3.4.nip.io
+    domain: "DOMAIN"
+#    domain: ""
 
-    ## Configure global annotations for all service ingresses, i.e. 
+    # global.gateway.annotations -- Configure global annotations for all service ingresses
     annotations:
-      certmanager.k8s.io/issuer: letsencrypt-prod
-
-    ## Or simply enable templated domain host coniguration in Jx environment
-    # host: "activiti-cloud-gateway.{{ .Release.Namespace }}.{{ .Values.global.gateway.domain }}"
-    # domain: *domain ## Sync with Jx expose controller domain conig 
-    # http: *http ## Sync with Jx expose controller http conig
-    # tlsacme: *tlsacme ## Sync with Jx expose controller tlsacme conig
-
-
-activiti-cloud-modeling:
-  enabled: true
-  service:
-    name: modeling
-  frontend:
-    image:
-      repository: activiti/activiti-modeling-app
-      #tag: 7.1.0.M4
-      pullPolicy: Always
-  backend:
-    image:
-      repository: activiti/activiti-cloud-modeling
-      #tag: 7.1.0.M4
-      pullPolicy: Always
-
-  ingress:
-    enabled: true
-    annotations:
-      kubernetes.io/ingress.class: nginx
-      nginx.ingress.kubernetes.io/enable-cors: "true"
-      nginx.ingress.kubernetes.io/cors-allow-headers: "*"
-      nginx.ingress.kubernetes.io/x-forwarded-prefix: "true"
-    frontend:
-      basepath: "/modeling"
-      annotations: {}
-    backend:
-      prefix: "modeling-service"
-      image:
-      annotations: {}
-
-
-runtime-bundle:
-  enabled: true
-  ingress:
-    annotations:
-      kubernetes.io/ingress.class: nginx
-      nginx.ingress.kubernetes.io/cors-allow-header: X-Forwarded-For, X-Forwarded-Proto,
-        X-Forwarded-Port, X-Forwarded-Prefix, Authorization, Content-Type, Accept
-      nginx.ingress.kubernetes.io/enable-cors: "true"
-      nginx.ingress.kubernetes.io/rewrite-target: /$1
-      nginx.ingress.kubernetes.io/x-forwarded-prefix: "true"
-    enabled: true
-    path: /rb/?(.*)
-
-  service:
-    name: rb
-  image:
-    pullPolicy: Always
-    repository: activiti/example-runtime-bundle
-    #tag: 7.1.0.M4
-
-activiti-cloud-query:
-  service:
-    name: query
-  image:
-    pullPolicy: Always
-    repository: activiti/activiti-cloud-query
-    #tag: 7.1.0.M4
-  postgres:
-    enabled: true
-
-activiti-cloud-connector:
-  enabled: true
-  service:
-    name: example-cloud-connector
-  image:
-    pullPolicy: Always
-    repository: activiti/example-cloud-connector
-    #tag: 7.1.0.M4
+#      certmanager.k8s.io/issuer: letsencrypt-prod
 
 activiti-cloud-identity:
   enabled: true
+  ingress:
+    enabled: true
+    hostName: '{{ template "common.keycloak-host" . }}'
+    annotations:
+      nginx.ingress.kubernetes.io/enable-cors: "false" # disable NGINX CORS as it's managed by Identity Service
+  keycloak:
+    ingress:
+      enabled: false
+    postgresql:
+      persistence:
+        existingClaim: "" # use default postgresql PVC
+      service:
+        annotations:
+          application: keycloak
+      resources:
+        requests:
+          memory: "750Mi"
+          cpu: "300m"
+        limits:
+          memory: "1024Mi"
+          cpu: "1"
+    keycloak:
+      resources:
+        requests:
+          memory: "750Mi"
+        limits:
+          memory: "1024Mi"
+  realm:
+    activiti:
+      client:
+        redirectUris:
+          - "*"
+        webOrigins:
+          - "*"
+      extraClients:
+        - clientId: activiti
+          enabled: true
+          redirectUris:
+            - "*"
+          webOrigins:
+            - "*"
+          directAccessGrantsEnabled: true
+          implicitFlowEnabled: true
+          protocolMappers:
+            - name: "group list"
+              protocol: "openid-connect"
+              protocolMapper: "oidc-group-membership-mapper"
+              consentRequired: false
+              config:
+                full.path: false
+                id.token.claim: true
+                access.token.claim: true
+                claim.name: "groups"
+                userinfo.token.claim: true
+      extraRealmRoles:
+        - name: ACTIVITI_ADMIN
+          composites:
+            client:
+              realm-management:
+                - view-users
+                - view-clients
+        - name: ACTIVITI_DEVOPS
+          composites:
+            client:
+              realm-management:
+                - view-users
+                - view-clients
+        - name: ACTIVITI_USER
+          composites:
+            client:
+              realm-management:
+                - view-users
+                - view-clients
+        - name: ACTIVITI_MODELER
+          composites:
+            client:
+              realm-management:
+                - view-users
+                - view-clients
+        - name: ACTIVITI_IDENTITY
+          description: "user is able to see the identity section"
+          composites:
+            client:
+              realm-management:
+                - view-users
+                - view-clients
+                - query-realms
+                - query-clients
+                - manage-users
+                - manage-authorization
+                - manage-realm
+                - manage-clients
+      extraGroups:
+        - name: hr
+          realmRoles:
+            - ACTIVITI_USER
+        - name: sales
+          realmRoles:
+            - ACTIVITI_USER
+        - name: testgroup
+        - name: processadmin
+          realmRoles:
+            - ACTIVITI_ADMIN
+      extraUsers:
+        - username: client
+          enabled: true
+          firstName: client
+          lastName: client
+          email: client@example.com
+          credentials:
+            - type: password
+              value: client
+          realmRoles:
+            - ACTIVITI_USER
+            - offline_access
+            - uma_authorization
+          clientRoles:
+            realm-management:
+              - manage-users
+              - manage-clients
+              - manage-authorization
+              - manage-events
+              - manage-realm
+              - create-client
+              - impersonation
+              - realm-admin
+            broker:
+              - read-token
+            account:
+              - manage-account
+              - view-profile
+        - username: superadminuser
+          enabled: true
+          firstName: "Super Admin"
+          lastName: "User"
+          email: superadminuser@example.com
+          credentials:
+            - type: password
+              value: password
+          realmRoles:
+            - ACTIVITI_USER
+            - ACTIVITI_ADMIN
+            - ACTIVITI_MODELER
+            - offline_access
+            - uma_authorization
+          clientRoles:
+            realm-management:
+              - manage-users
+              - manage-clients
+              - manage-authorization
+              - manage-events
+              - manage-realm
+              - create-client
+              - impersonation
+              - realm-admin
+            broker:
+              - read-token
+            account:
+              - manage-account
+              - view-profile
+        - username: hruser
+          enabled: true
+          firstName: HR
+          lastName: User
+          email: hruser@example.com
+          credentials:
+            - type: password
+              value: password
+          realmRoles:
+            - offline_access
+            - uma_authorization
+            - ACTIVITI_USER
+          clientRoles:
+            account:
+              - manage-account
+              - view-profile
+          groups:
+            - /hr
+        - username: processadminuser
+          enabled: true
+          firstName: "Process Admin"
+          lastName: User
+          email: processadminuser@example.com
+          credentials:
+            - type: password
+              value: password
+          realmRoles:
+            - offline_access
+            - uma_authorization
+            - ACTIVITI_ADMIN
+          clientRoles:
+            account:
+              - manage-account
+              - view-profile
+          groups:
+            - /processadmin
+        - username: salesuser
+          enabled: true
+          firstName: Sales
+          lastName: User
+          email: salesuser@example.com
+          credentials:
+            - type: password
+              value: password
+          realmRoles:
+            - offline_access
+            - uma_authorization
+            - ACTIVITI_USER
+          clientRoles:
+            account:
+              - manage-account
+              - view-profile
+          groups:
+            - /sales
+        - username: testuser
+          enabled: true
+          firstName: Test
+          lastName: User
+          email: testuser@example.com
+          credentials:
+            - type: password
+              value: password
+          realmRoles:
+            - offline_access
+            - uma_authorization
+            - ACTIVITI_USER
+          clientRoles:
+            account:
+              - manage-account
+              - view-profile
+          groups:
+            - /testgroup
+        - username: testadmin
+          enabled: true
+          firstName: Test
+          lastName: Admin
+          email: testadmin@example.com
+          credentials:
+            - type: password
+              value: password
+          realmRoles:
+            - offline_access
+            - uma_authorization
+            - ACTIVITI_USER
+            - ACTIVITI_ADMIN
+          clientRoles:
+            account:
+              - manage-account
+              - view-profile
+          groups:
+            - /testgroup
+        - username: modeler
+          enabled: true
+          firstName: Modeler
+          lastName: User
+          email: modeler@example.com
+          credentials:
+            - type: password
+              value: password
+          realmRoles:
+            - offline_access
+            - uma_authorization
+            - ACTIVITI_MODELER
+          clientRoles:
+            account:
+              - manage-account
+              - view-profile
+        - username: modeler-qa
+          enabled: true
+          firstName: Modeler
+          lastName: User
+          email: modeler-qa@example.com
+          credentials:
+            - type: password
+              value: password
+          realmRoles:
+            - offline_access
+            - uma_authorization
+            - ACTIVITI_MODELER
+          clientRoles:
+            account:
+              - manage-account
+              - view-profile
 
-postgres:
+activiti-cloud-modeling:
+  enabled: false
+  service:
+    name: modeling
+  backend:
+    image:
+      repository: activiti/activiti-cloud-modeling
+      #tag: 0.0.0+REPLACEME
+      pullPolicy: Always
+  ingress:
+    enabled: true
+    annotations:
+      kubernetes.io/ingress.class: nginx
+      nginx.ingress.kubernetes.io/enable-cors: "true"
+      nginx.ingress.kubernetes.io/cors-allow-header: Authorization, Content-Type, Accept
+      nginx.ingress.kubernetes.io/x-forwarded-prefix: /modeling
+    backend:
+      prefix: "modeling-service"
+
+activiti-modeling-app:
+  enabled: true
+  nameOverride: activiti-modeling-app
+  image:
+    repository: activiti/activiti-modeling-app
+    tag: 7.1.988
+#    tag: 0.0.0+REPLACEME
+    pullPolicy: Always
+  ingress:
+    path: /modeling
+  env:
+    APP_CONFIG_BPM_HOST: '{{ include "common.gateway-url" . }}'
+
+postgresql:
   enabled: true
   postgresqlPassword: password
   resources:
     requests:
       cpu: 350m
       memory: 512Mi
+  service:
+    annotations:
+      application: activiti
 
 rabbitmq:
   enabled: true
+  extraPlugins: ""
   persistence:
     storageClass:
+    accessMode: ReadWriteOnce
   auth:
     username: guest
     password: guest
     erlangCookie: ylY79lOdNUWsJEwAGdVQnhjSazV4QZKO=
+  livenessProbe:
+    timeoutSeconds: 90
+  readinessProbe:
+    timeoutSeconds: 90
   resources:
     requests:
       memory: 1500Mi
     limits:
       memory: 1500Mi
+  ingress:
+    enabled: false
+#    hostname: '{{ template "common.ingress-host" . }}'
+    path: /rabbitmq
+
+runtime-bundle:
+  enabled: true
+  image:
+    repository: activiti/example-runtime-bundle
+    #tag: 0.0.0+REPLACEME
+    pullPolicy: Always
+  ingress:
+    annotations:
+      kubernetes.io/ingress.class: nginx
+      nginx.ingress.kubernetes.io/enable-cors: "true"
+      nginx.ingress.kubernetes.io/cors-allow-header: Authorization, Content-Type, Accept
+      nginx.ingress.kubernetes.io/rewrite-target: /$1
+      nginx.ingress.kubernetes.io/x-forwarded-prefix: /rb
+    path: /rb/?(.*)
+  postgres:
+    enabled: true
+    name: postgresql
+
+activiti-cloud-query:
+  enabled: true
+  image:
+    repository: activiti/activiti-cloud-query
+    #tag: 0.0.0+REPLACEME
+    pullPolicy: Always
+  postgres:
+    enabled: true
+    name: postgresql
+
+activiti-cloud-connector:
+  enabled: true
+  service:
+    name: example-cloud-connector
+  image:
+    repository: activiti/example-cloud-connector
+    #tag: 0.0.0+REPLACEME
+    pullPolicy: Always
+
