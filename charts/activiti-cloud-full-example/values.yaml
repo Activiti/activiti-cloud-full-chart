@@ -57,33 +57,57 @@ activiti-cloud-identity:
   enabled: true
   ingress:
     enabled: true
-    hostName: '{{ template "common.keycloak-host" . }}'
+    path: /auth
+    hosts:
+      - '{{ template "common.keycloak-host" . }}'
     annotations:
+      kubernetes.io/ingress.class: "nginx"
+      nginx.ingress.kubernetes.io/proxy-buffer-size: "16k"
+      nginx.ingress.kubernetes.io/affinity: "cookie"
+      nginx.ingress.kubernetes.io/session-cookie-name: "identity_affinity_route"
+      nginx.ingress.kubernetes.io/session-cookie-hash: "sha1"
       nginx.ingress.kubernetes.io/enable-cors: "false" # disable NGINX CORS as it's managed by Identity Service
+  postgresql:
+    persistence:
+      existingClaim: "" # use default postgresql PVC
+    service:
+      annotations:
+        application: keycloak
+    resources:
+      requests:
+        memory: "750Mi"
+        cpu: "300m"
+      limits:
+        memory: "1024Mi"
+        cpu: "1"
   keycloak:
-    ingress:
-      enabled: false
-    postgresql:
-      persistence:
-        existingClaim: "" # use default postgresql PVC
-      service:
-        annotations:
-          application: keycloak
-      resources:
-        requests:
-          memory: "750Mi"
-          cpu: "300m"
-        limits:
-          memory: "1024Mi"
-          cpu: "1"
-    keycloak:
-      resources:
-        requests:
-          memory: "750Mi"
-        limits:
-          memory: "1024Mi"
+    image:
+      repository: alfresco/alfresco-identity-service
+      tag: 1.3
+      pullPolicy: IfNotPresent
+    serviceAccount:
+      create: false
+    username: admin
+    password: admin
+    extraArgs:
+    extraVolumes: |
+      - name: realm-secret
+        secret:
+          secretName: realm-secret
+    extraVolumeMounts: |
+      - name: realm-secret
+        mountPath: "/realm/"
+        readOnly: true
+    extraEnv: |
+      - name: KEYCLOAK_IMPORT
+        value: /realm/realm.json
+    resources:
+      requests:
+        memory: "750Mi"
+      limits:
+        memory: "1024Mi"
   realm:
-    activiti:
+    alfresco:
       client:
         redirectUris:
           - "*"
@@ -340,30 +364,43 @@ activiti-cloud-identity:
               - view-profile
 
 activiti-cloud-modeling:
-  enabled: false
+  enabled: true
   service:
     name: modeling
-  backend:
-    image:
-      repository: activiti/activiti-cloud-modeling
-      #tag: 0.0.0+REPLACEME
-      pullPolicy: Always
+  image:
+    repository: activiti/activiti-cloud-modeling
+    #tag: 0.0.0+REPLACEME
+    pullPolicy: Always
   ingress:
-    enabled: true
+    path: /modeling-service
     annotations:
       kubernetes.io/ingress.class: nginx
       nginx.ingress.kubernetes.io/enable-cors: "true"
       nginx.ingress.kubernetes.io/cors-allow-header: Authorization, Content-Type, Accept
-      nginx.ingress.kubernetes.io/x-forwarded-prefix: /modeling
-    backend:
-      prefix: "modeling-service"
+  postgres:
+    enabled: true
+    name: postgresql
+  probePath:  '{{ tpl .Values.ingress.path . }}/actuator/info'
+  resources:
+    requests:
+      cpu: 400m
+      memory: 512Mi
+    limits:
+      cpu: "1"
+      memory: 1024Mi
+  extraEnv: |
+    - name: SERVER_SERVLET_CONTEXTPATH
+      value: "{{ tpl .Values.ingress.path . }}"
+    - name: SERVER_USEFORWARDHEADERS
+      value: "true"
+    - name: SERVER_TOMCAT_INTERNALPROXIES
+      value: ".*"
 
 activiti-modeling-app:
   enabled: true
   nameOverride: activiti-modeling-app
   image:
     repository: activiti/activiti-modeling-app
-    tag: 7.1.988
 #    tag: 0.0.0+REPLACEME
     pullPolicy: Always
   ingress:
@@ -408,31 +445,67 @@ rabbitmq:
 
 runtime-bundle:
   enabled: true
+  service:
+    name: rb
   image:
     repository: activiti/example-runtime-bundle
     #tag: 0.0.0+REPLACEME
     pullPolicy: Always
   ingress:
+    path: /rb
     annotations:
       kubernetes.io/ingress.class: nginx
       nginx.ingress.kubernetes.io/enable-cors: "true"
       nginx.ingress.kubernetes.io/cors-allow-header: Authorization, Content-Type, Accept
-      nginx.ingress.kubernetes.io/rewrite-target: /$1
-      nginx.ingress.kubernetes.io/x-forwarded-prefix: /rb
-    path: /rb/?(.*)
   postgres:
     enabled: true
     name: postgresql
+  resources:
+    limits:
+      cpu: "2"
+      memory: 2048Mi
+    requests:
+      cpu: 200m
+      memory: 512Mi
+  probePath:  '{{ tpl .Values.ingress.path . }}/actuator/info'
+  extraEnv: |
+    - name: SERVER_SERVLET_CONTEXTPATH
+      value: "{{ tpl .Values.ingress.path . }}"
+    - name: SERVER_USEFORWARDHEADERS
+      value: "true"
+    - name: SERVER_TOMCAT_INTERNALPROXIES
+      value: ".*"
 
 activiti-cloud-query:
   enabled: true
+  service:
+    name: query
   image:
     repository: activiti/activiti-cloud-query
     #tag: 0.0.0+REPLACEME
     pullPolicy: Always
+#  ingress:
+#    annotations:
+#      kubernetes.io/ingress.class: nginx
+#      nginx.ingress.kubernetes.io/enable-cors: "true"
+#      nginx.ingress.kubernetes.io/cors-allow-header: Authorization, Content-Type, Accept
   postgres:
     enabled: true
     name: postgresql
+  resources:
+    limits:
+      cpu: "1.5"
+      memory: 2048Mi
+    requests:
+      cpu: 200m
+      memory: 512Mi
+#  extraEnv: |
+#    - name: SERVER_SERVLET_CONTEXTPATH
+#      value: "{{ tpl .Values.ingress.path . }}"
+#    - name: SERVER_USEFORWARDHEADERS
+#      value: "true"
+#    - name: SERVER_TOMCAT_INTERNALPROXIES
+#      value: ".*"
 
 activiti-cloud-connector:
   enabled: true
@@ -442,4 +515,24 @@ activiti-cloud-connector:
     repository: activiti/example-cloud-connector
     #tag: 0.0.0+REPLACEME
     pullPolicy: Always
-
+  ingress:
+    path: /example-cloud-connector
+    annotations:
+      kubernetes.io/ingress.class: nginx
+      nginx.ingress.kubernetes.io/enable-cors: "true"
+      nginx.ingress.kubernetes.io/cors-allow-header: Authorization, Content-Type, Accept
+  probePath:  '{{ tpl .Values.ingress.path . }}/actuator/info'
+  resources:
+    limits:
+      cpu: "1"
+      memory: 1024Mi
+    requests:
+      cpu: 150m
+      memory: 256Mi
+  extraEnv: |
+    - name: SERVER_SERVLET_CONTEXTPATH
+      value: "{{ tpl .Values.ingress.path . }}"
+    - name: SERVER_USEFORWARDHEADERS
+      value: "true"
+    - name: SERVER_TOMCAT_INTERNALPROXIES
+      value: ".*"

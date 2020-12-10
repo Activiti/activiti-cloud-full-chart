@@ -19,14 +19,22 @@ Get the application URLs:
 
 Activiti Gateway         : {{ template "common.gateway-url" . }}
 Activiti Identity        : {{ template "common.keycloak-url" . }}
+{{- if index .Values "activiti-cloud-modeling" "enabled" -}}
 Activiti Modeler         : {{ template "common.gateway-url" . }}{{ index .Values "activiti-cloud-modeling" "ingress" "path" }}
+{{- end -}}
+{{- if index .Values "runtime-bundle" "enabled" -}}
 Activiti Runtime Bundle  : {{ template "common.gateway-url" . }}{{ index .Values "runtime-bundle" "ingress" "path" }}
+{{- end -}}
+{{- if index .Values "activiti-cloud-connector" "enabled" -}}
 Activiti Cloud Connector : {{ template "common.gateway-url" . }}{{ index .Values "activiti-cloud-connector" "ingress" "path" }}
+{{- end -}}
+{{- if index .Values "activiti-cloud-query" "enabled" -}}
 Activiti Query           : {{ template "common.gateway-url" . }}{{ index .Values "activiti-cloud-query" "ingress" "path" }}
 Activiti Audit           : {{ template "common.gateway-url" . }}{{ index .Values "activiti-cloud-query" "ingress" "path" }}/audit
 Notifications GraphiQL   : {{ template "common.gateway-url" . }}{{ index .Values "activiti-cloud-query" "ingress" "path" }}/notifications/graphiql
 Notifications WebSockets : {{ template "common.gateway-url" . }}{{ index .Values "activiti-cloud-query" "ingress" "path" }}/notifications/ws/graphql
 Notifications Graphql    : {{ template "common.gateway-url" . }}{{ index .Values "activiti-cloud-query" "ingress" "path" }}/notifications/graphql
+{{- end }}
 
 To see deployment status, try:
 
