@@ -108,290 +108,228 @@ activiti-cloud-identity:
         memory: "750Mi"
       limits:
         memory: "1024Mi"
-#  realm:
-#    alfresco:
-#      client:
-#        redirectUris:
-#          - "*"
-#        webOrigins:
-#          - "*"
-#      extraClients:
-#        - clientId: activiti
-#          enabled: true
-#          publicClient: true
-#          redirectUris:
-#            - "*"
-#          webOrigins:
-#            - "*"
-#          directAccessGrantsEnabled: true
-#          implicitFlowEnabled: true
-#          protocolMappers:
-#            - name: "group list"
-#              protocol: "openid-connect"
-#              protocolMapper: "oidc-group-membership-mapper"
-#              consentRequired: false
-#              config:
-#                full.path: false
-#                id.token.claim: true
-#                access.token.claim: true
-#                claim.name: "groups"
-#                userinfo.token.claim: true
-#      extraRealmRoles:
-#        - name: ACTIVITI_ADMIN
-#          composites:
-#            client:
-#              realm-management:
-#                - view-users
-#                - view-clients
-#        - name: ACTIVITI_DEVOPS
-#          composites:
-#            client:
-#              realm-management:
-#                - view-users
-#                - view-clients
-#        - name: ACTIVITI_USER
-#          composites:
-#            client:
-#              realm-management:
-#                - view-users
-#                - view-clients
-#        - name: ACTIVITI_MODELER
-#          composites:
-#            client:
-#              realm-management:
-#                - view-users
-#                - view-clients
-#        - name: ACTIVITI_IDENTITY
-#          description: "user is able to see the identity section"
-#          composites:
-#            client:
-#              realm-management:
-#                - view-users
-#                - view-clients
-#                - query-realms
-#                - query-clients
-#                - manage-users
-#                - manage-authorization
-#                - manage-realm
-#                - manage-clients
-#      extraGroups:
-#        - name: hr
-#          realmRoles:
-#            - ACTIVITI_USER
-#        - name: sales
-#          realmRoles:
-#            - ACTIVITI_USER
-#        - name: testgroup
-#        - name: processadmin
-#          realmRoles:
-#            - ACTIVITI_ADMIN
-#      extraUsers:
-#        - username: client
-#          enabled: true
-#          firstName: client
-#          lastName: client
-#          email: client@example.com
-#          credentials:
-#            - type: password
-#              value: client
-#          realmRoles:
-#            - ACTIVITI_USER
-#            - offline_access
-#            - uma_authorization
-#          clientRoles:
-#            realm-management:
-#              - manage-users
-#              - manage-clients
-#              - manage-authorization
-#              - manage-events
-#              - manage-realm
-#              - create-client
-#              - impersonation
-#              - realm-admin
-#            broker:
-#              - read-token
-#            account:
-#              - manage-account
-#              - view-profile
-#        - username: admin
-#          enabled: true
-#          firstName: admin
-#          lastName: admin
-#          email: admin@example.com
-#          credentials:
-#            - type: password
-#              value: password
-#          realmRoles:
-#            - offline_access
-#            - uma_authorization
-#            - user
-#          clientRoles:
-#            realm-management:
-#              - manage-users
-#              - manage-clients
-#              - manage-authorization
-#              - manage-events
-#              - manage-realm
-#              - create-client
-#              - impersonation
-#              - realm-admin
-#            broker:
-#              - read-token
-#            account:
-#              - manage-account
-#              - view-profile
-#        - username: superadminuser
-#          enabled: true
-#          firstName: "Super Admin"
-#          lastName: "User"
-#          email: superadminuser@example.com
-#          credentials:
-#            - type: password
-#              value: password
-#          realmRoles:
-#            - ACTIVITI_USER
-#            - ACTIVITI_ADMIN
-#            - ACTIVITI_MODELER
-#            - offline_access
-#            - uma_authorization
-#          clientRoles:
-#            realm-management:
-#              - manage-users
-#              - manage-clients
-#              - manage-authorization
-#              - manage-events
-#              - manage-realm
-#              - create-client
-#              - impersonation
-#              - realm-admin
-#            broker:
-#              - read-token
-#            account:
-#              - manage-account
-#              - view-profile
-#        - username: hruser
-#          enabled: true
-#          firstName: HR
-#          lastName: User
-#          email: hruser@example.com
-#          credentials:
-#            - type: password
-#              value: password
-#          realmRoles:
-#            - offline_access
-#            - uma_authorization
-#            - ACTIVITI_USER
-#          clientRoles:
-#            account:
-#              - manage-account
-#              - view-profile
-#          groups:
-#            - /hr
-#        - username: processadminuser
-#          enabled: true
-#          firstName: "Process Admin"
-#          lastName: User
-#          email: processadminuser@example.com
-#          credentials:
-#            - type: password
-#              value: password
-#          realmRoles:
-#            - offline_access
-#            - uma_authorization
-#            - ACTIVITI_ADMIN
-#          clientRoles:
-#            account:
-#              - manage-account
-#              - view-profile
-#          groups:
-#            - /processadmin
-#        - username: salesuser
-#          enabled: true
-#          firstName: Sales
-#          lastName: User
-#          email: salesuser@example.com
-#          credentials:
-#            - type: password
-#              value: password
-#          realmRoles:
-#            - offline_access
-#            - uma_authorization
-#            - ACTIVITI_USER
-#          clientRoles:
-#            account:
-#              - manage-account
-#              - view-profile
-#          groups:
-#            - /sales
-#        - username: testuser
-#          enabled: true
-#          firstName: Test
-#          lastName: User
-#          email: testuser@example.com
-#          credentials:
-#            - type: password
-#              value: password
-#          realmRoles:
-#            - offline_access
-#            - uma_authorization
-#            - ACTIVITI_USER
-#          clientRoles:
-#            account:
-#              - manage-account
-#              - view-profile
-#          groups:
-#            - /testgroup
-#        - username: testadmin
-#          enabled: true
-#          firstName: Test
-#          lastName: Admin
-#          email: testadmin@example.com
-#          credentials:
-#            - type: password
-#              value: password
-#          realmRoles:
-#            - offline_access
-#            - uma_authorization
-#            - ACTIVITI_USER
-#            - ACTIVITI_ADMIN
-#          clientRoles:
-#            account:
-#              - manage-account
-#              - view-profile
-#          groups:
-#            - /testgroup
-#        - username: modeler
-#          enabled: true
-#          firstName: Modeler
-#          lastName: User
-#          email: modeler@example.com
-#          credentials:
-#            - type: password
-#              value: password
-#          realmRoles:
-#            - offline_access
-#            - uma_authorization
-#            - ACTIVITI_MODELER
-#          clientRoles:
-#            account:
-#              - manage-account
-#              - view-profile
-#        - username: modeler-qa
-#          enabled: true
-#          firstName: Modeler
-#          lastName: User
-#          email: modeler-qa@example.com
-#          credentials:
-#            - type: password
-#              value: password
-#          realmRoles:
-#            - offline_access
-#            - uma_authorization
-#            - ACTIVITI_MODELER
-#          clientRoles:
-#            account:
-#              - manage-account
-#              - view-profile
+  realm:
+    extraClients:
+    extraGroups:
+      - name: hr
+        realmRoles:
+          - ACTIVITI_USER
+      - name: sales
+        realmRoles:
+          - ACTIVITI_USER
+      - name: testgroup
+      - name: processadmin
+        realmRoles:
+          - ACTIVITI_ADMIN
+    extraRealmRoles:
+    extraClientRoles:
+    extraUsers:
+      - username: client
+        enabled: true
+        firstName: client
+        lastName: client
+        email: client@example.com
+        credentials:
+          - type: password
+            value: client
+        realmRoles:
+          - ACTIVITI_USER
+          - offline_access
+          - uma_authorization
+        clientRoles:
+          realm-management:
+            - manage-users
+            - manage-clients
+            - manage-authorization
+            - manage-events
+            - manage-realm
+            - create-client
+            - impersonation
+            - realm-admin
+          broker:
+            - read-token
+          account:
+            - manage-account
+            - view-profile
+      - username: admin
+        enabled: true
+        firstName: admin
+        lastName: admin
+        email: admin@example.com
+        credentials:
+          - type: password
+            value: password
+        realmRoles:
+          - offline_access
+          - uma_authorization
+          - user
+        clientRoles:
+          realm-management:
+            - manage-users
+            - manage-clients
+            - manage-authorization
+            - manage-events
+            - manage-realm
+            - create-client
+            - impersonation
+            - realm-admin
+          broker:
+            - read-token
+          account:
+            - manage-account
+            - view-profile
+      - username: superadminuser
+        enabled: true
+        firstName: "Super Admin"
+        lastName: "User"
+        email: superadminuser@example.com
+        credentials:
+          - type: password
+            value: password
+        realmRoles:
+          - ACTIVITI_USER
+          - ACTIVITI_ADMIN
+          - ACTIVITI_MODELER
+          - offline_access
+          - uma_authorization
+        clientRoles:
+          realm-management:
+            - manage-users
+            - manage-clients
+            - manage-authorization
+            - manage-events
+            - manage-realm
+            - create-client
+            - impersonation
+            - realm-admin
+          broker:
+            - read-token
+          account:
+            - manage-account
+            - view-profile
+      - username: hruser
+        enabled: true
+        firstName: HR
+        lastName: User
+        email: hruser@example.com
+        credentials:
+          - type: password
+            value: password
+        realmRoles:
+          - offline_access
+          - uma_authorization
+          - ACTIVITI_USER
+        clientRoles:
+          account:
+            - manage-account
+            - view-profile
+        groups:
+          - /hr
+      - username: processadminuser
+        enabled: true
+        firstName: "Process Admin"
+        lastName: User
+        email: processadminuser@example.com
+        credentials:
+          - type: password
+            value: password
+        realmRoles:
+          - offline_access
+          - uma_authorization
+          - ACTIVITI_ADMIN
+        clientRoles:
+          account:
+            - manage-account
+            - view-profile
+        groups:
+          - /processadmin
+      - username: salesuser
+        enabled: true
+        firstName: Sales
+        lastName: User
+        email: salesuser@example.com
+        credentials:
+          - type: password
+            value: password
+        realmRoles:
+          - offline_access
+          - uma_authorization
+          - ACTIVITI_USER
+        clientRoles:
+          account:
+            - manage-account
+            - view-profile
+        groups:
+          - /sales
+      - username: testuser
+        enabled: true
+        firstName: Test
+        lastName: User
+        email: testuser@example.com
+        credentials:
+          - type: password
+            value: password
+        realmRoles:
+          - offline_access
+          - uma_authorization
+          - ACTIVITI_USER
+        clientRoles:
+          account:
+            - manage-account
+            - view-profile
+        groups:
+          - /testgroup
+      - username: testadmin
+        enabled: true
+        firstName: Test
+        lastName: Admin
+        email: testadmin@example.com
+        credentials:
+          - type: password
+            value: password
+        realmRoles:
+          - offline_access
+          - uma_authorization
+          - ACTIVITI_USER
+          - ACTIVITI_ADMIN
+        clientRoles:
+          account:
+            - manage-account
+            - view-profile
+        groups:
+          - /testgroup
+      - username: modeler
+        enabled: true
+        firstName: Modeler
+        lastName: User
+        email: modeler@example.com
+        credentials:
+          - type: password
+            value: password
+        realmRoles:
+          - offline_access
+          - uma_authorization
+          - ACTIVITI_MODELER
+        clientRoles:
+          account:
+            - manage-account
+            - view-profile
+      - username: modeler-qa
+        enabled: true
+        firstName: Modeler
+        lastName: User
+        email: modeler-qa@example.com
+        credentials:
+          - type: password
+            value: password
+        realmRoles:
+          - offline_access
+          - uma_authorization
+          - ACTIVITI_MODELER
+        clientRoles:
+          account:
+            - manage-account
+            - view-profile
 
 activiti-cloud-modeling:
   enabled: true
