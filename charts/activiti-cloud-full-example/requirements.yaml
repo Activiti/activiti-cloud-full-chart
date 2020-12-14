@@ -33,7 +33,7 @@ dependencies:
   alias: activiti-cloud-modeling
   condition: activiti-cloud-modeling.enabled,modeling.enabled
 - name: alfresco-adf-app
-  repository: https://kubernetes-charts.alfresco.com/incubator
+  repository: https://kubernetes-charts.alfresco.com/stable
   version: 7.1.0-M11
   alias: activiti-modeling-app
   condition: activiti-modeling-app.enabled

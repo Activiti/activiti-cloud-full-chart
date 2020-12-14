@@ -348,7 +348,7 @@ activiti-cloud-modeling:
   postgres:
     enabled: true
     name: postgresql
-  probePath:  '{{ tpl .Values.ingress.path . }}/actuator/info'
+  probePath: '{{ tpl .Values.ingress.path . }}/actuator/info'
   resources:
     requests:
       cpu: 400m

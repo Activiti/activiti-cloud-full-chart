@@ -52,38 +52,17 @@ Uninstall:
 helm uninstall activiti
 ```
 
+**WARNING** All the PVCs are not deleted by `helm uninstall` and that should be manually unless you want to keep data for another install.
+
+```shell
+kubectl get pvc
+kubectl delete pvc data-keycloak-...
+```
+
 As an alternative, generate a Kubernetes descriptor you can analyse or apply offline using `kubectl apply -f output.yaml`:
 ```shell
 helm template -f values.yaml activiti charts/activiti-cloud-full-example > output.yaml
 ```
-
-## Preview Environments 
-
-**Currently not supported in the Travis CI build.**
-
-This is triggered on any new branch with a name matching the _feature-*_ pattern.
-It installs Helm chart from feature branch commit into preview namespace for development and testing.
-
-To create preview environment use the following commands  i.e.
-
-```bash
-git checkout <tag or branch>
-git checkout -b feature-awesome
-git push -u origin feature-awesome
-
-```
-or use provided `make preview` command, i.e.
-
-```bash
-make preview FROM=<master or tag> FEATURE=awesome
-
-```
-
-After pushing branch to remote, check your branch deployment status on Github: https://github.com/activiti/activiti-cloud-full-chart/branches'
-
-If you make any changes and push the commit to remote, it will trigger preview stage again and upgrade the environment automatically.
-
-To delete preview environment, simply delete your feature-* branch from remote. Once Jenkins runs the clean up, it will trigger another Jenkins pipeline to delete deployed release and namespace in the K8s cluster.
 
 ## Skipping CI
 
