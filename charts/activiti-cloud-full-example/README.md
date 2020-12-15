@@ -273,15 +273,15 @@ Kubernetes: `>= 1.9.0 < 1.22.0`
 | activiti-modeling-app.image.repository | string | `"activiti/activiti-modeling-app"` |  |
 | activiti-modeling-app.ingress.path | string | `"/modeling"` |  |
 | activiti-modeling-app.nameOverride | string | `"activiti-modeling-app"` |  |
-| global | object | `{"extraEnv":"\n# - name: PROPERTY_NAME\n#   value: \"propertyValue\"\n","gateway":{"annotations":null,"domain":"DOMAIN","host":"gateway.{{ .Release.Namespace }}.{{ template \"common.gateway-domain\" . }}","http":"true","tlsacme":"false"},"keycloak":{"extraEnv":"\n# - name: PROPERTY_NAME\n#   value: \"propertyValue\"\n","host":"identity.{{ .Release.Namespace }}.{{ template \"common.gateway-domain\" . }}","realm":"activiti","resource":"activiti","url":""},"registryPullSecrets":[]}` | for common values see https://github.com/Activiti/activiti-cloud-common-chart/blob/master/charts/common/README.md |
+| global | object | `{"extraEnv":"\n# - name: PROPERTY_NAME\n#   value: \"propertyValue\"\n","gateway":{"annotations":null,"domain":"DOMAIN","host":"gateway-{{ .Release.Namespace }}.{{ template \"common.gateway-domain\" . }}","http":"true","tlsacme":"false"},"keycloak":{"extraEnv":"\n# - name: PROPERTY_NAME\n#   value: \"propertyValue\"\n","host":"identity-{{ .Release.Namespace }}.{{ template \"common.gateway-domain\" . }}","realm":"activiti","resource":"activiti","url":""},"registryPullSecrets":[]}` | for common values see https://github.com/Activiti/activiti-cloud-common-chart/blob/master/charts/common/README.md |
 | global.extraEnv | string | `"\n# - name: PROPERTY_NAME\n#   value: \"propertyValue\"\n"` | Use Yaml formatted string to add extra environment properties to all deployments, i.e. |
 | global.gateway.annotations | string | `nil` | Configure global annotations for all service ingresses |
 | global.gateway.domain | string | `"DOMAIN"` | Set to configure gateway domain template, i.e. {{ .Release.Namespace }}.1.3.4.5.nip.io $ helm upgrade aae . --install --set global.gateway.domain=1.2.3.4.nip.io |
-| global.gateway.host | string | `"gateway.{{ .Release.Namespace }}.{{ template \"common.gateway-domain\" . }}"` | Set to configure single host domain name for all services |
+| global.gateway.host | string | `"gateway-{{ .Release.Namespace }}.{{ template \"common.gateway-domain\" . }}"` | Set to configure single host domain name for all services |
 | global.gateway.http | string | `"true"` | Set to false enables HTTPS configuration on all urls |
 | global.gateway.tlsacme | string | `"false"` | Set to enable automatic TLS for ingress if https is enabled |
 | global.keycloak.extraEnv | string | `"\n# - name: PROPERTY_NAME\n#   value: \"propertyValue\"\n"` | Use Yaml formatted string to add extra environment properties to keycloak deployment, i.e. |
-| global.keycloak.host | string | `"identity.{{ .Release.Namespace }}.{{ template \"common.gateway-domain\" . }}"` | Configure Keycloak host template |
+| global.keycloak.host | string | `"identity-{{ .Release.Namespace }}.{{ template \"common.gateway-domain\" . }}"` | Configure Keycloak host template |
 | global.keycloak.realm | string | `"activiti"` | Configure Keycloak realm |
 | global.keycloak.resource | string | `"activiti"` | Configure Keycloak resource |
 | global.keycloak.url | string | `""` | Set full url to configure external Keycloak, otherwise will be generated based on host |
