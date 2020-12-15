@@ -19,7 +19,7 @@ Kubernetes: `>= 1.9.0 < 1.22.0`
 | https://activiti.github.io/activiti-cloud-helm-charts/ | common | 7.1.3 |
 | https://activiti.github.io/activiti-cloud-helm-charts/ | runtime-bundle | 7.1.990 |
 | https://activiti.github.io/activiti-cloud-helm-charts/ | runtime-bundle | 7.1.990 |
-| https://charts.bitnami.com/bitnami | postgresql | 8.9.6 |
+| https://charts.bitnami.com/bitnami | postgresql | 8.9.5 |
 | https://charts.bitnami.com/bitnami | rabbitmq | 7.8.0 |
 | https://codecentric.github.io/helm-charts | keycloak | 8.3.0 |
 | https://kubernetes-charts.alfresco.com/stable | alfresco-adf-app | 7.1.0-M11 |
