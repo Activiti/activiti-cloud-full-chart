@@ -26,11 +26,6 @@ Install the latest version of [ingress-nginx](https://kubernetes.github.io/ingre
 helm install --repo https://kubernetes.github.io/ingress-nginx ingress-nginx ingress-nginx
 ```
 
-Update all dependencies:
-```shell
-helm dep up charts/activiti-cloud-full-example
-```
-
 Create a `values.yaml` file with any customised values from the default [values.yaml](charts/activiti-cloud-full-example/values.yaml) you want, as documented in the chart [README](charts/activiti-cloud-full-example/README.md). 
 
 In your local installation to start with, this would be:
@@ -44,7 +39,9 @@ global:
 
 Install or upgrade an existing installation:
 ```shell
-helm upgrade --install -f values.yaml activiti charts/activiti-cloud-full-example
+helm upgrade --install --dependency-update --atomic --namespace activiti --create-namespace \
+  -f values.yaml \
+  activiti charts/activiti-cloud-full-example
 ```
 
 Uninstall:
@@ -61,7 +58,9 @@ kubectl delete pvc data-keycloak-...
 
 As an alternative, generate a Kubernetes descriptor you can analyse or apply offline using `kubectl apply -f output.yaml`:
 ```shell
-helm template -f values.yaml activiti charts/activiti-cloud-full-example > output.yaml
+helm template --dependency-update --atomic --namespace activiti --create-namespace \
+  -f values.yaml \
+  activiti charts/activiti-cloud-full-example > output.yaml
 ```
 
 ## Skipping CI
