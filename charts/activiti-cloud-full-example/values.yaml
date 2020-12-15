@@ -15,7 +15,7 @@ global:
 
   keycloak:
     # global.keycloak.host -- Configure Keycloak host template
-    host: 'identity.{{ .Release.Namespace }}.{{ template "common.gateway-domain" . }}'
+    host: 'identity-{{ .Release.Namespace }}.{{ template "common.gateway-domain" . }}'
     #host: '{{ template "common.gateway-host" . }}'
 
     # global.keycloak.url -- Set full url to configure external Keycloak, otherwise will be generated based on host
@@ -35,7 +35,7 @@ global:
 
   gateway:
     # global.gateway.host -- Set to configure single host domain name for all services
-    host: 'gateway.{{ .Release.Namespace }}.{{ template "common.gateway-domain" . }}'
+    host: 'gateway-{{ .Release.Namespace }}.{{ template "common.gateway-domain" . }}'
 #    host: '{{ template "common.gateway-domain" . }}'
 
     # global.gateway.http -- Set to false enables HTTPS configuration on all urls
