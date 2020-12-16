@@ -1,0 +1,7 @@
+apiVersion: v1
+description: A Helm chart for Kubernetes
+icon: https://raw.githubusercontent.com/Activiti/activiti.github.io/master/mstile-150x150.png
+name: activiti-cloud-service
+version: 0.0.0+REPLACEME
+sources:
+  - https://github.com/Activiti/activiti-cloud-full-chart

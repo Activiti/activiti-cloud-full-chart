@@ -14,15 +14,15 @@ Kubernetes: `>= 1.9.0 < 1.22.0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://activiti.github.io/activiti-cloud-helm-charts/ | activiti-cloud-connector | 7.1.990 |
-| https://activiti.github.io/activiti-cloud-helm-charts/ | activiti-cloud-query | 7.1.990 |
-| https://activiti.github.io/activiti-cloud-helm-charts/ | common | 7.1.3 |
-| https://activiti.github.io/activiti-cloud-helm-charts/ | runtime-bundle | 7.1.990 |
-| https://activiti.github.io/activiti-cloud-helm-charts/ | runtime-bundle | 7.1.990 |
-| https://charts.bitnami.com/bitnami | postgresql | 8.9.5 |
+| file://../activiti-cloud-service | activiti-cloud-service | 0.0.0+REPLACEME |
+| file://../activiti-cloud-service | activiti-cloud-service | 0.0.0+REPLACEME |
+| file://../activiti-cloud-service | activiti-cloud-service | 0.0.0+REPLACEME |
+| file://../activiti-cloud-service | activiti-cloud-service | 0.0.0+REPLACEME |
+| file://../alfresco-adf-app | alfresco-adf-app | 0.0.0+REPLACEME |
+| file://../common | common | 0.0.0+REPLACEME |
+| https://charts.bitnami.com/bitnami | postgresql | 9.1.1 |
 | https://charts.bitnami.com/bitnami | rabbitmq | 7.8.0 |
-| https://codecentric.github.io/helm-charts | keycloak | 8.3.0 |
-| https://kubernetes-charts.alfresco.com/stable | alfresco-adf-app | 7.1.0-M11 |
+| https://codecentric.github.io/helm-charts | keycloak | 9.8.1 |
 
 ## Values
 
@@ -35,36 +35,37 @@ Kubernetes: `>= 1.9.0 < 1.22.0`
 | activiti-cloud-connector.ingress.annotations."kubernetes.io/ingress.class" | string | `"nginx"` |  |
 | activiti-cloud-connector.ingress.annotations."nginx.ingress.kubernetes.io/cors-allow-header" | string | `"Authorization, Content-Type, Accept"` |  |
 | activiti-cloud-connector.ingress.annotations."nginx.ingress.kubernetes.io/enable-cors" | string | `"true"` |  |
+| activiti-cloud-connector.ingress.enabled | bool | `false` |  |
 | activiti-cloud-connector.ingress.path | string | `"/example-cloud-connector"` |  |
+| activiti-cloud-connector.nameOverride | string | `"activiti-cloud-connector"` |  |
 | activiti-cloud-connector.probePath | string | `"{{ tpl .Values.ingress.path . }}/actuator/info"` |  |
+| activiti-cloud-connector.rabbitmq.enabled | bool | `true` |  |
 | activiti-cloud-connector.resources.limits.cpu | string | `"1"` |  |
 | activiti-cloud-connector.resources.limits.memory | string | `"1024Mi"` |  |
 | activiti-cloud-connector.resources.requests.cpu | string | `"150m"` |  |
 | activiti-cloud-connector.resources.requests.memory | string | `"256Mi"` |  |
 | activiti-cloud-connector.service.name | string | `"example-cloud-connector"` |  |
 | activiti-cloud-identity.enabled | bool | `true` |  |
-| activiti-cloud-identity.keycloak.extraEnv | string | `"- name: KEYCLOAK_IMPORT\n  value: /realm/realm.json\n"` |  |
-| activiti-cloud-identity.keycloak.extraVolumeMounts | string | `"- name: realm-secret\n  mountPath: \"/realm/\"\n  readOnly: true\n"` |  |
-| activiti-cloud-identity.keycloak.extraVolumes | string | `"- name: realm-secret\n  secret:\n    secretName: realm-secret\n"` |  |
-| activiti-cloud-identity.keycloak.image.pullPolicy | string | `"IfNotPresent"` |  |
-| activiti-cloud-identity.keycloak.image.repository | string | `"alfresco/alfresco-identity-service"` |  |
-| activiti-cloud-identity.keycloak.image.tag | string | `"1.4.0-SNAPSHOT"` |  |
-| activiti-cloud-identity.keycloak.ingress.annotations."kubernetes.io/ingress.class" | string | `"nginx"` |  |
-| activiti-cloud-identity.keycloak.ingress.annotations."nginx.ingress.kubernetes.io/affinity" | string | `"cookie"` |  |
-| activiti-cloud-identity.keycloak.ingress.annotations."nginx.ingress.kubernetes.io/enable-cors" | string | `"false"` |  |
-| activiti-cloud-identity.keycloak.ingress.annotations."nginx.ingress.kubernetes.io/proxy-buffer-size" | string | `"16k"` |  |
-| activiti-cloud-identity.keycloak.ingress.annotations."nginx.ingress.kubernetes.io/session-cookie-hash" | string | `"sha1"` |  |
-| activiti-cloud-identity.keycloak.ingress.annotations."nginx.ingress.kubernetes.io/session-cookie-name" | string | `"identity_affinity_route"` |  |
-| activiti-cloud-identity.keycloak.ingress.enabled | bool | `true` |  |
-| activiti-cloud-identity.keycloak.ingress.hosts[0] | string | `"{{ template \"common.keycloak-host\" . }}"` |  |
-| activiti-cloud-identity.keycloak.ingress.path | string | `"/auth"` |  |
-| activiti-cloud-identity.keycloak.password | string | `"admin"` |  |
-| activiti-cloud-identity.keycloak.persistence.dbPassword | string | `"keycloak"` |  |
-| activiti-cloud-identity.keycloak.persistence.dbVendor | string | `"postgres"` |  |
-| activiti-cloud-identity.keycloak.persistence.deployPostgres | bool | `true` |  |
-| activiti-cloud-identity.keycloak.resources.limits.memory | string | `"1024Mi"` |  |
-| activiti-cloud-identity.keycloak.resources.requests.memory | string | `"750Mi"` |  |
-| activiti-cloud-identity.keycloak.username | string | `"admin"` |  |
+| activiti-cloud-identity.extraEnv | string | `"- name: PROXY_ADDRESS_FORWARDING\n  value: \"true\"\n- name: KEYCLOAK_IMPORT\n  value: /realm/realm.json\n"` |  |
+| activiti-cloud-identity.extraVolumeMounts | string | `"- name: realm-secret\n  mountPath: \"/realm/\"\n  readOnly: true\n"` |  |
+| activiti-cloud-identity.extraVolumes | string | `"- name: realm-secret\n  secret:\n    secretName: realm-secret\n"` |  |
+| activiti-cloud-identity.image.pullPolicy | string | `"IfNotPresent"` |  |
+| activiti-cloud-identity.image.repository | string | `"alfresco/alfresco-identity-service"` |  |
+| activiti-cloud-identity.image.tag | string | `"1.4.0-SNAPSHOT"` |  |
+| activiti-cloud-identity.ingress.annotations."kubernetes.io/ingress.class" | string | `"nginx"` |  |
+| activiti-cloud-identity.ingress.annotations."nginx.ingress.kubernetes.io/affinity" | string | `"cookie"` |  |
+| activiti-cloud-identity.ingress.annotations."nginx.ingress.kubernetes.io/enable-cors" | string | `"false"` |  |
+| activiti-cloud-identity.ingress.annotations."nginx.ingress.kubernetes.io/proxy-buffer-size" | string | `"16k"` |  |
+| activiti-cloud-identity.ingress.annotations."nginx.ingress.kubernetes.io/session-cookie-hash" | string | `"sha1"` |  |
+| activiti-cloud-identity.ingress.annotations."nginx.ingress.kubernetes.io/session-cookie-name" | string | `"identity_affinity_route"` |  |
+| activiti-cloud-identity.ingress.enabled | bool | `true` |  |
+| activiti-cloud-identity.ingress.hosts[0] | string | `"{{ template \"common.keycloak-host\" . }}"` |  |
+| activiti-cloud-identity.ingress.path | string | `"/auth"` |  |
+| activiti-cloud-identity.nameOverride | string | `"keycloak"` |  |
+| activiti-cloud-identity.password | string | `"admin"` |  |
+| activiti-cloud-identity.persistence.dbPassword | string | `"keycloak"` |  |
+| activiti-cloud-identity.persistence.dbVendor | string | `"postgres"` |  |
+| activiti-cloud-identity.persistence.deployPostgres | bool | `true` |  |
 | activiti-cloud-identity.postgresql.commonAnnotations.application | string | `"keycloak"` |  |
 | activiti-cloud-identity.postgresql.nameOverride | string | `"postgresql-id"` |  |
 | activiti-cloud-identity.postgresql.persistence.enabled | bool | `true` |  |
@@ -238,6 +239,9 @@ Kubernetes: `>= 1.9.0 < 1.22.0`
 | activiti-cloud-identity.realm.extraUsers[9].realmRoles[1] | string | `"uma_authorization"` |  |
 | activiti-cloud-identity.realm.extraUsers[9].realmRoles[2] | string | `"ACTIVITI_MODELER"` |  |
 | activiti-cloud-identity.realm.extraUsers[9].username | string | `"modeler-qa"` |  |
+| activiti-cloud-identity.resources.limits.memory | string | `"1024Mi"` |  |
+| activiti-cloud-identity.resources.requests.memory | string | `"750Mi"` |  |
+| activiti-cloud-identity.username | string | `"admin"` |  |
 | activiti-cloud-modeling.enabled | bool | `true` |  |
 | activiti-cloud-modeling.extraEnv | string | `"- name: SERVER_SERVLET_CONTEXTPATH\n  value: \"{{ tpl .Values.ingress.path . }}\"\n- name: SERVER_USEFORWARDHEADERS\n  value: \"true\"\n- name: SERVER_TOMCAT_INTERNALPROXIES\n  value: \".*\"\n"` |  |
 | activiti-cloud-modeling.image.pullPolicy | string | `"Always"` |  |
@@ -246,8 +250,8 @@ Kubernetes: `>= 1.9.0 < 1.22.0`
 | activiti-cloud-modeling.ingress.annotations."nginx.ingress.kubernetes.io/cors-allow-header" | string | `"Authorization, Content-Type, Accept"` |  |
 | activiti-cloud-modeling.ingress.annotations."nginx.ingress.kubernetes.io/enable-cors" | string | `"true"` |  |
 | activiti-cloud-modeling.ingress.path | string | `"/modeling-service"` |  |
-| activiti-cloud-modeling.postgres.enabled | bool | `true` |  |
-| activiti-cloud-modeling.postgres.name | string | `"postgresql"` |  |
+| activiti-cloud-modeling.nameOverride | string | `"activiti-cloud-modeling"` |  |
+| activiti-cloud-modeling.postgresql.enabled | bool | `true` |  |
 | activiti-cloud-modeling.probePath | string | `"{{ tpl .Values.ingress.path . }}/actuator/info"` |  |
 | activiti-cloud-modeling.resources.limits.cpu | string | `"1"` |  |
 | activiti-cloud-modeling.resources.limits.memory | string | `"1024Mi"` |  |
@@ -255,13 +259,23 @@ Kubernetes: `>= 1.9.0 < 1.22.0`
 | activiti-cloud-modeling.resources.requests.memory | string | `"512Mi"` |  |
 | activiti-cloud-modeling.service.name | string | `"modeling"` |  |
 | activiti-cloud-query.enabled | bool | `true` |  |
+| activiti-cloud-query.extraEnv | string | `"- name: GRAPHIQL_GRAPHQL_WEB_PATH\n  value: /notifications/graphql\n- name: GRAPHIQL_GRAPHQL_WS_PATH\n  value: /notifications/ws/graphql"` |  |
 | activiti-cloud-query.image.pullPolicy | string | `"Always"` |  |
 | activiti-cloud-query.image.repository | string | `"activiti/activiti-cloud-query"` |  |
 | activiti-cloud-query.ingress.annotations."kubernetes.io/ingress.class" | string | `"nginx"` |  |
 | activiti-cloud-query.ingress.annotations."nginx.ingress.kubernetes.io/cors-allow-header" | string | `"Authorization, Content-Type, Accept"` |  |
 | activiti-cloud-query.ingress.annotations."nginx.ingress.kubernetes.io/enable-cors" | string | `"true"` |  |
-| activiti-cloud-query.postgres.enabled | bool | `true` |  |
-| activiti-cloud-query.postgres.name | string | `"postgresql"` |  |
+| activiti-cloud-query.ingress.annotations."nginx.ingress.kubernetes.io/rewrite-target" | string | `"/$1"` |  |
+| activiti-cloud-query.ingress.path | string | `nil` |  |
+| activiti-cloud-query.ingress.subPaths[0] | string | `"/query/?(.*)"` |  |
+| activiti-cloud-query.ingress.subPaths[1] | string | `"/audit/?(.*)"` |  |
+| activiti-cloud-query.ingress.subPaths[2] | string | `"/notifications/?(.*)"` |  |
+| activiti-cloud-query.javaOpts.xms | string | `"512m"` |  |
+| activiti-cloud-query.javaOpts.xmx | string | `"2048m"` |  |
+| activiti-cloud-query.nameOverride | string | `"activiti-cloud-query"` |  |
+| activiti-cloud-query.postgresql.enabled | bool | `true` |  |
+| activiti-cloud-query.probePath | string | `"/actuator/info"` |  |
+| activiti-cloud-query.rabbitmq.enabled | bool | `true` |  |
 | activiti-cloud-query.resources.limits.cpu | string | `"1.5"` |  |
 | activiti-cloud-query.resources.limits.memory | string | `"2048Mi"` |  |
 | activiti-cloud-query.resources.requests.cpu | string | `"200m"` |  |
@@ -273,14 +287,13 @@ Kubernetes: `>= 1.9.0 < 1.22.0`
 | activiti-modeling-app.image.repository | string | `"activiti/activiti-modeling-app"` |  |
 | activiti-modeling-app.ingress.path | string | `"/modeling"` |  |
 | activiti-modeling-app.nameOverride | string | `"activiti-modeling-app"` |  |
-| global | object | `{"extraEnv":"\n# - name: PROPERTY_NAME\n#   value: \"propertyValue\"\n","gateway":{"annotations":null,"domain":"DOMAIN","host":"gateway-{{ .Release.Namespace }}.{{ template \"common.gateway-domain\" . }}","http":"true","tlsacme":"false"},"keycloak":{"extraEnv":"\n# - name: PROPERTY_NAME\n#   value: \"propertyValue\"\n","host":"identity-{{ .Release.Namespace }}.{{ template \"common.gateway-domain\" . }}","realm":"activiti","resource":"activiti","url":""},"registryPullSecrets":[]}` | for common values see https://github.com/Activiti/activiti-cloud-common-chart/blob/master/charts/common/README.md |
+| global | object | `{"extraEnv":"\n# - name: PROPERTY_NAME\n#   value: \"propertyValue\"\n","gateway":{"annotations":null,"domain":"DOMAIN","host":"gateway-{{ .Release.Namespace }}.{{ template \"common.gateway-domain\" . }}","http":"true","tlsacme":"false"},"keycloak":{"host":"identity-{{ .Release.Namespace }}.{{ template \"common.gateway-domain\" . }}","realm":"activiti","resource":"activiti","url":""},"rabbitmq":{"host":"","password":"guest","username":"guest"},"registryPullSecrets":[]}` | for common values see https://github.com/Activiti/activiti-cloud-common-chart/blob/master/charts/common/README.md |
 | global.extraEnv | string | `"\n# - name: PROPERTY_NAME\n#   value: \"propertyValue\"\n"` | Use Yaml formatted string to add extra environment properties to all deployments, i.e. |
 | global.gateway.annotations | string | `nil` | Configure global annotations for all service ingresses |
 | global.gateway.domain | string | `"DOMAIN"` | Set to configure gateway domain template, i.e. {{ .Release.Namespace }}.1.3.4.5.nip.io $ helm upgrade aae . --install --set global.gateway.domain=1.2.3.4.nip.io |
 | global.gateway.host | string | `"gateway-{{ .Release.Namespace }}.{{ template \"common.gateway-domain\" . }}"` | Set to configure single host domain name for all services |
 | global.gateway.http | string | `"true"` | Set to false enables HTTPS configuration on all urls |
 | global.gateway.tlsacme | string | `"false"` | Set to enable automatic TLS for ingress if https is enabled |
-| global.keycloak.extraEnv | string | `"\n# - name: PROPERTY_NAME\n#   value: \"propertyValue\"\n"` | Use Yaml formatted string to add extra environment properties to keycloak deployment, i.e. |
 | global.keycloak.host | string | `"identity-{{ .Release.Namespace }}.{{ template \"common.gateway-domain\" . }}"` | Configure Keycloak host template |
 | global.keycloak.realm | string | `"activiti"` | Configure Keycloak realm |
 | global.keycloak.resource | string | `"activiti"` | Configure Keycloak resource |
@@ -308,9 +321,12 @@ Kubernetes: `>= 1.9.0 < 1.22.0`
 | runtime-bundle.ingress.annotations."nginx.ingress.kubernetes.io/cors-allow-header" | string | `"Authorization, Content-Type, Accept"` |  |
 | runtime-bundle.ingress.annotations."nginx.ingress.kubernetes.io/enable-cors" | string | `"true"` |  |
 | runtime-bundle.ingress.path | string | `"/rb"` |  |
-| runtime-bundle.postgres.enabled | bool | `true` |  |
-| runtime-bundle.postgres.name | string | `"postgresql"` |  |
+| runtime-bundle.javaOpts.xms | string | `"512m"` |  |
+| runtime-bundle.javaOpts.xmx | string | `"2048m"` |  |
+| runtime-bundle.nameOverride | string | `"runtime-bundle"` |  |
+| runtime-bundle.postgresql.enabled | bool | `true` |  |
 | runtime-bundle.probePath | string | `"{{ tpl .Values.ingress.path . }}/actuator/info"` |  |
+| runtime-bundle.rabbitmq.enabled | bool | `true` |  |
 | runtime-bundle.resources.limits.cpu | string | `"2"` |  |
 | runtime-bundle.resources.limits.memory | string | `"2048Mi"` |  |
 | runtime-bundle.resources.requests.cpu | string | `"200m"` |  |

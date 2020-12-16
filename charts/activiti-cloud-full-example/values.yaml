@@ -27,12 +27,6 @@ global:
     # global.keycloak.resource -- Configure Keycloak resource
     resource: "activiti"
 
-    # global.keycloak.extraEnv -- Use Yaml formatted string to add extra environment properties to keycloak deployment, i.e.
-    extraEnv: |
-
-      # - name: PROPERTY_NAME
-      #   value: "propertyValue"
-
   gateway:
     # global.gateway.host -- Set to configure single host domain name for all services
     host: 'gateway-{{ .Release.Namespace }}.{{ template "common.gateway-domain" . }}'
@@ -53,8 +47,14 @@ global:
     annotations:
 #      certmanager.k8s.io/issuer: letsencrypt-prod
 
+  rabbitmq:
+    host: ""
+    username: guest
+    password: guest
+
 activiti-cloud-identity:
   enabled: true
+  nameOverride: keycloak
   postgresql:
     persistence:
       enabled: true
@@ -69,45 +69,46 @@ activiti-cloud-identity:
       limits:
         cpu: "1"
         memory: 500Mi
-  keycloak:
-    image:
-      repository: alfresco/alfresco-identity-service
-      tag: 1.4.0-SNAPSHOT
-      pullPolicy: IfNotPresent
-    ingress:
-      enabled: true
-      path: /auth
-      hosts:
-        - '{{ template "common.keycloak-host" . }}'
-      annotations:
-        kubernetes.io/ingress.class: "nginx"
-        nginx.ingress.kubernetes.io/proxy-buffer-size: "16k"
-        nginx.ingress.kubernetes.io/affinity: "cookie"
-        nginx.ingress.kubernetes.io/session-cookie-name: "identity_affinity_route"
-        nginx.ingress.kubernetes.io/session-cookie-hash: "sha1"
-        nginx.ingress.kubernetes.io/enable-cors: "false" # disable NGINX CORS as it's managed by Identity Service
-    username: admin
-    password: admin
-    persistence:
-      deployPostgres: true
-      dbVendor: postgres
-      dbPassword: keycloak
-    extraVolumes: |
-      - name: realm-secret
-        secret:
-          secretName: realm-secret
-    extraVolumeMounts: |
-      - name: realm-secret
-        mountPath: "/realm/"
-        readOnly: true
-    extraEnv: |
-      - name: KEYCLOAK_IMPORT
-        value: /realm/realm.json
-    resources:
-      requests:
-        memory: "750Mi"
-      limits:
-        memory: "1024Mi"
+  image:
+    repository: alfresco/alfresco-identity-service
+    tag: 1.4.0-SNAPSHOT
+    pullPolicy: IfNotPresent
+  ingress:
+    enabled: true
+    path: /auth
+    hosts:
+      - '{{ template "common.keycloak-host" . }}'
+    annotations:
+      kubernetes.io/ingress.class: "nginx"
+      nginx.ingress.kubernetes.io/proxy-buffer-size: "16k"
+      nginx.ingress.kubernetes.io/affinity: "cookie"
+      nginx.ingress.kubernetes.io/session-cookie-name: "identity_affinity_route"
+      nginx.ingress.kubernetes.io/session-cookie-hash: "sha1"
+      nginx.ingress.kubernetes.io/enable-cors: "false" # disable NGINX CORS as it's managed by Identity Service
+  username: admin
+  password: admin
+  persistence:
+    deployPostgres: true
+    dbVendor: postgres
+    dbPassword: keycloak
+  extraVolumes: |
+    - name: realm-secret
+      secret:
+        secretName: realm-secret
+  extraVolumeMounts: |
+    - name: realm-secret
+      mountPath: "/realm/"
+      readOnly: true
+  extraEnv: |
+    - name: PROXY_ADDRESS_FORWARDING
+      value: "true"
+    - name: KEYCLOAK_IMPORT
+      value: /realm/realm.json
+  resources:
+    requests:
+      memory: "750Mi"
+    limits:
+      memory: "1024Mi"
   realm:
     extraClients:
     extraGroups:
@@ -333,6 +334,7 @@ activiti-cloud-identity:
 
 activiti-cloud-modeling:
   enabled: true
+  nameOverride: activiti-cloud-modeling
   service:
     name: modeling
   image:
@@ -345,9 +347,8 @@ activiti-cloud-modeling:
       kubernetes.io/ingress.class: nginx
       nginx.ingress.kubernetes.io/enable-cors: "true"
       nginx.ingress.kubernetes.io/cors-allow-header: Authorization, Content-Type, Accept
-  postgres:
+  postgresql:
     enabled: true
-    name: postgresql
   probePath: '{{ tpl .Values.ingress.path . }}/actuator/info'
   resources:
     requests:
@@ -405,8 +406,12 @@ rabbitmq:
 
 runtime-bundle:
   enabled: true
+  nameOverride: runtime-bundle
   service:
     name: rb
+  javaOpts:
+    xmx: 2048m
+    xms: 512m
   image:
     repository: activiti/example-runtime-bundle
     #tag: 0.0.0+REPLACEME
@@ -417,9 +422,10 @@ runtime-bundle:
       kubernetes.io/ingress.class: nginx
       nginx.ingress.kubernetes.io/enable-cors: "true"
       nginx.ingress.kubernetes.io/cors-allow-header: Authorization, Content-Type, Accept
-  postgres:
+  postgresql:
     enabled: true
-    name: postgresql
+  rabbitmq:
+    enabled: true
   resources:
     limits:
       cpu: "2"
@@ -438,20 +444,31 @@ runtime-bundle:
 
 activiti-cloud-query:
   enabled: true
+  nameOverride: activiti-cloud-query
   service:
     name: query
+  javaOpts:
+    xmx: 2048m
+    xms: 512m
   image:
     repository: activiti/activiti-cloud-query
     #tag: 0.0.0+REPLACEME
     pullPolicy: Always
   ingress:
+    path:
+    subPaths:
+      - /query/?(.*)
+      - /audit/?(.*)
+      - /notifications/?(.*)
     annotations:
       kubernetes.io/ingress.class: nginx
       nginx.ingress.kubernetes.io/enable-cors: "true"
       nginx.ingress.kubernetes.io/cors-allow-header: Authorization, Content-Type, Accept
-  postgres:
+      nginx.ingress.kubernetes.io/rewrite-target: /$1
+  postgresql:
     enabled: true
-    name: postgresql
+  rabbitmq:
+    enabled: true
   resources:
     limits:
       cpu: "1.5"
@@ -459,7 +476,13 @@ activiti-cloud-query:
     requests:
       cpu: 200m
       memory: 512Mi
-#  extraEnv: |
+  probePath: '/actuator/info'
+  extraEnv: |-
+    - name: GRAPHIQL_GRAPHQL_WEB_PATH
+      value: /notifications/graphql
+    - name: GRAPHIQL_GRAPHQL_WS_PATH
+      value: /notifications/ws/graphql
+
 #    - name: SERVER_SERVLET_CONTEXTPATH
 #      value: "{{ tpl .Values.ingress.path . }}"
 #    - name: SERVER_USEFORWARDHEADERS
@@ -469,26 +492,15 @@ activiti-cloud-query:
 
 activiti-cloud-connector:
   enabled: true
+  nameOverride: activiti-cloud-connector
   service:
     name: example-cloud-connector
   image:
     repository: activiti/example-cloud-connector
     #tag: 0.0.0+REPLACEME
     pullPolicy: Always
-  ingress:
-    path: /example-cloud-connector
-    annotations:
-      kubernetes.io/ingress.class: nginx
-      nginx.ingress.kubernetes.io/enable-cors: "true"
-      nginx.ingress.kubernetes.io/cors-allow-header: Authorization, Content-Type, Accept
-  probePath:  '{{ tpl .Values.ingress.path . }}/actuator/info'
-  resources:
-    limits:
-      cpu: "1"
-      memory: 1024Mi
-    requests:
-      cpu: 150m
-      memory: 256Mi
+  rabbitmq:
+    enabled: true
   extraEnv: |
     - name: SERVER_SERVLET_CONTEXTPATH
       value: "{{ tpl .Values.ingress.path . }}"
@@ -496,3 +508,18 @@ activiti-cloud-connector:
       value: "true"
     - name: SERVER_TOMCAT_INTERNALPROXIES
       value: ".*"
+  ingress:
+    enabled: false
+    path: /example-cloud-connector
+    annotations:
+      kubernetes.io/ingress.class: nginx
+      nginx.ingress.kubernetes.io/enable-cors: "true"
+      nginx.ingress.kubernetes.io/cors-allow-header: Authorization, Content-Type, Accept
+  resources:
+    limits:
+      cpu: "1"
+      memory: 1024Mi
+    requests:
+      cpu: 150m
+      memory: 256Mi
+  probePath:  '{{ tpl .Values.ingress.path . }}/actuator/info'
