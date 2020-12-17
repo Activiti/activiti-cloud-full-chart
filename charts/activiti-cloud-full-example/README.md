@@ -14,12 +14,11 @@ Kubernetes: `>= 1.9.0 < 1.22.0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| file://../activiti-cloud-service | activiti-cloud-service | 0.0.0+REPLACEME |
-| file://../activiti-cloud-service | activiti-cloud-service | 0.0.0+REPLACEME |
-| file://../activiti-cloud-service | activiti-cloud-service | 0.0.0+REPLACEME |
-| file://../activiti-cloud-service | activiti-cloud-service | 0.0.0+REPLACEME |
-| file://../alfresco-adf-app | alfresco-adf-app | 0.0.0+REPLACEME |
-| file://../common | common | 0.0.0+REPLACEME |
+|  | activiti-cloud-service | 0.0.0+REPLACEME |
+|  | activiti-cloud-service | 0.0.0+REPLACEME |
+|  | activiti-cloud-service | 0.0.0+REPLACEME |
+|  | activiti-cloud-service | 0.0.0+REPLACEME |
+|  | alfresco-adf-app | 0.0.0+REPLACEME |
 | https://charts.bitnami.com/bitnami | postgresql | 9.1.1 |
 | https://charts.bitnami.com/bitnami | rabbitmq | 7.8.0 |
 | https://codecentric.github.io/helm-charts | keycloak | 9.8.1 |
@@ -29,7 +28,7 @@ Kubernetes: `>= 1.9.0 < 1.22.0`
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | activiti-cloud-connector.enabled | bool | `true` |  |
-| activiti-cloud-connector.extraEnv | string | `"- name: SERVER_SERVLET_CONTEXTPATH\n  value: \"{{ tpl .Values.ingress.path . }}\"\n- name: SERVER_USEFORWARDHEADERS\n  value: \"true\"\n- name: SERVER_TOMCAT_INTERNALPROXIES\n  value: \".*\"\n"` |  |
+| activiti-cloud-connector.extraEnv | string | `"- name: SERVER_SERVLET_CONTEXTPATH\n  value: \"{{ tpl .Values.ingress.path . }}\"\n- name: SERVER_USEFORWARDHEADERS\n  value: \"true\"\n- name: SERVER_TOMCAT_INTERNALPROXIES\n  value: \".*\""` |  |
 | activiti-cloud-connector.image.pullPolicy | string | `"Always"` |  |
 | activiti-cloud-connector.image.repository | string | `"activiti/example-cloud-connector"` |  |
 | activiti-cloud-connector.ingress.annotations."kubernetes.io/ingress.class" | string | `"nginx"` |  |
@@ -46,7 +45,7 @@ Kubernetes: `>= 1.9.0 < 1.22.0`
 | activiti-cloud-connector.resources.requests.memory | string | `"256Mi"` |  |
 | activiti-cloud-connector.service.name | string | `"example-cloud-connector"` |  |
 | activiti-cloud-identity.enabled | bool | `true` |  |
-| activiti-cloud-identity.extraEnv | string | `"- name: PROXY_ADDRESS_FORWARDING\n  value: \"true\"\n- name: KEYCLOAK_IMPORT\n  value: /realm/realm.json\n"` |  |
+| activiti-cloud-identity.extraEnv | string | `"- name: PROXY_ADDRESS_FORWARDING\n  value: \"true\"\n- name: KEYCLOAK_IMPORT\n  value: /realm/realm.json"` |  |
 | activiti-cloud-identity.extraVolumeMounts | string | `"- name: realm-secret\n  mountPath: \"/realm/\"\n  readOnly: true\n"` |  |
 | activiti-cloud-identity.extraVolumes | string | `"- name: realm-secret\n  secret:\n    secretName: realm-secret\n"` |  |
 | activiti-cloud-identity.image.pullPolicy | string | `"IfNotPresent"` |  |
@@ -74,6 +73,7 @@ Kubernetes: `>= 1.9.0 < 1.22.0`
 | activiti-cloud-identity.postgresql.resources.limits.memory | string | `"500Mi"` |  |
 | activiti-cloud-identity.postgresql.resources.requests.cpu | string | `"300m"` |  |
 | activiti-cloud-identity.postgresql.resources.requests.memory | string | `"250Mi"` |  |
+| activiti-cloud-identity.rbac.create | bool | `false` |  |
 | activiti-cloud-identity.realm.extraClientRoles | string | `nil` |  |
 | activiti-cloud-identity.realm.extraClients | string | `nil` |  |
 | activiti-cloud-identity.realm.extraGroups[0].name | string | `"hr"` |  |
@@ -241,9 +241,10 @@ Kubernetes: `>= 1.9.0 < 1.22.0`
 | activiti-cloud-identity.realm.extraUsers[9].username | string | `"modeler-qa"` |  |
 | activiti-cloud-identity.resources.limits.memory | string | `"1024Mi"` |  |
 | activiti-cloud-identity.resources.requests.memory | string | `"750Mi"` |  |
+| activiti-cloud-identity.serviceAccount.create | bool | `false` |  |
 | activiti-cloud-identity.username | string | `"admin"` |  |
 | activiti-cloud-modeling.enabled | bool | `true` |  |
-| activiti-cloud-modeling.extraEnv | string | `"- name: SERVER_SERVLET_CONTEXTPATH\n  value: \"{{ tpl .Values.ingress.path . }}\"\n- name: SERVER_USEFORWARDHEADERS\n  value: \"true\"\n- name: SERVER_TOMCAT_INTERNALPROXIES\n  value: \".*\"\n"` |  |
+| activiti-cloud-modeling.extraEnv | string | `"- name: SERVER_SERVLET_CONTEXTPATH\n  value: \"{{ tpl .Values.ingress.path . }}\"\n- name: SERVER_USEFORWARDHEADERS\n  value: \"true\"\n- name: SERVER_TOMCAT_INTERNALPROXIES\n  value: \".*\""` |  |
 | activiti-cloud-modeling.image.pullPolicy | string | `"Always"` |  |
 | activiti-cloud-modeling.image.repository | string | `"activiti/activiti-cloud-modeling"` |  |
 | activiti-cloud-modeling.ingress.annotations."kubernetes.io/ingress.class" | string | `"nginx"` |  |
@@ -287,8 +288,8 @@ Kubernetes: `>= 1.9.0 < 1.22.0`
 | activiti-modeling-app.image.repository | string | `"activiti/activiti-modeling-app"` |  |
 | activiti-modeling-app.ingress.path | string | `"/modeling"` |  |
 | activiti-modeling-app.nameOverride | string | `"activiti-modeling-app"` |  |
-| global | object | `{"extraEnv":"\n# - name: PROPERTY_NAME\n#   value: \"propertyValue\"\n","gateway":{"annotations":null,"domain":"DOMAIN","host":"gateway-{{ .Release.Namespace }}.{{ template \"common.gateway-domain\" . }}","http":"true","tlsacme":"false"},"keycloak":{"host":"identity-{{ .Release.Namespace }}.{{ template \"common.gateway-domain\" . }}","realm":"activiti","resource":"activiti","url":""},"rabbitmq":{"host":"","password":"guest","username":"guest"},"registryPullSecrets":[]}` | for common values see https://github.com/Activiti/activiti-cloud-common-chart/blob/master/charts/common/README.md |
-| global.extraEnv | string | `"\n# - name: PROPERTY_NAME\n#   value: \"propertyValue\"\n"` | Use Yaml formatted string to add extra environment properties to all deployments, i.e. |
+| global | object | `{"extraEnv":"","gateway":{"annotations":null,"domain":"DOMAIN","host":"gateway-{{ .Release.Namespace }}.{{ template \"common.gateway-domain\" . }}","http":"true","tlsacme":"false"},"keycloak":{"host":"identity-{{ .Release.Namespace }}.{{ template \"common.gateway-domain\" . }}","realm":"activiti","resource":"activiti","url":""},"rabbitmq":{"host":"","password":"guest","username":"guest"},"registryPullSecrets":[]}` | for common values see https://github.com/Activiti/activiti-cloud-common-chart/blob/master/charts/common/README.md |
+| global.extraEnv | string | `""` | Use Yaml formatted string to add extra environment properties to all deployments, i.e. |
 | global.gateway.annotations | string | `nil` | Configure global annotations for all service ingresses |
 | global.gateway.domain | string | `"DOMAIN"` | Set to configure gateway domain template, i.e. {{ .Release.Namespace }}.1.3.4.5.nip.io $ helm upgrade aae . --install --set global.gateway.domain=1.2.3.4.nip.io |
 | global.gateway.host | string | `"gateway-{{ .Release.Namespace }}.{{ template \"common.gateway-domain\" . }}"` | Set to configure single host domain name for all services |
@@ -310,11 +311,13 @@ Kubernetes: `>= 1.9.0 < 1.22.0`
 | rabbitmq.enabled | bool | `true` |  |
 | rabbitmq.extraPlugins | string | `""` |  |
 | rabbitmq.livenessProbe.timeoutSeconds | int | `90` |  |
+| rabbitmq.rbac.create | bool | `false` |  |
 | rabbitmq.readinessProbe.timeoutSeconds | int | `90` |  |
 | rabbitmq.resources.limits.memory | string | `"1500Mi"` |  |
 | rabbitmq.resources.requests.memory | string | `"1500Mi"` |  |
+| rabbitmq.serviceAccount.create | bool | `false` |  |
 | runtime-bundle.enabled | bool | `true` |  |
-| runtime-bundle.extraEnv | string | `"- name: SERVER_SERVLET_CONTEXTPATH\n  value: \"{{ tpl .Values.ingress.path . }}\"\n- name: SERVER_USEFORWARDHEADERS\n  value: \"true\"\n- name: SERVER_TOMCAT_INTERNALPROXIES\n  value: \".*\"\n"` |  |
+| runtime-bundle.extraEnv | string | `"- name: SERVER_SERVLET_CONTEXTPATH\n  value: \"{{ tpl .Values.ingress.path . }}\"\n- name: SERVER_USEFORWARDHEADERS\n  value: \"true\"\n- name: SERVER_TOMCAT_INTERNALPROXIES\n  value: \".*\""` |  |
 | runtime-bundle.image.pullPolicy | string | `"Always"` |  |
 | runtime-bundle.image.repository | string | `"activiti/example-runtime-bundle"` |  |
 | runtime-bundle.ingress.annotations."kubernetes.io/ingress.class" | string | `"nginx"` |  |

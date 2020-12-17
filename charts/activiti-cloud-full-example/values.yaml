@@ -8,8 +8,9 @@ global:
   registryPullSecrets: []
 
   # global.extraEnv -- Use Yaml formatted string to add extra environment properties to all deployments, i.e.
-  extraEnv: |
+  extraEnv: ""
 
+#  extraEnv: |-
     # - name: PROPERTY_NAME
     #   value: "propertyValue"
 
@@ -55,6 +56,10 @@ global:
 activiti-cloud-identity:
   enabled: true
   nameOverride: keycloak
+  rbac:
+    create: false
+  serviceAccount:
+    create: false
   postgresql:
     persistence:
       enabled: true
@@ -99,7 +104,7 @@ activiti-cloud-identity:
     - name: realm-secret
       mountPath: "/realm/"
       readOnly: true
-  extraEnv: |
+  extraEnv: |-
     - name: PROXY_ADDRESS_FORWARDING
       value: "true"
     - name: KEYCLOAK_IMPORT
@@ -357,7 +362,7 @@ activiti-cloud-modeling:
     limits:
       cpu: "1"
       memory: 1024Mi
-  extraEnv: |
+  extraEnv: |-
     - name: SERVER_SERVLET_CONTEXTPATH
       value: "{{ tpl .Values.ingress.path . }}"
     - name: SERVER_USEFORWARDHEADERS
@@ -389,6 +394,10 @@ postgresql:
 
 rabbitmq:
   enabled: true
+  rbac:
+    create: false
+  serviceAccount:
+    create: false
   extraPlugins: ""
   auth:
     username: guest
@@ -434,7 +443,7 @@ runtime-bundle:
       cpu: 200m
       memory: 512Mi
   probePath:  '{{ tpl .Values.ingress.path . }}/actuator/info'
-  extraEnv: |
+  extraEnv: |-
     - name: SERVER_SERVLET_CONTEXTPATH
       value: "{{ tpl .Values.ingress.path . }}"
     - name: SERVER_USEFORWARDHEADERS
@@ -501,7 +510,7 @@ activiti-cloud-connector:
     pullPolicy: Always
   rabbitmq:
     enabled: true
-  extraEnv: |
+  extraEnv: |-
     - name: SERVER_SERVLET_CONTEXTPATH
       value: "{{ tpl .Values.ingress.path . }}"
     - name: SERVER_USEFORWARDHEADERS
