@@ -14,11 +14,11 @@ Kubernetes: `>= 1.9.0 < 1.22.0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-|  | activiti-cloud-service | 0.0.0+REPLACEME |
-|  | activiti-cloud-service | 0.0.0+REPLACEME |
-|  | activiti-cloud-service | 0.0.0+REPLACEME |
-|  | activiti-cloud-service | 0.0.0+REPLACEME |
-|  | alfresco-adf-app | 0.0.0+REPLACEME |
+|  | common | 0.0.0+REPLACEME |
+| https://activiti.github.io/activiti-cloud-helm-charts | alfresco-adf-app | 0.0.0+REPLACEME |
+| https://activiti.github.io/activiti-cloud-helm-charts | common | 0.0.0+REPLACEME |
+| https://activiti.github.io/activiti-cloud-helm-charts | common | 0.0.0+REPLACEME |
+| https://activiti.github.io/activiti-cloud-helm-charts | common | 0.0.0+REPLACEME |
 | https://charts.bitnami.com/bitnami | postgresql | 9.1.1 |
 | https://charts.bitnami.com/bitnami | rabbitmq | 7.8.0 |
 | https://codecentric.github.io/helm-charts | keycloak | 9.8.1 |
@@ -32,7 +32,7 @@ Kubernetes: `>= 1.9.0 < 1.22.0`
 | activiti-cloud-connector.image.pullPolicy | string | `"Always"` |  |
 | activiti-cloud-connector.image.repository | string | `"activiti/example-cloud-connector"` |  |
 | activiti-cloud-connector.ingress.annotations."kubernetes.io/ingress.class" | string | `"nginx"` |  |
-| activiti-cloud-connector.ingress.annotations."nginx.ingress.kubernetes.io/cors-allow-header" | string | `"Authorization, Content-Type, Accept"` |  |
+| activiti-cloud-connector.ingress.annotations."nginx.ingress.kubernetes.io/cors-allow-headers" | string | `"Authorization, Content-Type, Accept"` |  |
 | activiti-cloud-connector.ingress.annotations."nginx.ingress.kubernetes.io/enable-cors" | string | `"true"` |  |
 | activiti-cloud-connector.ingress.enabled | bool | `false` |  |
 | activiti-cloud-connector.ingress.path | string | `"/example-cloud-connector"` |  |
@@ -248,7 +248,7 @@ Kubernetes: `>= 1.9.0 < 1.22.0`
 | activiti-cloud-modeling.image.pullPolicy | string | `"Always"` |  |
 | activiti-cloud-modeling.image.repository | string | `"activiti/activiti-cloud-modeling"` |  |
 | activiti-cloud-modeling.ingress.annotations."kubernetes.io/ingress.class" | string | `"nginx"` |  |
-| activiti-cloud-modeling.ingress.annotations."nginx.ingress.kubernetes.io/cors-allow-header" | string | `"Authorization, Content-Type, Accept"` |  |
+| activiti-cloud-modeling.ingress.annotations."nginx.ingress.kubernetes.io/cors-allow-headers" | string | `"Authorization, Content-Type, Accept"` |  |
 | activiti-cloud-modeling.ingress.annotations."nginx.ingress.kubernetes.io/enable-cors" | string | `"true"` |  |
 | activiti-cloud-modeling.ingress.path | string | `"/modeling-service"` |  |
 | activiti-cloud-modeling.nameOverride | string | `"activiti-cloud-modeling"` |  |
@@ -264,10 +264,9 @@ Kubernetes: `>= 1.9.0 < 1.22.0`
 | activiti-cloud-query.image.pullPolicy | string | `"Always"` |  |
 | activiti-cloud-query.image.repository | string | `"activiti/activiti-cloud-query"` |  |
 | activiti-cloud-query.ingress.annotations."kubernetes.io/ingress.class" | string | `"nginx"` |  |
-| activiti-cloud-query.ingress.annotations."nginx.ingress.kubernetes.io/cors-allow-header" | string | `"Authorization, Content-Type, Accept"` |  |
+| activiti-cloud-query.ingress.annotations."nginx.ingress.kubernetes.io/cors-allow-headers" | string | `"Authorization, Content-Type, Accept"` |  |
 | activiti-cloud-query.ingress.annotations."nginx.ingress.kubernetes.io/enable-cors" | string | `"true"` |  |
 | activiti-cloud-query.ingress.annotations."nginx.ingress.kubernetes.io/rewrite-target" | string | `"/$1"` |  |
-| activiti-cloud-query.ingress.path | string | `nil` |  |
 | activiti-cloud-query.ingress.subPaths[0] | string | `"/query/?(.*)"` |  |
 | activiti-cloud-query.ingress.subPaths[1] | string | `"/audit/?(.*)"` |  |
 | activiti-cloud-query.ingress.subPaths[2] | string | `"/notifications/?(.*)"` |  |
@@ -286,6 +285,9 @@ Kubernetes: `>= 1.9.0 < 1.22.0`
 | activiti-modeling-app.env.APP_CONFIG_BPM_HOST | string | `"{{ include \"common.gateway-url\" . }}"` |  |
 | activiti-modeling-app.image.pullPolicy | string | `"Always"` |  |
 | activiti-modeling-app.image.repository | string | `"activiti/activiti-modeling-app"` |  |
+| activiti-modeling-app.ingress.annotations."kubernetes.io/ingress.class" | string | `"nginx"` |  |
+| activiti-modeling-app.ingress.annotations."nginx.ingress.kubernetes.io/cors-allow-headers" | string | `"Authorization, Content-Type, Accept"` |  |
+| activiti-modeling-app.ingress.annotations."nginx.ingress.kubernetes.io/enable-cors" | string | `"true"` |  |
 | activiti-modeling-app.ingress.path | string | `"/modeling"` |  |
 | activiti-modeling-app.nameOverride | string | `"activiti-modeling-app"` |  |
 | global | object | `{"extraEnv":"","gateway":{"annotations":null,"domain":"DOMAIN","host":"gateway-{{ .Release.Namespace }}.{{ template \"common.gateway-domain\" . }}","http":"true","tlsacme":"false"},"keycloak":{"host":"identity-{{ .Release.Namespace }}.{{ template \"common.gateway-domain\" . }}","realm":"activiti","resource":"activiti","url":""},"rabbitmq":{"host":"","password":"guest","username":"guest"},"registryPullSecrets":[]}` | for common values see https://github.com/Activiti/activiti-cloud-common-chart/blob/master/charts/common/README.md |
@@ -321,7 +323,7 @@ Kubernetes: `>= 1.9.0 < 1.22.0`
 | runtime-bundle.image.pullPolicy | string | `"Always"` |  |
 | runtime-bundle.image.repository | string | `"activiti/example-runtime-bundle"` |  |
 | runtime-bundle.ingress.annotations."kubernetes.io/ingress.class" | string | `"nginx"` |  |
-| runtime-bundle.ingress.annotations."nginx.ingress.kubernetes.io/cors-allow-header" | string | `"Authorization, Content-Type, Accept"` |  |
+| runtime-bundle.ingress.annotations."nginx.ingress.kubernetes.io/cors-allow-headers" | string | `"Authorization, Content-Type, Accept"` |  |
 | runtime-bundle.ingress.annotations."nginx.ingress.kubernetes.io/enable-cors" | string | `"true"` |  |
 | runtime-bundle.ingress.path | string | `"/rb"` |  |
 | runtime-bundle.javaOpts.xms | string | `"512m"` |  |
