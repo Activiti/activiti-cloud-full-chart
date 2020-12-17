@@ -1,4 +1,3 @@
 {{- template "common.deployment" (list . "activiti.cloud.deployment") -}}
 {{- define "activiti.cloud.deployment" -}}
-
 {{- end -}}
