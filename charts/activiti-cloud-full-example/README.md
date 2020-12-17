@@ -14,14 +14,14 @@ Kubernetes: `>= 1.9.0 < 1.22.0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-|  | common | 0.0.0+REPLACEME |
+| https://activiti.github.io/activiti-cloud-helm-charts | common | 0.0.0+REPLACEME |
 | https://activiti.github.io/activiti-cloud-helm-charts | common | 0.0.0+REPLACEME |
 | https://activiti.github.io/activiti-cloud-helm-charts | common | 0.0.0+REPLACEME |
 | https://activiti.github.io/activiti-cloud-helm-charts | common | 0.0.0+REPLACEME |
 | https://activiti.github.io/activiti-cloud-helm-charts | common | 0.0.0+REPLACEME |
 | https://charts.bitnami.com/bitnami | postgresql | 9.1.1 |
 | https://charts.bitnami.com/bitnami | rabbitmq | 7.8.0 |
-| https://codecentric.github.io/helm-charts | keycloak | 9.8.1 |
+| https://codecentric.github.io/helm-charts | keycloak | 9.8.0 |
 
 ## Values
 
@@ -31,6 +31,7 @@ Kubernetes: `>= 1.9.0 < 1.22.0`
 | activiti-cloud-connector.extraEnv | string | `"- name: SERVER_SERVLET_CONTEXTPATH\n  value: \"{{ tpl .Values.ingress.path . }}\"\n- name: SERVER_USEFORWARDHEADERS\n  value: \"true\"\n- name: SERVER_TOMCAT_INTERNALPROXIES\n  value: \".*\""` |  |
 | activiti-cloud-connector.image.pullPolicy | string | `"Always"` |  |
 | activiti-cloud-connector.image.repository | string | `"activiti/example-cloud-connector"` |  |
+| activiti-cloud-connector.image.tag | string | `"latest"` |  |
 | activiti-cloud-connector.ingress.annotations."kubernetes.io/ingress.class" | string | `"nginx"` |  |
 | activiti-cloud-connector.ingress.annotations."nginx.ingress.kubernetes.io/cors-allow-headers" | string | `"Authorization, Content-Type, Accept"` |  |
 | activiti-cloud-connector.ingress.annotations."nginx.ingress.kubernetes.io/enable-cors" | string | `"true"` |  |
@@ -45,7 +46,7 @@ Kubernetes: `>= 1.9.0 < 1.22.0`
 | activiti-cloud-connector.resources.requests.memory | string | `"256Mi"` |  |
 | activiti-cloud-connector.service.name | string | `"example-cloud-connector"` |  |
 | activiti-cloud-identity.enabled | bool | `true` |  |
-| activiti-cloud-identity.extraEnv | string | `"- name: PROXY_ADDRESS_FORWARDING\n  value: \"true\"\n- name: KEYCLOAK_IMPORT\n  value: /realm/realm.json"` |  |
+| activiti-cloud-identity.extraEnv | string | `"- name: KEYCLOAK_USER\n  value: {{ .Values.username }}\n- name: KEYCLOAK_PASSWORD\n  value: {{ .Values.password }}\n- name: PROXY_ADDRESS_FORWARDING\n  value: \"true\"\n- name: KEYCLOAK_IMPORT\n  value: /realm/realm.json"` |  |
 | activiti-cloud-identity.extraVolumeMounts | string | `"- name: realm-secret\n  mountPath: \"/realm/\"\n  readOnly: true\n"` |  |
 | activiti-cloud-identity.extraVolumes | string | `"- name: realm-secret\n  secret:\n    secretName: realm-secret\n"` |  |
 | activiti-cloud-identity.image.pullPolicy | string | `"IfNotPresent"` |  |
@@ -54,12 +55,13 @@ Kubernetes: `>= 1.9.0 < 1.22.0`
 | activiti-cloud-identity.ingress.annotations."kubernetes.io/ingress.class" | string | `"nginx"` |  |
 | activiti-cloud-identity.ingress.annotations."nginx.ingress.kubernetes.io/affinity" | string | `"cookie"` |  |
 | activiti-cloud-identity.ingress.annotations."nginx.ingress.kubernetes.io/enable-cors" | string | `"false"` |  |
-| activiti-cloud-identity.ingress.annotations."nginx.ingress.kubernetes.io/proxy-buffer-size" | string | `"16k"` |  |
+| activiti-cloud-identity.ingress.annotations."nginx.ingress.kubernetes.io/proxy-buffer-size" | string | `"128k"` |  |
 | activiti-cloud-identity.ingress.annotations."nginx.ingress.kubernetes.io/session-cookie-hash" | string | `"sha1"` |  |
 | activiti-cloud-identity.ingress.annotations."nginx.ingress.kubernetes.io/session-cookie-name" | string | `"identity_affinity_route"` |  |
 | activiti-cloud-identity.ingress.enabled | bool | `true` |  |
-| activiti-cloud-identity.ingress.hosts[0] | string | `"{{ template \"common.keycloak-host\" . }}"` |  |
-| activiti-cloud-identity.ingress.path | string | `"/auth"` |  |
+| activiti-cloud-identity.ingress.rules[0].host | string | `"{{ include \"common.keycloak-host\" . }}"` |  |
+| activiti-cloud-identity.ingress.rules[0].paths[0] | string | `"/auth"` |  |
+| activiti-cloud-identity.ingress.tls | list | `[]` |  |
 | activiti-cloud-identity.nameOverride | string | `"keycloak"` |  |
 | activiti-cloud-identity.password | string | `"admin"` |  |
 | activiti-cloud-identity.persistence.dbPassword | string | `"keycloak"` |  |
@@ -247,6 +249,7 @@ Kubernetes: `>= 1.9.0 < 1.22.0`
 | activiti-cloud-modeling.extraEnv | string | `"- name: SERVER_SERVLET_CONTEXTPATH\n  value: \"{{ tpl .Values.ingress.path . }}\"\n- name: SERVER_USEFORWARDHEADERS\n  value: \"true\"\n- name: SERVER_TOMCAT_INTERNALPROXIES\n  value: \".*\""` |  |
 | activiti-cloud-modeling.image.pullPolicy | string | `"Always"` |  |
 | activiti-cloud-modeling.image.repository | string | `"activiti/activiti-cloud-modeling"` |  |
+| activiti-cloud-modeling.image.tag | string | `"latest"` |  |
 | activiti-cloud-modeling.ingress.annotations."kubernetes.io/ingress.class" | string | `"nginx"` |  |
 | activiti-cloud-modeling.ingress.annotations."nginx.ingress.kubernetes.io/cors-allow-headers" | string | `"Authorization, Content-Type, Accept"` |  |
 | activiti-cloud-modeling.ingress.annotations."nginx.ingress.kubernetes.io/enable-cors" | string | `"true"` |  |
@@ -263,6 +266,7 @@ Kubernetes: `>= 1.9.0 < 1.22.0`
 | activiti-cloud-query.extraEnv | string | `"- name: GRAPHIQL_GRAPHQL_WEB_PATH\n  value: /notifications/graphql\n- name: GRAPHIQL_GRAPHQL_WS_PATH\n  value: /notifications/ws/graphql"` |  |
 | activiti-cloud-query.image.pullPolicy | string | `"Always"` |  |
 | activiti-cloud-query.image.repository | string | `"activiti/activiti-cloud-query"` |  |
+| activiti-cloud-query.image.tag | string | `"latest"` |  |
 | activiti-cloud-query.ingress.annotations."kubernetes.io/ingress.class" | string | `"nginx"` |  |
 | activiti-cloud-query.ingress.annotations."nginx.ingress.kubernetes.io/cors-allow-headers" | string | `"Authorization, Content-Type, Accept"` |  |
 | activiti-cloud-query.ingress.annotations."nginx.ingress.kubernetes.io/enable-cors" | string | `"true"` |  |
@@ -329,6 +333,7 @@ Kubernetes: `>= 1.9.0 < 1.22.0`
 | runtime-bundle.extraEnv | string | `"- name: SERVER_SERVLET_CONTEXTPATH\n  value: \"{{ tpl .Values.ingress.path . }}\"\n- name: SERVER_USEFORWARDHEADERS\n  value: \"true\"\n- name: SERVER_TOMCAT_INTERNALPROXIES\n  value: \".*\""` |  |
 | runtime-bundle.image.pullPolicy | string | `"Always"` |  |
 | runtime-bundle.image.repository | string | `"activiti/example-runtime-bundle"` |  |
+| runtime-bundle.image.tag | string | `"latest"` |  |
 | runtime-bundle.ingress.annotations."kubernetes.io/ingress.class" | string | `"nginx"` |  |
 | runtime-bundle.ingress.annotations."nginx.ingress.kubernetes.io/cors-allow-headers" | string | `"Authorization, Content-Type, Accept"` |  |
 | runtime-bundle.ingress.annotations."nginx.ingress.kubernetes.io/enable-cors" | string | `"true"` |  |
