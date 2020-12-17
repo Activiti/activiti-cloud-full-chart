@@ -351,7 +351,7 @@ activiti-cloud-modeling:
     annotations:
       kubernetes.io/ingress.class: nginx
       nginx.ingress.kubernetes.io/enable-cors: "true"
-      nginx.ingress.kubernetes.io/cors-allow-header: Authorization, Content-Type, Accept
+      nginx.ingress.kubernetes.io/cors-allow-headers: Authorization, Content-Type, Accept
   postgresql:
     enabled: true
   probePath: '{{ tpl .Values.ingress.path . }}/actuator/info'
@@ -379,6 +379,10 @@ activiti-modeling-app:
     pullPolicy: Always
   ingress:
     path: /modeling
+    annotations:
+      kubernetes.io/ingress.class: nginx
+      nginx.ingress.kubernetes.io/enable-cors: "true"
+      nginx.ingress.kubernetes.io/cors-allow-headers: Authorization, Content-Type, Accept
   env:
     APP_CONFIG_BPM_HOST: '{{ include "common.gateway-url" . }}'
 
@@ -430,7 +434,7 @@ runtime-bundle:
     annotations:
       kubernetes.io/ingress.class: nginx
       nginx.ingress.kubernetes.io/enable-cors: "true"
-      nginx.ingress.kubernetes.io/cors-allow-header: Authorization, Content-Type, Accept
+      nginx.ingress.kubernetes.io/cors-allow-headers: Authorization, Content-Type, Accept
   postgresql:
     enabled: true
   rabbitmq:
@@ -464,7 +468,6 @@ activiti-cloud-query:
     #tag: 0.0.0+REPLACEME
     pullPolicy: Always
   ingress:
-    path:
     subPaths:
       - /query/?(.*)
       - /audit/?(.*)
@@ -472,7 +475,7 @@ activiti-cloud-query:
     annotations:
       kubernetes.io/ingress.class: nginx
       nginx.ingress.kubernetes.io/enable-cors: "true"
-      nginx.ingress.kubernetes.io/cors-allow-header: Authorization, Content-Type, Accept
+      nginx.ingress.kubernetes.io/cors-allow-headers: Authorization, Content-Type, Accept
       nginx.ingress.kubernetes.io/rewrite-target: /$1
   postgresql:
     enabled: true
@@ -523,7 +526,7 @@ activiti-cloud-connector:
     annotations:
       kubernetes.io/ingress.class: nginx
       nginx.ingress.kubernetes.io/enable-cors: "true"
-      nginx.ingress.kubernetes.io/cors-allow-header: Authorization, Content-Type, Accept
+      nginx.ingress.kubernetes.io/cors-allow-headers: Authorization, Content-Type, Accept
   resources:
     limits:
       cpu: "1"
