@@ -377,14 +377,25 @@ activiti-modeling-app:
     repository: activiti/activiti-modeling-app
 #    tag: 0.0.0+REPLACEME
     pullPolicy: Always
+  service:
+    name: modeling-app
+    envType: app
+  env:
+    APP_CONFIG_AUTH_TYPE: OAUTH
+    APP_CONFIG_BPM_HOST: '{{ include "common.gateway-url" . }}'
   ingress:
     path: /modeling
     annotations:
       kubernetes.io/ingress.class: nginx
       nginx.ingress.kubernetes.io/enable-cors: "true"
       nginx.ingress.kubernetes.io/cors-allow-headers: Authorization, Content-Type, Accept
-  env:
-    APP_CONFIG_BPM_HOST: '{{ include "common.gateway-url" . }}'
+  resources:
+    limits:
+      cpu: 500m
+      memory: 1024Mi
+    requests:
+      cpu: 200m
+      memory: 256Mi
 
 postgresql:
   enabled: true

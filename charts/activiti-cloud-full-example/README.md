@@ -15,7 +15,7 @@ Kubernetes: `>= 1.9.0 < 1.22.0`
 | Repository | Name | Version |
 |------------|------|---------|
 |  | common | 0.0.0+REPLACEME |
-| https://activiti.github.io/activiti-cloud-helm-charts | alfresco-adf-app | 0.0.0+REPLACEME |
+| https://activiti.github.io/activiti-cloud-helm-charts | common | 0.0.0+REPLACEME |
 | https://activiti.github.io/activiti-cloud-helm-charts | common | 0.0.0+REPLACEME |
 | https://activiti.github.io/activiti-cloud-helm-charts | common | 0.0.0+REPLACEME |
 | https://activiti.github.io/activiti-cloud-helm-charts | common | 0.0.0+REPLACEME |
@@ -282,6 +282,7 @@ Kubernetes: `>= 1.9.0 < 1.22.0`
 | activiti-cloud-query.resources.requests.memory | string | `"512Mi"` |  |
 | activiti-cloud-query.service.name | string | `"query"` |  |
 | activiti-modeling-app.enabled | bool | `true` |  |
+| activiti-modeling-app.env.APP_CONFIG_AUTH_TYPE | string | `"OAUTH"` |  |
 | activiti-modeling-app.env.APP_CONFIG_BPM_HOST | string | `"{{ include \"common.gateway-url\" . }}"` |  |
 | activiti-modeling-app.image.pullPolicy | string | `"Always"` |  |
 | activiti-modeling-app.image.repository | string | `"activiti/activiti-modeling-app"` |  |
@@ -290,6 +291,12 @@ Kubernetes: `>= 1.9.0 < 1.22.0`
 | activiti-modeling-app.ingress.annotations."nginx.ingress.kubernetes.io/enable-cors" | string | `"true"` |  |
 | activiti-modeling-app.ingress.path | string | `"/modeling"` |  |
 | activiti-modeling-app.nameOverride | string | `"activiti-modeling-app"` |  |
+| activiti-modeling-app.resources.limits.cpu | string | `"500m"` |  |
+| activiti-modeling-app.resources.limits.memory | string | `"1024Mi"` |  |
+| activiti-modeling-app.resources.requests.cpu | string | `"200m"` |  |
+| activiti-modeling-app.resources.requests.memory | string | `"256Mi"` |  |
+| activiti-modeling-app.service.envType | string | `"app"` |  |
+| activiti-modeling-app.service.name | string | `"modeling-app"` |  |
 | global | object | `{"extraEnv":"","gateway":{"annotations":null,"domain":"DOMAIN","host":"gateway-{{ .Release.Namespace }}.{{ template \"common.gateway-domain\" . }}","http":"true","tlsacme":"false"},"keycloak":{"host":"identity-{{ .Release.Namespace }}.{{ template \"common.gateway-domain\" . }}","realm":"activiti","resource":"activiti","url":""},"rabbitmq":{"host":"","password":"guest","username":"guest"},"registryPullSecrets":[]}` | for common values see https://github.com/Activiti/activiti-cloud-common-chart/blob/master/charts/common/README.md |
 | global.extraEnv | string | `""` | Use Yaml formatted string to add extra environment properties to all deployments, i.e. |
 | global.gateway.annotations | string | `nil` | Configure global annotations for all service ingresses |
