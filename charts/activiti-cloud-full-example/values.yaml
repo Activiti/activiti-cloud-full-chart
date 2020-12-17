@@ -80,15 +80,17 @@ activiti-cloud-identity:
     pullPolicy: IfNotPresent
   ingress:
     enabled: true
-    path: /auth
-    hosts:
-      - '{{ template "common.keycloak-host" . }}'
+    rules:
+      - host: '{{ include "common.keycloak-host" . }}'
+        paths:
+          - /auth
+    tls: []
     annotations:
-      kubernetes.io/ingress.class: "nginx"
-      nginx.ingress.kubernetes.io/proxy-buffer-size: "16k"
-      nginx.ingress.kubernetes.io/affinity: "cookie"
-      nginx.ingress.kubernetes.io/session-cookie-name: "identity_affinity_route"
-      nginx.ingress.kubernetes.io/session-cookie-hash: "sha1"
+      kubernetes.io/ingress.class: nginx
+      nginx.ingress.kubernetes.io/proxy-buffer-size: 128k
+      nginx.ingress.kubernetes.io/affinity: cookie
+      nginx.ingress.kubernetes.io/session-cookie-name: identity_affinity_route
+      nginx.ingress.kubernetes.io/session-cookie-hash: sha1
       nginx.ingress.kubernetes.io/enable-cors: "false" # disable NGINX CORS as it's managed by Identity Service
   username: admin
   password: admin
@@ -105,6 +107,10 @@ activiti-cloud-identity:
       mountPath: "/realm/"
       readOnly: true
   extraEnv: |-
+    - name: KEYCLOAK_USER
+      value: {{ .Values.username }}
+    - name: KEYCLOAK_PASSWORD
+      value: {{ .Values.password }}
     - name: PROXY_ADDRESS_FORWARDING
       value: "true"
     - name: KEYCLOAK_IMPORT
@@ -344,7 +350,7 @@ activiti-cloud-modeling:
     name: modeling
   image:
     repository: activiti/activiti-cloud-modeling
-    #tag: 0.0.0+REPLACEME
+    tag: latest
     pullPolicy: Always
   ingress:
     path: /modeling-service
@@ -375,7 +381,6 @@ activiti-modeling-app:
   nameOverride: activiti-modeling-app
   image:
     repository: activiti/activiti-modeling-app
-#    tag: 0.0.0+REPLACEME
     pullPolicy: Always
   service:
     name: modeling-app
@@ -438,7 +443,7 @@ runtime-bundle:
     xms: 512m
   image:
     repository: activiti/example-runtime-bundle
-    #tag: 0.0.0+REPLACEME
+    tag: latest
     pullPolicy: Always
   ingress:
     path: /rb
@@ -476,7 +481,7 @@ activiti-cloud-query:
     xms: 512m
   image:
     repository: activiti/activiti-cloud-query
-    #tag: 0.0.0+REPLACEME
+    tag: latest
     pullPolicy: Always
   ingress:
     subPaths:
@@ -520,7 +525,7 @@ activiti-cloud-connector:
     name: example-cloud-connector
   image:
     repository: activiti/example-cloud-connector
-    #tag: 0.0.0+REPLACEME
+    tag: latest
     pullPolicy: Always
   rabbitmq:
     enabled: true

@@ -29,7 +29,7 @@ Activiti Runtime Bundle  : {{ template "common.gateway-url" . }}{{ index .Values
 Activiti Cloud Connector : {{ template "common.gateway-url" . }}{{ index .Values "activiti-cloud-connector" "ingress" "path" }}
 {{- end -}}
 {{ if index .Values "activiti-cloud-query" "enabled" }}
-Activiti Query           : {{ template "common.gateway-url" . }}{{ index .Values "activiti-cloud-query" "ingress" "path" }}
+Activiti Query           : {{ template "common.gateway-url" . }}{{ index .Values "activiti-cloud-query" "ingress" "path" }}/query
 Activiti Audit           : {{ template "common.gateway-url" . }}{{ index .Values "activiti-cloud-query" "ingress" "path" }}/audit
 Notifications GraphiQL   : {{ template "common.gateway-url" . }}{{ index .Values "activiti-cloud-query" "ingress" "path" }}/notifications/graphiql
 Notifications WebSockets : {{ template "common.gateway-url" . }}{{ index .Values "activiti-cloud-query" "ingress" "path" }}/notifications/ws/graphql

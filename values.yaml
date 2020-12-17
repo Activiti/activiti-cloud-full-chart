@@ -5,85 +5,85 @@ global:
     host: host.docker.internal
 rabbitmq:
   enabled: true
-  resources:
-    limits:
-      cpu: ""
-      memory: ""
-    requests:
-      cpu: ""
-      memory: ""
+#  resources:
+#    limits:
+#      cpu: ""
+#      memory: ""
+#    requests:
+#      cpu: ""
+#      memory: ""
 activiti-cloud-identity:
   enabled: true
-  resources:
-    limits:
-      cpu: ""
-      memory: ""
-    requests:
-      cpu: ""
-      memory: ""
-  postgresql:
-    resources:
-      requests:
-        cpu: ""
-        memory: ""
+#  resources:
+#    limits:
+#      cpu: ""
+#      memory: ""
+#    requests:
+#      cpu: ""
+#      memory: ""
+#  postgresql:
+#    resources:
+#      requests:
+#        cpu: ""
+#        memory: ""
 postgresql:
   enabled: true
-  resources:
-    requests:
-      cpu: ""
-      memory: ""
+#  resources:
+#    requests:
+#      cpu: ""
+#      memory: ""
 activiti-cloud-modeling:
   enabled: true
-  resources:
-    limits:
-      cpu: ""
-      memory: ""
-    requests:
-      cpu: ""
-      memory: ""
+#  resources:
+#    limits:
+#      cpu: ""
+#      memory: ""
+#    requests:
+#      cpu: ""
+#      memory: ""
   image:
     pullPolicy: IfNotPresent
 activiti-modeling-app:
   enabled: true
-  resources:
-    limits:
-      cpu: ""
-      memory: ""
-    requests:
-      cpu: ""
-      memory: ""
+#  resources:
+#    limits:
+#      cpu: ""
+#      memory: ""
+#    requests:
+#      cpu: ""
+#      memory: ""
   image:
     pullPolicy: IfNotPresent
 runtime-bundle:
   enabled: true
-  resources:
-    limits:
-      cpu: ""
-      memory: ""
-    requests:
-      cpu: ""
-      memory: ""
+#  resources:
+#    limits:
+#      cpu: ""
+#      memory: ""
+#    requests:
+#      cpu: ""
+#      memory: ""
   image:
     pullPolicy: IfNotPresent
 activiti-cloud-query:
   enabled: true
-  resources:
-    limits:
-      cpu: ""
-      memory: ""
-    requests:
-      cpu: ""
-      memory: ""
+#  resources:
+#    limits:
+#      cpu: ""
+#      memory: ""
+#    requests:
+#      cpu: ""
+#      memory: ""
   image:
     pullPolicy: IfNotPresent
 activiti-cloud-connector:
   enabled: true
-  resources:
-    limits:
-      cpu: ""
-      memory: ""
-    requests:
-      cpu: ""
-      memory: ""
+#  resources:
+#    limits:
+#      cpu: ""
+#      memory: ""
+#    requests:
+#      cpu: ""
+#      memory: ""
   image:
     pullPolicy: IfNotPresent
