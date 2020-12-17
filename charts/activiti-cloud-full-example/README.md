@@ -295,7 +295,7 @@ Kubernetes: `>= 1.9.0 < 1.22.0`
 | activiti-modeling-app.resources.limits.memory | string | `"1024Mi"` |  |
 | activiti-modeling-app.resources.requests.cpu | string | `"200m"` |  |
 | activiti-modeling-app.resources.requests.memory | string | `"256Mi"` |  |
-| activiti-modeling-app.service.envType | string | `"app"` |  |
+| activiti-modeling-app.service.envType | string | `"frontend"` |  |
 | activiti-modeling-app.service.name | string | `"modeling-app"` |  |
 | global | object | `{"extraEnv":"","gateway":{"annotations":null,"domain":"DOMAIN","host":"gateway-{{ .Release.Namespace }}.{{ template \"common.gateway-domain\" . }}","http":"true","tlsacme":"false"},"keycloak":{"host":"identity-{{ .Release.Namespace }}.{{ template \"common.gateway-domain\" . }}","realm":"activiti","resource":"activiti","url":""},"rabbitmq":{"host":"","password":"guest","username":"guest"},"registryPullSecrets":[]}` | for common values see https://github.com/Activiti/activiti-cloud-common-chart/blob/master/charts/common/README.md |
 | global.extraEnv | string | `""` | Use Yaml formatted string to add extra environment properties to all deployments, i.e. |
