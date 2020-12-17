@@ -350,7 +350,7 @@ activiti-cloud-modeling:
     name: modeling
   image:
     repository: activiti/activiti-cloud-modeling
-    tag: latest
+    tag: 7.1.994
     pullPolicy: Always
   ingress:
     path: /modeling-service
@@ -381,6 +381,7 @@ activiti-modeling-app:
   nameOverride: activiti-modeling-app
   image:
     repository: activiti/activiti-modeling-app
+    tag: master-931
     pullPolicy: Always
   service:
     name: modeling-app
@@ -443,7 +444,7 @@ runtime-bundle:
     xms: 512m
   image:
     repository: activiti/example-runtime-bundle
-    tag: latest
+    tag: 7.1.994
     pullPolicy: Always
   ingress:
     path: /rb
@@ -481,7 +482,7 @@ activiti-cloud-query:
     xms: 512m
   image:
     repository: activiti/activiti-cloud-query
-    tag: latest
+    tag: 7.1.994
     pullPolicy: Always
   ingress:
     subPaths:
@@ -525,7 +526,7 @@ activiti-cloud-connector:
     name: example-cloud-connector
   image:
     repository: activiti/example-cloud-connector
-    tag: latest
+    tag: 7.1.994
     pullPolicy: Always
   rabbitmq:
     enabled: true
