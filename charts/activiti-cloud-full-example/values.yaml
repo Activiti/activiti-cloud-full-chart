@@ -379,7 +379,7 @@ activiti-modeling-app:
     pullPolicy: Always
   service:
     name: modeling-app
-    envType: app
+    envType: frontend
   env:
     APP_CONFIG_AUTH_TYPE: OAUTH
     APP_CONFIG_BPM_HOST: '{{ include "common.gateway-url" . }}'
