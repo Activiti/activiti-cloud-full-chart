@@ -46,14 +46,18 @@ helm upgrade --install --dependency-update --namespace activiti --create-namespa
 
 Uninstall:
 ```shell
-helm uninstall activiti
+helm uninstall --namespace activiti ctiviti
 ```
 
-**WARNING** All the PVCs are not deleted by `helm uninstall` and that should be manually unless you want to keep data for another install.
+**WARNING** All the PVCs are not deleted by `helm uninstall` and that should be done manually unless you want to keep data for another install.
 
 ```shell
-kubectl get pvc
-kubectl delete pvc data-keycloak-...
+kubectl get pvc --namespace activiti
+kubectl delete pvc --namespace activiti ...
+```
+or just delete the namespace fully:
+```shell
+kubectl delete ns activiti
 ```
 
 As an alternative, generate a Kubernetes descriptor you can analyse or apply offline using `kubectl apply -f output.yaml`:
