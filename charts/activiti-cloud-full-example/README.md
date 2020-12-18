@@ -1,6 +1,6 @@
 # activiti-cloud-full-example
 
-![Version: 0.0.0+REPLACEME](https://img.shields.io/badge/Version-0.0.0+REPLACEME-informational?style=flat-square)
+![Version: 7.1.0-M11](https://img.shields.io/badge/Version-7.1.0--M11-informational?style=flat-square)
 
 A Helm chart for Activiti Cloud Full Example
 
@@ -14,11 +14,11 @@ Kubernetes: `>= 1.9.0 < 1.22.0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://activiti.github.io/activiti-cloud-helm-charts | common | 0.0.0+REPLACEME |
-| https://activiti.github.io/activiti-cloud-helm-charts | common | 0.0.0+REPLACEME |
-| https://activiti.github.io/activiti-cloud-helm-charts | common | 0.0.0+REPLACEME |
-| https://activiti.github.io/activiti-cloud-helm-charts | common | 0.0.0+REPLACEME |
-| https://activiti.github.io/activiti-cloud-helm-charts | common | 0.0.0+REPLACEME |
+| https://activiti.github.io/activiti-cloud-helm-charts | common | 7.1.0-M11 |
+| https://activiti.github.io/activiti-cloud-helm-charts | common | 7.1.0-M11 |
+| https://activiti.github.io/activiti-cloud-helm-charts | common | 7.1.0-M11 |
+| https://activiti.github.io/activiti-cloud-helm-charts | common | 7.1.0-M11 |
+| https://activiti.github.io/activiti-cloud-helm-charts | common | 7.1.0-M11 |
 | https://charts.bitnami.com/bitnami | postgresql | 9.1.1 |
 | https://charts.bitnami.com/bitnami | rabbitmq | 7.8.0 |
 | https://codecentric.github.io/helm-charts | keycloak | 9.8.0 |
