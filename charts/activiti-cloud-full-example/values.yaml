@@ -6,14 +6,8 @@
 global:
   # global.registryPullSecrets -- Configure pull secrets for all deployments
   registryPullSecrets: []
-
   # global.extraEnv -- Use Yaml formatted string to add extra environment properties to all deployments, i.e.
   extraEnv: ""
-
-#  extraEnv: |-
-    # - name: PROPERTY_NAME
-    #   value: "propertyValue"
-
   keycloak:
     # global.keycloak.host -- Configure Keycloak host template
     host: 'identity-{{ .Release.Namespace }}.{{ template "common.gateway-domain" . }}'
@@ -21,38 +15,31 @@ global:
 
     # global.keycloak.url -- Set full url to configure external Keycloak, otherwise will be generated based on host
     url: ""
-
     # global.keycloak.realm -- Configure Keycloak realm
     realm: "activiti"
-
     # global.keycloak.resource -- Configure Keycloak resource
     resource: "activiti"
-
   gateway:
     # global.gateway.host -- Set to configure single host domain name for all services
     host: 'gateway-{{ .Release.Namespace }}.{{ template "common.gateway-domain" . }}'
-#    host: '{{ template "common.gateway-domain" . }}'
+    # host: '{{ template "common.gateway-domain" . }}'
 
     # global.gateway.http -- Set to false enables HTTPS configuration on all urls
     http: "true"
-
     # global.gateway.tlsacme -- Set to enable automatic TLS for ingress if https is enabled
     tlsacme: "false"
-
     # global.gateway.domain -- Set to configure gateway domain template, i.e. {{ .Release.Namespace }}.1.3.4.5.nip.io
     # $ helm upgrade aae . --install --set global.gateway.domain=1.2.3.4.nip.io
     domain: "DOMAIN"
-#    domain: ""
+    # domain: ""
 
     # global.gateway.annotations -- Configure global annotations for all service ingresses
     annotations:
-#      certmanager.k8s.io/issuer: letsencrypt-prod
-
+    #   certmanager.k8s.io/issuer: letsencrypt-prod
   rabbitmq:
     host: ""
     username: guest
     password: guest
-
 activiti-cloud-identity:
   enabled: true
   nameOverride: keycloak
@@ -342,7 +329,6 @@ activiti-cloud-identity:
           account:
             - manage-account
             - view-profile
-
 activiti-cloud-modeling:
   enabled: true
   nameOverride: activiti-cloud-modeling
@@ -375,7 +361,6 @@ activiti-cloud-modeling:
       value: "true"
     - name: SERVER_TOMCAT_INTERNALPROXIES
       value: ".*"
-
 activiti-modeling-app:
   enabled: true
   nameOverride: activiti-modeling-app
@@ -402,7 +387,6 @@ activiti-modeling-app:
     requests:
       cpu: 200m
       memory: 256Mi
-
 postgresql:
   enabled: true
   postgresqlPassword: password
@@ -412,7 +396,6 @@ postgresql:
       memory: 512Mi
   commonAnnotations:
     application: activiti
-
 rabbitmq:
   enabled: true
   rbac:
@@ -433,7 +416,6 @@ rabbitmq:
       memory: 1500Mi
     limits:
       memory: 1500Mi
-
 runtime-bundle:
   enabled: true
   nameOverride: runtime-bundle
@@ -463,7 +445,7 @@ runtime-bundle:
     requests:
       cpu: 200m
       memory: 512Mi
-  probePath:  '{{ tpl .Values.ingress.path . }}/actuator/info'
+  probePath: '{{ tpl .Values.ingress.path . }}/actuator/info'
   extraEnv: |-
     - name: SERVER_SERVLET_CONTEXTPATH
       value: "{{ tpl .Values.ingress.path . }}"
@@ -471,7 +453,6 @@ runtime-bundle:
       value: "true"
     - name: SERVER_TOMCAT_INTERNALPROXIES
       value: ".*"
-
 activiti-cloud-query:
   enabled: true
   nameOverride: activiti-cloud-query
@@ -511,14 +492,12 @@ activiti-cloud-query:
       value: /notifications/graphql
     - name: GRAPHIQL_GRAPHQL_WS_PATH
       value: /notifications/ws/graphql
-
 #    - name: SERVER_SERVLET_CONTEXTPATH
 #      value: "{{ tpl .Values.ingress.path . }}"
 #    - name: SERVER_USEFORWARDHEADERS
 #      value: "true"
 #    - name: SERVER_TOMCAT_INTERNALPROXIES
 #      value: ".*"
-
 activiti-cloud-connector:
   enabled: true
   nameOverride: activiti-cloud-connector
@@ -551,4 +530,4 @@ activiti-cloud-connector:
     requests:
       cpu: 150m
       memory: 256Mi
-  probePath:  '{{ tpl .Values.ingress.path . }}/actuator/info'
+  probePath: '{{ tpl .Values.ingress.path . }}/actuator/info'
