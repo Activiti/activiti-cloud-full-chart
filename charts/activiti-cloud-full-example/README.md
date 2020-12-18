@@ -14,11 +14,11 @@ Kubernetes: `>= 1.9.0 < 1.22.0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://activiti.github.io/activiti-cloud-helm-charts | common | 7.1.0-M11 |
-| https://activiti.github.io/activiti-cloud-helm-charts | common | 7.1.0-M11 |
-| https://activiti.github.io/activiti-cloud-helm-charts | common | 7.1.0-M11 |
-| https://activiti.github.io/activiti-cloud-helm-charts | common | 7.1.0-M11 |
-| https://activiti.github.io/activiti-cloud-helm-charts | common | 7.1.0-M11 |
+| https://activiti.github.io/activiti-cloud-helm-charts | common | 7.1.4 |
+| https://activiti.github.io/activiti-cloud-helm-charts | common | 7.1.4 |
+| https://activiti.github.io/activiti-cloud-helm-charts | common | 7.1.4 |
+| https://activiti.github.io/activiti-cloud-helm-charts | common | 7.1.4 |
+| https://activiti.github.io/activiti-cloud-helm-charts | common | 7.1.4 |
 | https://charts.bitnami.com/bitnami | postgresql | 9.1.1 |
 | https://charts.bitnami.com/bitnami | rabbitmq | 7.8.0 |
 | https://codecentric.github.io/helm-charts | keycloak | 9.8.0 |
@@ -38,7 +38,7 @@ Kubernetes: `>= 1.9.0 < 1.22.0`
 | activiti-cloud-connector.ingress.enabled | bool | `false` |  |
 | activiti-cloud-connector.ingress.path | string | `"/example-cloud-connector"` |  |
 | activiti-cloud-connector.nameOverride | string | `"activiti-cloud-connector"` |  |
-| activiti-cloud-connector.probePath | string | `"{{ tpl .Values.ingress.path . }}/actuator/info"` |  |
+| activiti-cloud-connector.probePath | string | `"{{ tpl .Values.ingress.path . }}/actuator/health"` |  |
 | activiti-cloud-connector.rabbitmq.enabled | bool | `true` |  |
 | activiti-cloud-connector.resources.limits.cpu | string | `"1"` |  |
 | activiti-cloud-connector.resources.limits.memory | string | `"1024Mi"` |  |
@@ -256,12 +256,13 @@ Kubernetes: `>= 1.9.0 < 1.22.0`
 | activiti-cloud-modeling.ingress.path | string | `"/modeling-service"` |  |
 | activiti-cloud-modeling.nameOverride | string | `"activiti-cloud-modeling"` |  |
 | activiti-cloud-modeling.postgresql.enabled | bool | `true` |  |
-| activiti-cloud-modeling.probePath | string | `"{{ tpl .Values.ingress.path . }}/actuator/info"` |  |
+| activiti-cloud-modeling.probePath | string | `"{{ tpl .Values.ingress.path . }}/actuator/health"` |  |
 | activiti-cloud-modeling.resources.limits.cpu | string | `"1"` |  |
 | activiti-cloud-modeling.resources.limits.memory | string | `"1024Mi"` |  |
 | activiti-cloud-modeling.resources.requests.cpu | string | `"400m"` |  |
 | activiti-cloud-modeling.resources.requests.memory | string | `"512Mi"` |  |
 | activiti-cloud-modeling.service.name | string | `"modeling"` |  |
+| activiti-cloud-query.db.ddlAuto | string | `"none"` | set to 'none' temporarily rather than default 'validate' that breaks |
 | activiti-cloud-query.enabled | bool | `true` |  |
 | activiti-cloud-query.extraEnv | string | `"- name: GRAPHIQL_GRAPHQL_WEB_PATH\n  value: /notifications/graphql\n- name: GRAPHIQL_GRAPHQL_WS_PATH\n  value: /notifications/ws/graphql"` |  |
 | activiti-cloud-query.image.pullPolicy | string | `"Always"` |  |
@@ -278,7 +279,7 @@ Kubernetes: `>= 1.9.0 < 1.22.0`
 | activiti-cloud-query.javaOpts.xmx | string | `"2048m"` |  |
 | activiti-cloud-query.nameOverride | string | `"activiti-cloud-query"` |  |
 | activiti-cloud-query.postgresql.enabled | bool | `true` |  |
-| activiti-cloud-query.probePath | string | `"/actuator/info"` |  |
+| activiti-cloud-query.probePath | string | `"/actuator/health"` |  |
 | activiti-cloud-query.rabbitmq.enabled | bool | `true` |  |
 | activiti-cloud-query.resources.limits.cpu | string | `"1.5"` |  |
 | activiti-cloud-query.resources.limits.memory | string | `"2048Mi"` |  |
@@ -343,7 +344,7 @@ Kubernetes: `>= 1.9.0 < 1.22.0`
 | runtime-bundle.javaOpts.xmx | string | `"2048m"` |  |
 | runtime-bundle.nameOverride | string | `"runtime-bundle"` |  |
 | runtime-bundle.postgresql.enabled | bool | `true` |  |
-| runtime-bundle.probePath | string | `"{{ tpl .Values.ingress.path . }}/actuator/info"` |  |
+| runtime-bundle.probePath | string | `"{{ tpl .Values.ingress.path . }}/actuator/health"` |  |
 | runtime-bundle.rabbitmq.enabled | bool | `true` |  |
 | runtime-bundle.resources.limits.cpu | string | `"2"` |  |
 | runtime-bundle.resources.limits.memory | string | `"2048Mi"` |  |
