@@ -2,7 +2,8 @@ import:
   - source: Activiti/activiti-scripts:.travis.helm_install.yml@master
   - source: Activiti/activiti-scripts:.travis.kubernetes_config.yml@master
   - source: Activiti/activiti-scripts:.travis.kubernetes_install.yml@master
-  - source: Alfresco/alfresco-process-tools:.travis.yq_install.yml@master
+  - source: Alfresco/alfresco-build-tools:.travis.yq_install.yml@@v1.0.0
+  - source: Alfresco/alfresco-build-tools:.travis.pre-commit.yml@v1.0.0
 
 language: minimal
 
