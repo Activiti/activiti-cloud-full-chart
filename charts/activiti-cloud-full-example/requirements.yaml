@@ -15,25 +15,25 @@ dependencies:
   - name: common
     repository: https://activiti.github.io/activiti-cloud-helm-charts
     alias: activiti-cloud-modeling
-    version: 0.0.0+REPLACEME
+    version: 7.1.0-M11
     condition: activiti-cloud-modeling.enabled,modeling.enabled
   - name: common
     repository: https://activiti.github.io/activiti-cloud-helm-charts
-    version: 0.0.0+REPLACEME
+    version: 7.1.0-M11
     alias: activiti-modeling-app
     condition: activiti-modeling-app.enabled
   - name: common
     repository: https://activiti.github.io/activiti-cloud-helm-charts
-    version: 0.0.0+REPLACEME
+    version: 7.1.0-M11
     alias: runtime-bundle
     condition: application.runtime-bundle.enabled,runtime-bundle.enabled
   - name: common
     repository: https://activiti.github.io/activiti-cloud-helm-charts
-    version: 0.0.0+REPLACEME
+    version: 7.1.0-M11
     alias: activiti-cloud-query
     condition: application.activiti-cloud-query.enabled,activiti-cloud-query.enabled
   - name: common
     repository: https://activiti.github.io/activiti-cloud-helm-charts
-    version: 0.0.0+REPLACEME
+    version: 7.1.0-M11
     alias: activiti-cloud-connector
     condition: application.activiti-cloud-connector.enabled,activiti-cloud-connector.enabled
