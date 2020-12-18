@@ -56,7 +56,7 @@ github:
 	rm -rf $(GITHUB_CHARTS_DIR)
 
 version:
-	sed -i -e "s/version:.*/version: $(VERSION)/" Chart.yaml
+	yq write --inplace Chart.yaml 'version' $(VERSION)
 
 tag:
 	git add Chart.yaml requirements.yaml
@@ -66,3 +66,10 @@ tag:
 
 updatebot/push-version: 	
 	cd ../../ && updatebot push-version --kind helm  $(NAME) $(VERSION)
+
+update-docker-images:
+	yq write --inplace values.yaml 'activiti-cloud-modeling.image.tag' $(BACKEND_VERSION)
+	yq write --inplace values.yaml 'activiti-modeling-app.image.tag' $(FRONTEND_VERSION)
+	yq write --inplace values.yaml 'runtime-bundle.image.tag' $(BACKEND_VERSION)
+	yq write --inplace values.yaml 'activiti-cloud-query.image.tag' $(BACKEND_VERSION)
+	yq write --inplace values.yaml 'activiti-cloud-connector.image.tag' $(BACKEND_VERSION)
