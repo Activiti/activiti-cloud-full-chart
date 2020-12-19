@@ -161,7 +161,6 @@ activiti-cloud-identity:
         realmRoles:
           - offline_access
           - uma_authorization
-          - user
         clientRoles:
           realm-management:
             - manage-users
@@ -278,6 +277,25 @@ activiti-cloud-identity:
             - view-profile
         groups:
           - /testgroup
+      - username: hradmin
+        enabled: true
+        firstName: HR
+        lastName: Admin
+        email: hradmin@example.com
+        credentials:
+          - type: password
+            value: password
+        realmRoles:
+          - offline_access
+          - uma_authorization
+          - ACTIVITI_USER
+          - ACTIVITI_ADMIN
+        clientRoles:
+          account:
+            - manage-account
+            - view-profile
+        groups:
+          - /hr
       - username: testadmin
         enabled: true
         firstName: Test
