@@ -35,17 +35,6 @@
         }
       },
       {
-        "name": "ACTIVITI_DEVOPS",
-        "composites": {
-          "client": {
-            "realm-management": [
-              "view-users",
-              "view-clients"
-            ]
-          }
-        }
-      },
-      {
         "name": "ACTIVITI_USER",
         "composites": {
           "client": {
@@ -63,23 +52,6 @@
             "realm-management": [
               "view-users",
               "view-clients"
-            ]
-          }
-        }
-      },
-      {
-        "name": "ACTIVITI_IDENTITY",
-        "description": "user is able to see the identity section",
-        "composites": {
-          "client": {
-            "realm-management": [
-              "query-realms",
-              "manage-users",
-              "manage-authorization",
-              "query-clients",
-              "view-users",
-              "manage-realm",
-              "manage-clients"
             ]
           }
         }
