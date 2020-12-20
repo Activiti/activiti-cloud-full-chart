@@ -55,7 +55,7 @@ helm upgrade --install \
 
 Uninstall:
 ```shell
-helm uninstall --namespace activiti ctiviti
+helm uninstall --namespace activiti activiti
 ```
 
 **WARNING** All the PVCs are not deleted by `helm uninstall` and that should be done manually unless you want to keep data for another install.
