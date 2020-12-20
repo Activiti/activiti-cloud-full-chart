@@ -7,7 +7,6 @@ import:
   - source: Alfresco/alfresco-build-tools:.travis.kubepug_install.yml@v1.0.0
   - source: Alfresco/alfresco-build-tools:.travis.pre-commit.yml@v1.0.0
 
-
 language: minimal
 
 branches:
@@ -53,6 +52,7 @@ before_install:
     echo -e "http://$GITHUB_USER:$GITHUB_TOKEN@github.com" >> ~/.git-credentials
 
 stages:
+  - name: lint
   - name: verify
   - name: releasechart
     if: type != pull_request
