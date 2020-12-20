@@ -413,10 +413,6 @@ postgresql:
     application: activiti
 rabbitmq:
   enabled: true
-  rbac:
-    create: false
-  serviceAccount:
-    create: false
   extraPlugins: ""
   auth:
     username: guest

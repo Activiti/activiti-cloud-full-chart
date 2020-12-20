@@ -1,6 +1,6 @@
 # activiti-cloud-full-example
 
-![Version: 7.1.0-M11](https://img.shields.io/badge/Version-7.1.0--M11-informational?style=flat-square)
+![Version: 7.1.0-M12](https://img.shields.io/badge/Version-7.1.0--M12-informational?style=flat-square)
 
 A Helm chart for Activiti Cloud Full Example
 
@@ -339,11 +339,9 @@ Kubernetes: `>=1.15.0-0`
 | rabbitmq.enabled | bool | `true` |  |
 | rabbitmq.extraPlugins | string | `""` |  |
 | rabbitmq.livenessProbe.timeoutSeconds | int | `90` |  |
-| rabbitmq.rbac.create | bool | `false` |  |
 | rabbitmq.readinessProbe.timeoutSeconds | int | `90` |  |
 | rabbitmq.resources.limits.memory | string | `"1500Mi"` |  |
 | rabbitmq.resources.requests.memory | string | `"1500Mi"` |  |
-| rabbitmq.serviceAccount.create | bool | `false` |  |
 | runtime-bundle.enabled | bool | `true` |  |
 | runtime-bundle.extraEnv | string | `"- name: SERVER_SERVLET_CONTEXTPATH\n  value: \"{{ tpl .Values.ingress.path . }}\"\n- name: SERVER_USEFORWARDHEADERS\n  value: \"true\"\n- name: SERVER_TOMCAT_INTERNALPROXIES\n  value: \".*\""` |  |
 | runtime-bundle.image.pullPolicy | string | `"Always"` |  |
