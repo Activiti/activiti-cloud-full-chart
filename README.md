@@ -4,7 +4,7 @@
 
 More information:
 * all chart archives, located at: https://github.com/Activiti/activiti-cloud-helm-charts
-* full chart, located at: https://github.com/Activiti/activiti-cloud-full-chart (this repo) 
+* full chart, located at: https://github.com/Activiti/activiti-cloud-full-chart (this repo)
 * a common chart as a base chart for all charts, located at: https://github.com/Activiti/activiti-cloud-common-chart
 * charts for components, as sub folders located at: https://github.com/Activiti/activiti-cloud-application
 
@@ -26,7 +26,7 @@ Install a recent version of [ingress-nginx](https://kubernetes.github.io/ingress
 helm install --repo https://kubernetes.github.io/ingress-nginx ingress-nginx ingress-nginx --version 2.16.0
 ```
 
-Create a `values.yaml` file with any customised values from the default [values.yaml](charts/activiti-cloud-full-example/values.yaml) you want, as documented in the chart [README](charts/activiti-cloud-full-example/README.md). 
+Create a `values.yaml` file with any customised values from the default [values.yaml](charts/activiti-cloud-full-example/values.yaml) you want, as documented in the chart [README](charts/activiti-cloud-full-example/README.md).
 
 In your local installation to start with, this would be:
 ```yaml
