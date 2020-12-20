@@ -10,7 +10,7 @@ A Helm chart for Activiti Cloud Full Example
 
 ## Requirements
 
-Kubernetes: `>= 1.9.0 < 1.22.0`
+Kubernetes: `>=1.15.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
