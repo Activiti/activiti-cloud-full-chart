@@ -26,6 +26,11 @@ Install a recent version of [ingress-nginx](https://kubernetes.github.io/ingress
 helm install --repo https://kubernetes.github.io/ingress-nginx ingress-nginx ingress-nginx --version 2.16.0
 ```
 
+Update all dependencies:
+```shell
+helm dependency update charts/activiti-cloud-full-example
+```
+
 Create a `values.yaml` file with any customised values from the default [values.yaml](charts/activiti-cloud-full-example/values.yaml) you want, as documented in the chart [README](charts/activiti-cloud-full-example/README.md).
 
 In your local installation to start with, this would be:
@@ -37,13 +42,13 @@ global:
     host: host.docker.internal
 ```
 
-Otherwise just add `--set global.gateway.domain=$YOUR_CLUSTER_DOMAIN` to the `helm` command line,
+In a generic cluster install, you can just add `--set global.gateway.domain=$YOUR_CLUSTER_DOMAIN` to the `helm` command line,
 provided your _DNS_ is configured with a wildcard entry `*.$YOUR_CLUSTER_DOMAIN` pointing to your cluster ingress.
 
 Install or upgrade an existing installation:
 ```shell
 helm upgrade --install \
-  --dependency-update --atomic --namespace activiti --create-namespace \
+  --atomic --create-namespace --namespace activiti \
   -f values.yaml \
   activiti charts/activiti-cloud-full-example
 ```
@@ -67,7 +72,7 @@ kubectl delete ns activiti
 As an alternative, generate a Kubernetes descriptor you can analyse or apply offline using `kubectl apply -f output.yaml`:
 ```shell
 helm template --validate \
-  --dependency-update --namespace activiti --create-namespace \
+  --atomic --create-namespace --dependency-update --namespace activiti \
   -f values.yaml \
   activiti charts/activiti-cloud-full-example
 ```
