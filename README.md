@@ -37,9 +37,13 @@ global:
     host: host.docker.internal
 ```
 
+Otherwise just add `--set global.gateway.domain=$YOUR_CLUSTER_DOMAIN` to the `helm` command line,
+provided your _DNS_ is configured with a wildcard entry `*.$YOUR_CLUSTER_DOMAIN` pointing to your cluster ingress.
+
 Install or upgrade an existing installation:
 ```shell
-helm upgrade --install --dependency-update --namespace activiti --create-namespace \
+helm upgrade --install \
+  --dependency-update --atomic --namespace activiti --create-namespace \
   -f values.yaml \
   activiti charts/activiti-cloud-full-example
 ```
@@ -62,9 +66,10 @@ kubectl delete ns activiti
 
 As an alternative, generate a Kubernetes descriptor you can analyse or apply offline using `kubectl apply -f output.yaml`:
 ```shell
-helm template --dependency-update --namespace activiti --create-namespace \
+helm template --validate \
+  --dependency-update --namespace activiti --create-namespace \
   -f values.yaml \
-  activiti charts/activiti-cloud-full-example > output.yaml
+  activiti charts/activiti-cloud-full-example
 ```
 
 ## Skipping CI
