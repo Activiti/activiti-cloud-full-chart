@@ -1,44 +1,86 @@
 # activiti-cloud-full-chart
 
-<br>All chart archives are stored in https://github.com/Activiti/activiti-cloud-helm-charts 
-<br>Full chart located at https://github.com/Activiti/activiti-cloud-full-chart 
-<br>Common chart is a base chart for all charts now located at https://github.com/Activiti/activiti-cloud-common-chart 
-<br>Charts for components located at component folders like: runtime https://github.com/Activiti/example-runtime-bundle/tree/master/charts/runtime-bundle and example cloud connector https://github.com/Activiti/example-cloud-connector/tree/master/charts/activiti-cloud-connector
+[Getting Started Guide](https://activiti.gitbook.io/activiti-7-developers-guide/getting-started/getting-started-activiti-cloud)
 
+More information:
+* all chart archives, located at: https://github.com/Activiti/activiti-cloud-helm-charts
+* full chart, located at: https://github.com/Activiti/activiti-cloud-full-chart (this repo)
+* a common chart as a base chart for all charts, located at: https://github.com/Activiti/activiti-cloud-common-chart
+* charts for components, as sub folders located at: https://github.com/Activiti/activiti-cloud-application
 
-## Getting started located at https://activiti.gitbook.io/activiti-7-developers-guide/getting-started/getting-started-activiti-cloud
+## Running on Docker Desktop
 
-## Preview Environments 
+Install [Docker Desktop](https://www.docker.com/products/docker-desktop) and make sure the included single node Kubernetes cluster is started.
 
-There is a stage in Jenkinsfile pipeline triggered on feature-* branch pattern. It installs Helm chart from feature branch commit into preview namespace for development and testing.
+Install the latest version of [Helm](https://helm.sh).
 
-To create preview environment use the following commands  i.e.
+Add the magic `host.docker.internal` hostname to your hosts file:
 
-```bash
-git checkout <tag or branch>
-git checkout -b feature-awesome
-git push -u origin feature-awesome
-
-```
-or use provided `make preview` command, i.e.
-
-```bash
-make preview FROM=<master or tag> FEATURE=awesome
-
+```shell
+sudo echo "127.0.0.1        host.docker.internal" > /etc/hosts
 ```
 
-After pushing branch to remote, check your branch deployment status on Github: https://github.com/activiti/activiti-cloud-full-chart/branches'
+Install a recent version of [ingress-nginx](https://kubernetes.github.io/ingress-nginx):
 
-If you make any changes and push the commit to remote, it will trigger preview stage again and upgrade the environment automatically.
+```shell
+helm install --repo https://kubernetes.github.io/ingress-nginx ingress-nginx ingress-nginx --version 2.16.0
+```
 
-To delete preview environment, simply delete your feature-* branch from remote. Once Jenkins runs the clean up, it will trigger another Jenkins pipeline to delete deployed release and namespace in the K8s cluster.
+Update all dependencies:
+```shell
+helm dependency update charts/activiti-cloud-full-example
+```
+
+Create a `values.yaml` file with any customised values from the default [values.yaml](charts/activiti-cloud-full-example/values.yaml) you want, as documented in the chart [README](charts/activiti-cloud-full-example/README.md).
+
+In your local installation to start with, this would be:
+```yaml
+global:
+  gateway:
+    host: host.docker.internal
+  keycloak:
+    host: host.docker.internal
+```
+
+In a generic cluster install, you can just add `--set global.gateway.domain=$YOUR_CLUSTER_DOMAIN` to the `helm` command line,
+provided your _DNS_ is configured with a wildcard entry `*.$YOUR_CLUSTER_DOMAIN` pointing to your cluster ingress.
+
+Install or upgrade an existing installation:
+```shell
+helm upgrade --install \
+  --atomic --create-namespace --namespace activiti \
+  -f values.yaml \
+  activiti charts/activiti-cloud-full-example
+```
+
+Uninstall:
+```shell
+helm uninstall --namespace activiti activiti
+```
+
+**WARNING** All the PVCs are not deleted by `helm uninstall` and that should be done manually unless you want to keep data for another install.
+
+```shell
+kubectl get pvc --namespace activiti
+kubectl delete pvc --namespace activiti ...
+```
+or just delete the namespace fully:
+```shell
+kubectl delete ns activiti
+```
+
+As an alternative, generate a Kubernetes descriptor you can analyse or apply offline using `kubectl apply -f output.yaml`:
+```shell
+helm template --validate \
+  --atomic --create-namespace --dependency-update --namespace activiti \
+  -f values.yaml \
+  activiti charts/activiti-cloud-full-example
+```
 
 ## Skipping CI
 
-You want to skip running release pipeline stages, simply add `[ci skip]` to commit message.
+If you want to skip running release pipeline stages, simply add `[ci skip]` to your commit message.
 
-# activiti-cloud
-Activiti Cloud Parent and BOM (Bill of Materials)
 ## CI/CD
 
 Running on Travis, requires the following environment variable to be set:
@@ -51,5 +93,3 @@ Running on Travis, requires the following environment variable to be set:
 | GITHUB_USER | Github user name for git service account |
 | K8S_API_TOKEN | Kubernetes API token |
 | K8S_API_URL | Kubernetes API url |
-
-
