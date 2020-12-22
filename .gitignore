@@ -25,9 +25,3 @@ hs_err_pid*
 
 .idea/
 .DS_store
-*.iml
-
-# Kubernetes Helm
-requirements.lock
-**/charts/*.tgz
-/*.tgz
