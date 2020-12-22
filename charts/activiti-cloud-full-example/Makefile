@@ -1,9 +1,7 @@
 NAME := activiti-cloud-full-example
-OS := $(shell uname)
 VERSION := $(or $(VERSION), $(shell cat ../../VERSION))
-PREVIEW_NAMESPACE_LOWERCASE := $(shell echo ${PREVIEW_NAMESPACE}| tr "[:upper:]" "[:lower:]")
+PREVIEW_NAMESPACE_LOWERCASE := $(shell echo ${PREVIEW_NAMESPACE} | tr "[:upper:]" "[:lower:]")
 
-GITHUB_CHARTS_REPO := $(or $(GITHUB_CHARTS_REPO),$(shell git config --get remote.origin.url))
 GITHUB_CHARTS_BRANCH := $(or $(GITHUB_CHARTS_BRANCH),gh-pages)
 
 GITHUB_CHARTS_DIR := activiti-cloud-helm-charts
@@ -63,9 +61,6 @@ tag:
 	git commit -m "release $(VERSION)" --allow-empty # if first release then no version update is performed
 	git tag -fa v$(VERSION) -m "Release version $(VERSION)"
 	git push -f -q https://${GITHUB_TOKEN}@github.com/Activiti/activiti-cloud-full-chart.git v$(VERSION)
-
-updatebot/push-version:
-	cd ../../ && updatebot push-version --kind helm  $(NAME) $(VERSION)
 
 update-docker-images:
 	yq write --inplace values.yaml 'activiti-cloud-modeling.image.tag' $(BACKEND_VERSION)
