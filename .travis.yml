@@ -32,6 +32,7 @@ jobs:
 
     - name: Verify build
       stage: test
+
       script: |
         cd charts/activiti-cloud-full-example
         make build
