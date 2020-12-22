@@ -32,7 +32,7 @@ check: build test
 build:
 	echo "do nothing"
 
-test: 
+test:
 	echo "do nothing"
 
 install:
@@ -45,7 +45,7 @@ linux:
 	echo "do nothing"
 
 # required FROM=<tag or branch> and FEATURE=<feature name>
-preview: 
+preview:
 	@test ${FROM}
 	@test ${FEATURE}
 	git checkout $(or ${FROM},master)
@@ -55,4 +55,4 @@ preview:
 	@echo 'Successfully created branch "feature-${FEATURE}" to deploy your preview environment'
 	@echo 'Check your feature branch deployment status on Github: https://github.com/activiti/${NAME}/branches'
 
-.PHONY: release clean preview 
+.PHONY: release clean preview
