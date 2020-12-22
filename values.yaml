@@ -1,5 +1,0 @@
-global:
-  gateway:
-    host: host.docker.internal
-  keycloak:
-    host: host.docker.internal

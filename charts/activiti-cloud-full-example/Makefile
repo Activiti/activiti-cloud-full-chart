@@ -7,7 +7,7 @@ GITHUB_CHARTS_REPO := $(or $(GITHUB_CHARTS_REPO),$(shell git config --get remote
 GITHUB_CHARTS_BRANCH := $(or $(GITHUB_CHARTS_BRANCH),gh-pages)
 
 GITHUB_CHARTS_DIR := activiti-cloud-helm-charts
-
+	
 build: clean
 	helm dep up
 	helm lint
@@ -24,7 +24,7 @@ install: clean build
 		--set global.gateway.domain=${GLOBAL_GATEWAY_DOMAIN} \
 		--namespace ${PREVIEW_NAMESPACE_LOWERCASE} \
 		--debug \
-		--wait
+		--wait 
 
 upgrade: clean build
 	helm upgrade ${PREVIEW_NAMESPACE_LOWERCASE} .
@@ -56,20 +56,13 @@ github:
 	rm -rf $(GITHUB_CHARTS_DIR)
 
 version:
-	yq write --inplace Chart.yaml 'version' $(VERSION)
+	sed -i -e "s/version:.*/version: $(VERSION)/" Chart.yaml
 
 tag:
 	git add Chart.yaml requirements.yaml
 	git commit -m "release $(VERSION)" --allow-empty # if first release then no version update is performed
 	git tag -fa v$(VERSION) -m "Release version $(VERSION)"
-	git push -f -q https://${GITHUB_TOKEN}@github.com/Activiti/activiti-cloud-full-chart.git v$(VERSION)
+	git push -f -q https://${GITHUB_TOKEN}@github.com/Activiti/activiti-cloud-full-chart.git v$(VERSION)	
 
-updatebot/push-version:
+updatebot/push-version: 	
 	cd ../../ && updatebot push-version --kind helm  $(NAME) $(VERSION)
-
-update-docker-images:
-	yq write --inplace values.yaml 'activiti-cloud-modeling.image.tag' $(BACKEND_VERSION)
-	yq write --inplace values.yaml 'activiti-modeling-app.image.tag' $(FRONTEND_VERSION)
-	yq write --inplace values.yaml 'runtime-bundle.image.tag' $(BACKEND_VERSION)
-	yq write --inplace values.yaml 'activiti-cloud-query.image.tag' $(BACKEND_VERSION)
-	yq write --inplace values.yaml 'activiti-cloud-connector.image.tag' $(BACKEND_VERSION)
