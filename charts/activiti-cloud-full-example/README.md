@@ -267,6 +267,7 @@ Kubernetes: `>=1.15.0-0`
 | activiti-cloud-modeling.ingress.annotations."nginx.ingress.kubernetes.io/cors-allow-headers" | string | `"Authorization, Content-Type, Accept"` |  |
 | activiti-cloud-modeling.ingress.annotations."nginx.ingress.kubernetes.io/enable-cors" | string | `"true"` |  |
 | activiti-cloud-modeling.ingress.path | string | `"/modeling-service"` |  |
+| activiti-cloud-modeling.liquibase.enabled | bool | `true` |  |
 | activiti-cloud-modeling.nameOverride | string | `"activiti-cloud-modeling"` |  |
 | activiti-cloud-modeling.postgresql.enabled | bool | `true` |  |
 | activiti-cloud-modeling.probePath | string | `"{{ tpl .Values.ingress.path . }}/actuator/health"` |  |
@@ -290,6 +291,7 @@ Kubernetes: `>=1.15.0-0`
 | activiti-cloud-query.ingress.subPaths[2] | string | `"/notifications/?(.*)"` |  |
 | activiti-cloud-query.javaOpts.xms | string | `"512m"` |  |
 | activiti-cloud-query.javaOpts.xmx | string | `"2048m"` |  |
+| activiti-cloud-query.liquibase.enabled | bool | `true` |  |
 | activiti-cloud-query.nameOverride | string | `"activiti-cloud-query"` |  |
 | activiti-cloud-query.postgresql.enabled | bool | `true` |  |
 | activiti-cloud-query.probePath | string | `"/actuator/health"` |  |
