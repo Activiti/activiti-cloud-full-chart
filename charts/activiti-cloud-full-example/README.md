@@ -1,6 +1,6 @@
 # activiti-cloud-full-example
 
-![Version: 7.1.999](https://img.shields.io/badge/Version-7.1.999-informational?style=flat-square)
+![Version: 7.1.1003](https://img.shields.io/badge/Version-7.1.1003-informational?style=flat-square)
 
 A Helm chart for Activiti Cloud Full Example
 
@@ -14,11 +14,11 @@ Kubernetes: `>=1.15.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://activiti.github.io/activiti-cloud-helm-charts | common | 7.1.7 |
-| https://activiti.github.io/activiti-cloud-helm-charts | common | 7.1.7 |
-| https://activiti.github.io/activiti-cloud-helm-charts | common | 7.1.7 |
-| https://activiti.github.io/activiti-cloud-helm-charts | common | 7.1.7 |
-| https://activiti.github.io/activiti-cloud-helm-charts | common | 7.1.7 |
+| https://activiti.github.io/activiti-cloud-helm-charts | common | 7.1.8 |
+| https://activiti.github.io/activiti-cloud-helm-charts | common | 7.1.8 |
+| https://activiti.github.io/activiti-cloud-helm-charts | common | 7.1.8 |
+| https://activiti.github.io/activiti-cloud-helm-charts | common | 7.1.8 |
+| https://activiti.github.io/activiti-cloud-helm-charts | common | 7.1.8 |
 | https://charts.bitnami.com/bitnami | postgresql | 9.1.1 |
 | https://charts.bitnami.com/bitnami | rabbitmq | 7.8.0 |
 | https://codecentric.github.io/helm-charts | keycloak | 9.5.0 |
@@ -31,7 +31,7 @@ Kubernetes: `>=1.15.0-0`
 | activiti-cloud-connector.extraEnv | string | `"- name: SERVER_SERVLET_CONTEXTPATH\n  value: \"{{ tpl .Values.ingress.path . }}\"\n- name: SERVER_USEFORWARDHEADERS\n  value: \"true\"\n- name: SERVER_TOMCAT_INTERNALPROXIES\n  value: \".*\""` |  |
 | activiti-cloud-connector.image.pullPolicy | string | `"Always"` |  |
 | activiti-cloud-connector.image.repository | string | `"activiti/example-cloud-connector"` |  |
-| activiti-cloud-connector.image.tag | string | `"7.1.999"` |  |
+| activiti-cloud-connector.image.tag | string | `"7.1.1003"` |  |
 | activiti-cloud-connector.ingress.annotations."kubernetes.io/ingress.class" | string | `"nginx"` |  |
 | activiti-cloud-connector.ingress.annotations."nginx.ingress.kubernetes.io/cors-allow-headers" | string | `"Authorization, Content-Type, Accept"` |  |
 | activiti-cloud-connector.ingress.annotations."nginx.ingress.kubernetes.io/enable-cors" | string | `"true"` |  |
@@ -262,11 +262,12 @@ Kubernetes: `>=1.15.0-0`
 | activiti-cloud-modeling.extraEnv | string | `"- name: SERVER_SERVLET_CONTEXTPATH\n  value: \"{{ tpl .Values.ingress.path . }}\"\n- name: SERVER_USEFORWARDHEADERS\n  value: \"true\"\n- name: SERVER_TOMCAT_INTERNALPROXIES\n  value: \".*\""` |  |
 | activiti-cloud-modeling.image.pullPolicy | string | `"Always"` |  |
 | activiti-cloud-modeling.image.repository | string | `"activiti/activiti-cloud-modeling"` |  |
-| activiti-cloud-modeling.image.tag | string | `"7.1.999"` |  |
+| activiti-cloud-modeling.image.tag | string | `"7.1.1003"` |  |
 | activiti-cloud-modeling.ingress.annotations."kubernetes.io/ingress.class" | string | `"nginx"` |  |
 | activiti-cloud-modeling.ingress.annotations."nginx.ingress.kubernetes.io/cors-allow-headers" | string | `"Authorization, Content-Type, Accept"` |  |
 | activiti-cloud-modeling.ingress.annotations."nginx.ingress.kubernetes.io/enable-cors" | string | `"true"` |  |
 | activiti-cloud-modeling.ingress.path | string | `"/modeling-service"` |  |
+| activiti-cloud-modeling.liquibase.enabled | bool | `true` |  |
 | activiti-cloud-modeling.nameOverride | string | `"activiti-cloud-modeling"` |  |
 | activiti-cloud-modeling.postgresql.enabled | bool | `true` |  |
 | activiti-cloud-modeling.probePath | string | `"{{ tpl .Values.ingress.path . }}/actuator/health"` |  |
@@ -280,7 +281,7 @@ Kubernetes: `>=1.15.0-0`
 | activiti-cloud-query.extraEnv | string | `"- name: GRAPHIQL_GRAPHQL_WEB_PATH\n  value: /notifications/graphql\n- name: GRAPHIQL_GRAPHQL_WS_PATH\n  value: /notifications/ws/graphql"` |  |
 | activiti-cloud-query.image.pullPolicy | string | `"Always"` |  |
 | activiti-cloud-query.image.repository | string | `"activiti/activiti-cloud-query"` |  |
-| activiti-cloud-query.image.tag | string | `"7.1.999"` |  |
+| activiti-cloud-query.image.tag | string | `"7.1.1003"` |  |
 | activiti-cloud-query.ingress.annotations."kubernetes.io/ingress.class" | string | `"nginx"` |  |
 | activiti-cloud-query.ingress.annotations."nginx.ingress.kubernetes.io/cors-allow-headers" | string | `"Authorization, Content-Type, Accept"` |  |
 | activiti-cloud-query.ingress.annotations."nginx.ingress.kubernetes.io/enable-cors" | string | `"true"` |  |
@@ -290,6 +291,7 @@ Kubernetes: `>=1.15.0-0`
 | activiti-cloud-query.ingress.subPaths[2] | string | `"/notifications/?(.*)"` |  |
 | activiti-cloud-query.javaOpts.xms | string | `"512m"` |  |
 | activiti-cloud-query.javaOpts.xmx | string | `"2048m"` |  |
+| activiti-cloud-query.liquibase.enabled | bool | `true` |  |
 | activiti-cloud-query.nameOverride | string | `"activiti-cloud-query"` |  |
 | activiti-cloud-query.postgresql.enabled | bool | `true` |  |
 | activiti-cloud-query.probePath | string | `"/actuator/health"` |  |
@@ -346,7 +348,7 @@ Kubernetes: `>=1.15.0-0`
 | runtime-bundle.extraEnv | string | `"- name: SERVER_SERVLET_CONTEXTPATH\n  value: \"{{ tpl .Values.ingress.path . }}\"\n- name: SERVER_USEFORWARDHEADERS\n  value: \"true\"\n- name: SERVER_TOMCAT_INTERNALPROXIES\n  value: \".*\""` |  |
 | runtime-bundle.image.pullPolicy | string | `"Always"` |  |
 | runtime-bundle.image.repository | string | `"activiti/example-runtime-bundle"` |  |
-| runtime-bundle.image.tag | string | `"7.1.999"` |  |
+| runtime-bundle.image.tag | string | `"7.1.1003"` |  |
 | runtime-bundle.ingress.annotations."kubernetes.io/ingress.class" | string | `"nginx"` |  |
 | runtime-bundle.ingress.annotations."nginx.ingress.kubernetes.io/cors-allow-headers" | string | `"Authorization, Content-Type, Accept"` |  |
 | runtime-bundle.ingress.annotations."nginx.ingress.kubernetes.io/enable-cors" | string | `"true"` |  |
