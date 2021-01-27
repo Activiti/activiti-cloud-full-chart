@@ -29,11 +29,13 @@ Activiti Runtime Bundle  : {{ template "common.gateway-url" . }}{{ index .Values
 Activiti Cloud Connector : {{ template "common.gateway-url" . }}{{ index .Values "activiti-cloud-connector" "ingress" "path" }}
 {{- end -}}
 {{ if index .Values "activiti-cloud-query" "enabled" }}
-Activiti Query           : {{ template "common.gateway-url" . }}{{ index .Values "activiti-cloud-query" "ingress" "path" }}/query
-Activiti Audit           : {{ template "common.gateway-url" . }}{{ index .Values "activiti-cloud-query" "ingress" "path" }}/audit
-Notifications GraphiQL   : {{ template "common.gateway-url" . }}{{ index .Values "activiti-cloud-query" "ingress" "path" }}/notifications/graphiql
-Notifications WebSockets : {{ template "common.gateway-url" . }}{{ index .Values "activiti-cloud-query" "ingress" "path" }}/notifications/ws/graphql
-Notifications Graphql    : {{ template "common.gateway-url" . }}{{ index .Values "activiti-cloud-query" "ingress" "path" }}/notifications/graphql
+{{- $queryIngressPath := index .Values "activiti-cloud-query" "ingress" "path" }}
+{{- if eq $queryIngressPath "/" }}{{ $queryIngressPath = "" }}{{ end }}
+Activiti Query           : {{ template "common.gateway-url" . }}{{ $queryIngressPath }}/query
+Activiti Audit           : {{ template "common.gateway-url" . }}{{ $queryIngressPath }}/audit
+Notifications GraphiQL   : {{ template "common.gateway-url" . }}{{ $queryIngressPath }}/notifications/graphiql
+Notifications WebSockets : {{ template "common.gateway-url" . }}{{ $queryIngressPath }}/notifications/ws/graphql
+Notifications Graphql    : {{ template "common.gateway-url" . }}{{ $queryIngressPath }}/notifications/graphql
 {{- end }}
 
 To see deployment status, try:

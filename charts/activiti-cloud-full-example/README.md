@@ -286,6 +286,7 @@ Kubernetes: `>=1.15.0-0`
 | activiti-cloud-query.ingress.annotations."nginx.ingress.kubernetes.io/cors-allow-headers" | string | `"Authorization, Content-Type, Accept"` |  |
 | activiti-cloud-query.ingress.annotations."nginx.ingress.kubernetes.io/enable-cors" | string | `"true"` |  |
 | activiti-cloud-query.ingress.annotations."nginx.ingress.kubernetes.io/rewrite-target" | string | `"/$1"` |  |
+| activiti-cloud-query.ingress.path | string | `"/"` |  |
 | activiti-cloud-query.ingress.subPaths[0] | string | `"/query/?(.*)"` |  |
 | activiti-cloud-query.ingress.subPaths[1] | string | `"/audit/?(.*)"` |  |
 | activiti-cloud-query.ingress.subPaths[2] | string | `"/notifications/?(.*)"` |  |
