@@ -481,6 +481,7 @@ activiti-cloud-query:
   liquibase:
     enabled: true
   ingress:
+    path: /
     subPaths:
       - /query/?(.*)
       - /audit/?(.*)
