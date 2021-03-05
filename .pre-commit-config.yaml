@@ -4,16 +4,21 @@ repos:
     hooks:
       - id: helm-docs
   - repo: https://github.com/Alfresco/alfresco-build-tools
-    rev: v1.0.0
+    rev: v1.1.0
     hooks:
       - id: travis-yml-lint
       - id: helm-deps
       - id: helm-lint
-      - id: kubepug-minimum
-      - id: kubepug-recommended
-      - id: checkov-helm
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v3.4.0
     hooks:
+      - id: check-merge-conflict
+      - id: fix-byte-order-marker
+      - id: mixed-line-ending
+        args: ['--fix=lf']
       - id: end-of-file-fixer
       - id: trailing-whitespace
+  - repo: https://github.com/sirosen/check-jsonschema
+    rev: 0.3.0
+    hooks:
+      - id: check-travis
