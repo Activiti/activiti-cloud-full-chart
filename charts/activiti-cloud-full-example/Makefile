@@ -54,7 +54,7 @@ github:
 	rm -rf $(GITHUB_CHARTS_DIR)
 
 version:
-	yq write --inplace Chart.yaml 'version' $(VERSION)
+	yq -i e '.version = "$(VERSION)"' Chart.yaml
 
 tag:
 	git add Chart.yaml requirements.yaml
@@ -63,8 +63,8 @@ tag:
 	git push -f -q https://${GITHUB_TOKEN}@github.com/Activiti/activiti-cloud-full-chart.git v$(VERSION)
 
 update-docker-images:
-	yq write --inplace values.yaml 'activiti-cloud-modeling.image.tag' $(BACKEND_VERSION)
-	yq write --inplace values.yaml 'activiti-modeling-app.image.tag' $(FRONTEND_VERSION)
-	yq write --inplace values.yaml 'runtime-bundle.image.tag' $(BACKEND_VERSION)
-	yq write --inplace values.yaml 'activiti-cloud-query.image.tag' $(BACKEND_VERSION)
-	yq write --inplace values.yaml 'activiti-cloud-connector.image.tag' $(BACKEND_VERSION)
+	yq -i e '.runtime-bundle.image.tag = "$(BACKEND_VERSION)"' values.yaml
+	yq -i e '.activiti-cloud-query.image.tag = "$(BACKEND_VERSION)"' values.yaml
+	yq -i e '.activiti-cloud-connector.image.tag = "$(BACKEND_VERSION)"' values.yaml
+	yq -i e '.activiti-cloud-modeling.image.tag = "$(BACKEND_VERSION)"' values.yaml
+	yq -i e '.activiti-modeling-app.image.tag = "$(FRONTEND_VERSION)"' values.yaml
