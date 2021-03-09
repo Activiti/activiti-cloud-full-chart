@@ -57,7 +57,7 @@ version:
 	yq -i e '.version = "$(VERSION)"' Chart.yaml
 
 tag:
-	git add Chart.yaml requirements.yaml
+	git add -u
 	git commit -m "release $(VERSION)" --allow-empty # if first release then no version update is performed
 	git tag -fa v$(VERSION) -m "Release version $(VERSION)"
 	git push -f -q https://${GITHUB_TOKEN}@github.com/Activiti/activiti-cloud-full-chart.git v$(VERSION)
