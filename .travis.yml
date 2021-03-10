@@ -24,7 +24,7 @@ before_install:
 
     echo $(jx-release-version) > VERSION
     export VERSION=$(cat VERSION)
-    export PREVIEW_NAMESPACE=$(echo "$TRAVIS_BRANCH-$TRAVIS_BUILD_NUMBER" | tr '[:upper:]' '[:lower:]' | tr . -)
+    export PREVIEW_NAME=$(echo "$TRAVIS_BRANCH-$TRAVIS_BUILD_NUMBER" | tr '[:upper:]' '[:lower:]' | tr . -)
 
 jobs:
   include:

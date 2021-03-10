@@ -1,6 +1,6 @@
 NAME := activiti-cloud-full-example
 VERSION := $(or ${VERSION}, $(shell cat ../../VERSION))
-PREVIEW_NAMESPACE_LOWERCASE := $(shell echo ${PREVIEW_NAMESPACE} | tr "[:upper:]" "[:lower:]")
+PREVIEW_NAMESPACE_LOWERCASE := $(shell echo ${PREVIEW_NAME} | tr "[:upper:]" "[:lower:]")
 GITHUB_CHARTS_BRANCH := $(or ${GITHUB_CHARTS_BRANCH}, gh-pages)
 GITHUB_CHARTS_DIR := activiti-cloud-helm-charts
 
