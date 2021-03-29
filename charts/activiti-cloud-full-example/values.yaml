@@ -550,3 +550,37 @@ activiti-cloud-connector:
       cpu: 150m
       memory: 256Mi
   probePath: '{{ tpl .Values.ingress.path . }}/actuator/health'
+
+##
+## Kafka chart configuration
+##
+## https://github.com/bitnami/charts/blob/master/bitnami/kafka/values.yaml
+##
+kafka:
+  enabled: false
+  replicaCount: 1
+  offsetsTopicReplicationFactor: 1
+  ##
+  ## Zookeeper chart configuration
+  ##
+  ## https://github.com/bitnami/charts/blob/master/bitnami/zookeeper/values.yaml
+  ##
+  zookeeper:
+    replicaCount: 1
+
+##
+## External Kafka Configuration
+##
+## All of these values are ignored when kafka.enabled is set to true
+##
+externalKafka:
+  enabled: false
+
+  ## External Kafka brokers
+  ## Multiple brokers can be provided in a comma separated list, e.g. host1:port1,host2:port2
+  ##
+  brokers: localhost:9092
+
+  ## External Zookeeper nodes
+  ##
+  zkNodes: localhost:2181
