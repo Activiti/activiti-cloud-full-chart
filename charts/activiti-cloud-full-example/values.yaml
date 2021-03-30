@@ -414,7 +414,7 @@ postgresql:
   commonAnnotations:
     application: activiti
 rabbitmq:
-  enabled: true
+  enabled: false
   extraPlugins: ""
   auth:
     username: guest
@@ -466,6 +466,16 @@ runtime-bundle:
       value: "true"
     - name: SERVER_TOMCAT_INTERNALPROXIES
       value: ".*"
+    - name:  SPRING_CLOUD_STREAM_KAFKA_BINDER_BROKERS
+      value: "{{ .Release.Name }}"
+    - name:  SPRING_CLOUD_STREAM_KAFKA_BINDER_DEFAULTBROKERPORT
+      value: "9092"
+    - name: SPRING_CLOUD_STREAM_KAFKA_BINDER_ZK_NODES
+      value: "{{ .Release.Name }}-zookeeper"
+    - name: SPRING_CLOUD_STREAM_KAFKA_BINDER_DEFAULTZKPORT
+      value: "2181"
+    - name: ACT_AUDIT_PRODUCER_TRANSACTION_ID_PREFIX
+      value: ""
 activiti-cloud-query:
   enabled: true
   nameOverride: activiti-cloud-query
@@ -505,18 +515,28 @@ activiti-cloud-query:
     requests:
       cpu: 200m
       memory: 512Mi
-  probePath: '/actuator/health'
+  probePath: '{{ tpl .Values.ingress.path . | trimSuffix "/" }}/actuator/health'
   extraEnv: |-
     - name: GRAPHIQL_GRAPHQL_WEB_PATH
       value: /notifications/graphql
     - name: GRAPHIQL_GRAPHQL_WS_PATH
       value: /notifications/ws/graphql
-#    - name: SERVER_SERVLET_CONTEXTPATH
-#      value: "{{ tpl .Values.ingress.path . }}"
-#    - name: SERVER_USEFORWARDHEADERS
-#      value: "true"
-#    - name: SERVER_TOMCAT_INTERNALPROXIES
-#      value: ".*"
+    - name: SERVER_SERVLET_CONTEXTPATH
+      value: "{{ tpl .Values.ingress.path . }}"
+    - name: SERVER_USEFORWARDHEADERS
+      value: "true"
+    - name: SERVER_TOMCAT_INTERNALPROXIES
+      value: ".*"
+    - name:  SPRING_CLOUD_STREAM_KAFKA_BINDER_BROKERS
+      value: "{{ .Release.Name }}"
+    - name:  SPRING_CLOUD_STREAM_KAFKA_BINDER_DEFAULTBROKERPORT
+      value: "9092"
+    - name: SPRING_CLOUD_STREAM_KAFKA_BINDER_ZK_NODES
+      value: "{{ .Release.Name }}-zookeeper"
+    - name: SPRING_CLOUD_STREAM_KAFKA_BINDER_DEFAULTZKPORT
+      value: "2181"
+    - name: ACT_AUDIT_PRODUCER_TRANSACTION_ID_PREFIX
+      value: ""
 activiti-cloud-connector:
   enabled: true
   nameOverride: activiti-cloud-connector
@@ -535,6 +555,16 @@ activiti-cloud-connector:
       value: "true"
     - name: SERVER_TOMCAT_INTERNALPROXIES
       value: ".*"
+    - name:  SPRING_CLOUD_STREAM_KAFKA_BINDER_BROKERS
+      value: "{{ .Release.Name }}"
+    - name:  SPRING_CLOUD_STREAM_KAFKA_BINDER_DEFAULTBROKERPORT
+      value: "9092"
+    - name: SPRING_CLOUD_STREAM_KAFKA_BINDER_ZK_NODES
+      value: "{{ .Release.Name }}-zookeeper"
+    - name: SPRING_CLOUD_STREAM_KAFKA_BINDER_DEFAULTZKPORT
+      value: "2181"
+    - name: ACT_AUDIT_PRODUCER_TRANSACTION_ID_PREFIX
+      value: ""
   ingress:
     enabled: false
     path: /example-cloud-connector
