@@ -467,7 +467,7 @@ runtime-bundle:
     - name: SERVER_TOMCAT_INTERNALPROXIES
       value: ".*"
     - name:  SPRING_CLOUD_STREAM_KAFKA_BINDER_BROKERS
-      value: "{{ .Release.Name }}"
+      value: "{{ .Release.Name }}-kafka"
     - name:  SPRING_CLOUD_STREAM_KAFKA_BINDER_DEFAULTBROKERPORT
       value: "9092"
     - name: SPRING_CLOUD_STREAM_KAFKA_BINDER_ZK_NODES
@@ -528,7 +528,7 @@ activiti-cloud-query:
     - name: SERVER_TOMCAT_INTERNALPROXIES
       value: ".*"
     - name:  SPRING_CLOUD_STREAM_KAFKA_BINDER_BROKERS
-      value: "{{ .Release.Name }}"
+      value: "{{ .Release.Name }}-kafka"
     - name:  SPRING_CLOUD_STREAM_KAFKA_BINDER_DEFAULTBROKERPORT
       value: "9092"
     - name: SPRING_CLOUD_STREAM_KAFKA_BINDER_ZK_NODES
@@ -556,7 +556,7 @@ activiti-cloud-connector:
     - name: SERVER_TOMCAT_INTERNALPROXIES
       value: ".*"
     - name:  SPRING_CLOUD_STREAM_KAFKA_BINDER_BROKERS
-      value: "{{ .Release.Name }}"
+      value: "{{ .Release.Name }}-kafka"
     - name:  SPRING_CLOUD_STREAM_KAFKA_BINDER_DEFAULTBROKERPORT
       value: "9092"
     - name: SPRING_CLOUD_STREAM_KAFKA_BINDER_ZK_NODES
