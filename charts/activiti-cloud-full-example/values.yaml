@@ -34,9 +34,18 @@ global:
     # global.keycloak.resource -- Configure Keycloak resource
     resource: "activiti"
   rabbitmq:
-    host: ""
+    enabled: false
+    deploy: false
+    host: '{{ include "common.rabbitmq.fullname" $ }}'
     username: guest
     password: guest
+  kafka:
+    enabled: false
+    deploy: false
+    brokers: '{{ include "common.kafka.fullname" $ }}'
+    zkNodes: '{{ .Release.Name }}-zookeper'
+    trxPrefix: ""
+
 activiti-cloud-identity:
   enabled: true
   nameOverride: keycloak
@@ -466,16 +475,18 @@ runtime-bundle:
       value: "true"
     - name: SERVER_TOMCAT_INTERNALPROXIES
       value: ".*"
+    {{- if .Values.global.kafka.enabled }}
     - name:  SPRING_CLOUD_STREAM_KAFKA_BINDER_BROKERS
-      value: "{{ .Release.Name }}-kafka"
+      value: {{ tpl .Values.global.kafka.brokers $ | quote }}
     - name:  SPRING_CLOUD_STREAM_KAFKA_BINDER_DEFAULTBROKERPORT
       value: "9092"
     - name: SPRING_CLOUD_STREAM_KAFKA_BINDER_ZK_NODES
-      value: "{{ .Release.Name }}-zookeeper"
+      value: {{ tpl .Values.global.kafka.zkNodes $ | quote }}
     - name: SPRING_CLOUD_STREAM_KAFKA_BINDER_DEFAULTZKPORT
       value: "2181"
     - name: ACT_AUDIT_PRODUCER_TRANSACTION_ID_PREFIX
       value: ""
+    {{- end }}
 activiti-cloud-query:
   enabled: true
   nameOverride: activiti-cloud-query
@@ -527,16 +538,18 @@ activiti-cloud-query:
       value: "true"
     - name: SERVER_TOMCAT_INTERNALPROXIES
       value: ".*"
+    {{- if .Values.global.kafka.enabled }}
     - name:  SPRING_CLOUD_STREAM_KAFKA_BINDER_BROKERS
-      value: "{{ .Release.Name }}-kafka"
+      value: {{ tpl .Values.global.kafka.brokers $ | quote }}
     - name:  SPRING_CLOUD_STREAM_KAFKA_BINDER_DEFAULTBROKERPORT
       value: "9092"
     - name: SPRING_CLOUD_STREAM_KAFKA_BINDER_ZK_NODES
-      value: "{{ .Release.Name }}-zookeeper"
+      value: {{ tpl .Values.global.kafka.zkNodes $ | quote }}
     - name: SPRING_CLOUD_STREAM_KAFKA_BINDER_DEFAULTZKPORT
       value: "2181"
     - name: ACT_AUDIT_PRODUCER_TRANSACTION_ID_PREFIX
       value: ""
+    {{- end }}
 activiti-cloud-connector:
   enabled: true
   nameOverride: activiti-cloud-connector
@@ -555,16 +568,18 @@ activiti-cloud-connector:
       value: "true"
     - name: SERVER_TOMCAT_INTERNALPROXIES
       value: ".*"
+    {{- if .Values.global.kafka.enabled }}
     - name:  SPRING_CLOUD_STREAM_KAFKA_BINDER_BROKERS
-      value: "{{ .Release.Name }}-kafka"
+      value: {{ tpl .Values.global.kafka.brokers $ | quote }}
     - name:  SPRING_CLOUD_STREAM_KAFKA_BINDER_DEFAULTBROKERPORT
       value: "9092"
     - name: SPRING_CLOUD_STREAM_KAFKA_BINDER_ZK_NODES
-      value: "{{ .Release.Name }}-zookeeper"
+      value: {{ tpl .Values.global.kafka.zkNodes $ | quote }}
     - name: SPRING_CLOUD_STREAM_KAFKA_BINDER_DEFAULTZKPORT
       value: "2181"
     - name: ACT_AUDIT_PRODUCER_TRANSACTION_ID_PREFIX
       value: ""
+    {{- end }}
   ingress:
     enabled: false
     path: /example-cloud-connector
@@ -587,7 +602,6 @@ activiti-cloud-connector:
 ## https://github.com/bitnami/charts/blob/master/bitnami/kafka/values.yaml
 ##
 kafka:
-  enabled: false
   replicaCount: 1
   offsetsTopicReplicationFactor: 1
   ##
