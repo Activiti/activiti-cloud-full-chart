@@ -13,28 +13,3 @@ Activiti Cloud: Messaging System
 {{- end -}}
 {{- end -}}
 
-{{/*
-Create a default fully qualified app name for the kafka requirement.
-We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
-If release name contains chart name it will be used as a full name.
-*/}}
-{{- define "common.kafka.fullname" -}}
-{{- if contains "kafka" .Release.Name -}}
-{{- .Release.Name | trunc 63 | trimSuffix "-" -}}
-{{- else -}}
-{{- printf "%s-%s" .Release.Name "kafka" | trunc 63 | trimSuffix "-" -}}
-{{- end -}}
-{{- end -}}
-
-{{/*
-Create a default fully qualified app name for the kafka requirement.
-We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
-If release name contains chart name it will be used as a full name.
-*/}}
-{{- define "common.rabbitmq.fullname" -}}
-{{- if contains "rabbitmq" .Release.Name -}}
-{{- .Release.Name | trunc 63 | trimSuffix "-" -}}
-{{- else -}}
-{{- printf "%s-%s" .Release.Name "rabbitmq" | trunc 63 | trimSuffix "-" -}}
-{{- end -}}
-{{- end -}}
