@@ -44,7 +44,7 @@ global:
     deploy: false
     brokers: '{{ include "common.kafka.fullname" $ }}'
     zkNodes: '{{ .Release.Name }}-zookeper'
-    trxPrefix: ""
+    trxIdPrefix: ""
 
 activiti-cloud-identity:
   enabled: true
@@ -458,8 +458,6 @@ runtime-bundle:
       nginx.ingress.kubernetes.io/cors-allow-headers: Authorization, Content-Type, Accept
   postgresql:
     enabled: true
-  rabbitmq:
-    enabled: true
   resources:
     limits:
       cpu: "2"
@@ -475,18 +473,6 @@ runtime-bundle:
       value: "true"
     - name: SERVER_TOMCAT_INTERNALPROXIES
       value: ".*"
-    {{- if .Values.global.kafka.enabled }}
-    - name:  SPRING_CLOUD_STREAM_KAFKA_BINDER_BROKERS
-      value: {{ tpl .Values.global.kafka.brokers $ | quote }}
-    - name:  SPRING_CLOUD_STREAM_KAFKA_BINDER_DEFAULTBROKERPORT
-      value: "9092"
-    - name: SPRING_CLOUD_STREAM_KAFKA_BINDER_ZK_NODES
-      value: {{ tpl .Values.global.kafka.zkNodes $ | quote }}
-    - name: SPRING_CLOUD_STREAM_KAFKA_BINDER_DEFAULTZKPORT
-      value: "2181"
-    - name: ACT_AUDIT_PRODUCER_TRANSACTION_ID_PREFIX
-      value: ""
-    {{- end }}
 activiti-cloud-query:
   enabled: true
   nameOverride: activiti-cloud-query
@@ -517,8 +503,6 @@ activiti-cloud-query:
   db:
     # activiti-cloud-query.db.ddlAuto -- set to 'none' temporarily rather than default 'validate' that breaks
     ddlAuto: none
-  rabbitmq:
-    enabled: true
   resources:
     limits:
       cpu: "1.5"
@@ -529,27 +513,15 @@ activiti-cloud-query:
   probePath: '{{ tpl .Values.ingress.path . | trimSuffix "/" }}/actuator/health'
   extraEnv: |-
     - name: GRAPHIQL_GRAPHQL_WEB_PATH
-      value: /notifications/graphql
+      value: '{{ tpl .Values.ingress.path . | trimSuffix "/" }}/notifications/graphql'
     - name: GRAPHIQL_GRAPHQL_WS_PATH
-      value: /notifications/ws/graphql
+      value: '{{ tpl .Values.ingress.path . | trimSuffix "/" }}/notifications/ws/graphql'
     - name: SERVER_SERVLET_CONTEXTPATH
       value: "{{ tpl .Values.ingress.path . }}"
     - name: SERVER_USEFORWARDHEADERS
       value: "true"
     - name: SERVER_TOMCAT_INTERNALPROXIES
       value: ".*"
-    {{- if .Values.global.kafka.enabled }}
-    - name:  SPRING_CLOUD_STREAM_KAFKA_BINDER_BROKERS
-      value: {{ tpl .Values.global.kafka.brokers $ | quote }}
-    - name:  SPRING_CLOUD_STREAM_KAFKA_BINDER_DEFAULTBROKERPORT
-      value: "9092"
-    - name: SPRING_CLOUD_STREAM_KAFKA_BINDER_ZK_NODES
-      value: {{ tpl .Values.global.kafka.zkNodes $ | quote }}
-    - name: SPRING_CLOUD_STREAM_KAFKA_BINDER_DEFAULTZKPORT
-      value: "2181"
-    - name: ACT_AUDIT_PRODUCER_TRANSACTION_ID_PREFIX
-      value: ""
-    {{- end }}
 activiti-cloud-connector:
   enabled: true
   nameOverride: activiti-cloud-connector
@@ -559,8 +531,6 @@ activiti-cloud-connector:
     repository: activiti/example-cloud-connector
     tag: 7.1.1042
     pullPolicy: Always
-  rabbitmq:
-    enabled: true
   extraEnv: |-
     - name: SERVER_SERVLET_CONTEXTPATH
       value: "{{ tpl .Values.ingress.path . }}"
@@ -568,18 +538,6 @@ activiti-cloud-connector:
       value: "true"
     - name: SERVER_TOMCAT_INTERNALPROXIES
       value: ".*"
-    {{- if .Values.global.kafka.enabled }}
-    - name:  SPRING_CLOUD_STREAM_KAFKA_BINDER_BROKERS
-      value: {{ tpl .Values.global.kafka.brokers $ | quote }}
-    - name:  SPRING_CLOUD_STREAM_KAFKA_BINDER_DEFAULTBROKERPORT
-      value: "9092"
-    - name: SPRING_CLOUD_STREAM_KAFKA_BINDER_ZK_NODES
-      value: {{ tpl .Values.global.kafka.zkNodes $ | quote }}
-    - name: SPRING_CLOUD_STREAM_KAFKA_BINDER_DEFAULTZKPORT
-      value: "2181"
-    - name: ACT_AUDIT_PRODUCER_TRANSACTION_ID_PREFIX
-      value: ""
-    {{- end }}
   ingress:
     enabled: false
     path: /example-cloud-connector
