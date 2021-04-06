@@ -33,18 +33,31 @@ global:
     realm: "activiti"
     # global.keycloak.resource -- Configure Keycloak resource
     resource: "activiti"
+
+  messaging:
+    # global.messaging.broker -- required messaging broker, rabbitmq | kafka
+    broker: ""
+
   rabbitmq:
-    enabled: false
-    deploy: false
     host: '{{ include "common.rabbitmq.fullname" $ }}'
     username: guest
     password: guest
+    extraEnv: |
+#      - name: SPRING_RABBITMQ_PASSWORD
+#        valueFrom:
+#          secretKeyRef:
+#            name: rabbitmq-secret
+#            key: rabbitmq-password
+
+  ## Kafka Configuration
   kafka:
-    enabled: false
-    deploy: false
+    ## global.kafka.brokers -- Multiple brokers can be provided in a comma separated list, e.g. host1:port1,host2:port2
     brokers: '{{ include "common.kafka.fullname" $ }}'
+    ## global.kafka.zkNodes -- External Zookeeper nodes
     zkNodes: '{{ .Release.Name }}-zookeper'
-    trxIdPrefix: ""
+    extraEnv: |
+      - name: ACT_AUDIT_PRODUCER_TRANSACTION_ID_PREFIX
+        value: ""
 
 activiti-cloud-identity:
   enabled: true
@@ -441,6 +454,8 @@ rabbitmq:
 runtime-bundle:
   enabled: true
   nameOverride: runtime-bundle
+  messaging:
+    enabled: true
   service:
     name: rb
   javaOpts:
@@ -485,6 +500,8 @@ activiti-cloud-query:
     repository: activiti/activiti-cloud-query
     tag: 7.1.1042
     pullPolicy: Always
+  messaging:
+    enabled: true
   liquibase:
     enabled: true
   ingress:
@@ -510,12 +527,12 @@ activiti-cloud-query:
     requests:
       cpu: 200m
       memory: 512Mi
-  probePath: '{{ tpl .Values.ingress.path . | trimSuffix "/" }}/actuator/health'
+  probePath: '{{ tpl .Values.ingress.path . }}/actuator/health'
   extraEnv: |-
     - name: GRAPHIQL_GRAPHQL_WEB_PATH
-      value: '{{ tpl .Values.ingress.path . | trimSuffix "/" }}/notifications/graphql'
+      value: '{{ tpl .Values.ingress.path . }}/notifications/graphql'
     - name: GRAPHIQL_GRAPHQL_WS_PATH
-      value: '{{ tpl .Values.ingress.path . | trimSuffix "/" }}/notifications/ws/graphql'
+      value: '{{ tpl .Values.ingress.path . }}/notifications/ws/graphql'
     - name: SERVER_SERVLET_CONTEXTPATH
       value: "{{ tpl .Values.ingress.path . }}"
     - name: SERVER_USEFORWARDHEADERS
@@ -531,6 +548,8 @@ activiti-cloud-connector:
     repository: activiti/example-cloud-connector
     tag: 7.1.1042
     pullPolicy: Always
+  messaging:
+    enabled: true
   extraEnv: |-
     - name: SERVER_SERVLET_CONTEXTPATH
       value: "{{ tpl .Values.ingress.path . }}"
@@ -560,6 +579,7 @@ activiti-cloud-connector:
 ## https://github.com/bitnami/charts/blob/master/bitnami/kafka/values.yaml
 ##
 kafka:
+  enabled: false
   replicaCount: 1
   offsetsTopicReplicationFactor: 1
   ##
@@ -569,20 +589,3 @@ kafka:
   ##
   zookeeper:
     replicaCount: 1
-
-##
-## External Kafka Configuration
-##
-## All of these values are ignored when kafka.enabled is set to true
-##
-externalKafka:
-  enabled: false
-
-  ## External Kafka brokers
-  ## Multiple brokers can be provided in a comma separated list, e.g. host1:port1,host2:port2
-  ##
-  brokers: localhost:9092
-
-  ## External Zookeeper nodes
-  ##
-  zkNodes: localhost:2181
