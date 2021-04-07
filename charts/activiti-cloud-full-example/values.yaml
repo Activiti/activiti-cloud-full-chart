@@ -527,12 +527,12 @@ activiti-cloud-query:
     requests:
       cpu: 200m
       memory: 512Mi
-  probePath: '{{ tpl .Values.ingress.path . }}/actuator/health'
+  probePath: '{{ tpl .Values.ingress.path . | trimSuffix "/" }}/actuator/health'
   extraEnv: |-
     - name: GRAPHIQL_GRAPHQL_WEB_PATH
-      value: '{{ tpl .Values.ingress.path . }}/notifications/graphql'
+      value: '{{ tpl .Values.ingress.path . | trimSuffix "/" }}/notifications/graphql'
     - name: GRAPHIQL_GRAPHQL_WS_PATH
-      value: '{{ tpl .Values.ingress.path . }}/notifications/ws/graphql'
+      value: '{{ tpl .Values.ingress.path . | trimSuffix "/" }}/notifications/ws/graphql'
     - name: SERVER_SERVLET_CONTEXTPATH
       value: "{{ tpl .Values.ingress.path . }}"
     - name: SERVER_USEFORWARDHEADERS
