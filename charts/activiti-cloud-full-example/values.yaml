@@ -454,8 +454,6 @@ rabbitmq:
 runtime-bundle:
   enabled: true
   nameOverride: runtime-bundle
-  messaging:
-    enabled: true
   service:
     name: rb
   javaOpts:
@@ -472,6 +470,8 @@ runtime-bundle:
       nginx.ingress.kubernetes.io/enable-cors: "true"
       nginx.ingress.kubernetes.io/cors-allow-headers: Authorization, Content-Type, Accept
   postgresql:
+    enabled: true
+  messaging:
     enabled: true
   resources:
     limits:
@@ -500,8 +500,6 @@ activiti-cloud-query:
     repository: activiti/activiti-cloud-query
     tag: 7.1.1042
     pullPolicy: Always
-  messaging:
-    enabled: true
   liquibase:
     enabled: true
   ingress:
@@ -516,6 +514,8 @@ activiti-cloud-query:
       nginx.ingress.kubernetes.io/cors-allow-headers: Authorization, Content-Type, Accept
       nginx.ingress.kubernetes.io/rewrite-target: /$1
   postgresql:
+    enabled: true
+  messaging:
     enabled: true
   db:
     # activiti-cloud-query.db.ddlAuto -- set to 'none' temporarily rather than default 'validate' that breaks
