@@ -35,7 +35,7 @@ global:
     resource: "activiti"
 
   messaging:
-    # global.messaging.broker -- required messaging broker, rabbitmq | kafka
+    # global.messaging.broker -- required messaging broker, rabbitmq or kafka
     broker: "rabbitmq"
 
   rabbitmq:
