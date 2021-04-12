@@ -36,7 +36,7 @@ global:
 
   messaging:
     # global.messaging.broker -- required messaging broker, rabbitmq | kafka
-    broker: ""
+    broker: "rabbitmq"
 
   rabbitmq:
     host: '{{ include "common.rabbitmq.fullname" $ }}'
@@ -436,7 +436,7 @@ postgresql:
   commonAnnotations:
     application: activiti
 rabbitmq:
-  enabled: false
+  enabled: true
   extraPlugins: ""
   auth:
     username: guest
