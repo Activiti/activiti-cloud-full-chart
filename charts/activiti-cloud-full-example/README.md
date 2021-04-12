@@ -320,7 +320,7 @@ Kubernetes: `>=1.15.0-0`
 | activiti-modeling-app.resources.requests.memory | string | `"256Mi"` |  |
 | activiti-modeling-app.service.envType | string | `"frontend"` |  |
 | activiti-modeling-app.service.name | string | `"modeling-app"` |  |
-| global | object | `{"extraEnv":"","gateway":{"annotations":null,"domain":"DOMAIN","host":"gateway-{{ .Release.Namespace }}.{{ template \"common.gateway-domain\" . }}","http":"true","tlsacme":"false"},"kafka":{"brokers":"{{ include \"common.kafka.fullname\" $ }}","extraEnv":"- name: ACT_AUDIT_PRODUCER_TRANSACTION_ID_PREFIX\n  value: \"\"\n","zkNodes":"{{ .Release.Name }}-zookeper"},"keycloak":{"host":"identity-{{ .Release.Namespace }}.{{ template \"common.gateway-domain\" . }}","realm":"activiti","resource":"activiti","url":""},"messaging":{"broker":""},"rabbitmq":{"extraEnv":"","host":"{{ include \"common.rabbitmq.fullname\" $ }}","password":"guest","username":"guest"},"registryPullSecrets":[]}` | for common values see https://github.com/Activiti/activiti-cloud-common-chart/blob/master/charts/common/README.md |
+| global | object | `{"extraEnv":"","gateway":{"annotations":null,"domain":"DOMAIN","host":"gateway-{{ .Release.Namespace }}.{{ template \"common.gateway-domain\" . }}","http":"true","tlsacme":"false"},"kafka":{"brokers":"{{ include \"common.kafka.fullname\" $ }}","extraEnv":"- name: ACT_AUDIT_PRODUCER_TRANSACTION_ID_PREFIX\n  value: \"\"\n","zkNodes":"{{ .Release.Name }}-zookeper"},"keycloak":{"host":"identity-{{ .Release.Namespace }}.{{ template \"common.gateway-domain\" . }}","realm":"activiti","resource":"activiti","url":""},"messaging":{"broker":"rabbitmq"},"rabbitmq":{"extraEnv":"","host":"{{ include \"common.rabbitmq.fullname\" $ }}","password":"guest","username":"guest"},"registryPullSecrets":[]}` | for common values see https://github.com/Activiti/activiti-cloud-common-chart/blob/master/charts/common/README.md |
 | global.extraEnv | string | `""` | Use Yaml formatted string to add extra environment properties to all deployments, i.e. |
 | global.gateway.annotations | string | `nil` | Configure global annotations for all service ingresses |
 | global.gateway.domain | string | `"DOMAIN"` | Set to configure gateway domain template, i.e. {{ .Release.Namespace }}.1.3.4.5.nip.io $ helm upgrade aae . --install --set global.gateway.domain=1.2.3.4.nip.io |
@@ -331,7 +331,7 @@ Kubernetes: `>=1.15.0-0`
 | global.keycloak.realm | string | `"activiti"` | Configure Keycloak realm |
 | global.keycloak.resource | string | `"activiti"` | Configure Keycloak resource |
 | global.keycloak.url | string | `""` | Set full url to configure external Keycloak, otherwise will be generated based on host |
-| global.messaging.broker | string | `""` | required messaging broker, rabbitmq | kafka |
+| global.messaging.broker | string | `"rabbitmq"` | required messaging broker, rabbitmq or kafka |
 | global.registryPullSecrets | list | `[]` | Configure pull secrets for all deployments |
 | kafka.enabled | bool | `false` |  |
 | kafka.offsetsTopicReplicationFactor | int | `1` |  |
@@ -345,7 +345,7 @@ Kubernetes: `>=1.15.0-0`
 | rabbitmq.auth.erlangCookie | string | `"ylY79lOdNUWsJEwAGdVQnhjSazV4QZKO="` |  |
 | rabbitmq.auth.password | string | `"guest"` |  |
 | rabbitmq.auth.username | string | `"guest"` |  |
-| rabbitmq.enabled | bool | `false` |  |
+| rabbitmq.enabled | bool | `true` |  |
 | rabbitmq.extraPlugins | string | `""` |  |
 | rabbitmq.livenessProbe.timeoutSeconds | int | `90` |  |
 | rabbitmq.readinessProbe.timeoutSeconds | int | `90` |  |
