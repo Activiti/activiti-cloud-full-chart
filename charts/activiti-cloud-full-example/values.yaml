@@ -33,10 +33,32 @@ global:
     realm: "activiti"
     # global.keycloak.resource -- Configure Keycloak resource
     resource: "activiti"
+
+  messaging:
+    # global.messaging.broker -- required messaging broker, rabbitmq or kafka
+    broker: "rabbitmq"
+
   rabbitmq:
-    host: ""
+    host: '{{ include "common.rabbitmq.fullname" $ }}'
     username: guest
     password: guest
+    extraEnv: |
+#      - name: SPRING_RABBITMQ_PASSWORD
+#        valueFrom:
+#          secretKeyRef:
+#            name: rabbitmq-secret
+#            key: rabbitmq-password
+
+  ## Kafka Configuration
+  kafka:
+    ## global.kafka.brokers -- Multiple brokers can be provided in a comma separated list, e.g. host1:port1,host2:port2
+    brokers: '{{ include "common.kafka.fullname" $ }}'
+    ## global.kafka.zkNodes -- External Zookeeper nodes
+    zkNodes: '{{ .Release.Name }}-zookeper'
+    extraEnv: |
+      - name: ACT_AUDIT_PRODUCER_TRANSACTION_ID_PREFIX
+        value: ""
+
 activiti-cloud-identity:
   enabled: true
   nameOverride: keycloak
@@ -449,7 +471,7 @@ runtime-bundle:
       nginx.ingress.kubernetes.io/cors-allow-headers: Authorization, Content-Type, Accept
   postgresql:
     enabled: true
-  rabbitmq:
+  messaging:
     enabled: true
   resources:
     limits:
@@ -493,11 +515,11 @@ activiti-cloud-query:
       nginx.ingress.kubernetes.io/rewrite-target: /$1
   postgresql:
     enabled: true
+  messaging:
+    enabled: true
   db:
     # activiti-cloud-query.db.ddlAuto -- set to 'none' temporarily rather than default 'validate' that breaks
     ddlAuto: none
-  rabbitmq:
-    enabled: true
   resources:
     limits:
       cpu: "1.5"
@@ -505,18 +527,18 @@ activiti-cloud-query:
     requests:
       cpu: 200m
       memory: 512Mi
-  probePath: '/actuator/health'
+  probePath: '{{ tpl .Values.ingress.path . | trimSuffix "/" }}/actuator/health'
   extraEnv: |-
     - name: GRAPHIQL_GRAPHQL_WEB_PATH
-      value: /notifications/graphql
+      value: '{{ tpl .Values.ingress.path . | trimSuffix "/" }}/notifications/graphql'
     - name: GRAPHIQL_GRAPHQL_WS_PATH
-      value: /notifications/ws/graphql
-#    - name: SERVER_SERVLET_CONTEXTPATH
-#      value: "{{ tpl .Values.ingress.path . }}"
-#    - name: SERVER_USEFORWARDHEADERS
-#      value: "true"
-#    - name: SERVER_TOMCAT_INTERNALPROXIES
-#      value: ".*"
+      value: '{{ tpl .Values.ingress.path . | trimSuffix "/" }}/notifications/ws/graphql'
+    - name: SERVER_SERVLET_CONTEXTPATH
+      value: "{{ tpl .Values.ingress.path . }}"
+    - name: SERVER_USEFORWARDHEADERS
+      value: "true"
+    - name: SERVER_TOMCAT_INTERNALPROXIES
+      value: ".*"
 activiti-cloud-connector:
   enabled: true
   nameOverride: activiti-cloud-connector
@@ -526,7 +548,7 @@ activiti-cloud-connector:
     repository: activiti/example-cloud-connector
     tag: 7.1.1042
     pullPolicy: Always
-  rabbitmq:
+  messaging:
     enabled: true
   extraEnv: |-
     - name: SERVER_SERVLET_CONTEXTPATH
@@ -550,3 +572,20 @@ activiti-cloud-connector:
       cpu: 150m
       memory: 256Mi
   probePath: '{{ tpl .Values.ingress.path . }}/actuator/health'
+
+##
+## Kafka chart configuration
+##
+## https://github.com/bitnami/charts/blob/master/bitnami/kafka/values.yaml
+##
+kafka:
+  enabled: false
+  replicaCount: 1
+  offsetsTopicReplicationFactor: 1
+  ##
+  ## Zookeeper chart configuration
+  ##
+  ## https://github.com/bitnami/charts/blob/master/bitnami/zookeeper/values.yaml
+  ##
+  zookeeper:
+    replicaCount: 1
