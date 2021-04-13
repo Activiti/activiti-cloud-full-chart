@@ -3,5 +3,5 @@ global:
     broker: kafka
 kafka:
   enabled: true
-rabbitmq: 
+rabbitmq:
   enabled: false
