@@ -460,6 +460,17 @@ runtime-bundle:
     repository: activiti/example-runtime-bundle
     tag: 7.1.1051
     pullPolicy: Always
+  config:
+    enabled: true
+    command:
+      - sh
+      - -c
+      - |
+        APPLICATION_PROPERTIES={{ .Values.config.mountPath | trimSuffix "/" }}/application.properties
+
+        echo activiti.cloud.messaging.broker={{ .Values.global.messaging.broker }} >> $APPLICATION_PROPERTIES
+        echo activiti.cloud.messaging.partitioned={{ .Values.global.messaging.partitioned }} >> $APPLICATION_PROPERTIES
+        echo activiti.cloud.messaging.partition-count={{ .Values.global.messaging.partitionCount }} >> $APPLICATION_PROPERTIES
   ingress:
     path: /rb
     annotations:
@@ -498,6 +509,20 @@ activiti-cloud-query:
     tag: 7.1.1051
     pullPolicy: Always
   liquibase:
+    enabled: true
+  config:
+    enabled: true
+    command:
+      - sh
+      - -c
+      - |
+        APPLICATION_PROPERTIES={{ .Values.config.mountPath | trimSuffix "/" }}/application.properties
+
+        echo activiti.cloud.messaging.broker={{ .Values.global.messaging.broker }} >> $APPLICATION_PROPERTIES
+        echo activiti.cloud.messaging.partitioned={{ .Values.global.messaging.partitioned }} >> $APPLICATION_PROPERTIES
+        echo activiti.cloud.messaging.partition-count={{ .Values.global.messaging.partitionCount }} >> $APPLICATION_PROPERTIES
+        echo activiti.cloud.messaging.instance-index=${HOSTNAME##*-} >> $APPLICATION_PROPERTIES
+  statefulset:
     enabled: true
   ingress:
     path: /
