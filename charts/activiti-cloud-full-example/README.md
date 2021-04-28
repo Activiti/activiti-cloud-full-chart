@@ -277,6 +277,10 @@ Kubernetes: `>=1.15.0-0`
 | activiti-cloud-modeling.resources.requests.cpu | string | `"400m"` |  |
 | activiti-cloud-modeling.resources.requests.memory | string | `"512Mi"` |  |
 | activiti-cloud-modeling.service.name | string | `"modeling"` |  |
+| activiti-cloud-query.config.command[0] | string | `"sh"` |  |
+| activiti-cloud-query.config.command[1] | string | `"-c"` |  |
+| activiti-cloud-query.config.command[2] | string | `"APPLICATION_PROPERTIES={{ .Values.config.mountPath | trimSuffix \"/\" }}/application.properties\n\necho activiti.cloud.messaging.broker={{ .Values.global.messaging.broker }} >> $APPLICATION_PROPERTIES\necho activiti.cloud.messaging.partitioned={{ .Values.global.messaging.partitioned }} >> $APPLICATION_PROPERTIES\necho activiti.cloud.messaging.partition-count={{ .Values.global.messaging.partitionCount }} >> $APPLICATION_PROPERTIES\necho activiti.cloud.messaging.instance-index=${HOSTNAME##*-} >> $APPLICATION_PROPERTIES\n"` |  |
+| activiti-cloud-query.config.enabled | bool | `true` |  |
 | activiti-cloud-query.db.ddlAuto | string | `"none"` | set to 'none' temporarily rather than default 'validate' that breaks |
 | activiti-cloud-query.enabled | bool | `true` |  |
 | activiti-cloud-query.extraEnv | string | `"- name: GRAPHIQL_GRAPHQL_WEB_PATH\n  value: '{{ tpl .Values.ingress.path . | trimSuffix \"/\" }}/notifications/graphql'\n- name: GRAPHIQL_GRAPHQL_WS_PATH\n  value: '{{ tpl .Values.ingress.path . | trimSuffix \"/\" }}/notifications/ws/graphql'\n- name: SERVER_SERVLET_CONTEXTPATH\n  value: \"{{ tpl .Values.ingress.path . }}\"\n- name: SERVER_USEFORWARDHEADERS\n  value: \"true\"\n- name: SERVER_TOMCAT_INTERNALPROXIES\n  value: \".*\""` |  |
@@ -303,6 +307,7 @@ Kubernetes: `>=1.15.0-0`
 | activiti-cloud-query.resources.requests.cpu | string | `"200m"` |  |
 | activiti-cloud-query.resources.requests.memory | string | `"512Mi"` |  |
 | activiti-cloud-query.service.name | string | `"query"` |  |
+| activiti-cloud-query.statefulset.enabled | bool | `true` |  |
 | activiti-modeling-app.enabled | bool | `true` |  |
 | activiti-modeling-app.env.APP_CONFIG_AUTH_TYPE | string | `"OAUTH"` |  |
 | activiti-modeling-app.env.APP_CONFIG_BPM_HOST | string | `"{{ include \"common.gateway-url\" . }}"` |  |
@@ -351,6 +356,10 @@ Kubernetes: `>=1.15.0-0`
 | rabbitmq.readinessProbe.timeoutSeconds | int | `90` |  |
 | rabbitmq.resources.limits.memory | string | `"1500Mi"` |  |
 | rabbitmq.resources.requests.memory | string | `"1500Mi"` |  |
+| runtime-bundle.config.command[0] | string | `"sh"` |  |
+| runtime-bundle.config.command[1] | string | `"-c"` |  |
+| runtime-bundle.config.command[2] | string | `"APPLICATION_PROPERTIES={{ .Values.config.mountPath | trimSuffix \"/\" }}/application.properties\n\necho activiti.cloud.messaging.broker={{ .Values.global.messaging.broker }} >> $APPLICATION_PROPERTIES\necho activiti.cloud.messaging.partitioned={{ .Values.global.messaging.partitioned }} >> $APPLICATION_PROPERTIES\necho activiti.cloud.messaging.partition-count={{ .Values.global.messaging.partitionCount }} >> $APPLICATION_PROPERTIES\n"` |  |
+| runtime-bundle.config.enabled | bool | `true` |  |
 | runtime-bundle.enabled | bool | `true` |  |
 | runtime-bundle.extraEnv | string | `"- name: SERVER_SERVLET_CONTEXTPATH\n  value: \"{{ tpl .Values.ingress.path . }}\"\n- name: SERVER_USEFORWARDHEADERS\n  value: \"true\"\n- name: SERVER_TOMCAT_INTERNALPROXIES\n  value: \".*\""` |  |
 | runtime-bundle.image.pullPolicy | string | `"Always"` |  |
