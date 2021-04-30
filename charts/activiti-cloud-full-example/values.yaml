@@ -36,6 +36,10 @@ global:
   messaging:
     # global.messaging.broker -- required messaging broker, rabbitmq or kafka
     broker: "rabbitmq"
+    # global.messaging.partitioned -- enables partitioned messaging in combination with messaging.enabled=true && messaging.role=producer|consumer
+    partitioned: false
+    # global.messaging.partitionCount -- configures number of partitioned consumers 
+    partitionCount: 2
   rabbitmq:
     host: '{{ include "common.rabbitmq.fullname" $ }}'
     username: guest
@@ -460,17 +464,6 @@ runtime-bundle:
     repository: activiti/example-runtime-bundle
     tag: 7.1.1051
     pullPolicy: Always
-  config:
-    enabled: true
-    command:
-      - sh
-      - -c
-      - |
-        APPLICATION_PROPERTIES={{ .Values.config.mountPath | trimSuffix "/" }}/application.properties
-
-        echo activiti.cloud.messaging.broker={{ .Values.global.messaging.broker }} >> $APPLICATION_PROPERTIES
-        echo activiti.cloud.messaging.partitioned={{ .Values.global.messaging.partitioned }} >> $APPLICATION_PROPERTIES
-        echo activiti.cloud.messaging.partition-count={{ .Values.global.messaging.partitionCount }} >> $APPLICATION_PROPERTIES
   ingress:
     path: /rb
     annotations:
@@ -481,6 +474,7 @@ runtime-bundle:
     enabled: true
   messaging:
     enabled: true
+    role: producer
   resources:
     limits:
       cpu: "2"
@@ -510,20 +504,6 @@ activiti-cloud-query:
     pullPolicy: Always
   liquibase:
     enabled: true
-  config:
-    enabled: true
-    command:
-      - sh
-      - -c
-      - |
-        APPLICATION_PROPERTIES={{ .Values.config.mountPath | trimSuffix "/" }}/application.properties
-
-        echo activiti.cloud.messaging.broker={{ .Values.global.messaging.broker }} >> $APPLICATION_PROPERTIES
-        echo activiti.cloud.messaging.partitioned={{ .Values.global.messaging.partitioned }} >> $APPLICATION_PROPERTIES
-        echo activiti.cloud.messaging.partition-count={{ .Values.global.messaging.partitionCount }} >> $APPLICATION_PROPERTIES
-        echo activiti.cloud.messaging.instance-index=${HOSTNAME##*-} >> $APPLICATION_PROPERTIES
-  statefulset:
-    enabled: true
   ingress:
     path: /
     subPaths:
@@ -535,10 +515,14 @@ activiti-cloud-query:
       nginx.ingress.kubernetes.io/enable-cors: "true"
       nginx.ingress.kubernetes.io/cors-allow-headers: Authorization, Content-Type, Accept
       nginx.ingress.kubernetes.io/rewrite-target: /$1
+      nginx.ingress.kubernetes.io/affinity: cookie
+      nginx.ingress.kubernetes.io/session-cookie-change-on-failure: "true"
+      nginx.ingress.kubernetes.io/session-cookie-name: activiti-cloud-query-session
   postgresql:
     enabled: true
   messaging:
     enabled: true
+    role: consumer
   db:
     # activiti-cloud-query.db.ddlAuto -- set to 'none' temporarily rather than default 'validate' that breaks
     ddlAuto: none
