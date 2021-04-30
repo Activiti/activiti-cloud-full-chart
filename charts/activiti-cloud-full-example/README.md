@@ -277,10 +277,6 @@ Kubernetes: `>=1.15.0-0`
 | activiti-cloud-modeling.resources.requests.cpu | string | `"400m"` |  |
 | activiti-cloud-modeling.resources.requests.memory | string | `"512Mi"` |  |
 | activiti-cloud-modeling.service.name | string | `"modeling"` |  |
-| activiti-cloud-query.config.command[0] | string | `"sh"` |  |
-| activiti-cloud-query.config.command[1] | string | `"-c"` |  |
-| activiti-cloud-query.config.command[2] | string | `"APPLICATION_PROPERTIES={{ .Values.config.mountPath | trimSuffix \"/\" }}/application.properties\n\necho activiti.cloud.messaging.broker={{ .Values.global.messaging.broker }} >> $APPLICATION_PROPERTIES\necho activiti.cloud.messaging.partitioned={{ .Values.global.messaging.partitioned }} >> $APPLICATION_PROPERTIES\necho activiti.cloud.messaging.partition-count={{ .Values.global.messaging.partitionCount }} >> $APPLICATION_PROPERTIES\necho activiti.cloud.messaging.instance-index=${HOSTNAME##*-} >> $APPLICATION_PROPERTIES\n"` |  |
-| activiti-cloud-query.config.enabled | bool | `true` |  |
 | activiti-cloud-query.db.ddlAuto | string | `"none"` | set to 'none' temporarily rather than default 'validate' that breaks |
 | activiti-cloud-query.enabled | bool | `true` |  |
 | activiti-cloud-query.extraEnv | string | `"- name: GRAPHIQL_GRAPHQL_WEB_PATH\n  value: '{{ tpl .Values.ingress.path . | trimSuffix \"/\" }}/notifications/graphql'\n- name: GRAPHIQL_GRAPHQL_WS_PATH\n  value: '{{ tpl .Values.ingress.path . | trimSuffix \"/\" }}/notifications/ws/graphql'\n- name: SERVER_SERVLET_CONTEXTPATH\n  value: \"{{ tpl .Values.ingress.path . }}\"\n- name: SERVER_USEFORWARDHEADERS\n  value: \"true\"\n- name: SERVER_TOMCAT_INTERNALPROXIES\n  value: \".*\""` |  |
@@ -288,9 +284,12 @@ Kubernetes: `>=1.15.0-0`
 | activiti-cloud-query.image.repository | string | `"activiti/activiti-cloud-query"` |  |
 | activiti-cloud-query.image.tag | string | `"7.1.1051"` |  |
 | activiti-cloud-query.ingress.annotations."kubernetes.io/ingress.class" | string | `"nginx"` |  |
+| activiti-cloud-query.ingress.annotations."nginx.ingress.kubernetes.io/affinity" | string | `"cookie"` |  |
 | activiti-cloud-query.ingress.annotations."nginx.ingress.kubernetes.io/cors-allow-headers" | string | `"Authorization, Content-Type, Accept"` |  |
 | activiti-cloud-query.ingress.annotations."nginx.ingress.kubernetes.io/enable-cors" | string | `"true"` |  |
 | activiti-cloud-query.ingress.annotations."nginx.ingress.kubernetes.io/rewrite-target" | string | `"/$1"` |  |
+| activiti-cloud-query.ingress.annotations."nginx.ingress.kubernetes.io/session-cookie-change-on-failure" | string | `"true"` |  |
+| activiti-cloud-query.ingress.annotations."nginx.ingress.kubernetes.io/session-cookie-name" | string | `"activiti-cloud-query-session"` |  |
 | activiti-cloud-query.ingress.path | string | `"/"` |  |
 | activiti-cloud-query.ingress.subPaths[0] | string | `"/query/?(.*)"` |  |
 | activiti-cloud-query.ingress.subPaths[1] | string | `"/audit/?(.*)"` |  |
@@ -299,6 +298,7 @@ Kubernetes: `>=1.15.0-0`
 | activiti-cloud-query.javaOpts.xmx | string | `"2048m"` |  |
 | activiti-cloud-query.liquibase.enabled | bool | `true` |  |
 | activiti-cloud-query.messaging.enabled | bool | `true` |  |
+| activiti-cloud-query.messaging.role | string | `"consumer"` |  |
 | activiti-cloud-query.nameOverride | string | `"activiti-cloud-query"` |  |
 | activiti-cloud-query.postgresql.enabled | bool | `true` |  |
 | activiti-cloud-query.probePath | string | `"{{ tpl .Values.ingress.path . | trimSuffix \"/\" }}/actuator/health"` |  |
@@ -307,7 +307,6 @@ Kubernetes: `>=1.15.0-0`
 | activiti-cloud-query.resources.requests.cpu | string | `"200m"` |  |
 | activiti-cloud-query.resources.requests.memory | string | `"512Mi"` |  |
 | activiti-cloud-query.service.name | string | `"query"` |  |
-| activiti-cloud-query.statefulset.enabled | bool | `true` |  |
 | activiti-modeling-app.enabled | bool | `true` |  |
 | activiti-modeling-app.env.APP_CONFIG_AUTH_TYPE | string | `"OAUTH"` |  |
 | activiti-modeling-app.env.APP_CONFIG_BPM_HOST | string | `"{{ include \"common.gateway-url\" . }}"` |  |
@@ -325,7 +324,7 @@ Kubernetes: `>=1.15.0-0`
 | activiti-modeling-app.resources.requests.memory | string | `"256Mi"` |  |
 | activiti-modeling-app.service.envType | string | `"frontend"` |  |
 | activiti-modeling-app.service.name | string | `"modeling-app"` |  |
-| global | object | `{"extraEnv":"","gateway":{"annotations":null,"domain":"DOMAIN","host":"gateway-{{ .Release.Namespace }}.{{ template \"common.gateway-domain\" . }}","http":"true","tlsacme":"false"},"kafka":{"brokers":"{{ include \"common.kafka.fullname\" $ }}","extraEnv":"- name: ACT_AUDIT_PRODUCER_TRANSACTION_ID_PREFIX\n  value: \"\"\n","zkNodes":"{{ .Release.Name }}-zookeper"},"keycloak":{"host":"identity-{{ .Release.Namespace }}.{{ template \"common.gateway-domain\" . }}","realm":"activiti","resource":"activiti","url":""},"messaging":{"broker":"rabbitmq"},"rabbitmq":{"extraEnv":"","host":"{{ include \"common.rabbitmq.fullname\" $ }}","password":"guest","username":"guest"},"registryPullSecrets":[]}` | for common values see https://github.com/Activiti/activiti-cloud-common-chart/blob/master/charts/common/README.md |
+| global | object | `{"extraEnv":"","gateway":{"annotations":null,"domain":"DOMAIN","host":"gateway-{{ .Release.Namespace }}.{{ template \"common.gateway-domain\" . }}","http":"true","tlsacme":"false"},"kafka":{"brokers":"{{ include \"common.kafka.fullname\" $ }}","extraEnv":"- name: ACT_AUDIT_PRODUCER_TRANSACTION_ID_PREFIX\n  value: \"\"\n","zkNodes":"{{ .Release.Name }}-zookeper"},"keycloak":{"host":"identity-{{ .Release.Namespace }}.{{ template \"common.gateway-domain\" . }}","realm":"activiti","resource":"activiti","url":""},"messaging":{"broker":"rabbitmq","partitionCount":2,"partitioned":false},"rabbitmq":{"extraEnv":"","host":"{{ include \"common.rabbitmq.fullname\" $ }}","password":"guest","username":"guest"},"registryPullSecrets":[]}` | for common values see https://github.com/Activiti/activiti-cloud-common-chart/blob/master/charts/common/README.md |
 | global.extraEnv | string | `""` | Use Yaml formatted string to add extra environment properties to all deployments, i.e. |
 | global.gateway.annotations | string | `nil` | Configure global annotations for all service ingresses |
 | global.gateway.domain | string | `"DOMAIN"` | Set to configure gateway domain template, i.e. {{ .Release.Namespace }}.1.3.4.5.nip.io $ helm upgrade aae . --install --set global.gateway.domain=1.2.3.4.nip.io |
@@ -337,6 +336,8 @@ Kubernetes: `>=1.15.0-0`
 | global.keycloak.resource | string | `"activiti"` | Configure Keycloak resource |
 | global.keycloak.url | string | `""` | Set full url to configure external Keycloak, otherwise will be generated based on host |
 | global.messaging.broker | string | `"rabbitmq"` | required messaging broker, rabbitmq or kafka |
+| global.messaging.partitionCount | int | `2` | configures number of partitioned consumers  |
+| global.messaging.partitioned | bool | `false` | enables partitioned messaging in combination with messaging.enabled=true && messaging.role=producer|consumer |
 | global.registryPullSecrets | list | `[]` | Configure pull secrets for all deployments |
 | kafka.enabled | bool | `false` |  |
 | kafka.offsetsTopicReplicationFactor | int | `1` |  |
@@ -356,10 +357,6 @@ Kubernetes: `>=1.15.0-0`
 | rabbitmq.readinessProbe.timeoutSeconds | int | `90` |  |
 | rabbitmq.resources.limits.memory | string | `"1500Mi"` |  |
 | rabbitmq.resources.requests.memory | string | `"1500Mi"` |  |
-| runtime-bundle.config.command[0] | string | `"sh"` |  |
-| runtime-bundle.config.command[1] | string | `"-c"` |  |
-| runtime-bundle.config.command[2] | string | `"APPLICATION_PROPERTIES={{ .Values.config.mountPath | trimSuffix \"/\" }}/application.properties\n\necho activiti.cloud.messaging.broker={{ .Values.global.messaging.broker }} >> $APPLICATION_PROPERTIES\necho activiti.cloud.messaging.partitioned={{ .Values.global.messaging.partitioned }} >> $APPLICATION_PROPERTIES\necho activiti.cloud.messaging.partition-count={{ .Values.global.messaging.partitionCount }} >> $APPLICATION_PROPERTIES\n"` |  |
-| runtime-bundle.config.enabled | bool | `true` |  |
 | runtime-bundle.enabled | bool | `true` |  |
 | runtime-bundle.extraEnv | string | `"- name: SERVER_SERVLET_CONTEXTPATH\n  value: \"{{ tpl .Values.ingress.path . }}\"\n- name: SERVER_USEFORWARDHEADERS\n  value: \"true\"\n- name: SERVER_TOMCAT_INTERNALPROXIES\n  value: \".*\""` |  |
 | runtime-bundle.image.pullPolicy | string | `"Always"` |  |
@@ -372,6 +369,7 @@ Kubernetes: `>=1.15.0-0`
 | runtime-bundle.javaOpts.xms | string | `"512m"` |  |
 | runtime-bundle.javaOpts.xmx | string | `"2048m"` |  |
 | runtime-bundle.messaging.enabled | bool | `true` |  |
+| runtime-bundle.messaging.role | string | `"producer"` |  |
 | runtime-bundle.nameOverride | string | `"runtime-bundle"` |  |
 | runtime-bundle.postgresql.enabled | bool | `true` |  |
 | runtime-bundle.probePath | string | `"{{ tpl .Values.ingress.path . }}/actuator/health"` |  |
