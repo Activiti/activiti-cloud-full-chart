@@ -38,7 +38,7 @@ global:
     broker: "rabbitmq"
     # global.messaging.partitioned -- enables partitioned messaging in combination with messaging.enabled=true && messaging.role=producer|consumer
     partitioned: false
-    # global.messaging.partitionCount -- configures number of partitioned consumers 
+    # global.messaging.partitionCount -- configures number of partitioned consumers
     partitionCount: 2
   rabbitmq:
     host: '{{ include "common.rabbitmq.fullname" $ }}'
