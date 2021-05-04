@@ -336,7 +336,7 @@ Kubernetes: `>=1.15.0-0`
 | global.keycloak.resource | string | `"activiti"` | Configure Keycloak resource |
 | global.keycloak.url | string | `""` | Set full url to configure external Keycloak, otherwise will be generated based on host |
 | global.messaging.broker | string | `"rabbitmq"` | required messaging broker, rabbitmq or kafka |
-| global.messaging.partitionCount | int | `2` | configures number of partitioned consumers  |
+| global.messaging.partitionCount | int | `2` | configures number of partitioned consumers |
 | global.messaging.partitioned | bool | `false` | enables partitioned messaging in combination with messaging.enabled=true && messaging.role=producer|consumer |
 | global.registryPullSecrets | list | `[]` | Configure pull secrets for all deployments |
 | kafka.enabled | bool | `false` |  |
