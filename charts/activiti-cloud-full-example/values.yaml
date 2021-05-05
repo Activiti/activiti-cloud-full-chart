@@ -41,7 +41,7 @@ global:
     # global.messaging.partitionCount -- configures number of partitioned consumers
     partitionCount: 2
   rabbitmq:
-    host: '{{ include "common.rabbitmq.fullname" $ }}'
+    host: 'rabbitmq'
     username: guest
     password: guest
     extraEnv: ""
@@ -54,9 +54,9 @@ global:
   ## Kafka Configuration
   kafka:
     ## global.kafka.brokers -- Multiple brokers can be provided in a comma separated list, e.g. host1:port1,host2:port2
-    brokers: '{{ include "common.kafka.fullname" $ }}'
+    brokers: 'kafka'
     ## global.kafka.zkNodes -- External Zookeeper nodes
-    zkNodes: '{{ .Release.Name }}-zookeper'
+    zkNodes: 'zookeper'
     extraEnv: |
       - name: ACT_AUDIT_PRODUCER_TRANSACTION_ID_PREFIX
         value: ""
@@ -437,6 +437,7 @@ postgresql:
   commonAnnotations:
     application: activiti
 rabbitmq:
+  fullnameOverride: rabbitmq
   enabled: true
   extraPlugins: ""
   auth:
@@ -584,6 +585,7 @@ activiti-cloud-connector:
 ## https://github.com/bitnami/charts/blob/master/bitnami/kafka/values.yaml
 ##
 kafka:
+  fullnameOverride: kafka
   enabled: false
   replicaCount: 1
   offsetsTopicReplicationFactor: 1
@@ -593,4 +595,5 @@ kafka:
   ## https://github.com/bitnami/charts/blob/master/bitnami/zookeeper/values.yaml
   ##
   zookeeper:
+    fullnameOverride: zookeeper
     replicaCount: 1
