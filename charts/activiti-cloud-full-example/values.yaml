@@ -36,7 +36,7 @@ global:
   messaging:
     # global.messaging.broker -- required messaging broker, rabbitmq or kafka
     broker: "rabbitmq"
-    # global.messaging.partitioned -- enables partitioned messaging in combination with messaging.enabled=true && messaging.role=producer|consumer
+    # global.messaging.partitioned -- enables partitioned messaging in combination with common chart values messaging.enabled=true and messaging.role=producer|consumer
     partitioned: false
     # global.messaging.partitionCount -- configures number of partitioned consumers
     partitionCount: 2

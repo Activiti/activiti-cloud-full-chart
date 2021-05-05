@@ -1,0 +1,5 @@
+global:
+  messaging:
+    partitioned: true
+    partitionCount: 2
+
