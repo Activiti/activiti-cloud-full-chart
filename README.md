@@ -77,6 +77,29 @@ helm template --validate \
   activiti charts/activiti-cloud-full-example
 ```
 
+## Enabling partioning
+In order to enable partitioning provide the following [extra values](https://github.com/Activiti/activiti-cloud-full-chart/blob/master/charts/activiti-cloud-full-example/partitioned-values.yaml) (`partitionCount` defines how many partitions will be used and the Helm deployment will create that many replicaSets of query service and configure Rb service with the number of supported partitions in Query):
+```yaml
+global:
+  messaging:
+    # global.messaging.partitioned -- enables partitioned messaging in combination with messaging.enabled=true && messaging.role=producer|consumer
+    partitioned: true
+    # global.messaging.partitionCount -- configures number of partitioned consumers
+    partitionCount: 2
+```
+
+## Use Kafka instead of Rabbit MQ
+In order to switch the message broker to Kafka add the following [extra values](https://github.com/Activiti/activiti-cloud-full-chart/blob/master/charts/activiti-cloud-full-example/kafka-values.yaml)
+```yaml
+global:
+  messaging:
+    broker: kafka
+kafka:
+  enabled: true
+rabbitmq:
+  enabled: false
+```
+
 ## Skipping CI
 
 If you want to skip running release pipeline stages, simply add `[ci skip]` to your commit message.
