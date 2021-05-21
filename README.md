@@ -84,7 +84,7 @@ global:
   messaging:
     # global.messaging.partitioned -- enables partitioned messaging in combination with messaging.enabled=true && messaging.role=producer|consumer
     partitioned: true
-    # global.messaging.partitionCount -- configures number of partitioned consumers 
+    # global.messaging.partitionCount -- configures number of partitioned consumers
     partitionCount: 2
 ```
 
