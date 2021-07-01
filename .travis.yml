@@ -40,6 +40,6 @@ jobs:
       script: |
         cd charts/activiti-cloud-full-example
         make version
-        make tag
+        TAG_PREFIX=v make tag
         make release
         make github
