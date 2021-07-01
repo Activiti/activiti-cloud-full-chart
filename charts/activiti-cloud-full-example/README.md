@@ -14,11 +14,11 @@ Kubernetes: `>=1.15.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://activiti.github.io/activiti-cloud-helm-charts | common | 7.1.19 |
-| https://activiti.github.io/activiti-cloud-helm-charts | common | 7.1.19 |
-| https://activiti.github.io/activiti-cloud-helm-charts | common | 7.1.19 |
-| https://activiti.github.io/activiti-cloud-helm-charts | common | 7.1.19 |
-| https://activiti.github.io/activiti-cloud-helm-charts | common | 7.1.19 |
+| https://activiti.github.io/activiti-cloud-helm-charts | common | 7.1.20 |
+| https://activiti.github.io/activiti-cloud-helm-charts | common | 7.1.20 |
+| https://activiti.github.io/activiti-cloud-helm-charts | common | 7.1.20 |
+| https://activiti.github.io/activiti-cloud-helm-charts | common | 7.1.20 |
+| https://activiti.github.io/activiti-cloud-helm-charts | common | 7.1.20 |
 | https://charts.bitnami.com/bitnami | kafka | 12.x.x |
 | https://charts.bitnami.com/bitnami | postgresql | 9.1.1 |
 | https://charts.bitnami.com/bitnami | rabbitmq | 7.8.0 |
