@@ -58,7 +58,7 @@ tag:
 	git add -u
 	git commit -m "release $(VERSION)" --allow-empty # if first release then no version update is performed
 	git tag -fa $(TAG_PREFIX)$(VERSION) -m "Release version $(VERSION)"
-	git push -f -q https://${GITHUB_TOKEN}@github.com/Activiti/activiti-cloud-full-chart.git v$(VERSION)
+	git push -f -q https://${GITHUB_TOKEN}@github.com/Activiti/activiti-cloud-full-chart.git $(TAG_PREFIX)$(VERSION)
 
 update-docker-images:
 	yq -i e '.runtime-bundle.image.tag = "$(BACKEND_VERSION)"' values.yaml
