@@ -22,7 +22,7 @@ Kubernetes: `>=1.15.0-0`
 | https://charts.bitnami.com/bitnami | kafka | 12.x.x |
 | https://charts.bitnami.com/bitnami | postgresql | 9.1.1 |
 | https://charts.bitnami.com/bitnami | rabbitmq | 7.8.0 |
-| https://codecentric.github.io/helm-charts | activiti-cloud-identity(keycloak) | 9.5.0 |
+| https://codecentric.github.io/helm-charts | activiti-cloud-identity(keycloak) | 11.0.1 |
 
 ## Values
 
@@ -52,7 +52,7 @@ Kubernetes: `>=1.15.0-0`
 | activiti-cloud-identity.extraVolumes | string | `"- name: realm-secret\n  secret:\n    secretName: realm-secret\n"` |  |
 | activiti-cloud-identity.image.pullPolicy | string | `"IfNotPresent"` |  |
 | activiti-cloud-identity.image.repository | string | `"alfresco/alfresco-identity-service"` |  |
-| activiti-cloud-identity.image.tag | string | `"1.4.0-SNAPSHOT"` |  |
+| activiti-cloud-identity.image.tag | string | `"1.5.0"` |  |
 | activiti-cloud-identity.ingress.annotations."kubernetes.io/ingress.class" | string | `"nginx"` |  |
 | activiti-cloud-identity.ingress.annotations."nginx.ingress.kubernetes.io/affinity" | string | `"cookie"` |  |
 | activiti-cloud-identity.ingress.annotations."nginx.ingress.kubernetes.io/enable-cors" | string | `"false"` |  |
