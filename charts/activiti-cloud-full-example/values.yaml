@@ -55,8 +55,6 @@ global:
   kafka:
     ## global.kafka.brokers -- Multiple brokers can be provided in a comma separated list, e.g. host1:port1,host2:port2
     brokers: 'kafka'
-    ## global.kafka.zkNodes -- External Zookeeper nodes
-    zkNodes: 'zookeper'
     extraEnv: |
       - name: ACT_AUDIT_PRODUCER_TRANSACTION_ID_PREFIX
         value: ""
