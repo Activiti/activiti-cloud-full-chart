@@ -372,7 +372,7 @@ activiti-cloud-modeling:
     name: modeling
   image:
     repository: activiti/activiti-cloud-modeling
-    tag: 7.1.1072
+    tag: 7.1.1073
     pullPolicy: Always
   liquibase:
     enabled: true
@@ -461,7 +461,7 @@ runtime-bundle:
     xms: 512m
   image:
     repository: activiti/example-runtime-bundle
-    tag: 7.1.1072
+    tag: 7.1.1073
     pullPolicy: Always
   ingress:
     path: /rb
@@ -499,7 +499,7 @@ activiti-cloud-query:
     xms: 512m
   image:
     repository: activiti/activiti-cloud-query
-    tag: 7.1.1072
+    tag: 7.1.1073
     pullPolicy: Always
   liquibase:
     enabled: true
@@ -551,7 +551,7 @@ activiti-cloud-connector:
     name: example-cloud-connector
   image:
     repository: activiti/example-cloud-connector
-    tag: 7.1.1072
+    tag: 7.1.1073
     pullPolicy: Always
   messaging:
     enabled: true
