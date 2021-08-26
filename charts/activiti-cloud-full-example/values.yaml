@@ -7,7 +7,7 @@ global:
   # global.registryPullSecrets -- Configure pull secrets for all deployments
   registryPullSecrets: []
   # global.extraEnv -- Use Yaml formatted string to add extra environment properties to all deployments, i.e.
-  extraEnv: |-
+  extraEnv: |
     - name: ACTIVITI_CLOUD_APPLICATION_NAME
       value: "{{ .Release.Name }}"
   gateway:
