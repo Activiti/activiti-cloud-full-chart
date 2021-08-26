@@ -393,6 +393,8 @@ activiti-cloud-modeling:
       cpu: "1"
       memory: 1024Mi
   extraEnv: |-
+    - name: ACTIVITI_CLOUD_APPLICATION_NAME
+      value: "{{ .Release.Name }}"
     - name: SERVER_SERVLET_CONTEXTPATH
       value: "{{ tpl .Values.ingress.path . }}"
     - name: SERVER_USEFORWARDHEADERS
@@ -483,6 +485,8 @@ runtime-bundle:
       memory: 512Mi
   probePath: '{{ tpl .Values.ingress.path . }}/actuator/health'
   extraEnv: |-
+    - name: ACTIVITI_CLOUD_APPLICATION_NAME
+      value: "{{ .Release.Name }}"
     - name: SERVER_SERVLET_CONTEXTPATH
       value: "{{ tpl .Values.ingress.path . }}"
     - name: SERVER_USEFORWARDHEADERS
@@ -534,6 +538,8 @@ activiti-cloud-query:
       memory: 512Mi
   probePath: '{{ tpl .Values.ingress.path . | trimSuffix "/" }}/actuator/health'
   extraEnv: |-
+    - name: ACTIVITI_CLOUD_APPLICATION_NAME
+      value: "{{ .Release.Name }}"
     - name: GRAPHIQL_GRAPHQL_WEB_PATH
       value: '{{ tpl .Values.ingress.path . | trimSuffix "/" }}/notifications/graphql'
     - name: GRAPHIQL_GRAPHQL_WS_PATH
@@ -556,6 +562,8 @@ activiti-cloud-connector:
   messaging:
     enabled: true
   extraEnv: |-
+    - name: ACTIVITI_CLOUD_APPLICATION_NAME
+      value: "{{ .Release.Name }}"
     - name: SERVER_SERVLET_CONTEXTPATH
       value: "{{ tpl .Values.ingress.path . }}"
     - name: SERVER_USEFORWARDHEADERS
