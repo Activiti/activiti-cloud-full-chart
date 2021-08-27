@@ -4,12 +4,15 @@
 
 # global -- for common values see https://github.com/Activiti/activiti-cloud-common-chart/blob/master/charts/common/README.md
 global:
+  application:
+    # global.application.name -- configure application name for deployment
+    name: "{{ .Release.Name }}"
   # global.registryPullSecrets -- Configure pull secrets for all deployments
   registryPullSecrets: []
   # global.extraEnv -- Use Yaml formatted string to add extra environment properties to all deployments, i.e.
   extraEnv: |
     - name: ACTIVITI_CLOUD_APPLICATION_NAME
-      value: "{{ .Release.Name }}"
+      value: "{{ tpl .Values.global.application.name $ }}"
   gateway:
     # global.gateway.domain -- Set to configure gateway domain template, i.e. {{ .Release.Namespace }}.1.3.4.5.nip.io
     # $ helm upgrade aae . --install --set global.gateway.domain=1.2.3.4.nip.io
