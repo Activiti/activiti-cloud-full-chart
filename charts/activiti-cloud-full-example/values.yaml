@@ -7,7 +7,9 @@ global:
   # global.registryPullSecrets -- Configure pull secrets for all deployments
   registryPullSecrets: []
   # global.extraEnv -- Use Yaml formatted string to add extra environment properties to all deployments, i.e.
-  extraEnv: ""
+  extraEnv: |
+    - name: ACTIVITI_CLOUD_APPLICATION_NAME
+      value: "{{ .Release.Name }}"
   gateway:
     # global.gateway.domain -- Set to configure gateway domain template, i.e. {{ .Release.Namespace }}.1.3.4.5.nip.io
     # $ helm upgrade aae . --install --set global.gateway.domain=1.2.3.4.nip.io
