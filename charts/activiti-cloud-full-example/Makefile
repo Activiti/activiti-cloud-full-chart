@@ -3,7 +3,7 @@ VERSION := $(or ${VERSION}, $(shell cat ../../VERSION))
 PREVIEW_NAMESPACE_LOWERCASE := $(shell echo ${PREVIEW_NAME} | tr "[:upper:]" "[:lower:]")
 GITHUB_CHARTS_BRANCH := $(or ${GITHUB_CHARTS_BRANCH}, gh-pages)
 GITHUB_CHARTS_DIR := activiti-cloud-helm-charts
-CLIENT_SECRET := $(or $CLIENT_SECRET, dry-run)
+CLIENT_SECRET := $(or ${CLIENT_SECRET}, dry-run)
 
 build: clean
 	helm dep up
