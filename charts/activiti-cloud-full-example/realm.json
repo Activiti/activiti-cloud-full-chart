@@ -103,10 +103,18 @@
         "*"
       ]
     }, {
-      "clientId": "{{ tpl .Values.global.keycloak.clientId $ }}",
       "enabled": true,
       "clientAuthenticatorType": "client-secret",
+      {{- if not .Values.global.keycloak.useExistingClientSecret }}
+      "clientId": "{{ tpl .Values.global.keycloak.clientId $ }}",
       "secret": "{{ .Values.global.keycloak.clientSecret }}",
+      {{- else }}
+      {{- $clientSecretName := tpl .Values.global.keycloak.clientSecretName $ }}
+      {{- $clientSecret := include "getKubernetesSecret" (dict "Namespace" .Release.Namespace "Name" $clientSecretName "Key" "clientSecret") }}
+      {{- $clientId := include "getKubernetesSecret" (dict "Namespace" .Release.Namespace "Name" $clientSecretName "Key" "clientId") }}
+      "clientId": "{{ $clientId }}",
+      "secret": "{{ $clientSecret }}",
+      {{- end }}
       "redirectUris": [],
       "webOrigins": [],
       "bearerOnly": false,

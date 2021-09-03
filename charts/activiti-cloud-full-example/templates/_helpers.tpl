@@ -13,3 +13,14 @@ it randomly.
 {{- randAlphaNum $len -}}
 {{- end -}}
 {{- end }}
+{{/*
+Returns a secret if it already in Kubernetes.
+*/}}
+{{- define "getKubernetesSecret" }}
+{{- $obj := (lookup "v1" "Secret" .Namespace .Name).data -}}
+{{- if $obj }}
+{{- index $obj .Key | b64dec -}}
+{{- else -}}
+{{- .Default | default "null" -}}
+{{- end -}}
+{{- end }}

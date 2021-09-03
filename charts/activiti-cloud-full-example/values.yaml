@@ -50,11 +50,11 @@ global:
     resource: activiti
     # global.keycloak.clientId -- Configure Keycloak Client Id
     clientId: activiti-keycloak
-    # global.keycloak.clientSecret -- Configure Keycloak Client Secret. Leave empty to auto-generate random secret value
+    # global.keycloak.clientSecret -- Configure Keycloak Client Secret. Required if useExistingClientSecret set to false
     clientSecret: ""
     # global.keycloak.clientSecretName -- Configure Keycloak Client Secret Name. Secret will be created if `useExistingClientSecret` set to false
     clientSecretName: activiti-keycloak-secret
-    # global.keycloak.useExistingClientSecret -- Configure Keycloak Client Secret with Helm install
+    # global.keycloak.useExistingClientSecret -- Configure to use existing Keycloak clientId and clientSecret from Kubernetes Secret
     useExistingClientSecret: false
   messaging:
     # global.messaging.broker -- required messaging broker, rabbitmq or kafka
