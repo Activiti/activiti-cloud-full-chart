@@ -312,13 +312,13 @@ Kubernetes: `>=1.15.0-0`
 | global.gateway.http | string | `"true"` | Set to false enables HTTPS configuration on all urls |
 | global.gateway.tlsacme | string | `"false"` | Set to enable automatic TLS for ingress if https is enabled |
 | global.keycloak.clientId | string | `"activiti-keycloak"` | Configure Keycloak Client Id |
-| global.keycloak.clientSecret | string | `""` | Configure Keycloak Client Secret. Leave empty to auto-generate random secret value |
+| global.keycloak.clientSecret | string | `""` | Configure Keycloak Client Secret. Required if useExistingClientSecret set to false |
 | global.keycloak.clientSecretName | string | `"activiti-keycloak-secret"` | Configure Keycloak Client Secret Name. Secret will be created if `useExistingClientSecret` set to false |
 | global.keycloak.host | string | `"identity-{{ .Release.Namespace }}.{{ template \"common.gateway-domain\" . }}"` | Configure Keycloak host template |
 | global.keycloak.realm | string | `"activiti"` | Configure Keycloak realm |
 | global.keycloak.resource | string | `"activiti"` | Configure Keycloak resource |
 | global.keycloak.url | string | `""` | Set full url to configure external Keycloak, otherwise will be generated based on host |
-| global.keycloak.useExistingClientSecret | bool | `false` | Configure Keycloak Client Secret with Helm install |
+| global.keycloak.useExistingClientSecret | bool | `false` | Configure to use existing Keycloak clientId and clientSecret from Kubernetes Secret |
 | global.messaging.broker | string | `"rabbitmq"` | required messaging broker, rabbitmq or kafka |
 | global.messaging.partitionCount | int | `2` | configures number of partitioned consumers |
 | global.messaging.partitioned | bool | `false` | enables partitioned messaging in combination with common chart values messaging.enabled=true and messaging.role=producer|consumer |
