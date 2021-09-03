@@ -1,3 +1,7 @@
+{{- $clientSecretName := tpl .Values.global.keycloak.clientSecretName $ }}
+{{- $useExistingClientSecret := .Values.global.keycloak.useExistingClientSecret }}
+{{- $clientId := $useExistingClientSecret | ternary (include "getKubernetesSecret" (dict "Namespace" .Release.Namespace "Name" $clientSecretName "Key" "clientSecret")) (tpl .Values.global.keycloak.clientId $) }}
+{{- $clientSecret := $useExistingClientSecret | ternary (include "getKubernetesSecret" (dict "Namespace" .Release.Namespace "Name" $clientSecretName "Key" "clientId")) (.Values.global.keycloak.clientSecret) }}
 {
   "realm": "activiti",
   "enabled": true,
@@ -105,16 +109,8 @@
     }, {
       "enabled": true,
       "clientAuthenticatorType": "client-secret",
-      {{- if not .Values.global.keycloak.useExistingClientSecret }}
-      "clientId": "{{ tpl .Values.global.keycloak.clientId $ }}",
-      "secret": "{{ .Values.global.keycloak.clientSecret }}",
-      {{- else }}
-      {{- $clientSecretName := tpl .Values.global.keycloak.clientSecretName $ }}
-      {{- $clientSecret := include "getKubernetesSecret" (dict "Namespace" .Release.Namespace "Name" $clientSecretName "Key" "clientSecret") }}
-      {{- $clientId := include "getKubernetesSecret" (dict "Namespace" .Release.Namespace "Name" $clientSecretName "Key" "clientId") }}
       "clientId": "{{ $clientId }}",
       "secret": "{{ $clientSecret }}",
-      {{- end }}
       "redirectUris": [],
       "webOrigins": [],
       "bearerOnly": false,
@@ -130,9 +126,9 @@
   "groups": [],
   "users": [
     {
-      "username": "service-account-{{ tpl .Values.global.keycloak.clientId $ }}",
+      "username": "service-account-{{ $clientId }}",
       "enabled": true,
-      "serviceAccountClientId": "{{ tpl .Values.global.keycloak.clientId $ }}",
+      "serviceAccountClientId": "{{ $clientId }}",
       "clientRoles": {
         "realm-management": ["query-realms", "view-users"]
       }
