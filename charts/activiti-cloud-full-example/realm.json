@@ -102,8 +102,32 @@
       "webOrigins": [
         "*"
       ]
+    }, {
+      "clientId": "{{ tpl .Values.global.keycloak.clientId $ }}",
+      "enabled": true,
+      "clientAuthenticatorType": "client-secret",
+      "secret": "{{ .Values.global.keycloak.clientSecret }}",
+      "redirectUris": [],
+      "webOrigins": [],
+      "bearerOnly": false,
+      "standardFlowEnabled": false,
+      "implicitFlowEnabled": false,
+      "directAccessGrantsEnabled": true,
+      "serviceAccountsEnabled": true,
+      "publicClient": false,
+      "protocol": "openid-connect",
+      "fullScopeAllowed": true
     }
   ],
   "groups": [],
-  "users": []
+  "users": [
+    {
+      "username": "service-account-{{ tpl .Values.global.keycloak.clientId $ }}",
+      "enabled": true,
+      "serviceAccountClientId": "{{ tpl .Values.global.keycloak.clientId $ }}",
+      "clientRoles": {
+        "realm-management": ["query-realms", "view-users"]
+      }
+    }
+  ]
 }
