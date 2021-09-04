@@ -21,6 +21,6 @@ Returns a secret if it already in Kubernetes.
 {{- if $obj }}
 {{- index $obj .Key | b64dec -}}
 {{- else -}}
-{{- .Default | default "null" -}}
+{{- .Default | default "" -}}
 {{- end -}}
 {{- end }}
