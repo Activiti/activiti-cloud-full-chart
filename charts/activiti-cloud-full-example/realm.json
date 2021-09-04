@@ -1,13 +1,12 @@
-{{- $useExistingClientSecret := .Values.global.keycloak.useExistingClientSecret -}}
 {{- $clientId :=  "" -}}
 {{- $clientSecret := "" -}}
-{{- if $useExistingClientSecret -}}
+{{- if .Values.global.keycloak.useExistingClientSecret -}}
 {{- $clientSecretName := tpl .Values.global.keycloak.clientSecretName $ -}}
 {{- $clientId = include "getKubernetesSecret" (dict "Namespace" .Release.Namespace "Name" $clientSecretName "Key" "clientId") | required "existing clientId secret key is empty" -}}
 {{- $clientId = include "getKubernetesSecret" (dict "Namespace" .Release.Namespace "Name" $clientSecretName "Key" "clientSecret") | required "existing clientSecret secret key is empty" -}}
 {{- else -}}
-{{- $clientId = tpl .Values.global.keycloak.clientId $ -}}
-{{- $clientSecret = .Values.global.keycloak.clientSecret -}}
+{{- $clientId = tpl .Values.global.keycloak.clientId $ | required "global.keycloak.clientId is required" -}}
+{{- $clientSecret = .Values.global.keycloak.clientSecret | required "global.keycloak.clientSecret is required" -}}
 {{- end -}}
 {
   "realm": "activiti",
