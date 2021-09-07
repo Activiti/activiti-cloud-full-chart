@@ -3,7 +3,7 @@ VERSION := $(or ${VERSION}, $(shell cat ../../VERSION))
 PREVIEW_NAMESPACE_LOWERCASE := $(shell echo ${PREVIEW_NAME} | tr "[:upper:]" "[:lower:]")
 GITHUB_CHARTS_BRANCH := $(or ${GITHUB_CHARTS_BRANCH}, gh-pages)
 GITHUB_CHARTS_DIR := activiti-cloud-helm-charts
-CLIENT_SECRET := $(or ${CLIENT_SECRET}, dry-run)
+KEYCLOAK_CLIENT_SECRET := $(or ${KEYCLOAK_CLIENT_SECRET}, dry-run)
 
 build: clean
 	helm dep up
@@ -11,7 +11,7 @@ build: clean
 	helm upgrade ${PREVIEW_NAMESPACE_LOWERCASE} . \
 		--install \
 		--set global.gateway.domain=${GLOBAL_GATEWAY_DOMAIN} \
-		--set global.keycloak.clientSecret=${CLIENT_SECRET} \
+		--set global.keycloak.clientSecret=${KEYCLOAK_CLIENT_SECRET} \
 		--namespace ${PREVIEW_NAMESPACE_LOWERCASE} \
 		--wait 	\
 		--dry-run
@@ -20,7 +20,7 @@ install: clean build
 	helm upgrade ${PREVIEW_NAMESPACE_LOWERCASE} . \
 		--install \
 		--set global.gateway.domain=${GLOBAL_GATEWAY_DOMAIN} \
-		--set global.keycloak.clientSecret=${CLIENT_SECRET} \
+		--set global.keycloak.clientSecret=${KEYCLOAK_CLIENT_SECRET} \
 		--namespace ${PREVIEW_NAMESPACE_LOWERCASE} \
 		--debug \
 		--wait
