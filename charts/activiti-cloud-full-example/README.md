@@ -77,8 +77,8 @@ Kubernetes: `>=1.15.0-0`
 | activiti-cloud-identity.postgresql.resources.requests.cpu | string | `"300m"` |  |
 | activiti-cloud-identity.postgresql.resources.requests.memory | string | `"250Mi"` |  |
 | activiti-cloud-identity.rbac.create | bool | `false` |  |
-| activiti-cloud-identity.realm.extraClientRoles | string | `nil` |  |
-| activiti-cloud-identity.realm.extraClients | string | `nil` |  |
+| activiti-cloud-identity.realm.extraClientRoles | list | `[]` |  |
+| activiti-cloud-identity.realm.extraClients | list | `[]` |  |
 | activiti-cloud-identity.realm.extraGroups[0].name | string | `"hr"` |  |
 | activiti-cloud-identity.realm.extraGroups[0].realmRoles[0] | string | `"ACTIVITI_USER"` |  |
 | activiti-cloud-identity.realm.extraGroups[1].name | string | `"sales"` |  |
@@ -86,7 +86,7 @@ Kubernetes: `>=1.15.0-0`
 | activiti-cloud-identity.realm.extraGroups[2].name | string | `"testgroup"` |  |
 | activiti-cloud-identity.realm.extraGroups[3].name | string | `"processadmin"` |  |
 | activiti-cloud-identity.realm.extraGroups[3].realmRoles[0] | string | `"ACTIVITI_ADMIN"` |  |
-| activiti-cloud-identity.realm.extraRealmRoles | string | `nil` |  |
+| activiti-cloud-identity.realm.extraRealmRoles | list | `[]` |  |
 | activiti-cloud-identity.realm.extraUsers[0].clientRoles.account[0] | string | `"manage-account"` |  |
 | activiti-cloud-identity.realm.extraUsers[0].clientRoles.account[1] | string | `"view-profile"` |  |
 | activiti-cloud-identity.realm.extraUsers[0].clientRoles.broker[0] | string | `"read-token"` |  |
@@ -99,27 +99,14 @@ Kubernetes: `>=1.15.0-0`
 | activiti-cloud-identity.realm.extraUsers[0].clientRoles.realm-management[6] | string | `"impersonation"` |  |
 | activiti-cloud-identity.realm.extraUsers[0].clientRoles.realm-management[7] | string | `"realm-admin"` |  |
 | activiti-cloud-identity.realm.extraUsers[0].credentials[0].type | string | `"password"` |  |
-| activiti-cloud-identity.realm.extraUsers[0].credentials[0].value | string | `"client"` |  |
-| activiti-cloud-identity.realm.extraUsers[0].email | string | `"client@example.com"` |  |
+| activiti-cloud-identity.realm.extraUsers[0].credentials[0].value | string | `"password"` |  |
+| activiti-cloud-identity.realm.extraUsers[0].email | string | `"admin@example.com"` |  |
 | activiti-cloud-identity.realm.extraUsers[0].enabled | bool | `true` |  |
-| activiti-cloud-identity.realm.extraUsers[0].firstName | string | `"client"` |  |
-| activiti-cloud-identity.realm.extraUsers[0].lastName | string | `"client"` |  |
-| activiti-cloud-identity.realm.extraUsers[0].realmRoles[0] | string | `"ACTIVITI_USER"` |  |
-| activiti-cloud-identity.realm.extraUsers[0].realmRoles[1] | string | `"offline_access"` |  |
-| activiti-cloud-identity.realm.extraUsers[0].realmRoles[2] | string | `"uma_authorization"` |  |
-| activiti-cloud-identity.realm.extraUsers[0].username | string | `"client"` |  |
-| activiti-cloud-identity.realm.extraUsers[10].clientRoles.account[0] | string | `"manage-account"` |  |
-| activiti-cloud-identity.realm.extraUsers[10].clientRoles.account[1] | string | `"view-profile"` |  |
-| activiti-cloud-identity.realm.extraUsers[10].credentials[0].type | string | `"password"` |  |
-| activiti-cloud-identity.realm.extraUsers[10].credentials[0].value | string | `"password"` |  |
-| activiti-cloud-identity.realm.extraUsers[10].email | string | `"modeler-qa@example.com"` |  |
-| activiti-cloud-identity.realm.extraUsers[10].enabled | bool | `true` |  |
-| activiti-cloud-identity.realm.extraUsers[10].firstName | string | `"Modeler"` |  |
-| activiti-cloud-identity.realm.extraUsers[10].lastName | string | `"User"` |  |
-| activiti-cloud-identity.realm.extraUsers[10].realmRoles[0] | string | `"offline_access"` |  |
-| activiti-cloud-identity.realm.extraUsers[10].realmRoles[1] | string | `"uma_authorization"` |  |
-| activiti-cloud-identity.realm.extraUsers[10].realmRoles[2] | string | `"ACTIVITI_MODELER"` |  |
-| activiti-cloud-identity.realm.extraUsers[10].username | string | `"modeler-qa"` |  |
+| activiti-cloud-identity.realm.extraUsers[0].firstName | string | `"admin"` |  |
+| activiti-cloud-identity.realm.extraUsers[0].lastName | string | `"admin"` |  |
+| activiti-cloud-identity.realm.extraUsers[0].realmRoles[0] | string | `"offline_access"` |  |
+| activiti-cloud-identity.realm.extraUsers[0].realmRoles[1] | string | `"uma_authorization"` |  |
+| activiti-cloud-identity.realm.extraUsers[0].username | string | `"admin"` |  |
 | activiti-cloud-identity.realm.extraUsers[1].clientRoles.account[0] | string | `"manage-account"` |  |
 | activiti-cloud-identity.realm.extraUsers[1].clientRoles.account[1] | string | `"view-profile"` |  |
 | activiti-cloud-identity.realm.extraUsers[1].clientRoles.broker[0] | string | `"read-token"` |  |
@@ -133,128 +120,120 @@ Kubernetes: `>=1.15.0-0`
 | activiti-cloud-identity.realm.extraUsers[1].clientRoles.realm-management[7] | string | `"realm-admin"` |  |
 | activiti-cloud-identity.realm.extraUsers[1].credentials[0].type | string | `"password"` |  |
 | activiti-cloud-identity.realm.extraUsers[1].credentials[0].value | string | `"password"` |  |
-| activiti-cloud-identity.realm.extraUsers[1].email | string | `"admin@example.com"` |  |
+| activiti-cloud-identity.realm.extraUsers[1].email | string | `"superadminuser@example.com"` |  |
 | activiti-cloud-identity.realm.extraUsers[1].enabled | bool | `true` |  |
-| activiti-cloud-identity.realm.extraUsers[1].firstName | string | `"admin"` |  |
-| activiti-cloud-identity.realm.extraUsers[1].lastName | string | `"admin"` |  |
-| activiti-cloud-identity.realm.extraUsers[1].realmRoles[0] | string | `"offline_access"` |  |
-| activiti-cloud-identity.realm.extraUsers[1].realmRoles[1] | string | `"uma_authorization"` |  |
-| activiti-cloud-identity.realm.extraUsers[1].username | string | `"admin"` |  |
+| activiti-cloud-identity.realm.extraUsers[1].firstName | string | `"Super Admin"` |  |
+| activiti-cloud-identity.realm.extraUsers[1].lastName | string | `"User"` |  |
+| activiti-cloud-identity.realm.extraUsers[1].realmRoles[0] | string | `"ACTIVITI_USER"` |  |
+| activiti-cloud-identity.realm.extraUsers[1].realmRoles[1] | string | `"ACTIVITI_ADMIN"` |  |
+| activiti-cloud-identity.realm.extraUsers[1].realmRoles[2] | string | `"ACTIVITI_MODELER"` |  |
+| activiti-cloud-identity.realm.extraUsers[1].realmRoles[3] | string | `"offline_access"` |  |
+| activiti-cloud-identity.realm.extraUsers[1].realmRoles[4] | string | `"uma_authorization"` |  |
+| activiti-cloud-identity.realm.extraUsers[1].username | string | `"superadminuser"` |  |
 | activiti-cloud-identity.realm.extraUsers[2].clientRoles.account[0] | string | `"manage-account"` |  |
 | activiti-cloud-identity.realm.extraUsers[2].clientRoles.account[1] | string | `"view-profile"` |  |
-| activiti-cloud-identity.realm.extraUsers[2].clientRoles.broker[0] | string | `"read-token"` |  |
-| activiti-cloud-identity.realm.extraUsers[2].clientRoles.realm-management[0] | string | `"manage-users"` |  |
-| activiti-cloud-identity.realm.extraUsers[2].clientRoles.realm-management[1] | string | `"manage-clients"` |  |
-| activiti-cloud-identity.realm.extraUsers[2].clientRoles.realm-management[2] | string | `"manage-authorization"` |  |
-| activiti-cloud-identity.realm.extraUsers[2].clientRoles.realm-management[3] | string | `"manage-events"` |  |
-| activiti-cloud-identity.realm.extraUsers[2].clientRoles.realm-management[4] | string | `"manage-realm"` |  |
-| activiti-cloud-identity.realm.extraUsers[2].clientRoles.realm-management[5] | string | `"create-client"` |  |
-| activiti-cloud-identity.realm.extraUsers[2].clientRoles.realm-management[6] | string | `"impersonation"` |  |
-| activiti-cloud-identity.realm.extraUsers[2].clientRoles.realm-management[7] | string | `"realm-admin"` |  |
 | activiti-cloud-identity.realm.extraUsers[2].credentials[0].type | string | `"password"` |  |
 | activiti-cloud-identity.realm.extraUsers[2].credentials[0].value | string | `"password"` |  |
-| activiti-cloud-identity.realm.extraUsers[2].email | string | `"superadminuser@example.com"` |  |
+| activiti-cloud-identity.realm.extraUsers[2].email | string | `"hruser@example.com"` |  |
 | activiti-cloud-identity.realm.extraUsers[2].enabled | bool | `true` |  |
-| activiti-cloud-identity.realm.extraUsers[2].firstName | string | `"Super Admin"` |  |
+| activiti-cloud-identity.realm.extraUsers[2].firstName | string | `"HR"` |  |
+| activiti-cloud-identity.realm.extraUsers[2].groups[0] | string | `"/hr"` |  |
 | activiti-cloud-identity.realm.extraUsers[2].lastName | string | `"User"` |  |
-| activiti-cloud-identity.realm.extraUsers[2].realmRoles[0] | string | `"ACTIVITI_USER"` |  |
-| activiti-cloud-identity.realm.extraUsers[2].realmRoles[1] | string | `"ACTIVITI_ADMIN"` |  |
-| activiti-cloud-identity.realm.extraUsers[2].realmRoles[2] | string | `"ACTIVITI_MODELER"` |  |
-| activiti-cloud-identity.realm.extraUsers[2].realmRoles[3] | string | `"offline_access"` |  |
-| activiti-cloud-identity.realm.extraUsers[2].realmRoles[4] | string | `"uma_authorization"` |  |
-| activiti-cloud-identity.realm.extraUsers[2].username | string | `"superadminuser"` |  |
+| activiti-cloud-identity.realm.extraUsers[2].realmRoles[0] | string | `"offline_access"` |  |
+| activiti-cloud-identity.realm.extraUsers[2].realmRoles[1] | string | `"uma_authorization"` |  |
+| activiti-cloud-identity.realm.extraUsers[2].realmRoles[2] | string | `"ACTIVITI_USER"` |  |
+| activiti-cloud-identity.realm.extraUsers[2].username | string | `"hruser"` |  |
 | activiti-cloud-identity.realm.extraUsers[3].clientRoles.account[0] | string | `"manage-account"` |  |
 | activiti-cloud-identity.realm.extraUsers[3].clientRoles.account[1] | string | `"view-profile"` |  |
 | activiti-cloud-identity.realm.extraUsers[3].credentials[0].type | string | `"password"` |  |
 | activiti-cloud-identity.realm.extraUsers[3].credentials[0].value | string | `"password"` |  |
-| activiti-cloud-identity.realm.extraUsers[3].email | string | `"hruser@example.com"` |  |
+| activiti-cloud-identity.realm.extraUsers[3].email | string | `"processadminuser@example.com"` |  |
 | activiti-cloud-identity.realm.extraUsers[3].enabled | bool | `true` |  |
-| activiti-cloud-identity.realm.extraUsers[3].firstName | string | `"HR"` |  |
-| activiti-cloud-identity.realm.extraUsers[3].groups[0] | string | `"/hr"` |  |
+| activiti-cloud-identity.realm.extraUsers[3].firstName | string | `"Process Admin"` |  |
+| activiti-cloud-identity.realm.extraUsers[3].groups[0] | string | `"/processadmin"` |  |
 | activiti-cloud-identity.realm.extraUsers[3].lastName | string | `"User"` |  |
 | activiti-cloud-identity.realm.extraUsers[3].realmRoles[0] | string | `"offline_access"` |  |
 | activiti-cloud-identity.realm.extraUsers[3].realmRoles[1] | string | `"uma_authorization"` |  |
-| activiti-cloud-identity.realm.extraUsers[3].realmRoles[2] | string | `"ACTIVITI_USER"` |  |
-| activiti-cloud-identity.realm.extraUsers[3].username | string | `"hruser"` |  |
+| activiti-cloud-identity.realm.extraUsers[3].realmRoles[2] | string | `"ACTIVITI_ADMIN"` |  |
+| activiti-cloud-identity.realm.extraUsers[3].username | string | `"processadminuser"` |  |
 | activiti-cloud-identity.realm.extraUsers[4].clientRoles.account[0] | string | `"manage-account"` |  |
 | activiti-cloud-identity.realm.extraUsers[4].clientRoles.account[1] | string | `"view-profile"` |  |
 | activiti-cloud-identity.realm.extraUsers[4].credentials[0].type | string | `"password"` |  |
 | activiti-cloud-identity.realm.extraUsers[4].credentials[0].value | string | `"password"` |  |
-| activiti-cloud-identity.realm.extraUsers[4].email | string | `"processadminuser@example.com"` |  |
+| activiti-cloud-identity.realm.extraUsers[4].email | string | `"salesuser@example.com"` |  |
 | activiti-cloud-identity.realm.extraUsers[4].enabled | bool | `true` |  |
-| activiti-cloud-identity.realm.extraUsers[4].firstName | string | `"Process Admin"` |  |
-| activiti-cloud-identity.realm.extraUsers[4].groups[0] | string | `"/processadmin"` |  |
+| activiti-cloud-identity.realm.extraUsers[4].firstName | string | `"Sales"` |  |
+| activiti-cloud-identity.realm.extraUsers[4].groups[0] | string | `"/sales"` |  |
 | activiti-cloud-identity.realm.extraUsers[4].lastName | string | `"User"` |  |
 | activiti-cloud-identity.realm.extraUsers[4].realmRoles[0] | string | `"offline_access"` |  |
 | activiti-cloud-identity.realm.extraUsers[4].realmRoles[1] | string | `"uma_authorization"` |  |
-| activiti-cloud-identity.realm.extraUsers[4].realmRoles[2] | string | `"ACTIVITI_ADMIN"` |  |
-| activiti-cloud-identity.realm.extraUsers[4].username | string | `"processadminuser"` |  |
+| activiti-cloud-identity.realm.extraUsers[4].realmRoles[2] | string | `"ACTIVITI_USER"` |  |
+| activiti-cloud-identity.realm.extraUsers[4].username | string | `"salesuser"` |  |
 | activiti-cloud-identity.realm.extraUsers[5].clientRoles.account[0] | string | `"manage-account"` |  |
 | activiti-cloud-identity.realm.extraUsers[5].clientRoles.account[1] | string | `"view-profile"` |  |
 | activiti-cloud-identity.realm.extraUsers[5].credentials[0].type | string | `"password"` |  |
 | activiti-cloud-identity.realm.extraUsers[5].credentials[0].value | string | `"password"` |  |
-| activiti-cloud-identity.realm.extraUsers[5].email | string | `"salesuser@example.com"` |  |
+| activiti-cloud-identity.realm.extraUsers[5].email | string | `"testuser@example.com"` |  |
 | activiti-cloud-identity.realm.extraUsers[5].enabled | bool | `true` |  |
-| activiti-cloud-identity.realm.extraUsers[5].firstName | string | `"Sales"` |  |
-| activiti-cloud-identity.realm.extraUsers[5].groups[0] | string | `"/sales"` |  |
+| activiti-cloud-identity.realm.extraUsers[5].firstName | string | `"Test"` |  |
+| activiti-cloud-identity.realm.extraUsers[5].groups[0] | string | `"/testgroup"` |  |
 | activiti-cloud-identity.realm.extraUsers[5].lastName | string | `"User"` |  |
 | activiti-cloud-identity.realm.extraUsers[5].realmRoles[0] | string | `"offline_access"` |  |
 | activiti-cloud-identity.realm.extraUsers[5].realmRoles[1] | string | `"uma_authorization"` |  |
 | activiti-cloud-identity.realm.extraUsers[5].realmRoles[2] | string | `"ACTIVITI_USER"` |  |
-| activiti-cloud-identity.realm.extraUsers[5].username | string | `"salesuser"` |  |
+| activiti-cloud-identity.realm.extraUsers[5].username | string | `"testuser"` |  |
 | activiti-cloud-identity.realm.extraUsers[6].clientRoles.account[0] | string | `"manage-account"` |  |
 | activiti-cloud-identity.realm.extraUsers[6].clientRoles.account[1] | string | `"view-profile"` |  |
 | activiti-cloud-identity.realm.extraUsers[6].credentials[0].type | string | `"password"` |  |
 | activiti-cloud-identity.realm.extraUsers[6].credentials[0].value | string | `"password"` |  |
-| activiti-cloud-identity.realm.extraUsers[6].email | string | `"testuser@example.com"` |  |
+| activiti-cloud-identity.realm.extraUsers[6].email | string | `"hradmin@example.com"` |  |
 | activiti-cloud-identity.realm.extraUsers[6].enabled | bool | `true` |  |
-| activiti-cloud-identity.realm.extraUsers[6].firstName | string | `"Test"` |  |
-| activiti-cloud-identity.realm.extraUsers[6].groups[0] | string | `"/testgroup"` |  |
-| activiti-cloud-identity.realm.extraUsers[6].lastName | string | `"User"` |  |
+| activiti-cloud-identity.realm.extraUsers[6].firstName | string | `"HR"` |  |
+| activiti-cloud-identity.realm.extraUsers[6].groups[0] | string | `"/hr"` |  |
+| activiti-cloud-identity.realm.extraUsers[6].lastName | string | `"Admin"` |  |
 | activiti-cloud-identity.realm.extraUsers[6].realmRoles[0] | string | `"offline_access"` |  |
 | activiti-cloud-identity.realm.extraUsers[6].realmRoles[1] | string | `"uma_authorization"` |  |
 | activiti-cloud-identity.realm.extraUsers[6].realmRoles[2] | string | `"ACTIVITI_USER"` |  |
-| activiti-cloud-identity.realm.extraUsers[6].username | string | `"testuser"` |  |
+| activiti-cloud-identity.realm.extraUsers[6].realmRoles[3] | string | `"ACTIVITI_ADMIN"` |  |
+| activiti-cloud-identity.realm.extraUsers[6].username | string | `"hradmin"` |  |
 | activiti-cloud-identity.realm.extraUsers[7].clientRoles.account[0] | string | `"manage-account"` |  |
 | activiti-cloud-identity.realm.extraUsers[7].clientRoles.account[1] | string | `"view-profile"` |  |
 | activiti-cloud-identity.realm.extraUsers[7].credentials[0].type | string | `"password"` |  |
 | activiti-cloud-identity.realm.extraUsers[7].credentials[0].value | string | `"password"` |  |
-| activiti-cloud-identity.realm.extraUsers[7].email | string | `"hradmin@example.com"` |  |
+| activiti-cloud-identity.realm.extraUsers[7].email | string | `"testadmin@example.com"` |  |
 | activiti-cloud-identity.realm.extraUsers[7].enabled | bool | `true` |  |
-| activiti-cloud-identity.realm.extraUsers[7].firstName | string | `"HR"` |  |
-| activiti-cloud-identity.realm.extraUsers[7].groups[0] | string | `"/hr"` |  |
+| activiti-cloud-identity.realm.extraUsers[7].firstName | string | `"Test"` |  |
+| activiti-cloud-identity.realm.extraUsers[7].groups[0] | string | `"/testgroup"` |  |
 | activiti-cloud-identity.realm.extraUsers[7].lastName | string | `"Admin"` |  |
 | activiti-cloud-identity.realm.extraUsers[7].realmRoles[0] | string | `"offline_access"` |  |
 | activiti-cloud-identity.realm.extraUsers[7].realmRoles[1] | string | `"uma_authorization"` |  |
 | activiti-cloud-identity.realm.extraUsers[7].realmRoles[2] | string | `"ACTIVITI_USER"` |  |
 | activiti-cloud-identity.realm.extraUsers[7].realmRoles[3] | string | `"ACTIVITI_ADMIN"` |  |
-| activiti-cloud-identity.realm.extraUsers[7].username | string | `"hradmin"` |  |
+| activiti-cloud-identity.realm.extraUsers[7].username | string | `"testadmin"` |  |
 | activiti-cloud-identity.realm.extraUsers[8].clientRoles.account[0] | string | `"manage-account"` |  |
 | activiti-cloud-identity.realm.extraUsers[8].clientRoles.account[1] | string | `"view-profile"` |  |
 | activiti-cloud-identity.realm.extraUsers[8].credentials[0].type | string | `"password"` |  |
 | activiti-cloud-identity.realm.extraUsers[8].credentials[0].value | string | `"password"` |  |
-| activiti-cloud-identity.realm.extraUsers[8].email | string | `"testadmin@example.com"` |  |
+| activiti-cloud-identity.realm.extraUsers[8].email | string | `"modeler@example.com"` |  |
 | activiti-cloud-identity.realm.extraUsers[8].enabled | bool | `true` |  |
-| activiti-cloud-identity.realm.extraUsers[8].firstName | string | `"Test"` |  |
-| activiti-cloud-identity.realm.extraUsers[8].groups[0] | string | `"/testgroup"` |  |
-| activiti-cloud-identity.realm.extraUsers[8].lastName | string | `"Admin"` |  |
+| activiti-cloud-identity.realm.extraUsers[8].firstName | string | `"Modeler"` |  |
+| activiti-cloud-identity.realm.extraUsers[8].lastName | string | `"User"` |  |
 | activiti-cloud-identity.realm.extraUsers[8].realmRoles[0] | string | `"offline_access"` |  |
 | activiti-cloud-identity.realm.extraUsers[8].realmRoles[1] | string | `"uma_authorization"` |  |
-| activiti-cloud-identity.realm.extraUsers[8].realmRoles[2] | string | `"ACTIVITI_USER"` |  |
-| activiti-cloud-identity.realm.extraUsers[8].realmRoles[3] | string | `"ACTIVITI_ADMIN"` |  |
-| activiti-cloud-identity.realm.extraUsers[8].username | string | `"testadmin"` |  |
+| activiti-cloud-identity.realm.extraUsers[8].realmRoles[2] | string | `"ACTIVITI_MODELER"` |  |
+| activiti-cloud-identity.realm.extraUsers[8].username | string | `"modeler"` |  |
 | activiti-cloud-identity.realm.extraUsers[9].clientRoles.account[0] | string | `"manage-account"` |  |
 | activiti-cloud-identity.realm.extraUsers[9].clientRoles.account[1] | string | `"view-profile"` |  |
 | activiti-cloud-identity.realm.extraUsers[9].credentials[0].type | string | `"password"` |  |
 | activiti-cloud-identity.realm.extraUsers[9].credentials[0].value | string | `"password"` |  |
-| activiti-cloud-identity.realm.extraUsers[9].email | string | `"modeler@example.com"` |  |
+| activiti-cloud-identity.realm.extraUsers[9].email | string | `"modeler-qa@example.com"` |  |
 | activiti-cloud-identity.realm.extraUsers[9].enabled | bool | `true` |  |
 | activiti-cloud-identity.realm.extraUsers[9].firstName | string | `"Modeler"` |  |
 | activiti-cloud-identity.realm.extraUsers[9].lastName | string | `"User"` |  |
 | activiti-cloud-identity.realm.extraUsers[9].realmRoles[0] | string | `"offline_access"` |  |
 | activiti-cloud-identity.realm.extraUsers[9].realmRoles[1] | string | `"uma_authorization"` |  |
 | activiti-cloud-identity.realm.extraUsers[9].realmRoles[2] | string | `"ACTIVITI_MODELER"` |  |
-| activiti-cloud-identity.realm.extraUsers[9].username | string | `"modeler"` |  |
+| activiti-cloud-identity.realm.extraUsers[9].username | string | `"modeler-qa"` |  |
 | activiti-cloud-identity.resources.limits.memory | string | `"1024Mi"` |  |
 | activiti-cloud-identity.resources.requests.memory | string | `"750Mi"` |  |
 | activiti-cloud-identity.serviceAccount.create | bool | `false` |  |
@@ -324,18 +303,22 @@ Kubernetes: `>=1.15.0-0`
 | activiti-modeling-app.resources.requests.memory | string | `"256Mi"` |  |
 | activiti-modeling-app.service.envType | string | `"frontend"` |  |
 | activiti-modeling-app.service.name | string | `"modeling-app"` |  |
-| global | object | `{"application":{"name":"{{ .Release.Name }}"},"extraEnv":"- name: ACTIVITI_CLOUD_APPLICATION_NAME\n  value: \"{{ tpl .Values.global.application.name $ }}\"\n","gateway":{"annotations":null,"domain":"DOMAIN","host":"gateway-{{ .Release.Namespace }}.{{ template \"common.gateway-domain\" . }}","http":"true","tlsacme":"false"},"kafka":{"brokers":"kafka","extraEnv":"- name: ACT_AUDIT_PRODUCER_TRANSACTION_ID_PREFIX\n  value: \"\"\n"},"keycloak":{"host":"identity-{{ .Release.Namespace }}.{{ template \"common.gateway-domain\" . }}","realm":"activiti","resource":"activiti","url":""},"messaging":{"broker":"rabbitmq","partitionCount":2,"partitioned":false},"rabbitmq":{"extraEnv":"","host":"rabbitmq","password":"guest","username":"guest"},"registryPullSecrets":[]}` | for common values see https://github.com/Activiti/activiti-cloud-common-chart/blob/master/charts/common/README.md |
+| global | object | `{"application":{"name":"{{ .Release.Name }}"},"extraEnv":"- name: ACTIVITI_CLOUD_APPLICATION_NAME\n  value: \"{{ tpl .Values.global.application.name $ | required \"global.application.name is required\" }}\"\n- name: ACTIVITI_KEYCLOAK_CLIENT_ID\n  valueFrom:\n    secretKeyRef:\n      name: {{ tpl .Values.global.keycloak.clientSecretName $ }}\n      key: clientId\n- name: ACTIVITI_KEYCLOAK_CLIENT_SECRET\n  valueFrom:\n    secretKeyRef:\n      name: {{ tpl .Values.global.keycloak.clientSecretName $ }}\n      key: clientSecret\n","gateway":{"annotations":null,"domain":"DOMAIN","host":"gateway-{{ .Release.Namespace }}.{{ template \"common.gateway-domain\" . }}","http":"true","tlsacme":"false"},"kafka":{"brokers":"kafka","extraEnv":"- name: ACT_AUDIT_PRODUCER_TRANSACTION_ID_PREFIX\n  value: \"\"\n"},"keycloak":{"clientId":"activiti-keycloak","clientSecret":"","clientSecretName":"activiti-keycloak-client","host":"identity-{{ .Release.Namespace }}.{{ template \"common.gateway-domain\" . }}","realm":"activiti","resource":"activiti","url":"","useExistingClientSecret":false},"messaging":{"broker":"rabbitmq","partitionCount":2,"partitioned":false},"rabbitmq":{"extraEnv":"","host":"rabbitmq","password":"guest","username":"guest"},"registryPullSecrets":[]}` | for common values see https://github.com/Activiti/activiti-cloud-common-chart/blob/master/charts/common/README.md |
 | global.application.name | string | `"{{ .Release.Name }}"` | configure application name for deployment |
-| global.extraEnv | string | `"- name: ACTIVITI_CLOUD_APPLICATION_NAME\n  value: \"{{ tpl .Values.global.application.name $ }}\"\n"` | Use Yaml formatted string to add extra environment properties to all deployments, i.e. |
+| global.extraEnv | string | `"- name: ACTIVITI_CLOUD_APPLICATION_NAME\n  value: \"{{ tpl .Values.global.application.name $ | required \"global.application.name is required\" }}\"\n- name: ACTIVITI_KEYCLOAK_CLIENT_ID\n  valueFrom:\n    secretKeyRef:\n      name: {{ tpl .Values.global.keycloak.clientSecretName $ }}\n      key: clientId\n- name: ACTIVITI_KEYCLOAK_CLIENT_SECRET\n  valueFrom:\n    secretKeyRef:\n      name: {{ tpl .Values.global.keycloak.clientSecretName $ }}\n      key: clientSecret\n"` | Use Yaml formatted string to add extra environment properties to all deployments, i.e. |
 | global.gateway.annotations | string | `nil` | Configure global annotations for all service ingresses |
 | global.gateway.domain | string | `"DOMAIN"` | Set to configure gateway domain template, i.e. {{ .Release.Namespace }}.1.3.4.5.nip.io $ helm upgrade aae . --install --set global.gateway.domain=1.2.3.4.nip.io |
 | global.gateway.host | string | `"gateway-{{ .Release.Namespace }}.{{ template \"common.gateway-domain\" . }}"` | Set to configure single host domain name for all services |
 | global.gateway.http | string | `"true"` | Set to false enables HTTPS configuration on all urls |
 | global.gateway.tlsacme | string | `"false"` | Set to enable automatic TLS for ingress if https is enabled |
+| global.keycloak.clientId | string | `"activiti-keycloak"` | Configure Keycloak Client Id |
+| global.keycloak.clientSecret | string | `""` | Configure Keycloak Client Secret. Required if useExistingClientSecret set to false |
+| global.keycloak.clientSecretName | string | `"activiti-keycloak-client"` | Configure Keycloak Client Secret Name. Secret will be created if `useExistingClientSecret` set to false |
 | global.keycloak.host | string | `"identity-{{ .Release.Namespace }}.{{ template \"common.gateway-domain\" . }}"` | Configure Keycloak host template |
 | global.keycloak.realm | string | `"activiti"` | Configure Keycloak realm |
 | global.keycloak.resource | string | `"activiti"` | Configure Keycloak resource |
 | global.keycloak.url | string | `""` | Set full url to configure external Keycloak, otherwise will be generated based on host |
+| global.keycloak.useExistingClientSecret | bool | `false` | Configure to use existing Keycloak clientId and clientSecret from Kubernetes Secret |
 | global.messaging.broker | string | `"rabbitmq"` | required messaging broker, rabbitmq or kafka |
 | global.messaging.partitionCount | int | `2` | configures number of partitioned consumers |
 | global.messaging.partitioned | bool | `false` | enables partitioned messaging in combination with common chart values messaging.enabled=true and messaging.role=producer|consumer |

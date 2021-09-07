@@ -1,3 +1,13 @@
+{{- $clientId :=  "" -}}
+{{- $clientSecret := "" -}}
+{{- if .Values.global.keycloak.useExistingClientSecret -}}
+{{- $clientSecretName := tpl .Values.global.keycloak.clientSecretName $ -}}
+{{- $clientId = include "getKubernetesSecret" (dict "Namespace" .Release.Namespace "Name" $clientSecretName "Key" "clientId") | required "existing clientId secret key is empty" -}}
+{{- $clientSecret = include "getKubernetesSecret" (dict "Namespace" .Release.Namespace "Name" $clientSecretName "Key" "clientSecret") | required "existing clientSecret secret key is empty" -}}
+{{- else -}}
+{{- $clientId = tpl .Values.global.keycloak.clientId $ | required "global.keycloak.clientId is required" -}}
+{{- $clientSecret = .Values.global.keycloak.clientSecret | required "global.keycloak.clientSecret is required" -}}
+{{- end -}}
 {
   "realm": "activiti",
   "enabled": true,
@@ -102,8 +112,32 @@
       "webOrigins": [
         "*"
       ]
+    }, {
+      "enabled": true,
+      "clientAuthenticatorType": "client-secret",
+      "clientId": "{{ $clientId }}",
+      "secret": "{{ $clientSecret }}",
+      "redirectUris": [],
+      "webOrigins": [],
+      "bearerOnly": false,
+      "standardFlowEnabled": false,
+      "implicitFlowEnabled": false,
+      "directAccessGrantsEnabled": true,
+      "serviceAccountsEnabled": true,
+      "publicClient": false,
+      "protocol": "openid-connect",
+      "fullScopeAllowed": true
     }
   ],
   "groups": [],
-  "users": []
+  "users": [
+    {
+      "username": "service-account-{{ $clientId }}",
+      "enabled": true,
+      "serviceAccountClientId": "{{ $clientId }}",
+      "clientRoles": {
+        "realm-management": ["query-realms", "view-users"]
+      }
+    }
+  ]
 }

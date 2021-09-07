@@ -12,7 +12,17 @@ global:
   # global.extraEnv -- Use Yaml formatted string to add extra environment properties to all deployments, i.e.
   extraEnv: |
     - name: ACTIVITI_CLOUD_APPLICATION_NAME
-      value: "{{ tpl .Values.global.application.name $ }}"
+      value: "{{ tpl .Values.global.application.name $ | required "global.application.name is required" }}"
+    - name: ACTIVITI_KEYCLOAK_CLIENT_ID
+      valueFrom:
+        secretKeyRef:
+          name: {{ tpl .Values.global.keycloak.clientSecretName $ }}
+          key: clientId
+    - name: ACTIVITI_KEYCLOAK_CLIENT_SECRET
+      valueFrom:
+        secretKeyRef:
+          name: {{ tpl .Values.global.keycloak.clientSecretName $ }}
+          key: clientSecret
   gateway:
     # global.gateway.domain -- Set to configure gateway domain template, i.e. {{ .Release.Namespace }}.1.3.4.5.nip.io
     # $ helm upgrade aae . --install --set global.gateway.domain=1.2.3.4.nip.io
@@ -35,12 +45,20 @@ global:
     # global.keycloak.url -- Set full url to configure external Keycloak, otherwise will be generated based on host
     url: ""
     # global.keycloak.realm -- Configure Keycloak realm
-    realm: "activiti"
+    realm: activiti
     # global.keycloak.resource -- Configure Keycloak resource
-    resource: "activiti"
+    resource: activiti
+    # global.keycloak.clientId -- Configure Keycloak Client Id
+    clientId: activiti-keycloak
+    # global.keycloak.clientSecret -- Configure Keycloak Client Secret. Required if useExistingClientSecret set to false
+    clientSecret: ""
+    # global.keycloak.clientSecretName -- Configure Keycloak Client Secret Name. Secret will be created if `useExistingClientSecret` set to false
+    clientSecretName: activiti-keycloak-client
+    # global.keycloak.useExistingClientSecret -- Configure to use existing Keycloak clientId and clientSecret from Kubernetes Secret
+    useExistingClientSecret: false
   messaging:
     # global.messaging.broker -- required messaging broker, rabbitmq or kafka
-    broker: "rabbitmq"
+    broker: rabbitmq
     # global.messaging.partitioned -- enables partitioned messaging in combination with common chart values messaging.enabled=true and messaging.role=producer|consumer
     partitioned: false
     # global.messaging.partitionCount -- configures number of partitioned consumers
@@ -131,7 +149,7 @@ activiti-cloud-identity:
     limits:
       memory: "1024Mi"
   realm:
-    extraClients:
+    extraClients: []
     extraGroups:
       - name: hr
         realmRoles:
@@ -143,36 +161,9 @@ activiti-cloud-identity:
       - name: processadmin
         realmRoles:
           - ACTIVITI_ADMIN
-    extraRealmRoles:
-    extraClientRoles:
+    extraRealmRoles: []
+    extraClientRoles: []
     extraUsers:
-      - username: client
-        enabled: true
-        firstName: client
-        lastName: client
-        email: client@example.com
-        credentials:
-          - type: password
-            value: client
-        realmRoles:
-          - ACTIVITI_USER
-          - offline_access
-          - uma_authorization
-        clientRoles:
-          realm-management:
-            - manage-users
-            - manage-clients
-            - manage-authorization
-            - manage-events
-            - manage-realm
-            - create-client
-            - impersonation
-            - realm-admin
-          broker:
-            - read-token
-          account:
-            - manage-account
-            - view-profile
       - username: admin
         enabled: true
         firstName: admin

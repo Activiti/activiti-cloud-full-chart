@@ -30,6 +30,14 @@ Update all dependencies:
 ```shell
 helm dependency update charts/activiti-cloud-full-example
 ```
+Create Activiti Keycloak Client Kubernetes secret in the `activiti` namespace:
+
+```bash
+kubectl create secret generic activiti-keycloak-client \
+   --namespace activiti \
+   --from-literal=clientId=activiti-keycloak \
+   --from-literal=clientSecret=`uuidgen`
+```
 
 Create a `values.yaml` file with any customised values from the default [values.yaml](charts/activiti-cloud-full-example/values.yaml) you want, as documented in the chart [README](charts/activiti-cloud-full-example/README.md).
 
@@ -40,6 +48,18 @@ global:
     host: host.docker.internal
   keycloak:
     host: host.docker.internal
+    clientSecretName: activiti-keycloak-client
+    useExistingClientSecret: true
+```
+Alternatively, you can create Activiti Keycloak Client Kubernetes secret with Helm with the following values:
+
+```yaml
+global:
+  gateway:
+    host: host.docker.internal
+  keycloak:
+    host: host.docker.internal
+    clientSecret: changeit
 ```
 
 In a generic cluster install, you can just add `--set global.gateway.domain=$YOUR_CLUSTER_DOMAIN` to the `helm` command line,
@@ -77,7 +97,7 @@ helm template --validate \
   activiti charts/activiti-cloud-full-example
 ```
 
-## Enabling partioning
+## Enabling message partitioning
 In order to enable partitioning provide the following [extra values](https://github.com/Activiti/activiti-cloud-full-chart/blob/master/charts/activiti-cloud-full-example/partitioned-values.yaml) (`partitionCount` defines how many partitions will be used and the Helm deployment will create that many replicaSets of query service and configure Rb service with the number of supported partitions in Query):
 ```yaml
 global:
