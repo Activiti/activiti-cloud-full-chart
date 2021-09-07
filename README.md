@@ -30,12 +30,13 @@ Update all dependencies:
 ```shell
 helm dependency update charts/activiti-cloud-full-example
 ```
-Create Activiti Keycloak Client Kubernetes secret in the current namespace:
+Create Activiti Keycloak Client Kubernetes secret in the `activiti` namespace:
 
 ```bash
 kubectl create secret generic activiti-keycloak-client \
+   --namespace activiti \
    --from-literal=clientId=activiti-keycloak \
-   --from-literal=clientSecret=changeit
+   --from-literal=clientSecret=`uuidgen`
 ```
 
 Create a `values.yaml` file with any customised values from the default [values.yaml](charts/activiti-cloud-full-example/values.yaml) you want, as documented in the chart [README](charts/activiti-cloud-full-example/README.md).
