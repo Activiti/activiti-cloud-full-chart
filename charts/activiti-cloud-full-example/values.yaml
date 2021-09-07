@@ -53,7 +53,7 @@ global:
     # global.keycloak.clientSecret -- Configure Keycloak Client Secret. Required if useExistingClientSecret set to false
     clientSecret: ""
     # global.keycloak.clientSecretName -- Configure Keycloak Client Secret Name. Secret will be created if `useExistingClientSecret` set to false
-    clientSecretName: activiti-keycloak-secret
+    clientSecretName: activiti-keycloak-client
     # global.keycloak.useExistingClientSecret -- Configure to use existing Keycloak clientId and clientSecret from Kubernetes Secret
     useExistingClientSecret: false
   messaging:
