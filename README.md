@@ -120,6 +120,21 @@ rabbitmq:
   enabled: false
 ```
 
+### Message Partitioning with Kafka
+Kafka has an architecture different from RabbitMQ. One Kafka topic can be served by a number of partitions that must be greater or equal to the consumer number.
+
+So using the Kafka broker it is possible to specify a number `partitionCount` greater or equal to the number of `replicaCount` (the consumers). Defining these two number independently allow the user to allocate consumers only if it is needes, avoiding to waste resources.
+
+```yaml
+global:
+  messaging:
+    partitioned: true
+    # global.messaging.partitionCount -- set the Kafka partition number
+    partitionCount: 4
+# replicaCount -- set the Kafka consumer number
+replicaCount: 2
+```
+
 ## Skipping CI
 
 If you want to skip running release pipeline stages, simply add `[ci skip]` to your commit message.
