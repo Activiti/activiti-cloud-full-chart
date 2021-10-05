@@ -132,8 +132,10 @@ global:
     partitioned: true
     # global.messaging.partitionCount -- set the Kafka partition number
     partitionCount: 4
-# replicaCount -- set the Kafka consumer number
-replicaCount: 2
+
+activiti-cloud-query:
+  # replicaCount -- set the Kafka consumer number
+  replicaCount: 2
 ```
 
 ## Skipping CI
