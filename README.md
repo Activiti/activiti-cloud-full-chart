@@ -121,7 +121,7 @@ rabbitmq:
 ```
 
 ### Message Partitioning with Kafka
-Kafka has different architecture from RabbitMQ. One Kafka topic can be served by a number of partitions indepenent from the consumer number (greater or equal).
+Kafka has different architecture from RabbitMQ. One Kafka topic can be served by a number of partitions independent from the consumer number (greater or equal).
 
 Configuring the Kafka broker in the helm chart it is possible to specify `partitionCount` greater or equal to the `replicaCount` (the consumer number).
 Defining these two number independently allow the user to instantiate consumers only if it is needed, avoiding to waste resources.
