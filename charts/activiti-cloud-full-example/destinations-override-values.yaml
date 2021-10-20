@@ -1,0 +1,24 @@
+global:
+  messaging:
+    destinationPrefix: "{{ .Release.Namespace }}"
+    destinationSeparator: .
+    destinationOverrideEnabled: true
+    destinationIllegalCharsRegex: "[\\t\\s*#:]"
+    destinationIllegalCharsReplacement: "-"
+    destinations:
+      engineEvents:
+        name: engine-events
+      signalEvent:
+        name: signal-events
+      commandConsumer:
+        name: command-consumer
+      asyncExecutorJobs:
+        name: async-executor-jobs
+      messageEvents:
+        name: message-events
+      commandResults:
+        name: command-results
+      integrationResult:
+        name: integration-result
+      integrationError:
+        name: integration-error
