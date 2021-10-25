@@ -2,7 +2,7 @@ global:
   messaging:
     destinationPrefix: ""
     destinationSeparator: _
-    destinationOverrideEnabled: false
+    destinationTransformersEnabled: false
     destinationIllegalCharsRegex: "[\\t\\s*#:]"
     destinationIllegalCharsReplacement: "-"
     destinations: {}

@@ -2,7 +2,7 @@ global:
   messaging:
     destinationPrefix: "{{ .Release.Namespace }}"
     destinationSeparator: .
-    destinationOverrideEnabled: true
+    destinationTransformersEnabled: true
     destinationIllegalCharsRegex: "[\\t\\s*#:]"
     destinationIllegalCharsReplacement: "-"
     destinations:
