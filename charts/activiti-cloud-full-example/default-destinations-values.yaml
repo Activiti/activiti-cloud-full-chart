@@ -1,0 +1,8 @@
+global:
+  messaging:
+    destinationPrefix: ""
+    destinationSeparator: _
+    destinationTransformersEnabled: false
+    destinationIllegalCharsRegex: "[\\t\\s*#:]"
+    destinationIllegalCharsReplacement: "-"
+    destinations: {}
