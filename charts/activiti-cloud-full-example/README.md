@@ -334,6 +334,8 @@ Kubernetes: `>=1.15.0-0`
 | kafka.zookeeper.replicaCount | int | `1` |  |
 | postgresql.commonAnnotations.application | string | `"activiti"` |  |
 | postgresql.enabled | bool | `true` |  |
+| postgresql.postgresqlExtendedConf.maxConnections | int | `300` |  |
+| postgresql.postgresqlExtendedConf.sharedBuffers | string | `"80MB"` |  |
 | postgresql.postgresqlPassword | string | `"password"` |  |
 | postgresql.resources.requests.cpu | string | `"350m"` |  |
 | postgresql.resources.requests.memory | string | `"512Mi"` |  |
@@ -348,7 +350,7 @@ Kubernetes: `>=1.15.0-0`
 | rabbitmq.resources.limits.memory | string | `"1500Mi"` |  |
 | rabbitmq.resources.requests.memory | string | `"1500Mi"` |  |
 | runtime-bundle.enabled | bool | `true` |  |
-| runtime-bundle.extraEnv | string | `"- name: SERVER_SERVLET_CONTEXTPATH\n  value: \"{{ tpl .Values.ingress.path . }}\"\n- name: SERVER_USEFORWARDHEADERS\n  value: \"true\"\n- name: SERVER_TOMCAT_INTERNALPROXIES\n  value: \".*\""` |  |
+| runtime-bundle.extraEnv | string | `"- name: SERVER_SERVLET_CONTEXTPATH\n  value: \"{{ tpl .Values.ingress.path . }}\"\n- name: SERVER_USEFORWARDHEADERS\n  value: \"true\"\n- name: SERVER_TOMCAT_INTERNALPROXIES\n  value: \".*\"\n- name: SPRING_DATASOURCE_HIKARI_MINIMUMIDLE\n  value: \"40\"\n- name: SPRING_DATASOURCE_HIKARI_MAXIMUMPOOLSIZE\n  value: \"40\"\n- name: SPRING_DATASOURCE_HIKARI_MAXLIFETIME\n  value: \"1000\"\n- name: SPRING_DATASOURCE_HIKARI_CONNECTIONTIMEOUT\n  value: \"10000\"\n- name: SPRING_ZIPKIN_BASEURL\n  value: \"http://alfresco-jaeger-collector.ats:9411\""` |  |
 | runtime-bundle.image.pullPolicy | string | `"Always"` |  |
 | runtime-bundle.image.repository | string | `"activiti/example-runtime-bundle"` |  |
 | runtime-bundle.image.tag | string | `"7.1.1103"` |  |

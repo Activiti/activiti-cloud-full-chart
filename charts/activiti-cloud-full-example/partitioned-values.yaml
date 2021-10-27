@@ -1,4 +1,4 @@
 global:
   messaging:
     partitioned: true
-    partitionCount: 2
+    partitionCount: 4

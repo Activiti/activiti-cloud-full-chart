@@ -426,6 +426,9 @@ activiti-modeling-app:
       memory: 256Mi
 postgresql:
   enabled: true
+  postgresqlExtendedConf:
+    maxConnections: 300
+    sharedBuffers: "80MB"
   postgresqlPassword: password
   resources:
     requests:
@@ -491,6 +494,16 @@ runtime-bundle:
       value: "true"
     - name: SERVER_TOMCAT_INTERNALPROXIES
       value: ".*"
+    - name: SPRING_DATASOURCE_HIKARI_MINIMUMIDLE
+      value: "40"
+    - name: SPRING_DATASOURCE_HIKARI_MAXIMUMPOOLSIZE
+      value: "40"
+    - name: SPRING_DATASOURCE_HIKARI_MAXLIFETIME
+      value: "1000"
+    - name: SPRING_DATASOURCE_HIKARI_CONNECTIONTIMEOUT
+      value: "10000"
+    - name: SPRING_ZIPKIN_BASEURL
+      value: "http://alfresco-jaeger-collector.ats:9411"
 activiti-cloud-query:
   enabled: true
   nameOverride: activiti-cloud-query
