@@ -380,7 +380,10 @@ activiti-cloud-modeling:
       nginx.ingress.kubernetes.io/cors-allow-headers: Authorization, Content-Type, Accept
   postgresql:
     enabled: true
-  probePath: '{{ tpl .Values.ingress.path . }}/actuator/health'
+  readinessProbe:
+    path: '{{ tpl .Values.ingress.path . | trimSuffix "/" }}/actuator/health/readiness'
+  livenessProbe:
+    path: '{{ tpl .Values.ingress.path . | trimSuffix "/" }}/actuator/health/liveness'
   resources:
     requests:
       cpu: 400m
@@ -477,7 +480,10 @@ runtime-bundle:
     requests:
       cpu: 200m
       memory: 512Mi
-  probePath: '{{ tpl .Values.ingress.path . }}/actuator/health'
+  readinessProbe:
+    path: '{{ tpl .Values.ingress.path . | trimSuffix "/" }}/actuator/health/readiness'
+  livenessProbe:
+    path: '{{ tpl .Values.ingress.path . | trimSuffix "/" }}/actuator/health/liveness'
   extraEnv: |-
     - name: SERVER_SERVLET_CONTEXTPATH
       value: "{{ tpl .Values.ingress.path . }}"
@@ -528,7 +534,10 @@ activiti-cloud-query:
     requests:
       cpu: 200m
       memory: 512Mi
-  probePath: '{{ tpl .Values.ingress.path . | trimSuffix "/" }}/actuator/health'
+  readinessProbe:
+    path: '{{ tpl .Values.ingress.path . | trimSuffix "/" }}/actuator/health/readiness'
+  livenessProbe:
+    path: '{{ tpl .Values.ingress.path . | trimSuffix "/" }}/actuator/health/liveness'
   extraEnv: |-
     - name: GRAPHIQL_GRAPHQL_WEB_PATH
       value: '{{ tpl .Values.ingress.path . | trimSuffix "/" }}/notifications/graphql'
@@ -572,7 +581,10 @@ activiti-cloud-connector:
     requests:
       cpu: 150m
       memory: 256Mi
-  probePath: '{{ tpl .Values.ingress.path . }}/actuator/health'
+  readinessProbe:
+    path: '{{ tpl .Values.ingress.path . | trimSuffix "/" }}/actuator/health/readiness'
+  livenessProbe:
+    path: '{{ tpl .Values.ingress.path . | trimSuffix "/" }}/actuator/health/liveness'
 ##
 ## Kafka chart configuration
 ##
