@@ -38,9 +38,10 @@ Kubernetes: `>=1.15.0-0`
 | activiti-cloud-connector.ingress.annotations."nginx.ingress.kubernetes.io/enable-cors" | string | `"true"` |  |
 | activiti-cloud-connector.ingress.enabled | bool | `false` |  |
 | activiti-cloud-connector.ingress.path | string | `"/example-cloud-connector"` |  |
+| activiti-cloud-connector.livenessProbe.path | string | `"{{ tpl .Values.ingress.path . | trimSuffix \"/\" }}/actuator/health/liveness"` |  |
 | activiti-cloud-connector.messaging.enabled | bool | `true` |  |
 | activiti-cloud-connector.nameOverride | string | `"activiti-cloud-connector"` |  |
-| activiti-cloud-connector.probePath | string | `"{{ tpl .Values.ingress.path . }}/actuator/health"` |  |
+| activiti-cloud-connector.readinessProbe.path | string | `"{{ tpl .Values.ingress.path . | trimSuffix \"/\" }}/actuator/health/readiness"` |  |
 | activiti-cloud-connector.resources.limits.cpu | string | `"1"` |  |
 | activiti-cloud-connector.resources.limits.memory | string | `"1024Mi"` |  |
 | activiti-cloud-connector.resources.requests.cpu | string | `"150m"` |  |
@@ -248,9 +249,10 @@ Kubernetes: `>=1.15.0-0`
 | activiti-cloud-modeling.ingress.annotations."nginx.ingress.kubernetes.io/enable-cors" | string | `"true"` |  |
 | activiti-cloud-modeling.ingress.path | string | `"/modeling-service"` |  |
 | activiti-cloud-modeling.liquibase.enabled | bool | `true` |  |
+| activiti-cloud-modeling.livenessProbe.path | string | `"{{ tpl .Values.ingress.path . | trimSuffix \"/\" }}/actuator/health/liveness"` |  |
 | activiti-cloud-modeling.nameOverride | string | `"activiti-cloud-modeling"` |  |
 | activiti-cloud-modeling.postgresql.enabled | bool | `true` |  |
-| activiti-cloud-modeling.probePath | string | `"{{ tpl .Values.ingress.path . }}/actuator/health"` |  |
+| activiti-cloud-modeling.readinessProbe.path | string | `"{{ tpl .Values.ingress.path . | trimSuffix \"/\" }}/actuator/health/readiness"` |  |
 | activiti-cloud-modeling.resources.limits.cpu | string | `"1"` |  |
 | activiti-cloud-modeling.resources.limits.memory | string | `"1024Mi"` |  |
 | activiti-cloud-modeling.resources.requests.cpu | string | `"400m"` |  |
@@ -276,11 +278,12 @@ Kubernetes: `>=1.15.0-0`
 | activiti-cloud-query.javaOpts.xms | string | `"512m"` |  |
 | activiti-cloud-query.javaOpts.xmx | string | `"2048m"` |  |
 | activiti-cloud-query.liquibase.enabled | bool | `true` |  |
+| activiti-cloud-query.livenessProbe.path | string | `"{{ tpl .Values.ingress.path . | trimSuffix \"/\" }}/actuator/health/liveness"` |  |
 | activiti-cloud-query.messaging.enabled | bool | `true` |  |
 | activiti-cloud-query.messaging.role | string | `"consumer"` |  |
 | activiti-cloud-query.nameOverride | string | `"activiti-cloud-query"` |  |
 | activiti-cloud-query.postgresql.enabled | bool | `true` |  |
-| activiti-cloud-query.probePath | string | `"{{ tpl .Values.ingress.path . | trimSuffix \"/\" }}/actuator/health"` |  |
+| activiti-cloud-query.readinessProbe.path | string | `"{{ tpl .Values.ingress.path . | trimSuffix \"/\" }}/actuator/health/readiness"` |  |
 | activiti-cloud-query.resources.limits.cpu | string | `"1.5"` |  |
 | activiti-cloud-query.resources.limits.memory | string | `"2048Mi"` |  |
 | activiti-cloud-query.resources.requests.cpu | string | `"200m"` |  |
@@ -355,11 +358,12 @@ Kubernetes: `>=1.15.0-0`
 | runtime-bundle.ingress.path | string | `"/rb"` |  |
 | runtime-bundle.javaOpts.xms | string | `"512m"` |  |
 | runtime-bundle.javaOpts.xmx | string | `"2048m"` |  |
+| runtime-bundle.livenessProbe.path | string | `"{{ tpl .Values.ingress.path . | trimSuffix \"/\" }}/actuator/health/liveness"` |  |
 | runtime-bundle.messaging.enabled | bool | `true` |  |
 | runtime-bundle.messaging.role | string | `"producer"` |  |
 | runtime-bundle.nameOverride | string | `"runtime-bundle"` |  |
 | runtime-bundle.postgresql.enabled | bool | `true` |  |
-| runtime-bundle.probePath | string | `"{{ tpl .Values.ingress.path . }}/actuator/health"` |  |
+| runtime-bundle.readinessProbe.path | string | `"{{ tpl .Values.ingress.path . | trimSuffix \"/\" }}/actuator/health/readiness"` |  |
 | runtime-bundle.resources.limits.cpu | string | `"2"` |  |
 | runtime-bundle.resources.limits.memory | string | `"2048Mi"` |  |
 | runtime-bundle.resources.requests.cpu | string | `"200m"` |  |
