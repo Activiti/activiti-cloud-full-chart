@@ -50,7 +50,7 @@ github:
 	   git add . && \
 	   git status && \
 	   git commit -m "fix:(version) release $(NAME)-$(VERSION).tgz" && \
-	   git pull && \
+	   git pull --rebase && \
 	   git push -f -q https://${GITHUB_TOKEN}@github.com/Activiti/activiti-cloud-helm-charts.git "$(GITHUB_CHARTS_BRANCH)"
 	rm -rf $(GITHUB_CHARTS_DIR)
 
