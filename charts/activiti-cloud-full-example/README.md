@@ -260,7 +260,7 @@ Kubernetes: `>=1.15.0-0`
 | activiti-cloud-modeling.service.name | string | `"modeling"` |  |
 | activiti-cloud-query.db.ddlAuto | string | `"none"` | set to 'none' temporarily rather than default 'validate' that breaks |
 | activiti-cloud-query.enabled | bool | `true` |  |
-| activiti-cloud-query.extraEnv | string | `"- name: GRAPHIQL_GRAPHQL_WEB_PATH\n  value: '{{ tpl .Values.ingress.path . | trimSuffix \"/\" }}/notifications/graphql'\n- name: GRAPHIQL_GRAPHQL_WS_PATH\n  value: '{{ tpl .Values.ingress.path . | trimSuffix \"/\" }}/notifications/ws/graphql'\n- name: SERVER_SERVLET_CONTEXTPATH\n  value: \"{{ tpl .Values.ingress.path . }}\"\n- name: SERVER_USEFORWARDHEADERS\n  value: \"true\"\n- name: SERVER_TOMCAT_INTERNALPROXIES\n  value: \".*\""` |  |
+| activiti-cloud-query.extraEnv | string | `"- name: GRAPHIQL_GRAPHQL_WEB_PATH\n  value: '{{ tpl .Values.ingress.path . | trimSuffix \"/\" }}/notifications/graphql'\n- name: GRAPHIQL_GRAPHQL_WS_PATH\n  value: '{{ tpl .Values.ingress.path . | trimSuffix \"/\" }}/notifications/ws/graphql'\n- name: SERVER_SERVLET_CONTEXTPATH\n  value: \"{{ tpl .Values.ingress.path . }}\"\n- name: SERVER_USEFORWARDHEADERS\n  value: \"true\"\n- name: SERVER_TOMCAT_INTERNALPROXIES\n  value: \".*\"\n- name: ACTIVITI_CLOUD_SWAGGER_QUERYBASEPATH\n  value: \"/query\"\n- name: ACTIVITI_CLOUD_SWAGGER_AUDITBASEPATH\n  value: \"/audit\""` |  |
 | activiti-cloud-query.image.pullPolicy | string | `"Always"` |  |
 | activiti-cloud-query.image.repository | string | `"activiti/activiti-cloud-query"` |  |
 | activiti-cloud-query.image.tag | string | `"7.1.1099"` |  |

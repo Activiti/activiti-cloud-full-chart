@@ -549,6 +549,10 @@ activiti-cloud-query:
       value: "true"
     - name: SERVER_TOMCAT_INTERNALPROXIES
       value: ".*"
+    - name: ACTIVITI_CLOUD_SWAGGER_QUERYBASEPATH
+      value: "/query"
+    - name: ACTIVITI_CLOUD_SWAGGER_AUDITBASEPATH
+      value: "/audit"
 activiti-cloud-connector:
   enabled: true
   nameOverride: activiti-cloud-connector
