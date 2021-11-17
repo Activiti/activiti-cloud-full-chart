@@ -58,11 +58,11 @@ global:
     useExistingClientSecret: false
   messaging:
     # global.messaging.broker -- required messaging broker, rabbitmq or kafka
-    broker: rabbitmq
+    broker: kafka
     # global.messaging.partitioned -- enables partitioned messaging in combination with common chart values messaging.enabled=true and messaging.role=producer|consumer
-    partitioned: false
+    partitioned: true
     # global.messaging.partitionCount -- configures number of partitioned consumers
-    partitionCount: 2
+    partitionCount: 4
   rabbitmq:
     host: 'rabbitmq'
     username: guest
