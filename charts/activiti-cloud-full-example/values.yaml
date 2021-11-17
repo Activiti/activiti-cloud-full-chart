@@ -28,7 +28,7 @@ global:
     # $ helm upgrade aae . --install --set global.gateway.domain=1.2.3.4.nip.io
     domain: "DOMAIN"
     # global.gateway.host -- Set to configure single host domain name for all services
-    host: 'gateway-{{ .Release.Namespace }}.{{ template "common.gateway-domain" . }}'
+    host: '{{ template "common.gateway-domain" . }}'
     # host: '{{ template "common.gateway-domain" . }}'
     # global.gateway.http -- Set to false enables HTTPS configuration on all urls
     http: "true"
@@ -40,7 +40,7 @@ global:
     #   certmanager.k8s.io/issuer: letsencrypt-prod
   keycloak:
     # global.keycloak.host -- Configure Keycloak host template
-    host: 'identity-{{ .Release.Namespace }}.{{ template "common.gateway-domain" . }}'
+    host: '{{ template "common.gateway-domain" . }}'
     #host: '{{ template "common.gateway-host" . }}'
     # global.keycloak.url -- Set full url to configure external Keycloak, otherwise will be generated based on host
     url: ""
@@ -438,7 +438,7 @@ postgresql:
     application: activiti
 rabbitmq:
   fullnameOverride: rabbitmq
-  enabled: true
+  enabled: false
   extraPlugins: ""
   auth:
     username: guest
@@ -609,9 +609,11 @@ activiti-cloud-connector:
 ##
 kafka:
   fullnameOverride: kafka
-  enabled: false
+  enabled: true
   replicaCount: 1
   offsetsTopicReplicationFactor: 1
+  persistence:
+    size: 16Gi
   ##
   ## Zookeeper chart configuration
   ##

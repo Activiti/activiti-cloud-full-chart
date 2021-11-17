@@ -306,18 +306,18 @@ Kubernetes: `>=1.15.0-0`
 | activiti-modeling-app.resources.requests.memory | string | `"256Mi"` |  |
 | activiti-modeling-app.service.envType | string | `"frontend"` |  |
 | activiti-modeling-app.service.name | string | `"modeling-app"` |  |
-| global | object | `{"application":{"name":"{{ .Release.Name }}"},"extraEnv":"- name: ACTIVITI_CLOUD_APPLICATION_NAME\n  value: \"{{ tpl .Values.global.application.name $ | required \"global.application.name is required\" }}\"\n- name: ACTIVITI_KEYCLOAK_CLIENT_ID\n  valueFrom:\n    secretKeyRef:\n      name: {{ tpl .Values.global.keycloak.clientSecretName $ }}\n      key: clientId\n- name: ACTIVITI_KEYCLOAK_CLIENT_SECRET\n  valueFrom:\n    secretKeyRef:\n      name: {{ tpl .Values.global.keycloak.clientSecretName $ }}\n      key: clientSecret\n","gateway":{"annotations":null,"domain":"DOMAIN","host":"gateway-{{ .Release.Namespace }}.{{ template \"common.gateway-domain\" . }}","http":"true","tlsacme":"false"},"kafka":{"brokers":"kafka","extraEnv":"- name: ACT_AUDIT_PRODUCER_TRANSACTION_ID_PREFIX\n  value: \"\"\n"},"keycloak":{"clientId":"activiti-keycloak","clientSecret":"","clientSecretName":"activiti-keycloak-client","host":"identity-{{ .Release.Namespace }}.{{ template \"common.gateway-domain\" . }}","realm":"activiti","resource":"activiti","url":"","useExistingClientSecret":false},"messaging":{"broker":"rabbitmq","partitionCount":2,"partitioned":false},"rabbitmq":{"extraEnv":"","host":"rabbitmq","password":"guest","username":"guest"},"registryPullSecrets":[]}` | for common values see https://github.com/Activiti/activiti-cloud-common-chart/blob/master/charts/common/README.md |
+| global | object | `{"application":{"name":"{{ .Release.Name }}"},"extraEnv":"- name: ACTIVITI_CLOUD_APPLICATION_NAME\n  value: \"{{ tpl .Values.global.application.name $ | required \"global.application.name is required\" }}\"\n- name: ACTIVITI_KEYCLOAK_CLIENT_ID\n  valueFrom:\n    secretKeyRef:\n      name: {{ tpl .Values.global.keycloak.clientSecretName $ }}\n      key: clientId\n- name: ACTIVITI_KEYCLOAK_CLIENT_SECRET\n  valueFrom:\n    secretKeyRef:\n      name: {{ tpl .Values.global.keycloak.clientSecretName $ }}\n      key: clientSecret\n","gateway":{"annotations":null,"domain":"DOMAIN","host":"{{ template \"common.gateway-domain\" . }}","http":"true","tlsacme":"false"},"kafka":{"brokers":"kafka","extraEnv":"- name: ACT_AUDIT_PRODUCER_TRANSACTION_ID_PREFIX\n  value: \"\"\n"},"keycloak":{"clientId":"activiti-keycloak","clientSecret":"","clientSecretName":"activiti-keycloak-client","host":"{{ template \"common.gateway-domain\" . }}","realm":"activiti","resource":"activiti","url":"","useExistingClientSecret":false},"messaging":{"broker":"rabbitmq","partitionCount":2,"partitioned":false},"rabbitmq":{"extraEnv":"","host":"rabbitmq","password":"guest","username":"guest"},"registryPullSecrets":[]}` | for common values see https://github.com/Activiti/activiti-cloud-common-chart/blob/master/charts/common/README.md |
 | global.application.name | string | `"{{ .Release.Name }}"` | configure application name for deployment |
 | global.extraEnv | string | `"- name: ACTIVITI_CLOUD_APPLICATION_NAME\n  value: \"{{ tpl .Values.global.application.name $ | required \"global.application.name is required\" }}\"\n- name: ACTIVITI_KEYCLOAK_CLIENT_ID\n  valueFrom:\n    secretKeyRef:\n      name: {{ tpl .Values.global.keycloak.clientSecretName $ }}\n      key: clientId\n- name: ACTIVITI_KEYCLOAK_CLIENT_SECRET\n  valueFrom:\n    secretKeyRef:\n      name: {{ tpl .Values.global.keycloak.clientSecretName $ }}\n      key: clientSecret\n"` | Use Yaml formatted string to add extra environment properties to all deployments, i.e. |
 | global.gateway.annotations | string | `nil` | Configure global annotations for all service ingresses |
 | global.gateway.domain | string | `"DOMAIN"` | Set to configure gateway domain template, i.e. {{ .Release.Namespace }}.1.3.4.5.nip.io $ helm upgrade aae . --install --set global.gateway.domain=1.2.3.4.nip.io |
-| global.gateway.host | string | `"gateway-{{ .Release.Namespace }}.{{ template \"common.gateway-domain\" . }}"` | Set to configure single host domain name for all services |
+| global.gateway.host | string | `"{{ template \"common.gateway-domain\" . }}"` | Set to configure single host domain name for all services |
 | global.gateway.http | string | `"true"` | Set to false enables HTTPS configuration on all urls |
 | global.gateway.tlsacme | string | `"false"` | Set to enable automatic TLS for ingress if https is enabled |
 | global.keycloak.clientId | string | `"activiti-keycloak"` | Configure Keycloak Client Id |
 | global.keycloak.clientSecret | string | `""` | Configure Keycloak Client Secret. Required if useExistingClientSecret set to false |
 | global.keycloak.clientSecretName | string | `"activiti-keycloak-client"` | Configure Keycloak Client Secret Name. Secret will be created if `useExistingClientSecret` set to false |
-| global.keycloak.host | string | `"identity-{{ .Release.Namespace }}.{{ template \"common.gateway-domain\" . }}"` | Configure Keycloak host template |
+| global.keycloak.host | string | `"{{ template \"common.gateway-domain\" . }}"` | Configure Keycloak host template |
 | global.keycloak.realm | string | `"activiti"` | Configure Keycloak realm |
 | global.keycloak.resource | string | `"activiti"` | Configure Keycloak resource |
 | global.keycloak.url | string | `""` | Set full url to configure external Keycloak, otherwise will be generated based on host |
@@ -326,9 +326,10 @@ Kubernetes: `>=1.15.0-0`
 | global.messaging.partitionCount | int | `2` | configures number of partitioned consumers |
 | global.messaging.partitioned | bool | `false` | enables partitioned messaging in combination with common chart values messaging.enabled=true and messaging.role=producer|consumer |
 | global.registryPullSecrets | list | `[]` | Configure pull secrets for all deployments |
-| kafka.enabled | bool | `false` |  |
+| kafka.enabled | bool | `true` |  |
 | kafka.fullnameOverride | string | `"kafka"` |  |
 | kafka.offsetsTopicReplicationFactor | int | `1` |  |
+| kafka.persistence.size | string | `"16Gi"` |  |
 | kafka.replicaCount | int | `1` |  |
 | kafka.zookeeper.fullnameOverride | string | `"zookeeper"` |  |
 | kafka.zookeeper.replicaCount | int | `1` |  |
@@ -342,7 +343,7 @@ Kubernetes: `>=1.15.0-0`
 | rabbitmq.auth.erlangCookie | string | `"ylY79lOdNUWsJEwAGdVQnhjSazV4QZKO="` |  |
 | rabbitmq.auth.password | string | `"guest"` |  |
 | rabbitmq.auth.username | string | `"guest"` |  |
-| rabbitmq.enabled | bool | `true` |  |
+| rabbitmq.enabled | bool | `false` |  |
 | rabbitmq.extraPlugins | string | `""` |  |
 | rabbitmq.fullnameOverride | string | `"rabbitmq"` |  |
 | rabbitmq.livenessProbe.timeoutSeconds | int | `90` |  |
