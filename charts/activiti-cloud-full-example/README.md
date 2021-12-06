@@ -350,6 +350,10 @@ Kubernetes: `>=1.15.0-0`
 | rabbitmq.readinessProbe.timeoutSeconds | int | `90` |  |
 | rabbitmq.resources.limits.memory | string | `"1500Mi"` |  |
 | rabbitmq.resources.requests.memory | string | `"1500Mi"` |  |
+| runtime-bundle.autoscaling.enabled | bool | `true` |  |
+| runtime-bundle.autoscaling.maxReplicas | int | `3` |  |
+| runtime-bundle.autoscaling.minReplicas | int | `1` |  |
+| runtime-bundle.autoscaling.targetCPUUtilizationPercentage | int | `50` |  |
 | runtime-bundle.enabled | bool | `true` |  |
 | runtime-bundle.extraEnv | string | `"- name: SERVER_SERVLET_CONTEXTPATH\n  value: \"{{ tpl .Values.ingress.path . }}\"\n- name: SERVER_USEFORWARDHEADERS\n  value: \"true\"\n- name: SERVER_TOMCAT_INTERNALPROXIES\n  value: \".*\"\n- name: SPRING_DATASOURCE_HIKARI_MINIMUMIDLE\n  value: \"40\"\n- name: SPRING_DATASOURCE_HIKARI_MAXIMUMPOOLSIZE\n  value: \"40\"\n- name: SPRING_DATASOURCE_HIKARI_MAXLIFETIME\n  value: \"1000\"\n- name: SPRING_DATASOURCE_HIKARI_CONNECTIONTIMEOUT\n  value: \"10000\"\n- name: SPRING_ZIPKIN_BASEURL\n  value: \"http://alfresco-jaeger-collector.ats:9411\""` |  |
 | runtime-bundle.image.pullPolicy | string | `"Always"` |  |
