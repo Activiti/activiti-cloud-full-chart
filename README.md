@@ -23,7 +23,7 @@ sudo echo "127.0.0.1        host.docker.internal" > /etc/hosts
 Install a recent version of [ingress-nginx](https://kubernetes.github.io/ingress-nginx):
 
 ```shell
-helm install --repo https://kubernetes.github.io/ingress-nginx ingress-nginx ingress-nginx --version 2.16.0
+helm install --repo https://kubernetes.github.io/ingress-nginx ingress-nginx ingress-nginx
 ```
 
 Update all dependencies:
