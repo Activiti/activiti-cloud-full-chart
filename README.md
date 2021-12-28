@@ -138,6 +138,70 @@ activiti-cloud-query:
   replicaCount: 2
 ```
 
+## Enabling HorizontalPodAutoscaler (HPA)
+
+Kubernates supports horizontal scalability through Horizontal Pod Autoscaling (HPA).
+In `activiti-cloud-full-charts` it is now possible to enable HPA for the `runtime-bundle` and `activiti-cloud-query` microservices.
+
+### Requirements
+The common use for HorizontalPodAutoscaler is to configure it to fetch metrics from aggregated APIs and for Kubernetes (metrics.k8s.io) they are provided by an add on named `Metrics Server`.
+
+`Metric Server` needs to be installed and launched to use the HPA feature. Please refer to [this page](https://github.com/kubernetes-sigs/metrics-server) for the installation.
+
+### HPA Configuration
+
+The HPA feature is disabled by default for backward compatibility, so it needs to be enabled.
+
+Pass the the following values to the helm chart to enable and use the `HorizontalPodAutoscaler`:
+
+```yaml
+runtime-bundle:
+  hpa:
+    enabled: true
+    minReplicas: 1
+    maxReplicas: 4
+    cpu: 85
+    memory: "1900Mi"
+```
+
+for the Runtime Bundle, and for the Activiti Cloud query:
+```yaml
+activiti-cloud-query:
+  hpa:
+    enabled: true
+    minReplicas: 1
+    maxReplicas: 4
+    cpu: 85
+    memory: "1900Mi"
+```
+
+Where:
+
+| Name          | Description                               |
+|---------------|------------------------------------       |
+| `minReplicas` | starting number of replicas to be spawned |
+| `maxReplicas` | max number of replicas to be spawned      |
+| `cpu`         | +1 replica over this average % CPU value  |
+| `memory`      | +1 replica over this average memory value |
+
+> :warning: **WARNING**: the provided values are just an example. Please adjust the values to your specific use case.
+
+### Activiti Cloud Query and HPA
+
+**Activiti Cloud** supports both `RabbitMQ` and `Kafka` message broker. **Activiti Cloud Query** is a consumer of the message broker, so we need to be extra careful in the configuration of the automatic scalability in order to keep it working properly.
+
+As a general rule the horizontal automatic scalability for the query consumers is supprted only when the Activiti Cloud has been configured to support `partitioning`. Therefore, it won't be enabled unless the `partitioning` is enabled.
+
+#### Activiti Cloud Query and HPA with Kafka
+
+When partitioning is enabled, Kafka allows the consumers to connect to one or more partitions with the maximum ratio of 1:1 between partitions and consumers.
+
+So when configuring HPA please **don't** specify the `maxReplicas` value greater than the `partitionCount`.
+
+#### Activiti Cloud Query and HPA with RabbitMQ
+
+When partitioning RabbitMQ the configuration will spawn one replica for every partition, so it is not possible to enable the `HorizontalPodAutoscaler` in this case.
+
 ## Skipping CI
 
 If you want to skip running release pipeline stages, simply add `[ci skip]` to your commit message.
