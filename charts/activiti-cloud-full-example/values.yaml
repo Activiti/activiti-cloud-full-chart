@@ -599,11 +599,3 @@ kafka:
   enabled: false
   replicaCount: 1
   offsetsTopicReplicationFactor: 1
-  ##
-  ## Zookeeper chart configuration
-  ##
-  ## https://github.com/bitnami/charts/blob/master/bitnami/zookeeper/values.yaml
-  ##
-  zookeeper:
-    fullnameOverride: zookeeper
-    replicaCount: 1
