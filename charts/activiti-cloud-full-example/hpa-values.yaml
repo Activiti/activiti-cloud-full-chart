@@ -3,5 +3,5 @@ runtime-bundle:
     enabled: true
     minReplicas: 1
     maxReplicas: 4
-    cpu: 85
-    memory: "1900Mi"
+    cpu: 90
+    memory: "2000Mi"
