@@ -140,18 +140,18 @@ activiti-cloud-query:
 
 ## Enabling HorizontalPodAutoscaler (HPA)
 
-Kubernates supports horizontal scalability through Horizontal Pod Autoscaler (HPA) mechanism.
+Kubernetes supports horizontal scalability through Horizontal Pod Autoscaler (HPA) mechanism.
 In `activiti-cloud-full-charts` it is now possible to enable HPA for the `runtime-bundle` and `activiti-cloud-query` microservices.
 
 ### Requirements
-The HorizontalPodAutoscaler can fetch metrics from aggregated APIs that, for Kubernetes (metrics.k8s.io), are provided by an add on named `Metrics Server`.
+The HorizontalPodAutoscaler can fetch metrics from aggregated APIs that, for Kubernetes (metrics.k8s.io), are provided by an add-on named `Metrics Server`.
 
-So, `Metric Server` needs to be installed and launched to use the HPA feature. Please refer to [this page](https://github.com/kubernetes-sigs/metrics-server) for its the installation.
+So, `Metric Server` needs to be installed and launched to use the HPA feature. Please refer to [this page](https://github.com/kubernetes-sigs/metrics-server) for its installation.
 
 ### HPA Configuration
 
 In the `activiti-cloud-full-chart` the HorizontalPodAutoscaler is disabled by default for backward compatibility. Please
-add the the following configuration to your values.yaml to enable and use it:
+add the following configuration to your `values.yaml` to enable and use it:
 
 ```yaml
 runtime-bundle:
@@ -186,31 +186,31 @@ This configuration (present in the `hpa-values.yaml` file in this repository) en
 
 ### Scaling Polices
 
-Scaling polices allow Kubernetes to stabilize the number of pods when there are swift fluctuation of the load. The scale down polices are configured so that:
+Scaling policies allow Kubernetes to stabilize the number of pods when there are swift fluctuations of the load. The scale-down policies are configured so that:
 
 - only 1 pod can be dismissed every minute.
-- only the 15% of the number of pods can be dismissed every minute.
+- only 15% of the number of pods can be dismissed every minute.
 - the policy that scales down more pods will be triggered first.
 
-The scale up policies are the default Kubernetes ones.
+The scale-up policies are the default Kubernetes ones.
 
-These polices are always enabled until a `scalingPolicesEnabled: false` is specified in the configuration.
+These policies are always enabled until a `scalingPolicesEnabled: false` is specified in the configuration.
 
 ### Activiti Cloud Query and HPA
 
 **Activiti Cloud** supports both `RabbitMQ` and `Kafka` message broker. **Activiti Cloud Query** is a consumer of the message broker, so we need to be extra careful in the configuration of the automatic scalability in order to keep it working properly.
 
-As a general rule the horizontal automatic scalability for the query consumers is supprted only when the Activiti Cloud has been configured to support `partitioning`. Therefore, it won't be enabled unless the `partitioning` is enabled.
+As a general rule, the automatic horizontal scalability for the query consumers should be enabled only when the Activiti Cloud has enabled `partitioning`.
 
 #### Activiti Cloud Query and HPA with Kafka
 
-When partitioning is enabled, Kafka allows the consumers to connect to one or more partitions with the maximum ratio of 1:1 between partitions and consumers.
+In a partitioned installation, Kafka allows the consumers to connect to one or more partitions with the maximum ratio of 1:1 between partitions and consumers.
 
 So when configuring HPA please **don't** specify the `maxReplicas` value greater than the `partitionCount`.
 
 #### Activiti Cloud Query and HPA with RabbitMQ
 
-When partitioning RabbitMQ the configuration will spawn one replica for every partition, so it is not possible to enable the `HorizontalPodAutoscaler` in this case.
+When partitioning RabbitMQ the configuration will spawn one replica for every partition, so you should avoid activating the `HorizontalPodAutoscaler` in this case.
 
 ## Skipping CI
 
