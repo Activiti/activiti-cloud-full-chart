@@ -105,7 +105,7 @@ global:
     # global.messaging.partitioned -- enables partitioned messaging in combination with messaging.enabled=true && messaging.role=producer|consumer
     partitioned: true
     # global.messaging.partitionCount -- configures number of partitioned consumers
-    partitionCount: 2
+    partitionCount: 4
 ```
 
 ## Use Kafka instead of Rabbit MQ
@@ -159,9 +159,9 @@ runtime-bundle:
   hpa:
     enabled: true
     minReplicas: 1
-    maxReplicas: 4
-    cpu: 85
-    memory: "1900Mi"
+    maxReplicas: 6
+    cpu: 90
+    memory: "2000Mi"
 ```
 
 for the Runtime Bundle, and for the Activiti Cloud query:
@@ -171,8 +171,7 @@ activiti-cloud-query:
     enabled: true
     minReplicas: 1
     maxReplicas: 4
-    cpu: 85
-    memory: "1900Mi"
+    cpu: 90
 ```
 
 Where:
