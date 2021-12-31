@@ -2,6 +2,12 @@ runtime-bundle:
   hpa:
     enabled: true
     minReplicas: 1
-    maxReplicas: 4
+    maxReplicas: 6
     cpu: 90
     memory: "2000Mi"
+activiti-cloud-query:
+  hpa:
+    enabled: true
+    minReplicas: 1
+    maxReplicas: 4
+    cpu: 90
