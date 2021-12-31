@@ -140,19 +140,18 @@ activiti-cloud-query:
 
 ## Enabling HorizontalPodAutoscaler (HPA)
 
-Kubernates supports horizontal scalability through Horizontal Pod Autoscaling (HPA).
+Kubernates supports horizontal scalability through Horizontal Pod Autoscaler (HPA) mechanism.
 In `activiti-cloud-full-charts` it is now possible to enable HPA for the `runtime-bundle` and `activiti-cloud-query` microservices.
 
 ### Requirements
-The common use for HorizontalPodAutoscaler is to configure it to fetch metrics from aggregated APIs and for Kubernetes (metrics.k8s.io) they are provided by an add on named `Metrics Server`.
+The HorizontalPodAutoscaler can fetch metrics from aggregated APIs that, for Kubernetes (metrics.k8s.io), are provided by an add on named `Metrics Server`.
 
-`Metric Server` needs to be installed and launched to use the HPA feature. Please refer to [this page](https://github.com/kubernetes-sigs/metrics-server) for the installation.
+So, `Metric Server` needs to be installed and launched to use the HPA feature. Please refer to [this page](https://github.com/kubernetes-sigs/metrics-server) for its the installation.
 
 ### HPA Configuration
 
-The HPA feature is disabled by default for backward compatibility, so it needs to be enabled.
-
-Pass the the following values to the helm chart to enable and use the `HorizontalPodAutoscaler`:
+In the `activiti-cloud-full-chart` the HorizontalPodAutoscaler is disabled by default for backward compatibility. Please
+add the the following configuration to your values.yaml to enable and use it:
 
 ```yaml
 runtime-bundle:
@@ -162,10 +161,6 @@ runtime-bundle:
     maxReplicas: 6
     cpu: 90
     memory: "2000Mi"
-```
-
-for the Runtime Bundle, and for the Activiti Cloud query:
-```yaml
 activiti-cloud-query:
   hpa:
     enabled: true
@@ -174,16 +169,32 @@ activiti-cloud-query:
     cpu: 90
 ```
 
-Where:
-
-| Name          | Description                               |
-|---------------|------------------------------------       |
-| `minReplicas` | starting number of replicas to be spawned |
-| `maxReplicas` | max number of replicas to be spawned      |
-| `cpu`         | +1 replica over this average % CPU value  |
-| `memory`      | +1 replica over this average memory value |
+This configuration (present in the `hpa-values.yaml` file in this repository) enable HPA for both `runtime-bundle` and `activiti-cloud-query`.
 
 > :warning: **WARNING**: the provided values are just an example. Please adjust the values to your specific use case.
+
+#### Configuration Properties
+
+| Name                    | Description                               | Default |
+|-------------------------|-------------------------------------------|---------|
+| `enabled`               | enables the HPA feature                   | `false` |
+| `minReplicas`           | starting number of replicas to be spawned |         |
+| `maxReplicas`           | max number of replicas to be spawned      |         |
+| `cpu`                   | +1 replica over this average % CPU value  |         |
+| `memory`                | +1 replica over this average memory value |         |
+| `scalingPolicesEnabled` | enables the scaling policies              | `true`  |
+
+### Scaling Polices
+
+Scaling polices allow Kubernetes to stabilize the number of pods when there are swift fluctuation of the load. The scale down polices are configured so that:
+
+- only 1 pod can be dismissed every minute.
+- only the 15% of the number of pods can be dismissed every minute.
+- the policy that scales down more pods will be triggered first.
+
+The scale up policies are the default Kubernetes ones.
+
+These polices are always enabled until a `scalingPolicesEnabled: false` is specified in the configuration.
 
 ### Activiti Cloud Query and HPA
 
