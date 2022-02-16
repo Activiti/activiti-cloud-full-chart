@@ -19,7 +19,7 @@ before_install:
     git config user.email "build_user@alfresco.com"
     echo TRAVIS_PULL_REQUEST_BRANCH=$(TRAVIS_PULL_REQUEST_BRANCH)
     echo TRAVIS_BRANCH=$(TRAVIS_BRANCH)
-    JX_RELEASE_VERSION=1.0.43
+    JX_RELEASE_VERSION=2.2.3
     curl -Ls https://github.com/jenkins-x-plugins/jx-release-version/releases/download/v${JX_RELEASE_VERSION}/jx-release-version-$(uname | tr '[:upper:]' '[:lower:]')-amd64.tar.gz | tar xz -C $HOME/bin/ jx-release-version
 
     echo $(jx-release-version -previous-version=from-tag:7.1 -next-version increment) > VERSION
