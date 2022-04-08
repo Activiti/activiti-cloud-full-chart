@@ -16,5 +16,3 @@ jobs:
     runs-on: ubuntu-20.04
     steps:
       - uses: Alfresco/alfresco-build-tools/.github/actions/run-pre-commit-for-helm@dev-elias-3898-gh-actions
-
-
