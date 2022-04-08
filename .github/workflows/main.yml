@@ -16,3 +16,17 @@ jobs:
     runs-on: ubuntu-20.04
     steps:
       - uses: Alfresco/alfresco-build-tools/.github/actions/run-pre-commit-for-helm@dev-elias-3898-gh-actions
+
+  build:
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v3
+      - uses: Alfresco/alfresco-build-tools/.github/actions/resolve-preview-name@dev-elias-3898-gh-actions
+        id: resolve-preview-name
+      - name: build
+        env:
+          PREVIEW_NAME: ${{ steps.resolve-preview-name.outputs.preview-name }}
+        run: |
+          yq e '.version' charts/activiti-cloud-full-example/Chart.yaml > VERSION
+          cd ./charts/activiti-cloud-full-example
+          make build
