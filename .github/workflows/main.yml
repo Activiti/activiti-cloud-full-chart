@@ -24,8 +24,6 @@ jobs:
       - id: resolve-preview
         uses: Alfresco/alfresco-build-tools/.github/actions/resolve-preview-name@dev-elias-3898-gh-actions
       - name: build
-        env:
-          PREVIEW_NAME: ${{ steps.resolve-preview-name.outputs.preview-name }}
         run: |
           echo "Preview $PREVIEW_NAME"
           echo "output:  ${{ steps.resolve-preview.outputs.preview-name }}"
