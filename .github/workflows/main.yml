@@ -58,6 +58,15 @@ jobs:
       - name: Update VERSION file
         run: echo ${{steps.next-release.outputs.next-prerelease}} > VERSION
 
+      - uses:  Alfresco/alfresco-build-tools/.github/actions/setup-rancher-cli@dev-elias-3898-gh-actions
+        with:
+          access-key: ${{ secrets.RANCHER2_ACCESS_KEY }}
+          secret-key: ${{ secrets.RANCHER2_SECRET_KEY }}
+          url: ${{ secrets.RANCHER2_URL }}
+          context: activiti
+      - uses: Alfresco/alfresco-build-tools/.github/actions/resolve-preview-name@dev-elias-3898-gh-actions
+        id: resolve-preview
+
       - name: Publish
         run: |
             cd charts/activiti-cloud-full-example
@@ -67,3 +76,4 @@ jobs:
             make github
         env:
           GITHUB_TOKEN: ${{ secrets.BOT_GITHUB_TOKEN }}
+          PREVIEW_NAME:  ${{ steps.resolve-preview.outputs.preview-name }}
