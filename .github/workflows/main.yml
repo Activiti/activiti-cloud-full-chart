@@ -26,6 +26,7 @@ jobs:
           access-key: ${{ secrets.RANCHER2_ACCESS_KEY }}
           secret-key: ${{ secrets.RANCHER2_SECRET_KEY }}
           url: ${{ secrets.RANCHER2_URL }}
+          context: activiti
       - uses: Alfresco/alfresco-build-tools/.github/actions/resolve-preview-name@dev-elias-3898-gh-actions
         id: resolve-preview
       - name: build
