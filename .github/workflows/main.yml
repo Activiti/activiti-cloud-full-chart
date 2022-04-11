@@ -37,3 +37,33 @@ jobs:
           yq e '.version' charts/activiti-cloud-full-example/Chart.yaml > VERSION
           cd ./charts/activiti-cloud-full-example
           make build
+
+  publish:
+    runs-on: ubuntu-20.04
+    needs: build
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Configure git user for commit
+        uses: Alfresco/alfresco-build-tools/.github/actions/configure-git-for-commit@dev-elias-3898-gh-actions
+        with:
+          username: ${{ secrets.BOT_GITHUB_USERNAME }}
+
+      - id: next-release
+        name: Calculate next internal release
+        uses: Alfresco/alfresco-build-tools/.github/actions/calculate-next-internal-version@dev-elias-3898-gh-actions
+        with:
+          next-version: 7.3.0
+
+      - name: Update VERSION file
+        run: echo ${{steps.next-release.outputs.next-prerelease}} > VERSION
+
+      - name: Publish
+        run: |
+            cd charts/activiti-cloud-full-example
+            make version
+            make tag
+            make release
+            make github
+        env:
+          GITHUB_TOKEN: ${{ secrets.BOT_GITHUB_TOKEN }}
