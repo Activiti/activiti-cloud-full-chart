@@ -19,6 +19,7 @@ jobs:
 
   build:
     runs-on: ubuntu-20.04
+    needs: pre-commit
     steps:
       - uses: actions/checkout@v3
       - uses:  Alfresco/alfresco-build-tools/.github/actions/setup-rancher-cli@dev-elias-3898-gh-actions
