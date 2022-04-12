@@ -15,23 +15,23 @@ jobs:
   pre-commit:
     runs-on: ubuntu-20.04
     steps:
-      - uses: Alfresco/alfresco-build-tools/.github/actions/setup-helm-docs@v1.3.0
-      - uses: Alfresco/alfresco-build-tools/.github/actions/setup-kubepug@master
-      - uses: Alfresco/alfresco-build-tools/.github/actions/setup-checkov@master
-      - uses: Alfresco/alfresco-build-tools/.github/actions/pre-commit@master
+      - uses: Alfresco/alfresco-build-tools/.github/actions/setup-helm-docs@v1.4.0
+      - uses: Alfresco/alfresco-build-tools/.github/actions/setup-kubepug@v1.4.0
+      - uses: Alfresco/alfresco-build-tools/.github/actions/setup-checkov@v1.4.0
+      - uses: Alfresco/alfresco-build-tools/.github/actions/pre-commit@v1.4.0
 
   build:
     runs-on: ubuntu-20.04
     needs: pre-commit
     steps:
       - uses: actions/checkout@v3
-      - uses:  Alfresco/alfresco-build-tools/.github/actions/setup-rancher-cli@master
+      - uses:  Alfresco/alfresco-build-tools/.github/actions/setup-rancher-cli@v1.4.0
         with:
           access-key: ${{ secrets.RANCHER2_ACCESS_KEY }}
           secret-key: ${{ secrets.RANCHER2_SECRET_KEY }}
           url: ${{ secrets.RANCHER2_URL }}
           context: activiti
-      - uses: Alfresco/alfresco-build-tools/.github/actions/resolve-preview-name@dev-elias-3898-gh-actions
+      - uses: Alfresco/alfresco-build-tools/.github/actions/resolve-preview-name@v1.4.0
         id: resolve-preview
       - name: build
         env:
@@ -50,20 +50,20 @@ jobs:
 
       - id: next-release
         name: Calculate next internal release
-        uses: Alfresco/alfresco-build-tools/.github/actions/calculate-next-internal-version@dev-elias-3898-gh-actions
+        uses: Alfresco/alfresco-build-tools/.github/actions/calculate-next-internal-version@v1.4.0
         with:
           next-version: 7.3.0
 
       - name: Update VERSION file
         run: echo ${{steps.next-release.outputs.next-prerelease}} > VERSION
 
-      - uses:  Alfresco/alfresco-build-tools/.github/actions/setup-rancher-cli@master
+      - uses:  Alfresco/alfresco-build-tools/.github/actions/setup-rancher-cli@v1.4.0
         with:
           access-key: ${{ secrets.RANCHER2_ACCESS_KEY }}
           secret-key: ${{ secrets.RANCHER2_SECRET_KEY }}
           url: ${{ secrets.RANCHER2_URL }}
           context: activiti
-      - uses: Alfresco/alfresco-build-tools/.github/actions/resolve-preview-name@dev-elias-3898-gh-actions
+      - uses: Alfresco/alfresco-build-tools/.github/actions/resolve-preview-name@v1.4.0
         id: resolve-preview
 
       - name: Publish
