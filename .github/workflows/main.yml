@@ -45,6 +45,7 @@ jobs:
   publish:
     runs-on: ubuntu-20.04
     needs: build
+    if: ${{ github.event_name == 'push' }}
     steps:
       - uses: actions/checkout@v3
 
@@ -67,7 +68,6 @@ jobs:
         id: resolve-preview
 
       - name: Publish
-        if: ${{ github.event_name == 'push' }}
         run: |
             git config --global user.name $GITHUB_USERNAME
             git config --global user.email $GITHUB_USERNAME@users.noreply.github.com
