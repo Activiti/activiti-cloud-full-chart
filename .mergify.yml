@@ -1,7 +1,8 @@
 queue_rules:
   - name: default
     conditions:
-      - status-success=Travis CI - Pull Request
+      - status-success=pre-commit
+      - status-success=build
       - label!=do-not-merge
 
 pull_request_rules:
@@ -20,7 +21,8 @@ pull_request_rules:
       - "#approved-reviews-by>=1"
       - "#review-requested=0"
       - "#changes-requested-reviews-by=0"
-      - status-success=Travis CI - Pull Request
+      - status-success=pre-commit
+      - status-success=build
       - status-success=license/cla
       - label!=do-not-merge
     actions:
