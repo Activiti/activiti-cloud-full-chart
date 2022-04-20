@@ -14,11 +14,11 @@ Kubernetes: `>=1.15.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://activiti.github.io/activiti-cloud-helm-charts | runtime-bundle(common) | 7.3.0-alpha.13 |
-| https://activiti.github.io/activiti-cloud-helm-charts | activiti-cloud-query(common) | 7.3.0-alpha.13 |
-| https://activiti.github.io/activiti-cloud-helm-charts | activiti-cloud-connector(common) | 7.3.0-alpha.13 |
-| https://activiti.github.io/activiti-cloud-helm-charts | activiti-cloud-modeling(common) | 7.3.0-alpha.13 |
-| https://activiti.github.io/activiti-cloud-helm-charts | activiti-modeling-app(common) | 7.3.0-alpha.13 |
+| https://activiti.github.io/activiti-cloud-helm-charts | runtime-bundle(common) | 7.3.0-alpha.15 |
+| https://activiti.github.io/activiti-cloud-helm-charts | activiti-cloud-query(common) | 7.3.0-alpha.15 |
+| https://activiti.github.io/activiti-cloud-helm-charts | activiti-cloud-connector(common) | 7.3.0-alpha.15 |
+| https://activiti.github.io/activiti-cloud-helm-charts | activiti-cloud-modeling(common) | 7.3.0-alpha.15 |
+| https://activiti.github.io/activiti-cloud-helm-charts | activiti-modeling-app(common) | 7.3.0-alpha.15 |
 | https://charts.bitnami.com/bitnami | kafka | 12.x.x |
 | https://charts.bitnami.com/bitnami | postgresql | 9.1.1 |
 | https://charts.bitnami.com/bitnami | rabbitmq | 7.8.0 |
