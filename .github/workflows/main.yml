@@ -11,6 +11,9 @@ on:
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
+env: 
+  ACTIVITI_CLUSTER_NAME: activiti-test
+
 jobs:
   pre-commit:
     runs-on: ubuntu-20.04
@@ -30,7 +33,7 @@ jobs:
           access-key: ${{ secrets.RANCHER2_ACCESS_KEY }}
           secret-key: ${{ secrets.RANCHER2_SECRET_KEY }}
           url: ${{ secrets.RANCHER2_URL }}
-          context: activiti
+          context: ${{ env.ACTIVITI_CLUSTER_NAME }}
       - uses: Alfresco/alfresco-build-tools/.github/actions/resolve-preview-name@v1.4.0
         id: resolve-preview
       - name: build
@@ -63,7 +66,7 @@ jobs:
           access-key: ${{ secrets.RANCHER2_ACCESS_KEY }}
           secret-key: ${{ secrets.RANCHER2_SECRET_KEY }}
           url: ${{ secrets.RANCHER2_URL }}
-          context: activiti
+          context: ${{ env.ACTIVITI_CLUSTER_NAME }}
       - uses: Alfresco/alfresco-build-tools/.github/actions/resolve-preview-name@v1.4.0
         id: resolve-preview
 
