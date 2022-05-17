@@ -35,7 +35,7 @@ runs:
       env:
         PREVIEW_NAME:  ${{ steps.resolve-preview.outputs.preview-name }}
       run: |
-        PREVIEW_NAMESPACE_LOWERCASE= $(echo ${PREVIEW_NAME} | tr "[:upper:]" "[:lower:]")
+        PREVIEW_NAMESPACE_LOWERCASE=$(echo ${PREVIEW_NAME} | tr "[:upper:]" "[:lower:]")
         helm upgrade $PREVIEW_NAMESPACE_LOWERCASE ${{ inputs.chart-dir }} \
           --install \
           --set global.gateway.domain=example \
