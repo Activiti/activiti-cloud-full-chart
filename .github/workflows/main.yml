@@ -13,6 +13,7 @@ on:
 
 env:
   ACTIVITI_CLUSTER_NAME: activiti-test
+  CHART_DIR: "charts/activiti-cloud-full-example"
 
 jobs:
   pre-commit:
@@ -28,22 +29,22 @@ jobs:
     needs: pre-commit
     steps:
       - uses: actions/checkout@v3
-      - uses:  Alfresco/alfresco-build-tools/.github/actions/setup-rancher-cli@v1.4.0
+
+      - name: Build
+        uses: Alfresco/alfresco-build-tools/.github/actions/build-helm-chart@aae-8518-add-actions-for-helm
+        with:
+          chart-dir: ${{ env.CHART_DIR }}
+
+      - name: Execute helm dry run
+        uses: ./.github/actions/helm-dryrun
+        env:
+          PREVIEW_NAME:  ${{ steps.resolve-preview.outputs.preview-name }}
         with:
           access-key: ${{ secrets.RANCHER2_ACCESS_KEY }}
           secret-key: ${{ secrets.RANCHER2_SECRET_KEY }}
           url: ${{ secrets.RANCHER2_URL }}
           context: ${{ env.ACTIVITI_CLUSTER_NAME }}
-      - uses: Alfresco/alfresco-build-tools/.github/actions/resolve-preview-name@v1.4.0
-        id: resolve-preview
-      - name: build
-        env:
-          PREVIEW_NAME:  ${{ steps.resolve-preview.outputs.preview-name }}
-        run: |
-          echo "Preview $PREVIEW_NAME"
-          yq e '.version' charts/activiti-cloud-full-example/Chart.yaml > VERSION
-          cd ./charts/activiti-cloud-full-example
-          make build
+          chart-dir: ${{ env.CHART_DIR }}
 
   publish:
     runs-on: ubuntu-20.04

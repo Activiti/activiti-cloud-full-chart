@@ -1,0 +1,45 @@
+name: "Run helm dry-run"
+description: "Run helm dry run"
+inputs:
+  access-key:
+    description: 'Rancher API access key'
+    required: true
+  secret-key:
+    description: 'Rancher API secret key'
+    required: true
+  url:
+    description: 'Rancher URL'
+    required: true
+  context:
+    description: 'Rancher context for kubectl configuration'
+    required: true
+  chart-dir:
+    description: "Path to the folder holding Chart.yaml"
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - uses: Alfresco/alfresco-build-tools/.github/actions/setup-rancher-cli@v1.4.0
+      with:
+        access-key: ${{ inputs.access-key }}
+        secret-key: ${{ inputs.secret-key }}
+        url: ${{ inputs.url }}
+        context: ${{ inputs.context }}
+
+    - uses: Alfresco/alfresco-build-tools/.github/actions/resolve-preview-name@v1.4.0
+      id: resolve-preview
+
+    - name: execute helm dry-run
+      shell: bash
+      env:
+        PREVIEW_NAME:  ${{ steps.resolve-preview.outputs.preview-name }}
+      run: |
+        PREVIEW_NAMESPACE_LOWERCASE= $(echo ${PREVIEW_NAME} | tr "[:upper:]" "[:lower:]")
+        helm upgrade $PREVIEW_NAMESPACE_LOWERCASE ${{ inputs.chart-dir }} \
+          --install \
+          --set global.gateway.domain=example \
+          --set global.keycloak.clientSecret=$(uuidgen) \
+          --namespace ${PREVIEW_NAMESPACE_LOWERCASE} \
+          --wait \
+          --dry-run
