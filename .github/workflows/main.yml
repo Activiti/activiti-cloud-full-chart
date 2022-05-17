@@ -11,7 +11,7 @@ on:
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
-env: 
+env:
   ACTIVITI_CLUSTER_NAME: activiti-test
 
 jobs:
