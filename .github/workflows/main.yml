@@ -47,40 +47,9 @@ jobs:
           chart-dir: ${{ env.CHART_DIR }}
 
   publish:
-    runs-on: ubuntu-20.04
+    uses: Alfresco/alfresco-build-tools/.github/workflows/helm-publish-new-package-version.yml@aae-8518-add-actions-for-helm
     needs: build
-    if: ${{ github.event_name == 'push' }}
-    steps:
-      - uses: actions/checkout@v3
-
-      - id: next-release
-        name: Calculate next internal release
-        uses: Alfresco/alfresco-build-tools/.github/actions/calculate-next-internal-version@v1.4.0
-        with:
-          next-version: 7.4.0
-
-      - name: Update VERSION file
-        run: echo ${{steps.next-release.outputs.next-prerelease}} > VERSION
-
-      - uses:  Alfresco/alfresco-build-tools/.github/actions/setup-rancher-cli@v1.4.0
-        with:
-          access-key: ${{ secrets.RANCHER2_ACCESS_KEY }}
-          secret-key: ${{ secrets.RANCHER2_SECRET_KEY }}
-          url: ${{ secrets.RANCHER2_URL }}
-          context: ${{ env.ACTIVITI_CLUSTER_NAME }}
-      - uses: Alfresco/alfresco-build-tools/.github/actions/resolve-preview-name@v1.4.0
-        id: resolve-preview
-
-      - name: Publish
-        run: |
-            git config --global user.name $GITHUB_USERNAME
-            git config --global user.email $GITHUB_USERNAME@users.noreply.github.com
-            cd charts/activiti-cloud-full-example
-            make version
-            make tag
-            make release
-            make github
-        env:
-          GITHUB_TOKEN: ${{ secrets.BOT_GITHUB_TOKEN }}
-          GITHUB_USERNAME: ${{ secrets.BOT_GITHUB_USERNAME }}
-          PREVIEW_NAME:  ${{ steps.resolve-preview.outputs.preview-name }}
+    with:
+      next-version: 7.4.0
+      chart-dir: ${{ env.CHART_DIR }}
+    secrets: inherit
