@@ -37,8 +37,6 @@ jobs:
 
       - name: Execute helm dry run
         uses: ./.github/actions/helm-dryrun
-        env:
-          PREVIEW_NAME:  ${{ steps.resolve-preview.outputs.preview-name }}
         with:
           access-key: ${{ secrets.RANCHER2_ACCESS_KEY }}
           secret-key: ${{ secrets.RANCHER2_SECRET_KEY }}
