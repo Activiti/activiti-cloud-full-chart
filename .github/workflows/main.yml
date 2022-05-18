@@ -51,5 +51,5 @@ jobs:
     needs: build
     with:
       next-version: 7.4.0
-      chart-dir: ${{ env.CHART_DIR }}
+      chart-dir: charts/activiti-cloud-full-example
     secrets: inherit
