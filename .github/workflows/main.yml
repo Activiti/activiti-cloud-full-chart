@@ -45,6 +45,7 @@ jobs:
           chart-dir: ${{ env.CHART_DIR }}
 
   publish:
+    if: ${{ github.event_name == 'push' }}
     uses: Alfresco/alfresco-build-tools/.github/workflows/helm-publish-new-package-version.yml@aae-8518-add-actions-for-helm
     needs: build
     with:
