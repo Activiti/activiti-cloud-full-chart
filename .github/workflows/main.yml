@@ -13,73 +13,44 @@ on:
 
 env:
   ACTIVITI_CLUSTER_NAME: activiti-test
+  CHART_DIR: "charts/activiti-cloud-full-example"
 
 jobs:
   pre-commit:
     runs-on: ubuntu-20.04
     steps:
-      - uses: Alfresco/alfresco-build-tools/.github/actions/setup-helm-docs@v1.4.0
-      - uses: Alfresco/alfresco-build-tools/.github/actions/setup-kubepug@v1.4.0
-      - uses: Alfresco/alfresco-build-tools/.github/actions/setup-checkov@v1.4.0
-      - uses: Alfresco/alfresco-build-tools/.github/actions/pre-commit@v1.4.0
+      - uses: Alfresco/alfresco-build-tools/.github/actions/setup-helm-docs@v1.5.0
+      - uses: Alfresco/alfresco-build-tools/.github/actions/setup-kubepug@v1.5.0
+      - uses: Alfresco/alfresco-build-tools/.github/actions/setup-checkov@v1.5.0
+      - uses: Alfresco/alfresco-build-tools/.github/actions/pre-commit@v1.5.0
 
   build:
     runs-on: ubuntu-20.04
     needs: pre-commit
     steps:
       - uses: actions/checkout@v3
-      - uses:  Alfresco/alfresco-build-tools/.github/actions/setup-rancher-cli@v1.4.0
+
+      - name: Build
+        uses: Alfresco/alfresco-build-tools/.github/actions/build-helm-chart@v1.5.0
+        with:
+          chart-dir: ${{ env.CHART_DIR }}
+
+      - name: Execute helm dry run
+        uses: ./.github/actions/helm-dryrun
         with:
           access-key: ${{ secrets.RANCHER2_ACCESS_KEY }}
           secret-key: ${{ secrets.RANCHER2_SECRET_KEY }}
           url: ${{ secrets.RANCHER2_URL }}
           context: ${{ env.ACTIVITI_CLUSTER_NAME }}
-      - uses: Alfresco/alfresco-build-tools/.github/actions/resolve-preview-name@v1.4.0
-        id: resolve-preview
-      - name: build
-        env:
-          PREVIEW_NAME:  ${{ steps.resolve-preview.outputs.preview-name }}
-        run: |
-          echo "Preview $PREVIEW_NAME"
-          yq e '.version' charts/activiti-cloud-full-example/Chart.yaml > VERSION
-          cd ./charts/activiti-cloud-full-example
-          make build
+          chart-dir: ${{ env.CHART_DIR }}
 
   publish:
-    runs-on: ubuntu-20.04
-    needs: build
     if: ${{ github.event_name == 'push' }}
-    steps:
-      - uses: actions/checkout@v3
-
-      - id: next-release
-        name: Calculate next internal release
-        uses: Alfresco/alfresco-build-tools/.github/actions/calculate-next-internal-version@v1.4.0
-        with:
-          next-version: 7.4.0
-
-      - name: Update VERSION file
-        run: echo ${{steps.next-release.outputs.next-prerelease}} > VERSION
-
-      - uses:  Alfresco/alfresco-build-tools/.github/actions/setup-rancher-cli@v1.4.0
-        with:
-          access-key: ${{ secrets.RANCHER2_ACCESS_KEY }}
-          secret-key: ${{ secrets.RANCHER2_SECRET_KEY }}
-          url: ${{ secrets.RANCHER2_URL }}
-          context: ${{ env.ACTIVITI_CLUSTER_NAME }}
-      - uses: Alfresco/alfresco-build-tools/.github/actions/resolve-preview-name@v1.4.0
-        id: resolve-preview
-
-      - name: Publish
-        run: |
-            git config --global user.name $GITHUB_USERNAME
-            git config --global user.email $GITHUB_USERNAME@users.noreply.github.com
-            cd charts/activiti-cloud-full-example
-            make version
-            make tag
-            make release
-            make github
-        env:
-          GITHUB_TOKEN: ${{ secrets.BOT_GITHUB_TOKEN }}
-          GITHUB_USERNAME: ${{ secrets.BOT_GITHUB_USERNAME }}
-          PREVIEW_NAME:  ${{ steps.resolve-preview.outputs.preview-name }}
+    uses: Alfresco/alfresco-build-tools/.github/workflows/helm-publish-new-package-version.yml@v1.5.0
+    needs: build
+    with:
+      next-version: 7.4.0
+      chart-dir: charts/activiti-cloud-full-example
+      helm-charts-repo: Activiti/activiti-cloud-helm-charts
+      helm-charts-repo-branch: gh-pages
+    secrets: inherit
