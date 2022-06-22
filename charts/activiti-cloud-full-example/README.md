@@ -1,6 +1,6 @@
 # activiti-cloud-full-example
 
-![Version: 7.3.0-alpha.5](https://img.shields.io/badge/Version-7.3.0--alpha.5-informational?style=flat-square)
+![Version: 7.4.0-mock.1](https://img.shields.io/badge/Version-7.4.0--mock.1-informational?style=flat-square)
 
 A Helm chart for Activiti Cloud Full Example
 
@@ -14,11 +14,11 @@ Kubernetes: `>=1.15.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://activiti.github.io/activiti-cloud-helm-charts | runtime-bundle(common) | 7.4.0-alpha.18 |
-| https://activiti.github.io/activiti-cloud-helm-charts | activiti-cloud-query(common) | 7.4.0-alpha.18 |
-| https://activiti.github.io/activiti-cloud-helm-charts | activiti-cloud-connector(common) | 7.4.0-alpha.18 |
-| https://activiti.github.io/activiti-cloud-helm-charts | activiti-cloud-modeling(common) | 7.4.0-alpha.18 |
-| https://activiti.github.io/activiti-cloud-helm-charts | activiti-modeling-app(common) | 7.4.0-alpha.18 |
+| https://activiti.github.io/activiti-cloud-helm-charts | runtime-bundle(common) | 7.4.0-mock.1 |
+| https://activiti.github.io/activiti-cloud-helm-charts | activiti-cloud-query(common) | 7.4.0-mock.1 |
+| https://activiti.github.io/activiti-cloud-helm-charts | activiti-cloud-connector(common) | 7.4.0-mock.1 |
+| https://activiti.github.io/activiti-cloud-helm-charts | activiti-cloud-modeling(common) | 7.4.0-mock.1 |
+| https://activiti.github.io/activiti-cloud-helm-charts | activiti-modeling-app(common) | 7.4.0-mock.1 |
 | https://codecentric.github.io/helm-charts | activiti-cloud-identity(keycloak) | 11.0.1 |
 | https://raw.githubusercontent.com/bitnami/charts/eb5f9a9513d987b519f0ecd732e7031241c50328/bitnami | kafka | 12.x.x |
 | https://raw.githubusercontent.com/bitnami/charts/eb5f9a9513d987b519f0ecd732e7031241c50328/bitnami | postgresql | 9.1.1 |
@@ -32,7 +32,7 @@ Kubernetes: `>=1.15.0-0`
 | activiti-cloud-connector.extraEnv | string | `"- name: SERVER_SERVLET_CONTEXTPATH\n  value: \"{{ tpl .Values.ingress.path . }}\"\n- name: SERVER_USEFORWARDHEADERS\n  value: \"true\"\n- name: SERVER_TOMCAT_INTERNALPROXIES\n  value: \".*\""` |  |
 | activiti-cloud-connector.image.pullPolicy | string | `"Always"` |  |
 | activiti-cloud-connector.image.repository | string | `"activiti/example-cloud-connector"` |  |
-| activiti-cloud-connector.image.tag | string | `"7.4.0-alpha.25"` |  |
+| activiti-cloud-connector.image.tag | string | `"7.4.0-mock.1"` |  |
 | activiti-cloud-connector.ingress.annotations."kubernetes.io/ingress.class" | string | `"nginx"` |  |
 | activiti-cloud-connector.ingress.annotations."nginx.ingress.kubernetes.io/cors-allow-headers" | string | `"Authorization, Content-Type, Accept"` |  |
 | activiti-cloud-connector.ingress.annotations."nginx.ingress.kubernetes.io/enable-cors" | string | `"true"` |  |
@@ -243,7 +243,7 @@ Kubernetes: `>=1.15.0-0`
 | activiti-cloud-modeling.extraEnv | string | `"- name: SERVER_SERVLET_CONTEXTPATH\n  value: \"{{ tpl .Values.ingress.path . }}\"\n- name: SERVER_USEFORWARDHEADERS\n  value: \"true\"\n- name: SERVER_TOMCAT_INTERNALPROXIES\n  value: \".*\""` |  |
 | activiti-cloud-modeling.image.pullPolicy | string | `"Always"` |  |
 | activiti-cloud-modeling.image.repository | string | `"activiti/activiti-cloud-modeling"` |  |
-| activiti-cloud-modeling.image.tag | string | `"7.4.0-alpha.25"` |  |
+| activiti-cloud-modeling.image.tag | string | `"7.4.0-mock.1"` |  |
 | activiti-cloud-modeling.ingress.annotations."kubernetes.io/ingress.class" | string | `"nginx"` |  |
 | activiti-cloud-modeling.ingress.annotations."nginx.ingress.kubernetes.io/cors-allow-headers" | string | `"Authorization, Content-Type, Accept"` |  |
 | activiti-cloud-modeling.ingress.annotations."nginx.ingress.kubernetes.io/enable-cors" | string | `"true"` |  |
@@ -263,7 +263,7 @@ Kubernetes: `>=1.15.0-0`
 | activiti-cloud-query.extraEnv | string | `"- name: GRAPHIQL_GRAPHQL_WEB_PATH\n  value: '{{ tpl .Values.ingress.path . | trimSuffix \"/\" }}/notifications/graphql'\n- name: GRAPHIQL_GRAPHQL_WS_PATH\n  value: '{{ tpl .Values.ingress.path . | trimSuffix \"/\" }}/notifications/ws/graphql'\n- name: SERVER_SERVLET_CONTEXTPATH\n  value: \"{{ tpl .Values.ingress.path . }}\"\n- name: SERVER_USEFORWARDHEADERS\n  value: \"true\"\n- name: SERVER_TOMCAT_INTERNALPROXIES\n  value: \".*\"\n- name: ACTIVITI_CLOUD_SWAGGER_QUERYBASEPATH\n  value: \"/query\"\n- name: ACTIVITI_CLOUD_SWAGGER_AUDITBASEPATH\n  value: \"/audit\""` |  |
 | activiti-cloud-query.image.pullPolicy | string | `"Always"` |  |
 | activiti-cloud-query.image.repository | string | `"activiti/activiti-cloud-query"` |  |
-| activiti-cloud-query.image.tag | string | `"7.4.0-alpha.25"` |  |
+| activiti-cloud-query.image.tag | string | `"7.4.0-mock.1"` |  |
 | activiti-cloud-query.ingress.annotations."kubernetes.io/ingress.class" | string | `"nginx"` |  |
 | activiti-cloud-query.ingress.annotations."nginx.ingress.kubernetes.io/affinity" | string | `"cookie"` |  |
 | activiti-cloud-query.ingress.annotations."nginx.ingress.kubernetes.io/cors-allow-headers" | string | `"Authorization, Content-Type, Accept"` |  |
@@ -294,7 +294,7 @@ Kubernetes: `>=1.15.0-0`
 | activiti-modeling-app.env.APP_CONFIG_BPM_HOST | string | `"{{ include \"common.gateway-url\" . }}"` |  |
 | activiti-modeling-app.image.pullPolicy | string | `"Always"` |  |
 | activiti-modeling-app.image.repository | string | `"activiti/activiti-modeling-app"` |  |
-| activiti-modeling-app.image.tag | string | `"master"` |  |
+| activiti-modeling-app.image.tag | string | `"7.4.0-mock.1"` |  |
 | activiti-modeling-app.ingress.annotations."kubernetes.io/ingress.class" | string | `"nginx"` |  |
 | activiti-modeling-app.ingress.annotations."nginx.ingress.kubernetes.io/cors-allow-headers" | string | `"Authorization, Content-Type, Accept"` |  |
 | activiti-modeling-app.ingress.annotations."nginx.ingress.kubernetes.io/enable-cors" | string | `"true"` |  |
@@ -351,7 +351,7 @@ Kubernetes: `>=1.15.0-0`
 | runtime-bundle.extraEnv | string | `"- name: SERVER_SERVLET_CONTEXTPATH\n  value: \"{{ tpl .Values.ingress.path . }}\"\n- name: SERVER_USEFORWARDHEADERS\n  value: \"true\"\n- name: SERVER_TOMCAT_INTERNALPROXIES\n  value: \".*\""` |  |
 | runtime-bundle.image.pullPolicy | string | `"Always"` |  |
 | runtime-bundle.image.repository | string | `"activiti/example-runtime-bundle"` |  |
-| runtime-bundle.image.tag | string | `"7.4.0-alpha.25"` |  |
+| runtime-bundle.image.tag | string | `"7.4.0-mock.1"` |  |
 | runtime-bundle.ingress.annotations."kubernetes.io/ingress.class" | string | `"nginx"` |  |
 | runtime-bundle.ingress.annotations."nginx.ingress.kubernetes.io/cors-allow-headers" | string | `"Authorization, Content-Type, Accept"` |  |
 | runtime-bundle.ingress.annotations."nginx.ingress.kubernetes.io/enable-cors" | string | `"true"` |  |
@@ -371,4 +371,4 @@ Kubernetes: `>=1.15.0-0`
 | runtime-bundle.service.name | string | `"rb"` |  |
 
 ----------------------------------------------
-Autogenerated from chart metadata using [helm-docs v1.10.0](https://github.com/norwoodj/helm-docs/releases/v1.10.0)
+Autogenerated from chart metadata using [helm-docs v1.7.0](https://github.com/norwoodj/helm-docs/releases/v1.7.0)
