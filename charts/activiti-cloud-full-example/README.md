@@ -18,6 +18,7 @@ Kubernetes: `>=1.15.0-0`
 | https://activiti.github.io/activiti-cloud-helm-charts | activiti-cloud-query(common) | 7.4.0-alpha.18 |
 | https://activiti.github.io/activiti-cloud-helm-charts | activiti-cloud-connector(common) | 7.4.0-alpha.18 |
 | https://activiti.github.io/activiti-cloud-helm-charts | activiti-cloud-modeling(common) | 7.4.0-alpha.18 |
+| https://activiti.github.io/activiti-cloud-helm-charts | activiti-cloud-identity-adapter(common) | 7.4.0-alpha.18 |
 | https://activiti.github.io/activiti-cloud-helm-charts | activiti-modeling-app(common) | 7.4.0-alpha.18 |
 | https://codecentric.github.io/helm-charts | activiti-cloud-identity(keycloak) | 11.0.1 |
 | https://raw.githubusercontent.com/bitnami/charts/eb5f9a9513d987b519f0ecd732e7031241c50328/bitnami | kafka | 12.x.x |
