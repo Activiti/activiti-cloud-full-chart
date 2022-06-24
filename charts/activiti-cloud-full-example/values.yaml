@@ -373,7 +373,7 @@ activiti-cloud-identity-adapter:
   liquibase:
     enabled: false
   ingress:
-    path: /identity
+    path: /identity-adapter-service
     annotations:
       kubernetes.io/ingress.class: nginx
       nginx.ingress.kubernetes.io/enable-cors: "true"

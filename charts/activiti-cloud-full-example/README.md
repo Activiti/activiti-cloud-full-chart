@@ -48,7 +48,25 @@ Kubernetes: `>=1.15.0-0`
 | activiti-cloud-connector.resources.requests.cpu | string | `"150m"` |  |
 | activiti-cloud-connector.resources.requests.memory | string | `"256Mi"` |  |
 | activiti-cloud-connector.service.name | string | `"example-cloud-connector"` |  |
+| activiti-cloud-identity-adapter.enabled | bool | `true` |  |
+| activiti-cloud-identity-adapter.extraEnv | string | `"- name: SERVER_SERVLET_CONTEXTPATH\n  value: \"{{ tpl .Values.ingress.path . }}\"\n- name: SERVER_USEFORWARDHEADERS\n  value: \"true\"\n- name: SERVER_TOMCAT_INTERNALPROXIES\n  value: \".*\""` |  |
+| activiti-cloud-identity-adapter.image.pullPolicy | string | `"Always"` |  |
+| activiti-cloud-identity-adapter.image.repository | string | `"activiti/activiti-cloud-identity-adapter"` |  |
 | activiti-cloud-identity-adapter.image.tag | string | `"7.5.0-alpha.9"` |  |
+| activiti-cloud-identity-adapter.ingress.annotations."kubernetes.io/ingress.class" | string | `"nginx"` |  |
+| activiti-cloud-identity-adapter.ingress.annotations."nginx.ingress.kubernetes.io/cors-allow-headers" | string | `"Authorization, Content-Type, Accept"` |  |
+| activiti-cloud-identity-adapter.ingress.annotations."nginx.ingress.kubernetes.io/enable-cors" | string | `"true"` |  |
+| activiti-cloud-identity-adapter.ingress.path | string | `"/identity-adapter-service"` |  |
+| activiti-cloud-identity-adapter.liquibase.enabled | bool | `false` |  |
+| activiti-cloud-identity-adapter.livenessProbe.path | string | `"{{ tpl .Values.ingress.path . | trimSuffix \"/\" }}/actuator/health/liveness"` |  |
+| activiti-cloud-identity-adapter.nameOverride | string | `"activiti-cloud-identity-adapter"` |  |
+| activiti-cloud-identity-adapter.postgresql.enabled | bool | `false` |  |
+| activiti-cloud-identity-adapter.readinessProbe.path | string | `"{{ tpl .Values.ingress.path . | trimSuffix \"/\" }}/actuator/health/readiness"` |  |
+| activiti-cloud-identity-adapter.resources.limits.cpu | string | `"1"` |  |
+| activiti-cloud-identity-adapter.resources.limits.memory | string | `"1024Mi"` |  |
+| activiti-cloud-identity-adapter.resources.requests.cpu | string | `"400m"` |  |
+| activiti-cloud-identity-adapter.resources.requests.memory | string | `"512Mi"` |  |
+| activiti-cloud-identity-adapter.service.name | string | `"identity-adapter"` |  |
 | activiti-cloud-identity.enabled | bool | `true` |  |
 | activiti-cloud-identity.extraEnv | string | `"- name: KEYCLOAK_USER\n  value: {{ .Values.username }}\n- name: KEYCLOAK_PASSWORD\n  value: {{ .Values.password }}\n- name: PROXY_ADDRESS_FORWARDING\n  value: \"true\"\n- name: KEYCLOAK_IMPORT\n  value: /realm/realm.json"` |  |
 | activiti-cloud-identity.extraVolumeMounts | string | `"- name: realm-secret\n  mountPath: \"/realm/\"\n  readOnly: true\n"` |  |
