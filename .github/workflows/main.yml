@@ -49,7 +49,7 @@ jobs:
     uses: Alfresco/alfresco-build-tools/.github/workflows/helm-publish-new-package-version.yml@v1.5.0
     needs: build
     with:
-      next-version: 7.4.0
+      next-version: 7.5.0
       chart-dir: charts/activiti-cloud-full-example
       helm-charts-repo: Activiti/activiti-cloud-helm-charts
       helm-charts-repo-branch: gh-pages
