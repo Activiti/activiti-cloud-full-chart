@@ -361,6 +361,43 @@ activiti-cloud-identity:
           account:
             - manage-account
             - view-profile
+activiti-cloud-identity-adapter:
+  enabled: true
+  nameOverride: activiti-cloud-identity-adapter
+  service:
+    name: identity-adapter
+  image:
+    repository: activiti/activiti-cloud-identity-adapter
+    tag: 7.4.0-alpha.25
+    pullPolicy: Always
+  liquibase:
+    enabled: false
+  ingress:
+    path: /identity-adapter-service
+    annotations:
+      kubernetes.io/ingress.class: nginx
+      nginx.ingress.kubernetes.io/enable-cors: "true"
+      nginx.ingress.kubernetes.io/cors-allow-headers: Authorization, Content-Type, Accept
+  postgresql:
+    enabled: false
+  readinessProbe:
+    path: '{{ tpl .Values.ingress.path . | trimSuffix "/" }}/actuator/health/readiness'
+  livenessProbe:
+    path: '{{ tpl .Values.ingress.path . | trimSuffix "/" }}/actuator/health/liveness'
+  resources:
+    requests:
+      cpu: 400m
+      memory: 512Mi
+    limits:
+      cpu: "1"
+      memory: 1024Mi
+  extraEnv: |-
+    - name: SERVER_SERVLET_CONTEXTPATH
+      value: "{{ tpl .Values.ingress.path . }}"
+    - name: SERVER_USEFORWARDHEADERS
+      value: "true"
+    - name: SERVER_TOMCAT_INTERNALPROXIES
+      value: ".*"
 activiti-cloud-modeling:
   enabled: true
   nameOverride: activiti-cloud-modeling

@@ -3,3 +3,5 @@ global:
     host: host.docker.internal
   keycloak:
     host: host.docker.internal
+    clientSecretName: activiti-keycloak-client
+    useExistingClientSecret: true
