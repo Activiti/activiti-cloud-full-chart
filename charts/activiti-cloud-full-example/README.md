@@ -21,9 +21,9 @@ Kubernetes: `>=1.15.0-0`
 | https://activiti.github.io/activiti-cloud-helm-charts | activiti-cloud-modeling(common) | 7.4.0-alpha.18 |
 | https://activiti.github.io/activiti-cloud-helm-charts | activiti-cloud-identity-adapter(common) | 7.4.0-alpha.18 |
 | https://codecentric.github.io/helm-charts | activiti-cloud-identity(keycloak) | 11.0.1 |
-| https://raw.githubusercontent.com/bitnami/charts/eb5f9a9513d987b519f0ecd732e7031241c50328/bitnami | kafka | 12.x.x |
-| https://raw.githubusercontent.com/bitnami/charts/eb5f9a9513d987b519f0ecd732e7031241c50328/bitnami | postgresql | 9.1.1 |
-| https://raw.githubusercontent.com/bitnami/charts/eb5f9a9513d987b519f0ecd732e7031241c50328/bitnami | rabbitmq | 7.8.0 |
+| https://raw.githubusercontent.com/bitnami/charts/archive-full-index/bitnami/ | kafka | 12.x.x |
+| https://raw.githubusercontent.com/bitnami/charts/archive-full-index/bitnami/ | postgresql | 9.1.1 |
+| https://raw.githubusercontent.com/bitnami/charts/archive-full-index/bitnami/ | rabbitmq | 7.8.0 |
 
 ## Values
 
