@@ -20,14 +20,14 @@ inputs:
 runs:
   using: composite
   steps:
-    - uses: Alfresco/alfresco-build-tools/.github/actions/setup-rancher-cli@v1.5.0
+    - uses: Alfresco/alfresco-build-tools/.github/actions/setup-rancher-cli@v1.9.2
       with:
         access-key: ${{ inputs.access-key }}
         secret-key: ${{ inputs.secret-key }}
         url: ${{ inputs.url }}
         context: ${{ inputs.context }}
 
-    - uses: Alfresco/alfresco-build-tools/.github/actions/resolve-preview-name@v1.5.0
+    - uses: Alfresco/alfresco-build-tools/.github/actions/resolve-preview-name@v1.9.2
       id: resolve-preview
 
     - name: execute helm dry-run
