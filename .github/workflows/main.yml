@@ -46,12 +46,26 @@ jobs:
           context: ${{ env.ACTIVITI_CLUSTER_NAME }}
           chart-dir: ${{ env.CHART_DIR }}
 
+  parse-next-release:
+    runs-on: ubuntu-latest
+    if: ${{ github.event_name == 'push' }}
+    needs: build
+    outputs:
+      next-release: ${{ steps.parse-next-release.outputs.next-release }}
+    steps:
+      - uses: actions/checkout@v3
+      - name: Parse next release
+        id: parse-next-release
+        uses: Alfresco/alfresco-build-tools/.github/actions/parse-next-release-from-chart@aae-8254-actions-for-activiti-script
+        with:
+          chart-dir: ${{ env.CHART_DIR }}
+
   publish:
     if: ${{ github.event_name == 'push' }}
     uses: Alfresco/alfresco-build-tools/.github/workflows/helm-publish-new-package-version.yml@v1.9.2
-    needs: build
+    needs: parse-next-release
     with:
-      next-version: 7.5.0
+      next-version: ${{ needs.parse-next-release.outputs.next-release }}
       chart-dir: charts/activiti-cloud-full-example
       helm-charts-repo: Activiti/activiti-cloud-helm-charts
       helm-charts-repo-branch: gh-pages
