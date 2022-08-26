@@ -52,7 +52,6 @@ Kubernetes: `>=1.15.0-0`
 | activiti-cloud-identity-adapter.extraEnv | string | `"- name: SERVER_SERVLET_CONTEXTPATH\n  value: \"{{ tpl .Values.ingress.path . }}\"\n- name: SERVER_USEFORWARDHEADERS\n  value: \"true\"\n- name: SERVER_TOMCAT_INTERNALPROXIES\n  value: \".*\""` |  |
 | activiti-cloud-identity-adapter.image.pullPolicy | string | `"Always"` |  |
 | activiti-cloud-identity-adapter.image.repository | string | `"activiti/activiti-cloud-identity-adapter"` |  |
-| activiti-cloud-identity-adapter.image.tag | string | `"7.4.0-alpha.25"` |  |
 | activiti-cloud-identity-adapter.image.tag | string | `"7.5.0-alpha.33"` |  |
 | activiti-cloud-identity-adapter.ingress.annotations."kubernetes.io/ingress.class" | string | `"nginx"` |  |
 | activiti-cloud-identity-adapter.ingress.annotations."nginx.ingress.kubernetes.io/cors-allow-headers" | string | `"Authorization, Content-Type, Accept"` |  |

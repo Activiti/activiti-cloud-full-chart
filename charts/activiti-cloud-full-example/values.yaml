@@ -368,7 +368,7 @@ activiti-cloud-identity-adapter:
     name: identity-adapter
   image:
     repository: activiti/activiti-cloud-identity-adapter
-    tag: 7.4.0-alpha.25
+    tag: 7.5.0-alpha.33
     pullPolicy: Always
   liquibase:
     enabled: false
@@ -644,6 +644,3 @@ kafka:
   zookeeper:
     fullnameOverride: zookeeper
     replicaCount: 1
-activiti-cloud-identity-adapter:
-  image:
-    tag: 7.5.0-alpha.33
