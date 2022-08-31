@@ -21,7 +21,7 @@ jobs:
     steps:
       - uses: Alfresco/alfresco-build-tools/.github/actions/setup-helm-docs@v1.9.2
       - uses: Alfresco/alfresco-build-tools/.github/actions/setup-kubepug@v1.9.2
-      - uses: bridgecrewio/checkov-action@v12.1708.0
+      - uses: bridgecrewio/checkov-action@v12.1777.0
         with:
           framework: kubernetes
       - uses: Alfresco/alfresco-build-tools/.github/actions/pre-commit@v1.9.2
