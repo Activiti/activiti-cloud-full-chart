@@ -3,7 +3,7 @@ on:
   pull_request:
     types: [labeled]
     branches:
-      - master
+      - 7.5.x
 
 jobs:
   enable-auto-merge:
