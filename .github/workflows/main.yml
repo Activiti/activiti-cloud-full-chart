@@ -52,8 +52,8 @@ jobs:
 
   parse-next-release:
     runs-on: ubuntu-latest
-    if: ${{ github.event_name == 'push' }}
     needs: build
+    if: github.event_name == 'push'
     outputs:
       next-release: ${{ steps.parse-next-release.outputs.next-release }}
     steps:
@@ -65,9 +65,9 @@ jobs:
           chart-dir: ${{ env.CHART_DIR }}
 
   publish:
-    if: ${{ github.event_name == 'push' }}
-    uses: Alfresco/alfresco-build-tools/.github/workflows/helm-publish-new-package-version.yml@v1.20.0
     needs: parse-next-release
+    if: github.event_name == 'push'
+    uses: Alfresco/alfresco-build-tools/.github/workflows/helm-publish-new-package-version.yml@v1.20.0
     with:
       next-version: ${{ needs.parse-next-release.outputs.next-release }}
       chart-dir: charts/activiti-cloud-full-example
