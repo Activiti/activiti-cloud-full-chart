@@ -17,7 +17,7 @@ env:
 
 jobs:
   pre-commit:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     steps:
       - uses: Alfresco/alfresco-build-tools/.github/actions/setup-helm-docs@v1.19.2
       - uses: Alfresco/alfresco-build-tools/.github/actions/setup-kubepug@v1.19.2
@@ -27,7 +27,7 @@ jobs:
       - uses: Alfresco/alfresco-build-tools/.github/actions/pre-commit@v1.19.2
 
   build:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     needs: pre-commit
     steps:
       - uses: actions/checkout@v3
