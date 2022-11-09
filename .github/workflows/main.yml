@@ -67,7 +67,7 @@ jobs:
   publish:
     needs: parse-next-release
     if: github.event_name == 'push'
-    uses: Alfresco/alfresco-build-tools/.github/workflows/helm-publish-new-package-version.yml@v1.20.0
+    uses: Alfresco/alfresco-build-tools/.github/workflows/helm-publish-new-package-version.yml@v1.20.3
     with:
       next-version: ${{ needs.parse-next-release.outputs.next-release }}
       chart-dir: charts/activiti-cloud-full-example
