@@ -32,7 +32,7 @@ jobs:
           helm-repository-base-url: ${{ env.HELM_REPO_BASE_URL }}
           helm-repository-token: ${{ secrets.BOT_GITHUB_TOKEN }}
           git-username: ${{ secrets.BOT_GITHUB_USERNAME }}
-          do-push: ${{ github.event_name == 'push' }}
+
 
       - name: Create prerelease
         env:
