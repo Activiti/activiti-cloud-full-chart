@@ -6,9 +6,11 @@ on:
       - '[0-9]+.[0-9]+.[0-9]+-rc.[0-9]+'
 
 env:
+  CHART_NAME: activiti-cloud-full-example
   CHART_DIR: "charts/activiti-cloud-full-example"
   HELM_REPO_BASE_URL: https://activiti.github.io/activiti-cloud-helm-charts
   HELM_REPO: Activiti/activiti-cloud-helm-charts
+  HELM_REPO_NAME: activiti-cloud-helm-charts
   HELM_REPO_BRANCH: gh-pages
   HELM_REPO_SUBFOLDER: .
 
@@ -33,6 +35,12 @@ jobs:
           helm-repository-token: ${{ secrets.BOT_GITHUB_TOKEN }}
           git-username: ${{ secrets.BOT_GITHUB_USERNAME }}
 
+      - uses: Activiti/activiti-scripts/.github/actions/wait-for-chart@master
+        with:
+          chart: ${{ env.CHART_NAME }}
+          version: ${{ env.VERSION }}
+          helm-repo-name:  ${{ env.HELM_REPO_NAME }}
+          helm-repo-url: ${{ env.HELM_REPO_BASE_URL }}
 
       - name: Create prerelease
         env:
