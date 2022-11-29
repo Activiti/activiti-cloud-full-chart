@@ -22,17 +22,22 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - id: helm-release-and-publish
-        name: Release and publish helm chart
-        uses: Alfresco/alfresco-build-tools/.github/actions/helm-release-and-publish@v1.23.0
+      - id: helm-package-chart
+        name: Package Helm chart
+        uses: Alfresco/alfresco-build-tools/.github/actions/helm-package-chart@v1.23.0
         with:
-          version: ${{ env.VERSION }}
           chart-dir: ${{ env.CHART_DIR }}
-          helm-repository: ${{ env.HELM_REPO }}
-          helm-repository-branch: ${{ env.HELM_REPO_BRANCH }}
-          helm-repository-subfolder: ${{ env.HELM_REPO_SUBFOLDER }}
-          helm-repository-base-url: ${{ env.HELM_REPO_BASE_URL }}
-          helm-repository-token: ${{ secrets.BOT_GITHUB_TOKEN }}
+
+      - id: helm-publish-chart
+        name: Publish Helm chart
+        uses: Alfresco/alfresco-build-tools/.github/actions/helm-publish-chart@v1.23.0
+        with:
+          chart-package: ${{ steps.helm-package-chart.outputs.package-file-path }}
+          helm-charts-repo: ${{ env.HELM_REPO }}
+          helm-charts-repo-branch: ${{ env.HELM_REPO_BRANCH }}
+          helm-charts-repo-subfolder: ${{ env.HELM_REPO_SUBFOLDER }}
+          helm-charts-repo-base-url: ${{ env.HELM_REPO_BASE_URL }}
+          token: ${{ secrets.BOT_GITHUB_TOKEN }}
           git-username: ${{ secrets.BOT_GITHUB_USERNAME }}
 
       - uses: Activiti/activiti-scripts/.github/actions/wait-for-chart@master
