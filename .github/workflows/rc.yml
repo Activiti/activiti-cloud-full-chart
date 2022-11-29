@@ -1,0 +1,53 @@
+name: Create Pre-release
+
+on:
+  push:
+    tags:
+      - '[0-9]+.[0-9]+.[0-9]+-rc.[0-9]+'
+
+env:
+  CHART_DIR: "charts/activiti-cloud-full-example"
+  HELM_REPO_BASE_URL: https://activiti.github.io/activiti-cloud-helm-charts
+  HELM_REPO: Activiti/activiti-cloud-helm-charts
+  HELM_REPO_BRANCH: gh-pages
+  HELM_REPO_SUBFOLDER: .
+
+jobs:
+  prerelease:
+    runs-on: ubuntu-latest
+    env:
+      VERSION: ${{ github.ref_name }}
+    steps:
+      - uses: actions/checkout@v3
+
+      - id: helm-release-and-publish
+        name: Release and publish helm chart
+        uses: Alfresco/alfresco-build-tools/.github/actions/helm-release-and-publish@v1.23.0
+        with:
+          version: ${{ env.VERSION }}
+          chart-dir: ${{ env.CHART_DIR }}
+          helm-repository: ${{ env.HELM_REPO }}
+          helm-repository-branch: ${{ env.HELM_REPO_BRANCH }}
+          helm-repository-subfolder: ${{ env.HELM_REPO_SUBFOLDER }}
+          helm-repository-base-url: ${{ env.HELM_REPO_BASE_URL }}
+          helm-repository-token: ${{ secrets.BOT_GITHUB_TOKEN }}
+          git-username: ${{ secrets.BOT_GITHUB_USERNAME }}
+          do-push: ${{ github.event_name == 'push' }}
+
+      - name: Create prerelease
+        env:
+          GITHUB_TOKEN: ${{ secrets.BOT_GITHUB_TOKEN }}
+        run: |
+          gh release create ${VERSION} --prerelease -t ${VERSION}
+
+  notify:
+    runs-on: ubuntu-latest
+    needs:
+      - prerelease
+    if: always() && failure() && github.event_name == 'push'
+    steps:
+      - name: Slack Notification
+        uses: Alfresco/alfresco-build-tools/.github/actions/send-slack-notification@v1.22.0
+        with:
+          channel-id: 'eng-hxp-studio-be-gh-notifs'
+          token: ${{ secrets.SLACK_NOTIFICATION_BOT_TOKEN }}
