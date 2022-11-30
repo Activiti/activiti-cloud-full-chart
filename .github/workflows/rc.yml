@@ -42,7 +42,7 @@ jobs:
 
       - uses: Activiti/activiti-scripts/.github/actions/wait-for-chart@master
         with:
-          char-name: ${{ env.CHART_NAME }}
+          chart-name: ${{ env.CHART_NAME }}
           version: ${{ env.VERSION }}
           helm-repo-name:  ${{ env.HELM_REPO_NAME }}
           helm-repo-url: ${{ env.HELM_REPO_BASE_URL }}
