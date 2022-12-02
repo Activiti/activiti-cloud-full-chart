@@ -2,7 +2,7 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-# global -- for common values see https://github.com/Activiti/activiti-cloud-common-chart/blob/master/charts/common/README.md
+# global -- for common values see https://github.com/Activiti/activiti-cloud-common-chart/blob/develop/charts/common/README.md
 global:
   application:
     # global.application.name -- configure application name for deployment

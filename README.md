@@ -98,7 +98,7 @@ helm template --validate \
 ```
 
 ## Enabling message partitioning
-In order to enable partitioning provide the following [extra values](https://github.com/Activiti/activiti-cloud-full-chart/blob/master/charts/activiti-cloud-full-example/partitioned-values.yaml) (`partitionCount` defines how many partitions will be used and the Helm deployment will create that many replicaSets of query service and configure Rb service with the number of supported partitions in Query):
+In order to enable partitioning provide the following [extra values](https://github.com/Activiti/activiti-cloud-full-chart/blob/develop/charts/activiti-cloud-full-example/partitioned-values.yaml) (`partitionCount` defines how many partitions will be used and the Helm deployment will create that many replicaSets of query service and configure Rb service with the number of supported partitions in Query):
 ```yaml
 global:
   messaging:
@@ -109,7 +109,7 @@ global:
 ```
 
 ## Use Kafka instead of Rabbit MQ
-In order to switch the message broker to Kafka add the following [extra values](https://github.com/Activiti/activiti-cloud-full-chart/blob/master/charts/activiti-cloud-full-example/kafka-values.yaml)
+In order to switch the message broker to Kafka add the following [extra values](https://github.com/Activiti/activiti-cloud-full-chart/blob/develop/charts/activiti-cloud-full-example/kafka-values.yaml)
 ```yaml
 global:
   messaging:
