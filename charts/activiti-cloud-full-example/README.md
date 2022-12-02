@@ -14,12 +14,12 @@ Kubernetes: `>=1.15.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://activiti.github.io/activiti-cloud-helm-charts | activiti-modeling-app(common) | 7.7.0-alpha.16 |
-| https://activiti.github.io/activiti-cloud-helm-charts | runtime-bundle(common) | 7.7.0-alpha.16 |
-| https://activiti.github.io/activiti-cloud-helm-charts | activiti-cloud-query(common) | 7.7.0-alpha.16 |
-| https://activiti.github.io/activiti-cloud-helm-charts | activiti-cloud-connector(common) | 7.7.0-alpha.16 |
-| https://activiti.github.io/activiti-cloud-helm-charts | activiti-cloud-modeling(common) | 7.7.0-alpha.16 |
-| https://activiti.github.io/activiti-cloud-helm-charts | activiti-cloud-identity-adapter(common) | 7.7.0-alpha.16 |
+| https://activiti.github.io/activiti-cloud-helm-charts | activiti-modeling-app(common) | 7.7.0-alpha.17 |
+| https://activiti.github.io/activiti-cloud-helm-charts | runtime-bundle(common) | 7.7.0-alpha.17 |
+| https://activiti.github.io/activiti-cloud-helm-charts | activiti-cloud-query(common) | 7.7.0-alpha.17 |
+| https://activiti.github.io/activiti-cloud-helm-charts | activiti-cloud-connector(common) | 7.7.0-alpha.17 |
+| https://activiti.github.io/activiti-cloud-helm-charts | activiti-cloud-modeling(common) | 7.7.0-alpha.17 |
+| https://activiti.github.io/activiti-cloud-helm-charts | activiti-cloud-identity-adapter(common) | 7.7.0-alpha.17 |
 | https://codecentric.github.io/helm-charts | activiti-cloud-identity(keycloak) | 11.0.1 |
 | https://raw.githubusercontent.com/bitnami/charts/archive-full-index/bitnami/ | kafka | 12.x.x |
 | https://raw.githubusercontent.com/bitnami/charts/archive-full-index/bitnami/ | postgresql | 9.1.1 |
