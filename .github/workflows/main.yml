@@ -75,9 +75,36 @@ jobs:
       helm-charts-repo-branch: gh-pages
     secrets: inherit
 
+  promote:
+    runs-on: ubuntu-latest
+    needs:
+      - parse-next-release
+      - publish
+    if: ${{ github.event_name == 'push' }}
+    env:
+      VERSION: ${{ needs.parse-next-release.outputs.version }}
+      DEVELOPMENT_BRANCH: ${{ github.ref_name }}
+    steps:
+      - uses: actions/checkout@v3
+      - run: echo ACTIVITI_CLOUD_APPLICATION_TAG=`yq .runtime-bundle.image.tag charts/activiti-cloud-full-example/values.yaml` >> $GITHUB_ENV
+      - uses: Alfresco/alfresco-build-tools/.github/actions/jx-updatebot-pr@v1.23.0
+        env:
+          GH_TOKEN: ${{ secrets.BOT_GITHUB_TOKEN }}
+        with:
+          version: ${{ env.VERSION }}
+          auto-merge: 'true'
+          labels: ${{ env.DEVELOPMENT_BRANCH }}
+          base-branch-name: ${{ env.DEVELOPMENT_BRANCH }}
+          git-username: ${{ secrets.BOT_GITHUB_USERNAME }}
+          git-token: ${{ secrets.BOT_GITHUB_TOKEN }}
+          git-author-name: ${{ secrets.BOT_GITHUB_USERNAME }}
+
   notify:
     runs-on: ubuntu-latest
-    needs: publish
+    needs:
+      - build
+      - publish
+      - promote
     if: always() && failure() && github.event_name == 'push'
     steps:
       - name: Slack Notification
