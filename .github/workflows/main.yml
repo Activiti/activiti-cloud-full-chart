@@ -85,7 +85,7 @@ jobs:
       DEVELOPMENT_BRANCH: ${{ github.ref_name }}
     steps:
       - uses: actions/checkout@v3
-      - run: echo ACTIVITI_CLOUD_APPLICATION_TAG=`yq .runtime-bundle.image.tag charts/activiti-cloud-full-example/values.yaml` >> $GITHUB_ENV
+      - run: echo ACTIVITI_CLOUD_APPLICATION_VERSION=`yq .runtime-bundle.image.tag charts/activiti-cloud-full-example/values.yaml` >> $GITHUB_ENV
       - uses: Alfresco/alfresco-build-tools/.github/actions/jx-updatebot-pr@v1.23.0
         env:
           GH_TOKEN: ${{ secrets.BOT_GITHUB_TOKEN }}
