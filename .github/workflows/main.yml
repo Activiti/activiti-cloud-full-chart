@@ -1,20 +1,16 @@
 name: CI
-
 on:
   push:
     branches:
-      - develop
+      - 7.9.x
   pull_request:
     branches:
-      - develop
-
+      - 7.9.x
   # Allows to run this workflow manually from the Actions tab
   workflow_dispatch:
-
 env:
   TEST_CLUSTER_NAME: activiti-test
   CHART_DIR: "charts/activiti-cloud-full-example"
-
 jobs:
   pre-commit:
     runs-on: ubuntu-latest
@@ -25,21 +21,17 @@ jobs:
         with:
           framework: kubernetes
       - uses: Alfresco/alfresco-build-tools/.github/actions/pre-commit@v1.23.0
-
   build:
     runs-on: ubuntu-latest
     needs: pre-commit
     steps:
       - uses: actions/checkout@v3
-
       - name: Build
         uses: Alfresco/alfresco-build-tools/.github/actions/helm-build-chart@v1.23.0
         with:
           chart-dir: ${{ env.CHART_DIR }}
-
       - uses: Alfresco/alfresco-build-tools/.github/actions/resolve-preview-name@v1.23.0
         id: resolve-preview
-
       - name: Execute helm dry run
         uses: Alfresco/alfresco-build-tools/.github/actions/helm-integration-tests@v1.23.0
         with:
@@ -49,7 +41,6 @@ jobs:
           test-rancher-secret-key: ${{ secrets.RANCHER2_SECRET_KEY }}
           test-cluster-name: ${{ env.TEST_CLUSTER_NAME }}
           test-namespace: ${{ steps.resolve-preview.outputs.preview-name }}
-
   parse-next-release:
     runs-on: ubuntu-latest
     needs: build
@@ -63,7 +54,6 @@ jobs:
         uses: Alfresco/alfresco-build-tools/.github/actions/helm-parse-next-release@v1.23.0
         with:
           chart-dir: ${{ env.CHART_DIR }}
-
   publish:
     needs: parse-next-release
     if: github.event_name == 'push'
@@ -74,7 +64,6 @@ jobs:
       helm-charts-repo: Activiti/activiti-cloud-helm-charts
       helm-charts-repo-branch: gh-pages
     secrets: inherit
-
   promote:
     runs-on: ubuntu-latest
     needs:
@@ -97,7 +86,6 @@ jobs:
           git-username: ${{ secrets.BOT_GITHUB_USERNAME }}
           git-token: ${{ secrets.BOT_GITHUB_TOKEN }}
           git-author-name: ${{ secrets.BOT_GITHUB_USERNAME }}
-
   notify:
     runs-on: ubuntu-latest
     needs:
