@@ -440,8 +440,8 @@ activiti-modeling-app:
   nameOverride: activiti-modeling-app
   image:
     repository: activiti/activiti-modeling-app
-    tag: master
-    pullPolicy: Always
+    tag: 7.9.0
+    pullPolicy: IfNotPresent
   service:
     name: modeling-app
     envType: frontend

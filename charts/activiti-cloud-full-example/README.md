@@ -312,9 +312,9 @@ Kubernetes: `>=1.15.0-0`
 | activiti-modeling-app.enabled | bool | `true` |  |
 | activiti-modeling-app.env.APP_CONFIG_AUTH_TYPE | string | `"OAUTH"` |  |
 | activiti-modeling-app.env.APP_CONFIG_BPM_HOST | string | `"{{ include \"common.gateway-url\" . }}"` |  |
-| activiti-modeling-app.image.pullPolicy | string | `"Always"` |  |
+| activiti-modeling-app.image.pullPolicy | string | `"IfNotPresent"` |  |
 | activiti-modeling-app.image.repository | string | `"activiti/activiti-modeling-app"` |  |
-| activiti-modeling-app.image.tag | string | `"master"` |  |
+| activiti-modeling-app.image.tag | string | `"7.9.0"` |  |
 | activiti-modeling-app.ingress.annotations."kubernetes.io/ingress.class" | string | `"nginx"` |  |
 | activiti-modeling-app.ingress.annotations."nginx.ingress.kubernetes.io/cors-allow-headers" | string | `"Authorization, Content-Type, Accept"` |  |
 | activiti-modeling-app.ingress.annotations."nginx.ingress.kubernetes.io/enable-cors" | string | `"true"` |  |
