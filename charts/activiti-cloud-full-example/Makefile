@@ -69,4 +69,3 @@ update-docker-images:
 	yq -i e '.activiti-cloud-connector.image.tag = "$(BACKEND_VERSION)"' values.yaml
 	yq -i e '.activiti-cloud-modeling.image.tag = "$(BACKEND_VERSION)"' values.yaml
 	yq -i e '.activiti-cloud-identity-adapter.image.tag = "$(BACKEND_VERSION)"' values.yaml
-	yq -i e '.activiti-modeling-app.image.tag = "$(FRONTEND_VERSION)"' values.yaml
