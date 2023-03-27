@@ -435,32 +435,6 @@ activiti-cloud-modeling:
       value: "true"
     - name: SERVER_TOMCAT_INTERNALPROXIES
       value: ".*"
-activiti-modeling-app:
-  enabled: true
-  nameOverride: activiti-modeling-app
-  image:
-    repository: activiti/activiti-modeling-app
-    tag: 7.9.0
-    pullPolicy: IfNotPresent
-  service:
-    name: modeling-app
-    envType: frontend
-  env:
-    APP_CONFIG_AUTH_TYPE: OAUTH
-    APP_CONFIG_BPM_HOST: '{{ include "common.gateway-url" . }}'
-  ingress:
-    path: /modeling
-    annotations:
-      kubernetes.io/ingress.class: nginx
-      nginx.ingress.kubernetes.io/enable-cors: "true"
-      nginx.ingress.kubernetes.io/cors-allow-headers: Authorization, Content-Type, Accept
-  resources:
-    limits:
-      cpu: 500m
-      memory: 1024Mi
-    requests:
-      cpu: 200m
-      memory: 256Mi
 postgresql:
   enabled: true
   postgresqlPassword: password
