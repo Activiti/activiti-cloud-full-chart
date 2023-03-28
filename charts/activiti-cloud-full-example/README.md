@@ -14,7 +14,6 @@ Kubernetes: `>=1.15.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://activiti.github.io/activiti-cloud-helm-charts | activiti-modeling-app(common) | 7.8.0-alpha.2 |
 | https://activiti.github.io/activiti-cloud-helm-charts | runtime-bundle(common) | 7.8.0-alpha.2 |
 | https://activiti.github.io/activiti-cloud-helm-charts | activiti-cloud-query(common) | 7.8.0-alpha.2 |
 | https://activiti.github.io/activiti-cloud-helm-charts | activiti-cloud-connector(common) | 7.8.0-alpha.2 |
@@ -309,23 +308,6 @@ Kubernetes: `>=1.15.0-0`
 | activiti-cloud-query.resources.requests.cpu | string | `"200m"` |  |
 | activiti-cloud-query.resources.requests.memory | string | `"512Mi"` |  |
 | activiti-cloud-query.service.name | string | `"query"` |  |
-| activiti-modeling-app.enabled | bool | `true` |  |
-| activiti-modeling-app.env.APP_CONFIG_AUTH_TYPE | string | `"OAUTH"` |  |
-| activiti-modeling-app.env.APP_CONFIG_BPM_HOST | string | `"{{ include \"common.gateway-url\" . }}"` |  |
-| activiti-modeling-app.image.pullPolicy | string | `"Always"` |  |
-| activiti-modeling-app.image.repository | string | `"activiti/activiti-modeling-app"` |  |
-| activiti-modeling-app.image.tag | string | `"master"` |  |
-| activiti-modeling-app.ingress.annotations."kubernetes.io/ingress.class" | string | `"nginx"` |  |
-| activiti-modeling-app.ingress.annotations."nginx.ingress.kubernetes.io/cors-allow-headers" | string | `"Authorization, Content-Type, Accept"` |  |
-| activiti-modeling-app.ingress.annotations."nginx.ingress.kubernetes.io/enable-cors" | string | `"true"` |  |
-| activiti-modeling-app.ingress.path | string | `"/modeling"` |  |
-| activiti-modeling-app.nameOverride | string | `"activiti-modeling-app"` |  |
-| activiti-modeling-app.resources.limits.cpu | string | `"500m"` |  |
-| activiti-modeling-app.resources.limits.memory | string | `"1024Mi"` |  |
-| activiti-modeling-app.resources.requests.cpu | string | `"200m"` |  |
-| activiti-modeling-app.resources.requests.memory | string | `"256Mi"` |  |
-| activiti-modeling-app.service.envType | string | `"frontend"` |  |
-| activiti-modeling-app.service.name | string | `"modeling-app"` |  |
 | global | object | `{"application":{"name":"{{ .Release.Name }}"},"extraEnv":"- name: ACTIVITI_CLOUD_APPLICATION_NAME\n  value: \"{{ tpl .Values.global.application.name $ | required \"global.application.name is required\" }}\"\n- name: ACTIVITI_KEYCLOAK_CLIENT_ID\n  valueFrom:\n    secretKeyRef:\n      name: {{ tpl .Values.global.keycloak.clientSecretName $ }}\n      key: clientId\n- name: ACTIVITI_KEYCLOAK_CLIENT_SECRET\n  valueFrom:\n    secretKeyRef:\n      name: {{ tpl .Values.global.keycloak.clientSecretName $ }}\n      key: clientSecret\n","gateway":{"annotations":null,"domain":"DOMAIN","host":"gateway-{{ .Release.Namespace }}.{{ template \"common.gateway-domain\" . }}","http":"true","tlsacme":"false"},"kafka":{"brokers":"kafka","extraEnv":"- name: ACT_AUDIT_PRODUCER_TRANSACTION_ID_PREFIX\n  value: \"\"\n"},"keycloak":{"clientId":"activiti-keycloak","clientSecret":"","clientSecretName":"activiti-keycloak-client","host":"identity-{{ .Release.Namespace }}.{{ template \"common.gateway-domain\" . }}","realm":"activiti","resource":"activiti","url":"","useExistingClientSecret":false},"messaging":{"broker":"rabbitmq","partitionCount":2,"partitioned":false},"rabbitmq":{"extraEnv":"","host":"rabbitmq","password":"guest","username":"guest"},"registryPullSecrets":[]}` | for common values see https://github.com/Activiti/activiti-cloud-common-chart/blob/develop/charts/common/README.md |
 | global.application.name | string | `"{{ .Release.Name }}"` | configure application name for deployment |
 | global.extraEnv | string | `"- name: ACTIVITI_CLOUD_APPLICATION_NAME\n  value: \"{{ tpl .Values.global.application.name $ | required \"global.application.name is required\" }}\"\n- name: ACTIVITI_KEYCLOAK_CLIENT_ID\n  valueFrom:\n    secretKeyRef:\n      name: {{ tpl .Values.global.keycloak.clientSecretName $ }}\n      key: clientId\n- name: ACTIVITI_KEYCLOAK_CLIENT_SECRET\n  valueFrom:\n    secretKeyRef:\n      name: {{ tpl .Values.global.keycloak.clientSecretName $ }}\n      key: clientSecret\n"` | Use Yaml formatted string to add extra environment properties to all deployments, i.e. |
