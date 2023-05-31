@@ -12,7 +12,7 @@ on:
   workflow_dispatch:
 
 env:
-  TEST_CLUSTER_NAME: activiti-test
+  TEST_CLUSTER_NAME: activiti
   CHART_DIR: "charts/activiti-cloud-full-example"
 
 jobs:
