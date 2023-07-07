@@ -32,7 +32,7 @@ Kubernetes: `>=1.15.0-0`
 | activiti-cloud-connector.extraEnv | string | `"- name: SERVER_SERVLET_CONTEXTPATH\n  value: \"{{ tpl .Values.ingress.path . }}\"\n- name: SERVER_USEFORWARDHEADERS\n  value: \"true\"\n- name: SERVER_TOMCAT_INTERNALPROXIES\n  value: \".*\""` |  |
 | activiti-cloud-connector.image.pullPolicy | string | `"Always"` |  |
 | activiti-cloud-connector.image.repository | string | `"activiti/example-cloud-connector"` |  |
-| activiti-cloud-connector.image.tag | string | `"8.0.0-alpha.20"` |  |
+| activiti-cloud-connector.image.tag | string | `"8.0.0-alpha.21"` |  |
 | activiti-cloud-connector.ingress.annotations."kubernetes.io/ingress.class" | string | `"nginx"` |  |
 | activiti-cloud-connector.ingress.annotations."nginx.ingress.kubernetes.io/cors-allow-headers" | string | `"Authorization, Content-Type, Accept"` |  |
 | activiti-cloud-connector.ingress.annotations."nginx.ingress.kubernetes.io/enable-cors" | string | `"true"` |  |
@@ -51,7 +51,7 @@ Kubernetes: `>=1.15.0-0`
 | activiti-cloud-identity-adapter.extraEnv | string | `"- name: SERVER_SERVLET_CONTEXTPATH\n  value: \"{{ tpl .Values.ingress.path . }}\"\n- name: SERVER_USEFORWARDHEADERS\n  value: \"true\"\n- name: SERVER_TOMCAT_INTERNALPROXIES\n  value: \".*\""` |  |
 | activiti-cloud-identity-adapter.image.pullPolicy | string | `"Always"` |  |
 | activiti-cloud-identity-adapter.image.repository | string | `"activiti/activiti-cloud-identity-adapter"` |  |
-| activiti-cloud-identity-adapter.image.tag | string | `"8.0.0-alpha.20"` |  |
+| activiti-cloud-identity-adapter.image.tag | string | `"8.0.0-alpha.21"` |  |
 | activiti-cloud-identity-adapter.ingress.annotations."kubernetes.io/ingress.class" | string | `"nginx"` |  |
 | activiti-cloud-identity-adapter.ingress.annotations."nginx.ingress.kubernetes.io/cors-allow-headers" | string | `"Authorization, Content-Type, Accept"` |  |
 | activiti-cloud-identity-adapter.ingress.annotations."nginx.ingress.kubernetes.io/enable-cors" | string | `"true"` |  |
@@ -262,7 +262,7 @@ Kubernetes: `>=1.15.0-0`
 | activiti-cloud-modeling.extraEnv | string | `"- name: SERVER_SERVLET_CONTEXTPATH\n  value: \"{{ tpl .Values.ingress.path . }}\"\n- name: SERVER_USEFORWARDHEADERS\n  value: \"true\"\n- name: SERVER_TOMCAT_INTERNALPROXIES\n  value: \".*\""` |  |
 | activiti-cloud-modeling.image.pullPolicy | string | `"Always"` |  |
 | activiti-cloud-modeling.image.repository | string | `"activiti/activiti-cloud-modeling"` |  |
-| activiti-cloud-modeling.image.tag | string | `"8.0.0-alpha.20"` |  |
+| activiti-cloud-modeling.image.tag | string | `"8.0.0-alpha.21"` |  |
 | activiti-cloud-modeling.ingress.annotations."kubernetes.io/ingress.class" | string | `"nginx"` |  |
 | activiti-cloud-modeling.ingress.annotations."nginx.ingress.kubernetes.io/cors-allow-headers" | string | `"Authorization, Content-Type, Accept"` |  |
 | activiti-cloud-modeling.ingress.annotations."nginx.ingress.kubernetes.io/enable-cors" | string | `"true"` |  |
@@ -282,7 +282,7 @@ Kubernetes: `>=1.15.0-0`
 | activiti-cloud-query.extraEnv | string | `"- name: GRAPHIQL_GRAPHQL_WEB_PATH\n  value: '{{ tpl .Values.ingress.path . | trimSuffix \"/\" }}/notifications/graphql'\n- name: GRAPHIQL_GRAPHQL_WS_PATH\n  value: '{{ tpl .Values.ingress.path . | trimSuffix \"/\" }}/notifications/ws/graphql'\n- name: SERVER_SERVLET_CONTEXTPATH\n  value: \"{{ tpl .Values.ingress.path . }}\"\n- name: SERVER_USEFORWARDHEADERS\n  value: \"true\"\n- name: SERVER_TOMCAT_INTERNALPROXIES\n  value: \".*\"\n- name: ACTIVITI_CLOUD_SWAGGER_QUERYBASEPATH\n  value: \"/query\"\n- name: ACTIVITI_CLOUD_SWAGGER_AUDITBASEPATH\n  value: \"/audit\""` |  |
 | activiti-cloud-query.image.pullPolicy | string | `"Always"` |  |
 | activiti-cloud-query.image.repository | string | `"activiti/activiti-cloud-query"` |  |
-| activiti-cloud-query.image.tag | string | `"8.0.0-alpha.20"` |  |
+| activiti-cloud-query.image.tag | string | `"8.0.0-alpha.21"` |  |
 | activiti-cloud-query.ingress.annotations."kubernetes.io/ingress.class" | string | `"nginx"` |  |
 | activiti-cloud-query.ingress.annotations."nginx.ingress.kubernetes.io/affinity" | string | `"cookie"` |  |
 | activiti-cloud-query.ingress.annotations."nginx.ingress.kubernetes.io/cors-allow-headers" | string | `"Authorization, Content-Type, Accept"` |  |
@@ -353,7 +353,7 @@ Kubernetes: `>=1.15.0-0`
 | runtime-bundle.extraEnv | string | `"- name: SERVER_SERVLET_CONTEXTPATH\n  value: \"{{ tpl .Values.ingress.path . }}\"\n- name: SERVER_USEFORWARDHEADERS\n  value: \"true\"\n- name: SERVER_TOMCAT_INTERNALPROXIES\n  value: \".*\""` |  |
 | runtime-bundle.image.pullPolicy | string | `"Always"` |  |
 | runtime-bundle.image.repository | string | `"activiti/example-runtime-bundle"` |  |
-| runtime-bundle.image.tag | string | `"8.0.0-alpha.20"` |  |
+| runtime-bundle.image.tag | string | `"8.0.0-alpha.21"` |  |
 | runtime-bundle.ingress.annotations."kubernetes.io/ingress.class" | string | `"nginx"` |  |
 | runtime-bundle.ingress.annotations."nginx.ingress.kubernetes.io/cors-allow-headers" | string | `"Authorization, Content-Type, Accept"` |  |
 | runtime-bundle.ingress.annotations."nginx.ingress.kubernetes.io/enable-cors" | string | `"true"` |  |
