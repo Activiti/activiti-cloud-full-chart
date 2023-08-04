@@ -19,12 +19,12 @@ jobs:
   pre-commit:
     runs-on: ubuntu-latest
     steps:
-      - uses: Alfresco/alfresco-build-tools/.github/actions/setup-helm-docs@v1.37.0
-      - uses: Alfresco/alfresco-build-tools/.github/actions/setup-kubepug@v1.37.0
+      - uses: Alfresco/alfresco-build-tools/.github/actions/setup-helm-docs@v3.0.0
+      - uses: Alfresco/alfresco-build-tools/.github/actions/setup-kubepug@v3.0.0
       - uses: bridgecrewio/checkov-action@v12.1839.0
         with:
           framework: kubernetes
-      - uses: Alfresco/alfresco-build-tools/.github/actions/pre-commit@v1.37.0
+      - uses: Alfresco/alfresco-build-tools/.github/actions/pre-commit@v3.0.0
 
   build:
     runs-on: ubuntu-latest
@@ -33,15 +33,15 @@ jobs:
       - uses: actions/checkout@v3
 
       - name: Build
-        uses: Alfresco/alfresco-build-tools/.github/actions/helm-build-chart@v1.37.0
+        uses: Alfresco/alfresco-build-tools/.github/actions/helm-build-chart@v3.0.0
         with:
           chart-dir: ${{ env.CHART_DIR }}
 
-      - uses: Alfresco/alfresco-build-tools/.github/actions/resolve-preview-name@v1.37.0
+      - uses: Alfresco/alfresco-build-tools/.github/actions/resolve-preview-name@v3.0.0
         id: resolve-preview
 
       - name: Execute helm dry run
-        uses: Alfresco/alfresco-build-tools/.github/actions/helm-integration-tests@v1.37.0
+        uses: Alfresco/alfresco-build-tools/.github/actions/helm-integration-tests@v3.0.0
         with:
           chart-dir: ${{ env.CHART_DIR }}
           test-rancher-url: ${{ secrets.RANCHER2_URL }}
@@ -60,14 +60,14 @@ jobs:
       - uses: actions/checkout@v3
       - name: Parse next release
         id: parse-next-release
-        uses: Alfresco/alfresco-build-tools/.github/actions/helm-parse-next-release@v1.37.0
+        uses: Alfresco/alfresco-build-tools/.github/actions/helm-parse-next-release@v3.0.0
         with:
           chart-dir: ${{ env.CHART_DIR }}
 
   publish:
     needs: parse-next-release
     if: github.event_name == 'push'
-    uses: Alfresco/alfresco-build-tools/.github/workflows/helm-publish-new-package-version.yml@v1.37.0
+    uses: Alfresco/alfresco-build-tools/.github/workflows/helm-publish-new-package-version.yml@v3.0.0
     with:
       next-version: ${{ needs.parse-next-release.outputs.next-release }}
       chart-dir: charts/activiti-cloud-full-example
@@ -86,7 +86,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - run: echo ACTIVITI_CLOUD_APPLICATION_VERSION=`yq .runtime-bundle.image.tag charts/activiti-cloud-full-example/values.yaml` >> $GITHUB_ENV
-      - uses: Alfresco/alfresco-build-tools/.github/actions/jx-updatebot-pr@v1.37.0
+      - uses: Alfresco/alfresco-build-tools/.github/actions/jx-updatebot-pr@v3.0.0
         env:
           GH_TOKEN: ${{ secrets.BOT_GITHUB_TOKEN }}
         with:
@@ -107,7 +107,7 @@ jobs:
     if: always() && failure() && github.event_name == 'push'
     steps:
       - name: Slack Notification
-        uses: Alfresco/alfresco-build-tools/.github/actions/send-slack-notification@v1.37.0
+        uses: Alfresco/alfresco-build-tools/.github/actions/send-slack-notification@v3.0.0
         with:
           channel-id: 'eng-hxp-studio-activiti-gh-notifs'
           token: ${{ secrets.SLACK_NOTIFICATION_BOT_TOKEN }}
