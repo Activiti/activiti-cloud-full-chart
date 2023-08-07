@@ -41,7 +41,7 @@ jobs:
         id: resolve-preview
 
       - name: Execute helm dry run
-        uses: Alfresco/alfresco-build-tools/.github/actions/helm-integration-tests@v1.37.0
+        uses: Alfresco/alfresco-build-tools/.github/actions/helm-integration-tests@v3.0.2
         with:
           chart-dir: ${{ env.CHART_DIR }}
           test-rancher-url: ${{ secrets.RANCHER2_URL }}
