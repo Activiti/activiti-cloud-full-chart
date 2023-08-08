@@ -7,8 +7,11 @@ on:
   pull_request:
     branches:
       - develop
-
-  # Allows to run this workflow manually from the Actions tab
+    types:
+      - opened
+      - reopened
+      - synchronize
+      - labeled
   workflow_dispatch:
 
 env:
@@ -16,7 +19,16 @@ env:
   CHART_DIR: "charts/activiti-cloud-full-example"
 
 jobs:
+
+  check-ext-build:
+    name: Check dependabot/external build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: Activiti/Activiti/.github/actions/check-ext-build@fix-AAE-15950-dependabot-validation
+
   pre-commit:
+    needs: check-ext-build
     runs-on: ubuntu-latest
     steps:
       - uses: Alfresco/alfresco-build-tools/.github/actions/setup-helm-docs@v1.37.0
@@ -76,10 +88,10 @@ jobs:
     secrets: inherit
 
   promote:
-    runs-on: ubuntu-latest
+    if: github.event_name == 'push'
     needs:
       - publish
-    if: ${{ github.event_name == 'push' }}
+    runs-on: ubuntu-latest
     env:
       VERSION: ${{ needs.publish.outputs.version }}
       DEVELOPMENT_BRANCH: ${{ github.ref_name }}

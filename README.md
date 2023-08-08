@@ -3,10 +3,11 @@
 [Getting Started Guide](https://activiti.gitbook.io/activiti-7-developers-guide/getting-started/getting-started-activiti-cloud)
 
 More information:
-* all chart archives, located at: https://github.com/Activiti/activiti-cloud-helm-charts
-* full chart, located at: https://github.com/Activiti/activiti-cloud-full-chart (this repo)
-* a common chart as a base chart for all charts, located at: https://github.com/Activiti/activiti-cloud-common-chart
-* charts for components, as sub folders located at: https://github.com/Activiti/activiti-cloud-application
+
+- all chart archives, located at: https://github.com/Activiti/activiti-cloud-helm-charts
+- full chart, located at: https://github.com/Activiti/activiti-cloud-full-chart (this repo)
+- a common chart as a base chart for all charts, located at: https://github.com/Activiti/activiti-cloud-common-chart
+- charts for components, as sub folders located at: https://github.com/Activiti/activiti-cloud-application
 
 ## Running on Docker Desktop
 
@@ -27,9 +28,11 @@ helm install --repo https://kubernetes.github.io/ingress-nginx ingress-nginx ing
 ```
 
 Update all dependencies:
+
 ```shell
 helm dependency update charts/activiti-cloud-full-example
 ```
+
 Create Activiti Keycloak Client Kubernetes secret in the `activiti` namespace:
 
 ```bash
@@ -42,6 +45,7 @@ kubectl create secret generic activiti-keycloak-client \
 Create a `values.yaml` file with any customised values from the default [values.yaml](charts/activiti-cloud-full-example/values.yaml) you want, as documented in the chart [README](charts/activiti-cloud-full-example/README.md).
 
 In your local installation to start with, this would be:
+
 ```yaml
 global:
   gateway:
@@ -51,6 +55,7 @@ global:
     clientSecretName: activiti-keycloak-client
     useExistingClientSecret: true
 ```
+
 Alternatively, you can create Activiti Keycloak Client Kubernetes secret with Helm with the following values:
 
 ```yaml
@@ -66,6 +71,7 @@ In a generic cluster install, you can just add `--set global.gateway.domain=$YOU
 provided your _DNS_ is configured with a wildcard entry `*.$YOUR_CLUSTER_DOMAIN` pointing to your cluster ingress.
 
 Install or upgrade an existing installation:
+
 ```shell
 helm upgrade --install \
   --atomic --create-namespace --namespace activiti \
@@ -74,6 +80,7 @@ helm upgrade --install \
 ```
 
 Uninstall:
+
 ```shell
 helm uninstall --namespace activiti activiti
 ```
@@ -84,12 +91,15 @@ helm uninstall --namespace activiti activiti
 kubectl get pvc --namespace activiti
 kubectl delete pvc --namespace activiti ...
 ```
+
 or just delete the namespace fully:
+
 ```shell
 kubectl delete ns activiti
 ```
 
 As an alternative, generate a Kubernetes descriptor you can analyse or apply offline using `kubectl apply -f output.yaml`:
+
 ```shell
 helm template --validate \
   --atomic --create-namespace --dependency-update --namespace activiti \
@@ -98,7 +108,9 @@ helm template --validate \
 ```
 
 ## Enabling message partitioning
+
 In order to enable partitioning provide the following [extra values](https://github.com/Activiti/activiti-cloud-full-chart/blob/develop/charts/activiti-cloud-full-example/partitioned-values.yaml) (`partitionCount` defines how many partitions will be used and the Helm deployment will create that many replicaSets of query service and configure Rb service with the number of supported partitions in Query):
+
 ```yaml
 global:
   messaging:
@@ -109,7 +121,9 @@ global:
 ```
 
 ## Use Kafka instead of Rabbit MQ
+
 In order to switch the message broker to Kafka add the following [extra values](https://github.com/Activiti/activiti-cloud-full-chart/blob/develop/charts/activiti-cloud-full-example/kafka-values.yaml)
+
 ```yaml
 global:
   messaging:
@@ -121,6 +135,7 @@ rabbitmq:
 ```
 
 ### Message Partitioning with Kafka
+
 Kafka has different architecture from RabbitMQ. One Kafka topic can be served by a number of partitions independent from the consumer number (greater or equal).
 
 Configuring the Kafka broker in the helm chart it is possible to specify `partitionCount` greater or equal to the `replicaCount` (the consumer number).
@@ -144,6 +159,7 @@ Kubernetes supports horizontal scalability through Horizontal Pod Autoscaler (HP
 In `activiti-cloud-full-charts` it is now possible to enable HPA for the `runtime-bundle` and `activiti-cloud-query` microservices.
 
 ### Requirements
+
 The HorizontalPodAutoscaler can fetch metrics from aggregated APIs that, for Kubernetes (metrics.k8s.io), are provided by an add-on named `Metrics Server`.
 
 So, `Metric Server` needs to be installed and launched to use the HPA feature. Please refer to [this page](https://github.com/kubernetes-sigs/metrics-server) for its installation.
@@ -176,7 +192,7 @@ This configuration (present in the `hpa-values.yaml` file in this repository) en
 #### Configuration Properties
 
 | Name                    | Description                               | Default |
-|-------------------------|-------------------------------------------|---------|
+| ----------------------- | ----------------------------------------- | ------- |
 | `enabled`               | enables the HPA feature                   | `false` |
 | `minReplicas`           | starting number of replicas to be spawned |         |
 | `maxReplicas`           | max number of replicas to be spawned      |         |
@@ -212,17 +228,33 @@ So when configuring HPA please **don't** specify the `maxReplicas` value greater
 
 When partitioning RabbitMQ the configuration will spawn one replica for every partition, so you should avoid activating the `HorizontalPodAutoscaler` in this case.
 
-## Skipping CI
-
-If you want to skip running release pipeline stages, simply add `[ci skip]` to your commit message.
-
 ## CI/CD
 
-Running on Github Actions, requires the following environment variable to be set:
+Running on GH Actions.
 
-| Name | Description |
-|------|-------------|
-| GITHUB_TOKEN | Github token for git service account |
-| GITHUB_USER | Github user name for git service account |
-| K8S_API_TOKEN | Kubernetes API token |
-| K8S_API_URL | Kubernetes API url |
+[To skip running](https://docs.github.com/en/actions/managing-workflow-runs/skipping-workflow-runs) release pipeline stages, simply add `[skip ci]` to your commit message.
+
+For Dependabot PRs to be validated by CI, the label "CI" should be added to the PR.
+
+Requires the following secrets to be set:
+
+| Name                         | Description                        |
+| ---------------------------- | ---------------------------------- |
+| BOT_GITHUB_TOKEN             | Token to launch other builds on GH |
+| BOT_GITHUB_USERNAME          | Username to issue propagation PRs  |
+| RANCHER2_URL                 | Rancher URL for tests              |
+| RANCHER2_ACCESS_KEY          | Rancher access key for tests       |
+| RANCHER2_SECRET_KEY          | Rancher secret key for tests       |
+| SLACK_NOTIFICATION_BOT_TOKEN | Token to notify slack on failure   |
+
+## Formatting
+
+The local `.editorconfig` file is leveraged for automated formatting.
+
+See documentation at [pre-commit](https://github.com/Alfresco/alfresco-build-tools/tree/master/docs#pre-commit).
+
+To run all hooks locally:
+
+```sh
+pre-commit run -a
+```
