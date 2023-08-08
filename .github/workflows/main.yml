@@ -30,7 +30,7 @@ jobs:
         exit 1
 
   pre-commit:
-    if: (github.event.action != 'labeled' && (github.event.sender.login != 'dependabot[bot]' || github.event.pull_request.head.repo.full_name == github.repository)) || (github.event.action == 'labeled' && github.event.label.name == 'CI')
+    if: (github.event.action != 'labeled' && (github.event.sender.login != 'dependabot[bot]' || github.event.pull_request.head.repo.full_name == github.repository)) || (github.event.action == 'labeled' && contains(fromJSON('["CI", "updatebot"]'), github.event.label.name))
     runs-on: ubuntu-latest
     steps:
       - uses: Alfresco/alfresco-build-tools/.github/actions/setup-helm-docs@v1.37.0
