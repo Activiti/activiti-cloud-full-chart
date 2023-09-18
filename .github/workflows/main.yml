@@ -24,7 +24,7 @@ jobs:
     name: Check dependabot/external build
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: Activiti/Activiti/.github/actions/check-ext-build@8.0.0-alpha.10
 
   pre-commit:
@@ -42,7 +42,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: pre-commit
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Build
         uses: Alfresco/alfresco-build-tools/.github/actions/helm-build-chart@v3.2.1
@@ -69,7 +69,7 @@ jobs:
     outputs:
       next-release: ${{ steps.parse-next-release.outputs.next-release }}
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Parse next release
         id: parse-next-release
         uses: Alfresco/alfresco-build-tools/.github/actions/helm-parse-next-release@v3.2.1
@@ -96,7 +96,7 @@ jobs:
       VERSION: ${{ needs.publish.outputs.version }}
       DEVELOPMENT_BRANCH: ${{ github.ref_name }}
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - run: echo ACTIVITI_CLOUD_APPLICATION_VERSION=`yq .runtime-bundle.image.tag charts/activiti-cloud-full-example/values.yaml` >> $GITHUB_ENV
       - uses: Alfresco/alfresco-build-tools/.github/actions/jx-updatebot-pr@v3.2.1
         env:
