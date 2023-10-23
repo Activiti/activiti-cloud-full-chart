@@ -368,7 +368,7 @@ activiti-cloud-identity-adapter:
     name: identity-adapter
   image:
     repository: activiti/activiti-cloud-identity-adapter
-    tag: 8.1.0-alpha.3
+    tag: 8.1.0-alpha.4
     pullPolicy: Always
   liquibase:
     enabled: false
@@ -405,7 +405,7 @@ activiti-cloud-modeling:
     name: modeling
   image:
     repository: activiti/activiti-cloud-modeling
-    tag: 8.1.0-alpha.3
+    tag: 8.1.0-alpha.4
     pullPolicy: Always
   liquibase:
     enabled: true
@@ -471,7 +471,7 @@ runtime-bundle:
     xms: 512m
   image:
     repository: activiti/example-runtime-bundle
-    tag: 8.1.0-alpha.3
+    tag: 8.1.0-alpha.4
     pullPolicy: Always
   ingress:
     path: /rb
@@ -512,7 +512,7 @@ activiti-cloud-query:
     xms: 512m
   image:
     repository: activiti/activiti-cloud-query
-    tag: 8.1.0-alpha.3
+    tag: 8.1.0-alpha.4
     pullPolicy: Always
   liquibase:
     enabled: true
@@ -571,7 +571,7 @@ activiti-cloud-connector:
     name: example-cloud-connector
   image:
     repository: activiti/example-cloud-connector
-    tag: 8.1.0-alpha.3
+    tag: 8.1.0-alpha.4
     pullPolicy: Always
   messaging:
     enabled: true
