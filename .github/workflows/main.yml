@@ -15,7 +15,6 @@ on:
   workflow_dispatch:
 
 env:
-  TEST_CLUSTER_NAME: activiti
   CHART_DIR: "charts/activiti-cloud-full-example"
 
 jobs:
@@ -52,15 +51,30 @@ jobs:
       - uses: Alfresco/alfresco-build-tools/.github/actions/resolve-preview-name@v3.2.1
         id: resolve-preview
 
-      - name: Execute helm dry run
-        uses: Alfresco/alfresco-build-tools/.github/actions/helm-integration-tests@v3.2.1
-        with:
-          chart-dir: ${{ env.CHART_DIR }}
-          test-rancher-url: ${{ secrets.RANCHER2_URL }}
-          test-rancher-access-key: ${{ secrets.RANCHER2_ACCESS_KEY }}
-          test-rancher-secret-key: ${{ secrets.RANCHER2_SECRET_KEY }}
-          test-cluster-name: ${{ env.TEST_CLUSTER_NAME }}
-          test-namespace: ${{ steps.resolve-preview.outputs.preview-name }}
+      - name: Setup Cluster
+        uses: Alfresco/alfresco-build-tools/.github/actions/setup-kind@v3.8.0
+
+      - name: Compute Keycloak Client Secret
+        id: compute-keycloak-secret
+        shell: bash
+        run: echo "result=$(uuidgen)" >> $GITHUB_OUTPUT
+
+      - name: Execute helm upgrade dry-run
+        env:
+          CHART_DIR: ${{ env.CHART_DIR }}
+          NAMESPACE: ${{ steps.resolve-preview.outputs.preview-name }}
+          DOMAIN: "example"
+          KEYCLOAK_SECRET: ${{ steps.compute-keycloak-secret.outputs.result }}
+        shell: bash
+        run: |
+          NAMESPACE_LOWERCASE=$(echo ${NAMESPACE} | tr "[:upper:]" "[:lower:]")
+          helm upgrade $NAMESPACE_LOWERCASE $CHART_DIR \
+            --install \
+            --set global.gateway.domain=$DOMAIN \
+            --set global.keycloak.clientSecret=$KEYCLOAK_SECRET \
+            --namespace $NAMESPACE_LOWERCASE \
+            --wait \
+            --dry-run
 
   parse-next-release:
     runs-on: ubuntu-latest
