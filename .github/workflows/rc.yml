@@ -20,17 +20,17 @@ jobs:
     env:
       VERSION: ${{ github.ref_name }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
 
       - id: helm-package-chart
         name: Package Helm chart
-        uses: Alfresco/alfresco-build-tools/.github/actions/helm-package-chart@v3.2.1
+        uses: Alfresco/alfresco-build-tools/.github/actions/helm-package-chart@3741d4445541db169728841ebedb8725b51f0b45 # v3.2.1
         with:
           chart-dir: ${{ env.CHART_DIR }}
 
       - id: helm-publish-chart
         name: Publish Helm chart
-        uses: Alfresco/alfresco-build-tools/.github/actions/helm-publish-chart@v3.2.1
+        uses: Alfresco/alfresco-build-tools/.github/actions/helm-publish-chart@3741d4445541db169728841ebedb8725b51f0b45 # v3.2.1
         with:
           chart-package: ${{ steps.helm-package-chart.outputs.package-file-path }}
           helm-charts-repo: ${{ env.HELM_REPO }}
@@ -40,7 +40,7 @@ jobs:
           token: ${{ secrets.BOT_GITHUB_TOKEN }}
           git-username: ${{ secrets.BOT_GITHUB_USERNAME }}
 
-      - uses: Activiti/activiti-scripts/.github/actions/wait-for-chart@develop
+      - uses: Activiti/activiti-scripts/.github/actions/wait-for-chart@000995bdf3eae49f78ff39c462226208039ef1a8 # 8.1.0
         with:
           chart-name: ${{ env.CHART_NAME }}
           version: ${{ env.VERSION }}
@@ -54,7 +54,7 @@ jobs:
     if: always() && failure() && github.event_name == 'push'
     steps:
       - name: Slack Notification
-        uses: Alfresco/alfresco-build-tools/.github/actions/send-slack-notification@v3.2.1
+        uses: Alfresco/alfresco-build-tools/.github/actions/send-slack-notification@3741d4445541db169728841ebedb8725b51f0b45 # v3.2.1
         with:
           channel-id: 'eng-hxp-studio-releases-gh-notifs'
           token: ${{ secrets.SLACK_NOTIFICATION_BOT_TOKEN }}
