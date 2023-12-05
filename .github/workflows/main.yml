@@ -26,15 +26,15 @@ jobs:
       - name: Check dependabot build
         uses: Activiti/Activiti/.github/actions/check-ext-build@4db084fcbb13a288f3b66ac08fc50a5ab7f144ed # 8.0.0-alpha.10
       - name: Setup Helm Docs
-        uses: Alfresco/alfresco-build-tools/.github/actions/setup-helm-docs@042fc28b3e308e1d1159dfee61bc46c5940ed7b6 # v5.4.0
+        uses: Alfresco/alfresco-build-tools/.github/actions/setup-helm-docs@778c13e63bcf793b02aaa7dd8f30de26de82f299 # v5.5.0
       - name: Setup kubepug
-        uses: Alfresco/alfresco-build-tools/.github/actions/setup-kubepug@042fc28b3e308e1d1159dfee61bc46c5940ed7b6 # v5.4.0
+        uses: Alfresco/alfresco-build-tools/.github/actions/setup-kubepug@778c13e63bcf793b02aaa7dd8f30de26de82f299 # v5.5.0
       - name: Run Checkov
         uses: bridgecrewio/checkov-action@e1bb78184f5dd3690fb1089d6c4f51295f9dff48 # v12.1839.0
         with:
           framework: kubernetes
       - name: pre-commit
-        uses: Alfresco/alfresco-build-tools/.github/actions/pre-commit@042fc28b3e308e1d1159dfee61bc46c5940ed7b6 # v5.4.0
+        uses: Alfresco/alfresco-build-tools/.github/actions/pre-commit@778c13e63bcf793b02aaa7dd8f30de26de82f299 # v5.5.0
         with:
           skip_checkout: true
       - name: Ensure SHA pinned actions
@@ -47,15 +47,15 @@ jobs:
       - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
 
       - name: Build
-        uses: Alfresco/alfresco-build-tools/.github/actions/helm-build-chart@042fc28b3e308e1d1159dfee61bc46c5940ed7b6 # v5.4.0
+        uses: Alfresco/alfresco-build-tools/.github/actions/helm-build-chart@778c13e63bcf793b02aaa7dd8f30de26de82f299 # v5.5.0
         with:
           chart-dir: ${{ env.CHART_DIR }}
 
-      - uses: Alfresco/alfresco-build-tools/.github/actions/resolve-preview-name@042fc28b3e308e1d1159dfee61bc46c5940ed7b6 # v5.4.0
+      - uses: Alfresco/alfresco-build-tools/.github/actions/resolve-preview-name@778c13e63bcf793b02aaa7dd8f30de26de82f299 # v5.5.0
         id: resolve-preview
 
       - name: Setup Cluster
-        uses: Alfresco/alfresco-build-tools/.github/actions/setup-kind@042fc28b3e308e1d1159dfee61bc46c5940ed7b6 # v5.4.0
+        uses: Alfresco/alfresco-build-tools/.github/actions/setup-kind@778c13e63bcf793b02aaa7dd8f30de26de82f299 # v5.5.0
 
       - name: Compute Keycloak Client Secret
         id: compute-keycloak-secret
@@ -89,14 +89,14 @@ jobs:
       - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
       - name: Parse next release
         id: parse-next-release
-        uses: Alfresco/alfresco-build-tools/.github/actions/helm-parse-next-release@042fc28b3e308e1d1159dfee61bc46c5940ed7b6 # v5.4.0
+        uses: Alfresco/alfresco-build-tools/.github/actions/helm-parse-next-release@778c13e63bcf793b02aaa7dd8f30de26de82f299 # v5.5.0
         with:
           chart-dir: ${{ env.CHART_DIR }}
 
   publish:
     needs: parse-next-release
     if: github.event_name == 'push'
-    uses: Alfresco/alfresco-build-tools/.github/workflows/helm-publish-new-package-version.yml@042fc28b3e308e1d1159dfee61bc46c5940ed7b6 # v5.4.0
+    uses: Alfresco/alfresco-build-tools/.github/workflows/helm-publish-new-package-version.yml@778c13e63bcf793b02aaa7dd8f30de26de82f299 # v5.5.0
     with:
       next-version: ${{ needs.parse-next-release.outputs.next-release }}
       chart-dir: charts/activiti-cloud-full-example
@@ -115,7 +115,7 @@ jobs:
     steps:
       - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
       - run: echo ACTIVITI_CLOUD_APPLICATION_VERSION=`yq .runtime-bundle.image.tag charts/activiti-cloud-full-example/values.yaml` >> $GITHUB_ENV
-      - uses: Alfresco/alfresco-build-tools/.github/actions/jx-updatebot-pr@042fc28b3e308e1d1159dfee61bc46c5940ed7b6 # v5.4.0
+      - uses: Alfresco/alfresco-build-tools/.github/actions/jx-updatebot-pr@778c13e63bcf793b02aaa7dd8f30de26de82f299 # v5.5.0
         env:
           GH_TOKEN: ${{ secrets.BOT_GITHUB_TOKEN }}
         with:
@@ -136,7 +136,7 @@ jobs:
     if: always() && failure() && github.event_name == 'push'
     steps:
       - name: Slack Notification
-        uses: Alfresco/alfresco-build-tools/.github/actions/send-slack-notification@042fc28b3e308e1d1159dfee61bc46c5940ed7b6 # v5.4.0
+        uses: Alfresco/alfresco-build-tools/.github/actions/send-slack-notification@778c13e63bcf793b02aaa7dd8f30de26de82f299 # v5.5.0
         with:
           channel-id: 'eng-hxp-studio-activiti-gh-notifs'
           token: ${{ secrets.SLACK_NOTIFICATION_BOT_TOKEN }}
