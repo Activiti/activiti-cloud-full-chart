@@ -54,17 +54,6 @@
             ]
           }
         }
-      },
-      {
-        "name": "ACTIVITI_MODELER",
-        "composites": {
-          "client": {
-            "realm-management": [
-              "view-users",
-              "view-clients"
-            ]
-          }
-        }
       }
     ],
     "client": {
