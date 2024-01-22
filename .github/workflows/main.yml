@@ -1,24 +1,20 @@
 name: CI
-
 on:
   push:
     branches:
-      - develop
+      - 8.2.x
   pull_request:
     branches:
-      - develop
+      - 8.2.x
     types:
       - opened
       - reopened
       - synchronize
       - labeled
   workflow_dispatch:
-
 env:
   CHART_DIR: "charts/activiti-cloud-full-example"
-
 jobs:
-
   pre-checks:
     runs-on: ubuntu-latest
     steps:
@@ -39,29 +35,23 @@ jobs:
           skip_checkout: true
       - name: Ensure SHA pinned actions
         uses: zgosalvez/github-actions-ensure-sha-pinned-actions@b1b635d24259e8a047a6ce7d6501ea432aa7a830 # v3.0.2
-
   build:
     runs-on: ubuntu-latest
     needs: pre-checks
     steps:
       - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
-
       - name: Build
         uses: Alfresco/alfresco-build-tools/.github/actions/helm-build-chart@f2259c2bb5ff4a5579d1a425cb130175a6459665 # v5.10.0
         with:
           chart-dir: ${{ env.CHART_DIR }}
-
       - uses: Alfresco/alfresco-build-tools/.github/actions/resolve-preview-name@f2259c2bb5ff4a5579d1a425cb130175a6459665 # v5.10.0
         id: resolve-preview
-
       - name: Setup Cluster
         uses: Alfresco/alfresco-build-tools/.github/actions/setup-kind@f2259c2bb5ff4a5579d1a425cb130175a6459665 # v5.10.0
-
       - name: Compute Keycloak Client Secret
         id: compute-keycloak-secret
         shell: bash
         run: echo "result=$(uuidgen)" >> $GITHUB_OUTPUT
-
       - name: Execute helm upgrade dry-run
         env:
           CHART_DIR: ${{ env.CHART_DIR }}
@@ -78,7 +68,6 @@ jobs:
             --namespace $NAMESPACE_LOWERCASE \
             --wait \
             --dry-run
-
   parse-next-release:
     runs-on: ubuntu-latest
     needs: build
@@ -92,7 +81,6 @@ jobs:
         uses: Alfresco/alfresco-build-tools/.github/actions/helm-parse-next-release@f2259c2bb5ff4a5579d1a425cb130175a6459665 # v5.10.0
         with:
           chart-dir: ${{ env.CHART_DIR }}
-
   publish:
     needs: parse-next-release
     if: github.event_name == 'push'
@@ -103,7 +91,6 @@ jobs:
       helm-charts-repo: Activiti/activiti-cloud-helm-charts
       helm-charts-repo-branch: gh-pages
     secrets: inherit
-
   promote:
     if: github.event_name == 'push'
     needs:
@@ -126,7 +113,6 @@ jobs:
           git-username: ${{ secrets.BOT_GITHUB_USERNAME }}
           git-token: ${{ secrets.BOT_GITHUB_TOKEN }}
           git-author-name: ${{ secrets.BOT_GITHUB_USERNAME }}
-
   notify:
     runs-on: ubuntu-latest
     needs:
