@@ -121,7 +121,7 @@ jobs:
         with:
           version: ${{ env.VERSION }}
           auto-merge: 'true'
-          labels: ${{ env.DEVELOPMENT_BRANCH }}
+          labels: 'be-propagation,${{ env.DEVELOPMENT_BRANCH }}'
           base-branch-name: ${{ env.DEVELOPMENT_BRANCH }}
           git-username: ${{ secrets.BOT_GITHUB_USERNAME }}
           git-token: ${{ secrets.BOT_GITHUB_TOKEN }}
