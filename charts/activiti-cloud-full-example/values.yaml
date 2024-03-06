@@ -201,7 +201,6 @@ activiti-cloud-identity:
         realmRoles:
           - ACTIVITI_USER
           - ACTIVITI_ADMIN
-          - ACTIVITI_MODELER
           - offline_access
           - uma_authorization
         clientRoles:
@@ -329,38 +328,6 @@ activiti-cloud-identity:
             - view-profile
         groups:
           - /testgroup
-      - username: modeler
-        enabled: true
-        firstName: Modeler
-        lastName: User
-        email: modeler@example.com
-        credentials:
-          - type: password
-            value: password
-        realmRoles:
-          - offline_access
-          - uma_authorization
-          - ACTIVITI_MODELER
-        clientRoles:
-          account:
-            - manage-account
-            - view-profile
-      - username: modeler-qa
-        enabled: true
-        firstName: Modeler
-        lastName: User
-        email: modeler-qa@example.com
-        credentials:
-          - type: password
-            value: password
-        realmRoles:
-          - offline_access
-          - uma_authorization
-          - ACTIVITI_MODELER
-        clientRoles:
-          account:
-            - manage-account
-            - view-profile
 activiti-cloud-identity-adapter:
   enabled: true
   nameOverride: activiti-cloud-identity-adapter
@@ -380,43 +347,6 @@ activiti-cloud-identity-adapter:
       nginx.ingress.kubernetes.io/cors-allow-headers: Authorization, Content-Type, Accept
   postgresql:
     enabled: false
-  readinessProbe:
-    path: '{{ tpl .Values.ingress.path . | trimSuffix "/" }}/actuator/health/readiness'
-  livenessProbe:
-    path: '{{ tpl .Values.ingress.path . | trimSuffix "/" }}/actuator/health/liveness'
-  resources:
-    requests:
-      cpu: 400m
-      memory: 512Mi
-    limits:
-      cpu: "1"
-      memory: 1024Mi
-  extraEnv: |-
-    - name: SERVER_SERVLET_CONTEXTPATH
-      value: "{{ tpl .Values.ingress.path . }}"
-    - name: SERVER_USEFORWARDHEADERS
-      value: "true"
-    - name: SERVER_TOMCAT_INTERNALPROXIES
-      value: ".*"
-activiti-cloud-modeling:
-  enabled: true
-  nameOverride: activiti-cloud-modeling
-  service:
-    name: modeling
-  image:
-    repository: activiti/activiti-cloud-modeling
-    tag: 8.3.0-alpha.21
-    pullPolicy: Always
-  liquibase:
-    enabled: true
-  ingress:
-    path: /modeling-service
-    annotations:
-      kubernetes.io/ingress.class: nginx
-      nginx.ingress.kubernetes.io/enable-cors: "true"
-      nginx.ingress.kubernetes.io/cors-allow-headers: Authorization, Content-Type, Accept
-  postgresql:
-    enabled: true
   readinessProbe:
     path: '{{ tpl .Values.ingress.path . | trimSuffix "/" }}/actuator/health/readiness'
   livenessProbe:

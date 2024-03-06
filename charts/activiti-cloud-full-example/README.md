@@ -14,11 +14,10 @@ Kubernetes: `>=1.15.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://activiti.github.io/activiti-cloud-helm-charts | runtime-bundle(common) | 8.2.0-alpha.4 |
 | https://activiti.github.io/activiti-cloud-helm-charts | activiti-cloud-query(common) | 8.2.0-alpha.4 |
 | https://activiti.github.io/activiti-cloud-helm-charts | activiti-cloud-connector(common) | 8.2.0-alpha.4 |
-| https://activiti.github.io/activiti-cloud-helm-charts | activiti-cloud-modeling(common) | 8.2.0-alpha.4 |
 | https://activiti.github.io/activiti-cloud-helm-charts | activiti-cloud-identity-adapter(common) | 8.2.0-alpha.4 |
+| https://activiti.github.io/activiti-cloud-helm-charts | runtime-bundle(common) | 8.2.0-alpha.4 |
 | https://codecentric.github.io/helm-charts | activiti-cloud-identity(keycloak) | 11.0.1 |
 | https://raw.githubusercontent.com/bitnami/charts/archive-full-index/bitnami/ | kafka | 12.x.x |
 | https://raw.githubusercontent.com/bitnami/charts/archive-full-index/bitnami/ | postgresql | 9.1.1 |
@@ -146,9 +145,8 @@ Kubernetes: `>=1.15.0-0`
 | activiti-cloud-identity.realm.extraUsers[1].lastName | string | `"User"` |  |
 | activiti-cloud-identity.realm.extraUsers[1].realmRoles[0] | string | `"ACTIVITI_USER"` |  |
 | activiti-cloud-identity.realm.extraUsers[1].realmRoles[1] | string | `"ACTIVITI_ADMIN"` |  |
-| activiti-cloud-identity.realm.extraUsers[1].realmRoles[2] | string | `"ACTIVITI_MODELER"` |  |
-| activiti-cloud-identity.realm.extraUsers[1].realmRoles[3] | string | `"offline_access"` |  |
-| activiti-cloud-identity.realm.extraUsers[1].realmRoles[4] | string | `"uma_authorization"` |  |
+| activiti-cloud-identity.realm.extraUsers[1].realmRoles[2] | string | `"offline_access"` |  |
+| activiti-cloud-identity.realm.extraUsers[1].realmRoles[3] | string | `"uma_authorization"` |  |
 | activiti-cloud-identity.realm.extraUsers[1].username | string | `"superadminuser"` |  |
 | activiti-cloud-identity.realm.extraUsers[2].clientRoles.account[0] | string | `"manage-account"` |  |
 | activiti-cloud-identity.realm.extraUsers[2].clientRoles.account[1] | string | `"view-profile"` |  |
@@ -230,53 +228,10 @@ Kubernetes: `>=1.15.0-0`
 | activiti-cloud-identity.realm.extraUsers[7].realmRoles[2] | string | `"ACTIVITI_USER"` |  |
 | activiti-cloud-identity.realm.extraUsers[7].realmRoles[3] | string | `"ACTIVITI_ADMIN"` |  |
 | activiti-cloud-identity.realm.extraUsers[7].username | string | `"testadmin"` |  |
-| activiti-cloud-identity.realm.extraUsers[8].clientRoles.account[0] | string | `"manage-account"` |  |
-| activiti-cloud-identity.realm.extraUsers[8].clientRoles.account[1] | string | `"view-profile"` |  |
-| activiti-cloud-identity.realm.extraUsers[8].credentials[0].type | string | `"password"` |  |
-| activiti-cloud-identity.realm.extraUsers[8].credentials[0].value | string | `"password"` |  |
-| activiti-cloud-identity.realm.extraUsers[8].email | string | `"modeler@example.com"` |  |
-| activiti-cloud-identity.realm.extraUsers[8].enabled | bool | `true` |  |
-| activiti-cloud-identity.realm.extraUsers[8].firstName | string | `"Modeler"` |  |
-| activiti-cloud-identity.realm.extraUsers[8].lastName | string | `"User"` |  |
-| activiti-cloud-identity.realm.extraUsers[8].realmRoles[0] | string | `"offline_access"` |  |
-| activiti-cloud-identity.realm.extraUsers[8].realmRoles[1] | string | `"uma_authorization"` |  |
-| activiti-cloud-identity.realm.extraUsers[8].realmRoles[2] | string | `"ACTIVITI_MODELER"` |  |
-| activiti-cloud-identity.realm.extraUsers[8].username | string | `"modeler"` |  |
-| activiti-cloud-identity.realm.extraUsers[9].clientRoles.account[0] | string | `"manage-account"` |  |
-| activiti-cloud-identity.realm.extraUsers[9].clientRoles.account[1] | string | `"view-profile"` |  |
-| activiti-cloud-identity.realm.extraUsers[9].credentials[0].type | string | `"password"` |  |
-| activiti-cloud-identity.realm.extraUsers[9].credentials[0].value | string | `"password"` |  |
-| activiti-cloud-identity.realm.extraUsers[9].email | string | `"modeler-qa@example.com"` |  |
-| activiti-cloud-identity.realm.extraUsers[9].enabled | bool | `true` |  |
-| activiti-cloud-identity.realm.extraUsers[9].firstName | string | `"Modeler"` |  |
-| activiti-cloud-identity.realm.extraUsers[9].lastName | string | `"User"` |  |
-| activiti-cloud-identity.realm.extraUsers[9].realmRoles[0] | string | `"offline_access"` |  |
-| activiti-cloud-identity.realm.extraUsers[9].realmRoles[1] | string | `"uma_authorization"` |  |
-| activiti-cloud-identity.realm.extraUsers[9].realmRoles[2] | string | `"ACTIVITI_MODELER"` |  |
-| activiti-cloud-identity.realm.extraUsers[9].username | string | `"modeler-qa"` |  |
 | activiti-cloud-identity.resources.limits.memory | string | `"1024Mi"` |  |
 | activiti-cloud-identity.resources.requests.memory | string | `"750Mi"` |  |
 | activiti-cloud-identity.serviceAccount.create | bool | `false` |  |
 | activiti-cloud-identity.username | string | `"admin"` |  |
-| activiti-cloud-modeling.enabled | bool | `true` |  |
-| activiti-cloud-modeling.extraEnv | string | `"- name: SERVER_SERVLET_CONTEXTPATH\n  value: \"{{ tpl .Values.ingress.path . }}\"\n- name: SERVER_USEFORWARDHEADERS\n  value: \"true\"\n- name: SERVER_TOMCAT_INTERNALPROXIES\n  value: \".*\""` |  |
-| activiti-cloud-modeling.image.pullPolicy | string | `"Always"` |  |
-| activiti-cloud-modeling.image.repository | string | `"activiti/activiti-cloud-modeling"` |  |
-| activiti-cloud-modeling.image.tag | string | `"8.3.0-alpha.21"` |  |
-| activiti-cloud-modeling.ingress.annotations."kubernetes.io/ingress.class" | string | `"nginx"` |  |
-| activiti-cloud-modeling.ingress.annotations."nginx.ingress.kubernetes.io/cors-allow-headers" | string | `"Authorization, Content-Type, Accept"` |  |
-| activiti-cloud-modeling.ingress.annotations."nginx.ingress.kubernetes.io/enable-cors" | string | `"true"` |  |
-| activiti-cloud-modeling.ingress.path | string | `"/modeling-service"` |  |
-| activiti-cloud-modeling.liquibase.enabled | bool | `true` |  |
-| activiti-cloud-modeling.livenessProbe.path | string | `"{{ tpl .Values.ingress.path . | trimSuffix \"/\" }}/actuator/health/liveness"` |  |
-| activiti-cloud-modeling.nameOverride | string | `"activiti-cloud-modeling"` |  |
-| activiti-cloud-modeling.postgresql.enabled | bool | `true` |  |
-| activiti-cloud-modeling.readinessProbe.path | string | `"{{ tpl .Values.ingress.path . | trimSuffix \"/\" }}/actuator/health/readiness"` |  |
-| activiti-cloud-modeling.resources.limits.cpu | string | `"1"` |  |
-| activiti-cloud-modeling.resources.limits.memory | string | `"1024Mi"` |  |
-| activiti-cloud-modeling.resources.requests.cpu | string | `"400m"` |  |
-| activiti-cloud-modeling.resources.requests.memory | string | `"512Mi"` |  |
-| activiti-cloud-modeling.service.name | string | `"modeling"` |  |
 | activiti-cloud-query.db.ddlAuto | string | `"none"` | set to 'none' temporarily rather than default 'validate' that breaks |
 | activiti-cloud-query.enabled | bool | `true` |  |
 | activiti-cloud-query.extraEnv | string | `"- name: GRAPHIQL_GRAPHQL_WEB_PATH\n  value: '{{ tpl .Values.ingress.path . | trimSuffix \"/\" }}/notifications/graphql'\n- name: GRAPHIQL_GRAPHQL_WS_PATH\n  value: '{{ tpl .Values.ingress.path . | trimSuffix \"/\" }}/notifications/ws/graphql'\n- name: SERVER_SERVLET_CONTEXTPATH\n  value: \"{{ tpl .Values.ingress.path . }}\"\n- name: SERVER_USEFORWARDHEADERS\n  value: \"true\"\n- name: SERVER_TOMCAT_INTERNALPROXIES\n  value: \".*\"\n- name: ACTIVITI_CLOUD_SWAGGER_QUERYBASEPATH\n  value: \"/query\"\n- name: ACTIVITI_CLOUD_SWAGGER_AUDITBASEPATH\n  value: \"/audit\""` |  |
