@@ -22,7 +22,7 @@ jobs:
   pre-checks:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@9bb56186c3b09b4f86b1c65136769dd318469633 # v4.1.2
+      - uses: actions/checkout@1d96c772d19495a3b5c517cd2bc0cb401ea0529f # v4.1.3
       - name: Check dependabot build
         uses: Activiti/Activiti/.github/actions/check-ext-build@4db084fcbb13a288f3b66ac08fc50a5ab7f144ed # 8.0.0-alpha.10
       - name: Setup Helm Docs
@@ -44,7 +44,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: pre-checks
     steps:
-      - uses: actions/checkout@9bb56186c3b09b4f86b1c65136769dd318469633 # v4.1.2
+      - uses: actions/checkout@1d96c772d19495a3b5c517cd2bc0cb401ea0529f # v4.1.3
 
       - name: Build
         uses: Alfresco/alfresco-build-tools/.github/actions/helm-build-chart@dc4c1f4e94307af7a916d0ca8c5e2592521d9470 # v5.22.3
@@ -86,7 +86,7 @@ jobs:
     outputs:
       next-release: ${{ steps.parse-next-release.outputs.next-release }}
     steps:
-      - uses: actions/checkout@9bb56186c3b09b4f86b1c65136769dd318469633 # v4.1.2
+      - uses: actions/checkout@1d96c772d19495a3b5c517cd2bc0cb401ea0529f # v4.1.3
       - name: Parse next release
         id: parse-next-release
         uses: Alfresco/alfresco-build-tools/.github/actions/helm-parse-next-release@dc4c1f4e94307af7a916d0ca8c5e2592521d9470 # v5.22.3
@@ -113,7 +113,7 @@ jobs:
       VERSION: ${{ needs.publish.outputs.version }}
       DEVELOPMENT_BRANCH: ${{ github.ref_name }}
     steps:
-      - uses: actions/checkout@9bb56186c3b09b4f86b1c65136769dd318469633 # v4.1.2
+      - uses: actions/checkout@1d96c772d19495a3b5c517cd2bc0cb401ea0529f # v4.1.3
       - run: echo ACTIVITI_CLOUD_APPLICATION_VERSION=`yq .runtime-bundle.image.tag charts/activiti-cloud-full-example/values.yaml` >> $GITHUB_ENV
       - uses: Alfresco/alfresco-build-tools/.github/actions/jx-updatebot-pr@dc4c1f4e94307af7a916d0ca8c5e2592521d9470 # v5.22.3
         env:
