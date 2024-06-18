@@ -24,7 +24,7 @@ jobs:
     steps:
       - uses: actions/checkout@9bb56186c3b09b4f86b1c65136769dd318469633 # v4.1.2
       - name: Check dependabot build
-        uses: Activiti/Activiti/.github/actions/check-ext-build@d50dea0ec2f4b06b26a8018e5b9083fbced01ed5 # 8.0.0-alpha.10
+        uses: Activiti/Activiti/.github/actions/check-ext-build@d50dea0ec2f4b06b26a8018e5b9083fbced01ed5 # 8.5.0
       - name: Setup Helm Docs
         uses: Alfresco/alfresco-build-tools/.github/actions/setup-helm-docs@dc4c1f4e94307af7a916d0ca8c5e2592521d9470 # v5.22.3
       - name: Setup kubepug
