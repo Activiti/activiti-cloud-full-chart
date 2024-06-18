@@ -27,8 +27,8 @@ jobs:
         uses: Activiti/Activiti/.github/actions/check-ext-build@d50dea0ec2f4b06b26a8018e5b9083fbced01ed5 # 8.5.0
       - name: Setup Helm Docs
         uses: Alfresco/alfresco-build-tools/.github/actions/setup-helm-docs@692f336894abea26ff555cdef6e098f415c47286 # v5.28.3
-      - name: Setup kubepug
-        uses: Alfresco/alfresco-build-tools/.github/actions/setup-kubepug@692f336894abea26ff555cdef6e098f415c47286 # v5.28.3
+        with:
+          version: 1.13.1
       - name: Run Checkov
         uses: bridgecrewio/checkov-action@e1bb78184f5dd3690fb1089d6c4f51295f9dff48 # v12.1839.0
         with:
