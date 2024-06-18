@@ -1,17 +1,15 @@
 repos:
   - repo: https://github.com/norwoodj/helm-docs
-    rev: v1.11.1
+    rev: v1.13.1
     hooks:
       - id: helm-docs
   - repo: https://github.com/Alfresco/alfresco-build-tools
-    rev: v3.0.2
+    rev: v5.28.3
     hooks:
       - id: helm-deps
       - id: helm-lint
-      - id: kubepug-minimum
-      - id: kubepug-recommended
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.4.0
+    rev: v4.6.0
     hooks:
       - id: check-merge-conflict
       - id: fix-byte-order-marker
@@ -23,14 +21,14 @@ repos:
         args: [--allow-multiple-documents]
         exclude: charts/.*/templates
   - repo: https://github.com/pre-commit/mirrors-prettier
-    rev: v3.0.1
+    rev: v4.0.0-alpha.8
     hooks:
       - id: prettier
         types_or:
           - markdown
         exclude: charts/.*/README.md
   - repo: https://github.com/sirosen/check-jsonschema
-    rev: 0.23.3
+    rev: 0.28.5
     hooks:
       - id: check-dependabot
       - id: check-github-actions

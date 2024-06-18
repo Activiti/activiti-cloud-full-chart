@@ -22,13 +22,13 @@ jobs:
   pre-checks:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@9bb56186c3b09b4f86b1c65136769dd318469633 # v4.1.2
+      - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
       - name: Check dependabot build
         uses: Activiti/Activiti/.github/actions/check-ext-build@d50dea0ec2f4b06b26a8018e5b9083fbced01ed5 # 8.5.0
       - name: Setup Helm Docs
         uses: Alfresco/alfresco-build-tools/.github/actions/setup-helm-docs@692f336894abea26ff555cdef6e098f415c47286 # v5.28.3
-      - name: Setup kubepug
-        uses: Alfresco/alfresco-build-tools/.github/actions/setup-kubepug@692f336894abea26ff555cdef6e098f415c47286 # v5.28.3
+        with:
+          version: 1.13.1
       - name: Run Checkov
         uses: bridgecrewio/checkov-action@e1bb78184f5dd3690fb1089d6c4f51295f9dff48 # v12.1839.0
         with:
@@ -44,7 +44,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: pre-checks
     steps:
-      - uses: actions/checkout@9bb56186c3b09b4f86b1c65136769dd318469633 # v4.1.2
+      - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
 
       - name: Build
         uses: Alfresco/alfresco-build-tools/.github/actions/helm-build-chart@692f336894abea26ff555cdef6e098f415c47286 # v5.28.3
@@ -86,7 +86,7 @@ jobs:
     outputs:
       next-release: ${{ steps.parse-next-release.outputs.next-release }}
     steps:
-      - uses: actions/checkout@9bb56186c3b09b4f86b1c65136769dd318469633 # v4.1.2
+      - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
       - name: Parse next release
         id: parse-next-release
         uses: Alfresco/alfresco-build-tools/.github/actions/helm-parse-next-release@692f336894abea26ff555cdef6e098f415c47286 # v5.28.3
@@ -113,7 +113,7 @@ jobs:
       VERSION: ${{ needs.publish.outputs.version }}
       DEVELOPMENT_BRANCH: ${{ github.ref_name }}
     steps:
-      - uses: actions/checkout@9bb56186c3b09b4f86b1c65136769dd318469633 # v4.1.2
+      - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
       - run: echo ACTIVITI_CLOUD_APPLICATION_VERSION=`yq .runtime-bundle.image.tag charts/activiti-cloud-full-example/values.yaml` >> $GITHUB_ENV
       - uses: Alfresco/alfresco-build-tools/.github/actions/jx-updatebot-pr@692f336894abea26ff555cdef6e098f415c47286 # v5.28.3
         env:

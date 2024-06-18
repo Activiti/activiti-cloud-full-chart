@@ -31,3 +31,5 @@ hs_err_pid*
 requirements.lock
 **/charts/*.tgz
 /*.tgz
+
+node_modules/
