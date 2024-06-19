@@ -26,7 +26,7 @@ jobs:
       - name: Check dependabot build
         uses: Activiti/Activiti/.github/actions/check-ext-build@d50dea0ec2f4b06b26a8018e5b9083fbced01ed5 # 8.5.0
       - name: Setup Helm Docs
-        uses: Alfresco/alfresco-build-tools/.github/actions/setup-helm-docs@692f336894abea26ff555cdef6e098f415c47286 # v5.28.3
+        uses: Alfresco/alfresco-build-tools/.github/actions/setup-helm-docs@482f25ec9cb6ac522d5c03b21b6f8987d3cdb4f0 # v5.29.2
         with:
           version: 1.13.1
       - name: Run Checkov
@@ -34,7 +34,7 @@ jobs:
         with:
           framework: kubernetes
       - name: pre-commit
-        uses: Alfresco/alfresco-build-tools/.github/actions/pre-commit@692f336894abea26ff555cdef6e098f415c47286 # v5.28.3
+        uses: Alfresco/alfresco-build-tools/.github/actions/pre-commit@482f25ec9cb6ac522d5c03b21b6f8987d3cdb4f0 # v5.29.2
         with:
           skip_checkout: true
       - name: Ensure SHA pinned actions
@@ -47,15 +47,15 @@ jobs:
       - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
 
       - name: Build
-        uses: Alfresco/alfresco-build-tools/.github/actions/helm-build-chart@692f336894abea26ff555cdef6e098f415c47286 # v5.28.3
+        uses: Alfresco/alfresco-build-tools/.github/actions/helm-build-chart@482f25ec9cb6ac522d5c03b21b6f8987d3cdb4f0 # v5.29.2
         with:
           chart-dir: ${{ env.CHART_DIR }}
 
-      - uses: Alfresco/alfresco-build-tools/.github/actions/resolve-preview-name@692f336894abea26ff555cdef6e098f415c47286 # v5.28.3
+      - uses: Alfresco/alfresco-build-tools/.github/actions/resolve-preview-name@482f25ec9cb6ac522d5c03b21b6f8987d3cdb4f0 # v5.29.2
         id: resolve-preview
 
       - name: Setup Cluster
-        uses: Alfresco/alfresco-build-tools/.github/actions/setup-kind@692f336894abea26ff555cdef6e098f415c47286 # v5.28.3
+        uses: Alfresco/alfresco-build-tools/.github/actions/setup-kind@482f25ec9cb6ac522d5c03b21b6f8987d3cdb4f0 # v5.29.2
 
       - name: Compute Keycloak Client Secret
         id: compute-keycloak-secret
@@ -89,14 +89,14 @@ jobs:
       - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
       - name: Parse next release
         id: parse-next-release
-        uses: Alfresco/alfresco-build-tools/.github/actions/helm-parse-next-release@692f336894abea26ff555cdef6e098f415c47286 # v5.28.3
+        uses: Alfresco/alfresco-build-tools/.github/actions/helm-parse-next-release@482f25ec9cb6ac522d5c03b21b6f8987d3cdb4f0 # v5.29.2
         with:
           chart-dir: ${{ env.CHART_DIR }}
 
   publish:
     needs: parse-next-release
     if: github.event_name == 'push'
-    uses: Alfresco/alfresco-build-tools/.github/workflows/helm-publish-new-package-version.yml@692f336894abea26ff555cdef6e098f415c47286 # v5.28.3
+    uses: Alfresco/alfresco-build-tools/.github/workflows/helm-publish-new-package-version.yml@482f25ec9cb6ac522d5c03b21b6f8987d3cdb4f0 # v5.29.2
     with:
       next-version: ${{ needs.parse-next-release.outputs.next-release }}
       chart-dir: charts/activiti-cloud-full-example
@@ -115,7 +115,7 @@ jobs:
     steps:
       - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
       - run: echo ACTIVITI_CLOUD_APPLICATION_VERSION=`yq .runtime-bundle.image.tag charts/activiti-cloud-full-example/values.yaml` >> $GITHUB_ENV
-      - uses: Alfresco/alfresco-build-tools/.github/actions/jx-updatebot-pr@692f336894abea26ff555cdef6e098f415c47286 # v5.28.3
+      - uses: Alfresco/alfresco-build-tools/.github/actions/jx-updatebot-pr@482f25ec9cb6ac522d5c03b21b6f8987d3cdb4f0 # v5.29.2
         env:
           GH_TOKEN: ${{ secrets.BOT_GITHUB_TOKEN }}
         with:
@@ -136,7 +136,7 @@ jobs:
     if: always() && failure() && github.event_name == 'push'
     steps:
       - name: Slack Notification
-        uses: Alfresco/alfresco-build-tools/.github/actions/send-slack-notification@692f336894abea26ff555cdef6e098f415c47286 # v5.28.3
+        uses: Alfresco/alfresco-build-tools/.github/actions/send-slack-notification@482f25ec9cb6ac522d5c03b21b6f8987d3cdb4f0 # v5.29.2
         with:
           channel-id: 'eng-hxp-studio-activiti-gh-notifs'
           token: ${{ secrets.SLACK_NOTIFICATION_BOT_TOKEN }}
