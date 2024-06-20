@@ -1,6 +1,6 @@
 # activiti-cloud-full-example
 
-![Version: 8.6.0-alpha.16](https://img.shields.io/badge/Version-8.6.0--alpha.16-informational?style=flat-square)
+![Version: 7.18.0-rc.78](https://img.shields.io/badge/Version-7.18.0--rc.78-informational?style=flat-square)
 
 A Helm chart for Activiti Cloud Full Example
 
@@ -14,10 +14,10 @@ Kubernetes: `>=1.15.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://activiti.github.io/activiti-cloud-helm-charts | activiti-cloud-query(common) | 8.6.0-alpha.8 |
-| https://activiti.github.io/activiti-cloud-helm-charts | activiti-cloud-connector(common) | 8.6.0-alpha.8 |
 | https://activiti.github.io/activiti-cloud-helm-charts | activiti-cloud-identity-adapter(common) | 8.6.0-alpha.8 |
 | https://activiti.github.io/activiti-cloud-helm-charts | runtime-bundle(common) | 8.6.0-alpha.8 |
+| https://activiti.github.io/activiti-cloud-helm-charts | activiti-cloud-query(common) | 8.6.0-alpha.8 |
+| https://activiti.github.io/activiti-cloud-helm-charts | activiti-cloud-connector(common) | 8.6.0-alpha.8 |
 | https://codecentric.github.io/helm-charts | activiti-cloud-identity(keycloak) | 11.0.1 |
 | https://raw.githubusercontent.com/bitnami/charts/archive-full-index/bitnami/ | kafka | 12.x.x |
 | https://raw.githubusercontent.com/bitnami/charts/archive-full-index/bitnami/ | postgresql | 9.1.1 |
