@@ -1,0 +1,17 @@
+runtime-bundle:
+  replicas: 2
+  podDisruptionBudget:
+    enabled: true
+    minAvailable: 1
+activiti-cloud-query:
+  liquibase:
+    enabled: false
+  args:
+    - -jar
+    - rest.jar
+  replicas: 2
+  podDisruptionBudget:
+    enabled: true
+    minAvailable: 1
+activiti-cloud-consumer:
+  enabled: true

@@ -494,6 +494,56 @@ activiti-cloud-query:
       value: "/query"
     - name: ACTIVITI_CLOUD_SWAGGER_AUDITBASEPATH
       value: "/audit"
+activiti-cloud-consumer:
+  enabled: false
+  nameOverride: activiti-cloud-consumer
+  service:
+    name: consumer
+  javaOpts:
+    xmx: 2048m
+    xms: 512m
+  image:
+    repository: activiti/activiti-cloud-query
+    tag: 8.7.0-alpha.50
+    pullPolicy: Always
+  args:
+    - -jar
+    - consumer.jar
+  liquibase:
+    enabled: true
+  ingress:
+    path: /
+    annotations:
+      kubernetes.io/ingress.class: nginx
+      nginx.ingress.kubernetes.io/enable-cors: "true"
+      nginx.ingress.kubernetes.io/cors-allow-headers: Authorization, Content-Type, Accept
+  postgresql:
+    enabled: true
+  messaging:
+    enabled: true
+    role: consumer
+  db:
+    # activiti-cloud-query.db.ddlAuto -- set to 'none' temporarily rather than default 'validate' that breaks
+    ddlAuto: none
+  resources:
+    limits:
+      cpu: "1"
+      memory: 2048Mi
+    requests:
+      cpu: 200m
+      memory: 512Mi
+  readinessProbe:
+    path: '{{ tpl .Values.ingress.path . | trimSuffix "/" }}/actuator/health/readiness'
+  livenessProbe:
+    path: '{{ tpl .Values.ingress.path . | trimSuffix "/" }}/actuator/health/liveness'
+  extraEnv: |-
+    - name: SERVER_SERVLET_CONTEXTPATH
+      value: "{{ tpl .Values.ingress.path . }}"
+    - name: SERVER_USEFORWARDHEADERS
+      value: "true"
+    - name: SERVER_TOMCAT_INTERNALPROXIES
+      value: ".*"
+
 activiti-cloud-connector:
   enabled: true
   nameOverride: activiti-cloud-connector
