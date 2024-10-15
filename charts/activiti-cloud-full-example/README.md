@@ -18,6 +18,7 @@ Kubernetes: `>=1.15.0-0`
 | https://activiti.github.io/activiti-cloud-helm-charts | runtime-bundle(common) | 8.7.0-alpha.2 |
 | https://activiti.github.io/activiti-cloud-helm-charts | activiti-cloud-query(common) | 8.7.0-alpha.2 |
 | https://activiti.github.io/activiti-cloud-helm-charts | activiti-cloud-connector(common) | 8.7.0-alpha.2 |
+| https://activiti.github.io/activiti-cloud-helm-charts | activiti-cloud-consumer(common) | 8.7.0-alpha.2 |
 | https://codecentric.github.io/helm-charts | activiti-cloud-identity(keycloak) | 11.0.1 |
 | https://raw.githubusercontent.com/bitnami/charts/archive-full-index/bitnami/ | kafka | 12.x.x |
 | https://raw.githubusercontent.com/bitnami/charts/archive-full-index/bitnami/ | postgresql | 9.1.1 |
@@ -46,6 +47,32 @@ Kubernetes: `>=1.15.0-0`
 | activiti-cloud-connector.resources.requests.cpu | string | `"150m"` |  |
 | activiti-cloud-connector.resources.requests.memory | string | `"256Mi"` |  |
 | activiti-cloud-connector.service.name | string | `"example-cloud-connector"` |  |
+| activiti-cloud-consumer.args[0] | string | `"-jar"` |  |
+| activiti-cloud-consumer.args[1] | string | `"consumer.jar"` |  |
+| activiti-cloud-consumer.db.ddlAuto | string | `"none"` |  |
+| activiti-cloud-consumer.enabled | bool | `false` |  |
+| activiti-cloud-consumer.extraEnv | string | `"- name: SERVER_SERVLET_CONTEXTPATH\n  value: \"{{ tpl .Values.ingress.path . }}\"\n- name: SERVER_USEFORWARDHEADERS\n  value: \"true\"\n- name: SERVER_TOMCAT_INTERNALPROXIES\n  value: \".*\""` |  |
+| activiti-cloud-consumer.image.pullPolicy | string | `"Always"` |  |
+| activiti-cloud-consumer.image.repository | string | `"activiti/activiti-cloud-query"` |  |
+| activiti-cloud-consumer.image.tag | string | `"8.7.0-alpha.50"` |  |
+| activiti-cloud-consumer.ingress.annotations."kubernetes.io/ingress.class" | string | `"nginx"` |  |
+| activiti-cloud-consumer.ingress.annotations."nginx.ingress.kubernetes.io/cors-allow-headers" | string | `"Authorization, Content-Type, Accept"` |  |
+| activiti-cloud-consumer.ingress.annotations."nginx.ingress.kubernetes.io/enable-cors" | string | `"true"` |  |
+| activiti-cloud-consumer.ingress.path | string | `"/"` |  |
+| activiti-cloud-consumer.javaOpts.xms | string | `"512m"` |  |
+| activiti-cloud-consumer.javaOpts.xmx | string | `"2048m"` |  |
+| activiti-cloud-consumer.liquibase.enabled | bool | `true` |  |
+| activiti-cloud-consumer.livenessProbe.path | string | `"{{ tpl .Values.ingress.path . | trimSuffix \"/\" }}/actuator/health/liveness"` |  |
+| activiti-cloud-consumer.messaging.enabled | bool | `true` |  |
+| activiti-cloud-consumer.messaging.role | string | `"consumer"` |  |
+| activiti-cloud-consumer.nameOverride | string | `"activiti-cloud-consumer"` |  |
+| activiti-cloud-consumer.postgresql.enabled | bool | `true` |  |
+| activiti-cloud-consumer.readinessProbe.path | string | `"{{ tpl .Values.ingress.path . | trimSuffix \"/\" }}/actuator/health/readiness"` |  |
+| activiti-cloud-consumer.resources.limits.cpu | string | `"1"` |  |
+| activiti-cloud-consumer.resources.limits.memory | string | `"2048Mi"` |  |
+| activiti-cloud-consumer.resources.requests.cpu | string | `"200m"` |  |
+| activiti-cloud-consumer.resources.requests.memory | string | `"512Mi"` |  |
+| activiti-cloud-consumer.service.name | string | `"consumer"` |  |
 | activiti-cloud-identity-adapter.enabled | bool | `true` |  |
 | activiti-cloud-identity-adapter.extraEnv | string | `"- name: SERVER_SERVLET_CONTEXTPATH\n  value: \"{{ tpl .Values.ingress.path . }}\"\n- name: SERVER_USEFORWARDHEADERS\n  value: \"true\"\n- name: SERVER_TOMCAT_INTERNALPROXIES\n  value: \".*\""` |  |
 | activiti-cloud-identity-adapter.image.pullPolicy | string | `"Always"` |  |

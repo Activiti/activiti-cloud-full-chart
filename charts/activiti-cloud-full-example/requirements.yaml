@@ -37,3 +37,8 @@ dependencies:
     version: "8.7.0-alpha.2"
     condition: "application.activiti-cloud-connector.enabled,activiti-cloud-connector.enabled"
     alias: "activiti-cloud-connector"
+  - name: "common"
+    repository: "https://activiti.github.io/activiti-cloud-helm-charts"
+    version: "8.7.0-alpha.2"
+    condition: "application.activiti-cloud-consumer.enabled,activiti-cloud-consumer.enabled"
+    alias: "activiti-cloud-consumer"
