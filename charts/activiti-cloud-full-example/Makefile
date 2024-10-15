@@ -66,5 +66,6 @@ tag:
 update-docker-images:
 	yq -i e '.runtime-bundle.image.tag = "$(BACKEND_VERSION)"' values.yaml
 	yq -i e '.activiti-cloud-query.image.tag = "$(BACKEND_VERSION)"' values.yaml
+	yq -i e '.activiti-cloud-consumer.image.tag = "$(BACKEND_VERSION)"' values.yaml
 	yq -i e '.activiti-cloud-connector.image.tag = "$(BACKEND_VERSION)"' values.yaml
 	yq -i e '.activiti-cloud-identity-adapter.image.tag = "$(BACKEND_VERSION)"' values.yaml
