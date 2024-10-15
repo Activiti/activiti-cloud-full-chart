@@ -1,5 +1,5 @@
 runtime-bundle:
-  replicas: 2
+  replicaCount: 2
   podDisruptionBudget:
     enabled: true
     minAvailable: 1
@@ -9,7 +9,7 @@ activiti-cloud-query:
   args:
     - -jar
     - rest.jar
-  replicas: 2
+  replicaCount: 2
   podDisruptionBudget:
     enabled: true
     minAvailable: 1
