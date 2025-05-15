@@ -18,7 +18,7 @@ Install the latest version of [Helm](https://helm.sh).
 Add the magic `host.docker.internal` hostname to your hosts file:
 
 ```shell
-sudo echo "127.0.0.1        host.docker.internal" > /etc/hosts
+sudo echo "127.0.0.1        host.docker.internal" >> /etc/hosts
 ```
 
 Install a recent version of [ingress-nginx](https://kubernetes.github.io/ingress-nginx):
