@@ -17,7 +17,7 @@ Install the latest version of [Helm](https://helm.sh).
 
 Add the magic `host.docker.internal` hostname to your hosts file:
 
-```shell
+```
 sudo echo "127.0.0.1        host.docker.internal" >> /etc/hosts
 ```
 
