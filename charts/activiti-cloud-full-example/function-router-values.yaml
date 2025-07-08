@@ -1,4 +1,0 @@
-runtime-bundle:
-  env:
-    ACTIVITI_CLOUD_MESSAGING_FUNCTION_ROUTER_ENABLED: 'true'
-
