@@ -17,3 +17,5 @@ activiti-cloud-query:
     minAvailable: 1
 activiti-cloud-consumer:
   enabled: true
+  env:
+    ACTIVITI_CLOUD_MESSAGING_FUNCTION_ROUTER_ENABLED: 'true'  
