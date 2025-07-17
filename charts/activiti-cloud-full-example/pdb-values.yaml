@@ -5,6 +5,7 @@ runtime-bundle:
     minAvailable: 1
   env:
     ACTIVITI_CLOUD_MESSAGING_FUNCTION_ROUTER_ENABLED: 'true'
+    ACTIVITI_CLOUD_RUNTIME_BUNDLE_MESSAGING_REQUIRED_AUDIT_PRODUCER_GROUPS: consumer
 activiti-cloud-query:
   liquibase:
     enabled: false
@@ -18,4 +19,4 @@ activiti-cloud-query:
 activiti-cloud-consumer:
   enabled: true
   env:
-    ACTIVITI_CLOUD_MESSAGING_FUNCTION_ROUTER_ENABLED: 'true'  
+    ACTIVITI_CLOUD_MESSAGING_FUNCTION_ROUTER_ENABLED: 'true'
