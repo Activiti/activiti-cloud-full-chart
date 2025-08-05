@@ -3,6 +3,8 @@ runtime-bundle:
   podDisruptionBudget:
     enabled: true
     minAvailable: 1
+  env:
+    ACTIVITI_CLOUD_MESSAGING_FUNCTION_ROUTER_ENABLED: 'true'
 activiti-cloud-query:
   liquibase:
     enabled: false
@@ -13,5 +15,12 @@ activiti-cloud-query:
   podDisruptionBudget:
     enabled: true
     minAvailable: 1
+  env:
+    ACTIVITI_CLOUD_MESSAGING_FUNCTION_ROUTER_ENABLED: 'true'
 activiti-cloud-consumer:
   enabled: true
+  env:
+    ACTIVITI_CLOUD_MESSAGING_FUNCTION_ROUTER_ENABLED: 'true'
+activiti-cloud-connector:
+  env:
+    ACTIVITI_CLOUD_MESSAGING_FUNCTION_ROUTER_ENABLED: 'true'
