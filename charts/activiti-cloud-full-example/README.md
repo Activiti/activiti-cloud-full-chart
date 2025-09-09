@@ -327,7 +327,7 @@ Kubernetes: `>=1.15.0-0`
 | rabbitmq.enabled | bool | `true` |  |
 | rabbitmq.extraPlugins | string | `""` |  |
 | rabbitmq.fullnameOverride | string | `"rabbitmq"` |  |
-| rabbitmq.image.tag | string | `"3.13.7-debian-12-r4"` |  |
+| rabbitmq.image.tag | string | `"3.8.9"` |  |
 | rabbitmq.livenessProbe.timeoutSeconds | int | `90` |  |
 | rabbitmq.readinessProbe.timeoutSeconds | int | `90` |  |
 | rabbitmq.resources.limits.memory | string | `"1500Mi"` |  |
