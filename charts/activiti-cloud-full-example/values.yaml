@@ -64,6 +64,8 @@ global:
     # global.messaging.partitionCount -- configures number of partitioned consumers
     partitionCount: 2
   rabbitmq:
+    image:
+      tag: "3.13.7-debian-12-r4"
     host: 'rabbitmq'
     username: guest
     password: guest
