@@ -587,6 +587,8 @@ activiti-cloud-connector:
 ## https://github.com/bitnami/charts/blob/master/bitnami/kafka/values.yaml
 ##
 kafka:
+  image:
+    tag: 2.8.1
   fullnameOverride: kafka
   enabled: false
   replicaCount: 1
