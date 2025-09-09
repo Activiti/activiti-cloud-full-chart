@@ -376,7 +376,7 @@ postgresql:
     application: activiti
 rabbitmq:
   image:
-    tag: "3.13.7-debian-12-r4"
+    tag: "3.8.9"
   fullnameOverride: rabbitmq
   enabled: true
   extraPlugins: ""
@@ -587,6 +587,8 @@ activiti-cloud-connector:
 ## https://github.com/bitnami/charts/blob/master/bitnami/kafka/values.yaml
 ##
 kafka:
+  image:
+    tag: 2.8.1
   fullnameOverride: kafka
   enabled: false
   replicaCount: 1
@@ -597,5 +599,7 @@ kafka:
   ## https://github.com/bitnami/charts/blob/master/bitnami/zookeeper/values.yaml
   ##
   zookeeper:
+    image:
+        tag: 3.7.2
     fullnameOverride: zookeeper
     replicaCount: 1

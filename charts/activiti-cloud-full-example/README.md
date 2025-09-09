@@ -312,9 +312,11 @@ Kubernetes: `>=1.15.0-0`
 | global.registryPullSecrets | list | `[]` | Configure pull secrets for all deployments |
 | kafka.enabled | bool | `false` |  |
 | kafka.fullnameOverride | string | `"kafka"` |  |
+| kafka.image.tag | string | `"2.8.1"` |  |
 | kafka.offsetsTopicReplicationFactor | int | `1` |  |
 | kafka.replicaCount | int | `1` |  |
 | kafka.zookeeper.fullnameOverride | string | `"zookeeper"` |  |
+| kafka.zookeeper.image.tag | string | `"3.7.2"` |  |
 | kafka.zookeeper.replicaCount | int | `1` |  |
 | postgresql.commonAnnotations.application | string | `"activiti"` |  |
 | postgresql.enabled | bool | `true` |  |
@@ -327,7 +329,7 @@ Kubernetes: `>=1.15.0-0`
 | rabbitmq.enabled | bool | `true` |  |
 | rabbitmq.extraPlugins | string | `""` |  |
 | rabbitmq.fullnameOverride | string | `"rabbitmq"` |  |
-| rabbitmq.image.tag | string | `"3.13.7-debian-12-r4"` |  |
+| rabbitmq.image.tag | string | `"3.8.9"` |  |
 | rabbitmq.livenessProbe.timeoutSeconds | int | `90` |  |
 | rabbitmq.readinessProbe.timeoutSeconds | int | `90` |  |
 | rabbitmq.resources.limits.memory | string | `"1500Mi"` |  |
