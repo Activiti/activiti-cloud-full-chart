@@ -599,5 +599,7 @@ kafka:
   ## https://github.com/bitnami/charts/blob/master/bitnami/zookeeper/values.yaml
   ##
   zookeeper:
+    image:
+        tag: 3.7.2
     fullnameOverride: zookeeper
     replicaCount: 1

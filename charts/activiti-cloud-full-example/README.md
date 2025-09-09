@@ -14,11 +14,11 @@ Kubernetes: `>=1.15.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
+| https://activiti.github.io/activiti-cloud-helm-charts | activiti-cloud-identity-adapter(common) | 8.8.0-alpha.12 |
+| https://activiti.github.io/activiti-cloud-helm-charts | runtime-bundle(common) | 8.8.0-alpha.12 |
 | https://activiti.github.io/activiti-cloud-helm-charts | activiti-cloud-query(common) | 8.8.0-alpha.12 |
 | https://activiti.github.io/activiti-cloud-helm-charts | activiti-cloud-connector(common) | 8.8.0-alpha.12 |
 | https://activiti.github.io/activiti-cloud-helm-charts | activiti-cloud-consumer(common) | 8.8.0-alpha.12 |
-| https://activiti.github.io/activiti-cloud-helm-charts | activiti-cloud-identity-adapter(common) | 8.8.0-alpha.12 |
-| https://activiti.github.io/activiti-cloud-helm-charts | runtime-bundle(common) | 8.8.0-alpha.12 |
 | https://codecentric.github.io/helm-charts | activiti-cloud-identity(keycloak) | 11.0.1 |
 | https://raw.githubusercontent.com/bitnami/charts/archive-full-index/bitnami/ | kafka | 12.x.x |
 | https://raw.githubusercontent.com/bitnami/charts/archive-full-index/bitnami/ | postgresql | 9.1.1 |
@@ -316,6 +316,7 @@ Kubernetes: `>=1.15.0-0`
 | kafka.offsetsTopicReplicationFactor | int | `1` |  |
 | kafka.replicaCount | int | `1` |  |
 | kafka.zookeeper.fullnameOverride | string | `"zookeeper"` |  |
+| kafka.zookeeper.image.tag | string | `"3.7.2"` |  |
 | kafka.zookeeper.replicaCount | int | `1` |  |
 | postgresql.commonAnnotations.application | string | `"activiti"` |  |
 | postgresql.enabled | bool | `true` |  |
