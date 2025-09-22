@@ -89,6 +89,9 @@ activiti-cloud-identity:
   serviceAccount:
     create: false
   postgresql:
+    image:
+      repository: bitnamilegacy/postgresql
+      tag: 11.8.0
     persistence:
       enabled: true
     commonAnnotations:
