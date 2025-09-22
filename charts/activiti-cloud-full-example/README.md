@@ -290,7 +290,7 @@ Kubernetes: `>=1.15.0-0`
 | activiti-cloud-query.resources.requests.cpu | string | `"200m"` |  |
 | activiti-cloud-query.resources.requests.memory | string | `"512Mi"` |  |
 | activiti-cloud-query.service.name | string | `"query"` |  |
-| global | object | `{"application":{"name":"{{ .Release.Name }}"},"extraEnv":"- name: ACTIVITI_CLOUD_APPLICATION_NAME\n  value: \"{{ tpl .Values.global.application.name $ | required \"global.application.name is required\" }}\"\n- name: ACTIVITI_KEYCLOAK_CLIENT_ID\n  valueFrom:\n    secretKeyRef:\n      name: {{ tpl .Values.global.keycloak.clientSecretName $ }}\n      key: clientId\n- name: ACTIVITI_KEYCLOAK_CLIENT_SECRET\n  valueFrom:\n    secretKeyRef:\n      name: {{ tpl .Values.global.keycloak.clientSecretName $ }}\n      key: clientSecret\n","gateway":{"annotations":null,"domain":"DOMAIN","host":"gateway-{{ .Release.Namespace }}.{{ template \"common.gateway-domain\" . }}","http":"true","tlsacme":"false"},"kafka":{"brokers":"kafka","extraEnv":"- name: ACT_AUDIT_PRODUCER_TRANSACTION_ID_PREFIX\n  value: \"\"\n","image":{"repository":"bitnamilegacy/kafka"}},"keycloak":{"clientId":"activiti-keycloak","clientSecret":"","clientSecretName":"activiti-keycloak-client","host":"identity-{{ .Release.Namespace }}.{{ template \"common.gateway-domain\" . }}","realm":"activiti","resource":"activiti","url":"","useExistingClientSecret":false},"messaging":{"broker":"rabbitmq","partitionCount":2,"partitioned":false},"rabbitmq":{"extraEnv":"","host":"rabbitmq","image":{"repository":"bitnamilegacy/rabbitmq"},"password":"guest","username":"guest"},"registryPullSecrets":[]}` | for common values see https://github.com/Activiti/activiti-cloud-common-chart/blob/develop/charts/common/README.md |
+| global | object | `{"application":{"name":"{{ .Release.Name }}"},"extraEnv":"- name: ACTIVITI_CLOUD_APPLICATION_NAME\n  value: \"{{ tpl .Values.global.application.name $ | required \"global.application.name is required\" }}\"\n- name: ACTIVITI_KEYCLOAK_CLIENT_ID\n  valueFrom:\n    secretKeyRef:\n      name: {{ tpl .Values.global.keycloak.clientSecretName $ }}\n      key: clientId\n- name: ACTIVITI_KEYCLOAK_CLIENT_SECRET\n  valueFrom:\n    secretKeyRef:\n      name: {{ tpl .Values.global.keycloak.clientSecretName $ }}\n      key: clientSecret\n","gateway":{"annotations":null,"domain":"DOMAIN","host":"gateway-{{ .Release.Namespace }}.{{ template \"common.gateway-domain\" . }}","http":"true","tlsacme":"false"},"kafka":{"brokers":"kafka","extraEnv":"- name: ACT_AUDIT_PRODUCER_TRANSACTION_ID_PREFIX\n  value: \"\"\n"},"keycloak":{"clientId":"activiti-keycloak","clientSecret":"","clientSecretName":"activiti-keycloak-client","host":"identity-{{ .Release.Namespace }}.{{ template \"common.gateway-domain\" . }}","realm":"activiti","resource":"activiti","url":"","useExistingClientSecret":false},"messaging":{"broker":"rabbitmq","partitionCount":2,"partitioned":false},"rabbitmq":{"extraEnv":"","host":"rabbitmq","password":"guest","username":"guest"},"registryPullSecrets":[]}` | for common values see https://github.com/Activiti/activiti-cloud-common-chart/blob/develop/charts/common/README.md |
 | global.application.name | string | `"{{ .Release.Name }}"` | configure application name for deployment |
 | global.extraEnv | string | `"- name: ACTIVITI_CLOUD_APPLICATION_NAME\n  value: \"{{ tpl .Values.global.application.name $ | required \"global.application.name is required\" }}\"\n- name: ACTIVITI_KEYCLOAK_CLIENT_ID\n  valueFrom:\n    secretKeyRef:\n      name: {{ tpl .Values.global.keycloak.clientSecretName $ }}\n      key: clientId\n- name: ACTIVITI_KEYCLOAK_CLIENT_SECRET\n  valueFrom:\n    secretKeyRef:\n      name: {{ tpl .Values.global.keycloak.clientSecretName $ }}\n      key: clientSecret\n"` | Use Yaml formatted string to add extra environment properties to all deployments, i.e. |
 | global.gateway.annotations | string | `nil` | Configure global annotations for all service ingresses |
@@ -312,6 +312,7 @@ Kubernetes: `>=1.15.0-0`
 | global.registryPullSecrets | list | `[]` | Configure pull secrets for all deployments |
 | kafka.enabled | bool | `false` |  |
 | kafka.fullnameOverride | string | `"kafka"` |  |
+| kafka.image.repository | string | `"bitnamilegacy/kafka"` |  |
 | kafka.image.tag | string | `"2.8.1"` |  |
 | kafka.offsetsTopicReplicationFactor | int | `1` |  |
 | kafka.replicaCount | int | `1` |  |
@@ -321,6 +322,7 @@ Kubernetes: `>=1.15.0-0`
 | postgresql.commonAnnotations.application | string | `"activiti"` |  |
 | postgresql.enabled | bool | `true` |  |
 | postgresql.image.repository | string | `"bitnamilegacy/postgresql"` |  |
+| postgresql.image.tag | string | `"11.8.0"` |  |
 | postgresql.postgresqlPassword | string | `"password"` |  |
 | postgresql.resources.requests.cpu | string | `"350m"` |  |
 | postgresql.resources.requests.memory | string | `"512Mi"` |  |
@@ -330,6 +332,7 @@ Kubernetes: `>=1.15.0-0`
 | rabbitmq.enabled | bool | `true` |  |
 | rabbitmq.extraPlugins | string | `""` |  |
 | rabbitmq.fullnameOverride | string | `"rabbitmq"` |  |
+| rabbitmq.image.repository | string | `"bitnamilegacy/rabbitmq"` |  |
 | rabbitmq.image.tag | string | `"3.8.9"` |  |
 | rabbitmq.livenessProbe.timeoutSeconds | int | `90` |  |
 | rabbitmq.readinessProbe.timeoutSeconds | int | `90` |  |
