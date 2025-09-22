@@ -115,6 +115,8 @@ Kubernetes: `>=1.15.0-0`
 | activiti-cloud-identity.persistence.dbVendor | string | `"postgres"` |  |
 | activiti-cloud-identity.persistence.deployPostgres | bool | `true` |  |
 | activiti-cloud-identity.postgresql.commonAnnotations.application | string | `"keycloak"` |  |
+| activiti-cloud-identity.postgresql.image.repository | string | `"bitnamilegacy/postgresql"` |  |
+| activiti-cloud-identity.postgresql.image.tag | string | `"11.8.0"` |  |
 | activiti-cloud-identity.postgresql.nameOverride | string | `"postgresql-id"` |  |
 | activiti-cloud-identity.postgresql.persistence.enabled | bool | `true` |  |
 | activiti-cloud-identity.postgresql.postgresqlPassword | string | `"keycloak"` |  |
