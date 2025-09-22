@@ -64,8 +64,6 @@ global:
     # global.messaging.partitionCount -- configures number of partitioned consumers
     partitionCount: 2
   rabbitmq:
-    image:
-      repository: bitnamilegacy/rabbitmq
     host: 'rabbitmq'
     username: guest
     password: guest
@@ -78,8 +76,6 @@ global:
 
   ## Kafka Configuration
   kafka:
-    image:
-      repository: bitnamilegacy/kafka
     ## global.kafka.brokers -- Multiple brokers can be provided in a comma separated list, e.g. host1:port1,host2:port2
     brokers: 'kafka'
     extraEnv: |
@@ -372,6 +368,7 @@ activiti-cloud-identity-adapter:
 postgresql:
   image:
     repository: bitnamilegacy/postgresql
+    tag: 11.8.0
   enabled: true
   postgresqlPassword: password
   resources:
@@ -382,7 +379,8 @@ postgresql:
     application: activiti
 rabbitmq:
   image:
-    tag: "3.8.9"
+    repository: bitnamilegacy/rabbitmq
+    tag: 3.8.9
   fullnameOverride: rabbitmq
   enabled: true
   extraPlugins: ""
@@ -594,6 +592,7 @@ activiti-cloud-connector:
 ##
 kafka:
   image:
+    repository: bitnamilegacy/kafka
     tag: 2.8.1
   fullnameOverride: kafka
   enabled: false
