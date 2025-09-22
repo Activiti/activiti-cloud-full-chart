@@ -64,6 +64,8 @@ global:
     # global.messaging.partitionCount -- configures number of partitioned consumers
     partitionCount: 2
   rabbitmq:
+    image:
+      repository: bitnamilegacy/rabbitmq
     host: 'rabbitmq'
     username: guest
     password: guest
@@ -76,6 +78,8 @@ global:
 
   ## Kafka Configuration
   kafka:
+    image:
+      repository: bitnamilegacy/kafka
     ## global.kafka.brokers -- Multiple brokers can be provided in a comma separated list, e.g. host1:port1,host2:port2
     brokers: 'kafka'
     extraEnv: |
@@ -366,6 +370,8 @@ activiti-cloud-identity-adapter:
     - name: SERVER_TOMCAT_INTERNALPROXIES
       value: ".*"
 postgresql:
+  image:
+    repository: bitnamilegacy/postgresql
   enabled: true
   postgresqlPassword: password
   resources:
