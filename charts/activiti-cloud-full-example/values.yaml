@@ -380,7 +380,7 @@ postgresql:
 rabbitmq:
   image:
     repository: bitnamilegacy/rabbitmq
-    tag: "3.8.9"
+    tag: 3.8.9
   fullnameOverride: rabbitmq
   enabled: true
   extraPlugins: ""
