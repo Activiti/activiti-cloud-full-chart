@@ -326,7 +326,7 @@ Kubernetes: `>=1.15.0-0`
 | postgresql.database | string | `"postgres"` |  |
 | postgresql.enabled | bool | `true` |  |
 | postgresql.image.repository | string | `"bitnamilegacy/postgresql"` |  |
-| postgresql.image.tag | string | `"11.8.0"` |  |
+| postgresql.image.tag | string | `"11.22.0"` |  |
 | postgresql.resources.requests.cpu | string | `"350m"` |  |
 | postgresql.resources.requests.memory | string | `"512Mi"` |  |
 | rabbitmq.auth.erlangCookie | string | `"ylY79lOdNUWsJEwAGdVQnhjSazV4QZKO="` |  |
