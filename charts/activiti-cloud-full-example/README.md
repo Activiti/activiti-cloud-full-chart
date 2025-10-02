@@ -21,7 +21,7 @@ Kubernetes: `>=1.15.0-0`
 | https://activiti.github.io/activiti-cloud-helm-charts | activiti-cloud-consumer(common) | 8.8.0-alpha.13 |
 | https://codecentric.github.io/helm-charts | activiti-cloud-identity(keycloak) | 11.0.1 |
 | https://raw.githubusercontent.com/bitnami/charts/archive-full-index/bitnami/ | kafka | 12.x.x |
-| https://raw.githubusercontent.com/bitnami/charts/archive-full-index/bitnami/ | postgresql | 9.1.1 |
+| https://raw.githubusercontent.com/bitnami/charts/archive-full-index/bitnami/ | postgresql | 15.5.11 |
 | https://raw.githubusercontent.com/bitnami/charts/archive-full-index/bitnami/ | rabbitmq | 7.8.0 |
 
 ## Values
@@ -321,11 +321,12 @@ Kubernetes: `>=1.15.0-0`
 | kafka.zookeeper.fullnameOverride | string | `"zookeeper"` |  |
 | kafka.zookeeper.image.tag | string | `"3.7.2"` |  |
 | kafka.zookeeper.replicaCount | int | `1` |  |
+| postgresql.auth.username | string | `"alfresco"` |  |
 | postgresql.commonAnnotations.application | string | `"activiti"` |  |
+| postgresql.database | string | `"postgres"` |  |
 | postgresql.enabled | bool | `true` |  |
 | postgresql.image.repository | string | `"bitnamilegacy/postgresql"` |  |
-| postgresql.image.tag | string | `"11.8.0"` |  |
-| postgresql.postgresqlPassword | string | `"password"` |  |
+| postgresql.image.tag | string | `"11.22.0"` |  |
 | postgresql.resources.requests.cpu | string | `"350m"` |  |
 | postgresql.resources.requests.memory | string | `"512Mi"` |  |
 | rabbitmq.auth.erlangCookie | string | `"ylY79lOdNUWsJEwAGdVQnhjSazV4QZKO="` |  |

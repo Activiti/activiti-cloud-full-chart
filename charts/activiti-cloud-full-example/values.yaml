@@ -371,9 +371,11 @@ activiti-cloud-identity-adapter:
 postgresql:
   image:
     repository: bitnamilegacy/postgresql
-    tag: 11.8.0
+    tag: 11.22.0
   enabled: true
-  postgresqlPassword: password
+  auth:
+    username: alfresco
+  database: postgres
   resources:
     requests:
       cpu: 350m
