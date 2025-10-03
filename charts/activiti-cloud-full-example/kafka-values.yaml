@@ -1,13 +1,6 @@
 global:
   messaging:
     broker: kafka
-    extraEnv: |
-      - name: SPRING_KAFKA_SECURITY_PROTOCOL
-        value: SASL_PLAINTEXT
-      - name: SPRING_KAFKA_SASL_MECHANISM
-        value: PLAIN
-      - name: SPRING_KAFKA_SASL_JAAS_CONFIG
-        value: 'org.apache.kafka.common.security.plain.PlainLoginModule required username="user" password="password";'
 kafka:
   enabled: true
 rabbitmq:

@@ -371,11 +371,10 @@ activiti-cloud-identity-adapter:
 postgresql:
   image:
     repository: bitnamilegacy/postgresql
-    tag: 11.22.0
+    tag: 11.8.0
   enabled: true
-  auth:
-    username: alfresco
-  database: postgres
+  postgresqlPassword: password
+  passwordKey: postgresql-password
   resources:
     requests:
       cpu: 350m
@@ -602,24 +601,6 @@ kafka:
   enabled: false
   replicaCount: 1
   offsetsTopicReplicationFactor: 1
-  auth:
-    clientProtocol: sasl
-    interBrokerProtocol: sasl
-    sasl:
-      mechanisms: plain
-      interBrokerMechanism: plain
-    jaas:
-      clientUsers:
-        - user
-      clientPasswords:
-        - password
-      interBrokerUser: admin
-      interBrokerPassword: password
-  listeners:
-    client:
-      protocol: SASL_PLAINTEXT
-    interbroker:
-      protocol: SASL_PLAINTEXT
   ##
   ## Zookeeper chart configuration
   ##

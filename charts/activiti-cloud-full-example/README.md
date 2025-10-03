@@ -14,14 +14,14 @@ Kubernetes: `>=1.15.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://activiti.github.io/activiti-cloud-helm-charts | activiti-cloud-identity-adapter(common) | 8.8.0-alpha.13 |
-| https://activiti.github.io/activiti-cloud-helm-charts | runtime-bundle(common) | 8.8.0-alpha.13 |
-| https://activiti.github.io/activiti-cloud-helm-charts | activiti-cloud-query(common) | 8.8.0-alpha.13 |
-| https://activiti.github.io/activiti-cloud-helm-charts | activiti-cloud-connector(common) | 8.8.0-alpha.13 |
-| https://activiti.github.io/activiti-cloud-helm-charts | activiti-cloud-consumer(common) | 8.8.0-alpha.13 |
+| https://activiti.github.io/activiti-cloud-helm-charts | activiti-cloud-identity-adapter(common) | 8.8.0-alpha.14 |
+| https://activiti.github.io/activiti-cloud-helm-charts | runtime-bundle(common) | 8.8.0-alpha.14 |
+| https://activiti.github.io/activiti-cloud-helm-charts | activiti-cloud-query(common) | 8.8.0-alpha.14 |
+| https://activiti.github.io/activiti-cloud-helm-charts | activiti-cloud-connector(common) | 8.8.0-alpha.14 |
+| https://activiti.github.io/activiti-cloud-helm-charts | activiti-cloud-consumer(common) | 8.8.0-alpha.14 |
 | https://codecentric.github.io/helm-charts | activiti-cloud-identity(keycloak) | 11.0.1 |
 | https://raw.githubusercontent.com/bitnami/charts/archive-full-index/bitnami/ | kafka | 12.20.0 |
-| https://raw.githubusercontent.com/bitnami/charts/archive-full-index/bitnami/ | postgresql | 15.5.11 |
+| https://raw.githubusercontent.com/bitnami/charts/archive-full-index/bitnami/ | postgresql | 9.1.1 |
 | https://raw.githubusercontent.com/bitnami/charts/archive-full-index/bitnami/ | rabbitmq | 7.8.0 |
 
 ## Values
@@ -315,18 +315,17 @@ Kubernetes: `>=1.15.0-0`
 | kafka.enabled | bool | `false` |  |
 | kafka.fullnameOverride | string | `"kafka"` |  |
 | kafka.image.repository | string | `"bitnamilegacy/kafka"` |  |
-| kafka.image.tag | string | `"2.8.1"` |  |
 | kafka.offsetsTopicReplicationFactor | int | `1` |  |
 | kafka.replicaCount | int | `1` |  |
 | kafka.zookeeper.fullnameOverride | string | `"zookeeper"` |  |
 | kafka.zookeeper.image.tag | string | `"3.7.2"` |  |
 | kafka.zookeeper.replicaCount | int | `1` |  |
-| postgresql.auth.username | string | `"alfresco"` |  |
 | postgresql.commonAnnotations.application | string | `"activiti"` |  |
-| postgresql.database | string | `"postgres"` |  |
 | postgresql.enabled | bool | `true` |  |
 | postgresql.image.repository | string | `"bitnamilegacy/postgresql"` |  |
-| postgresql.image.tag | string | `"11.22.0"` |  |
+| postgresql.image.tag | string | `"11.8.0"` |  |
+| postgresql.passwordKey | string | `"postgresql-password"` |  |
+| postgresql.postgresqlPassword | string | `"password"` |  |
 | postgresql.resources.requests.cpu | string | `"350m"` |  |
 | postgresql.resources.requests.memory | string | `"512Mi"` |  |
 | rabbitmq.auth.erlangCookie | string | `"ylY79lOdNUWsJEwAGdVQnhjSazV4QZKO="` |  |
