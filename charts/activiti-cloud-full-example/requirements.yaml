@@ -11,7 +11,7 @@ dependencies:
     condition: "application.rabbitmq.enabled,rabbitmq.enabled"
   - name: "kafka"
     repository: "https://raw.githubusercontent.com/bitnami/charts/archive-full-index/bitnami/"
-    version: "20.0.0"
+    version: "12.20.0"
     condition: "application.kafka.enabled,kafka.enabled"
   - name: "postgresql"
     repository: "https://raw.githubusercontent.com/bitnami/charts/archive-full-index/bitnami/"
