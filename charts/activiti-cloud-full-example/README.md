@@ -14,11 +14,11 @@ Kubernetes: `>=1.15.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://activiti.github.io/activiti-cloud-helm-charts | activiti-cloud-identity-adapter(common) | 8.8.0-alpha.14 |
-| https://activiti.github.io/activiti-cloud-helm-charts | runtime-bundle(common) | 8.8.0-alpha.14 |
-| https://activiti.github.io/activiti-cloud-helm-charts | activiti-cloud-query(common) | 8.8.0-alpha.14 |
-| https://activiti.github.io/activiti-cloud-helm-charts | activiti-cloud-connector(common) | 8.8.0-alpha.14 |
-| https://activiti.github.io/activiti-cloud-helm-charts | activiti-cloud-consumer(common) | 8.8.0-alpha.14 |
+| https://activiti.github.io/activiti-cloud-helm-charts | activiti-cloud-identity-adapter(common) | 8.8.0-alpha.13 |
+| https://activiti.github.io/activiti-cloud-helm-charts | runtime-bundle(common) | 8.8.0-alpha.13 |
+| https://activiti.github.io/activiti-cloud-helm-charts | activiti-cloud-query(common) | 8.8.0-alpha.13 |
+| https://activiti.github.io/activiti-cloud-helm-charts | activiti-cloud-connector(common) | 8.8.0-alpha.13 |
+| https://activiti.github.io/activiti-cloud-helm-charts | activiti-cloud-consumer(common) | 8.8.0-alpha.13 |
 | https://codecentric.github.io/helm-charts | activiti-cloud-identity(keycloak) | 11.0.1 |
 | https://raw.githubusercontent.com/bitnami/charts/archive-full-index/bitnami/ | kafka | 12.20.0 |
 | https://raw.githubusercontent.com/bitnami/charts/archive-full-index/bitnami/ | postgresql | 9.1.1 |
@@ -67,6 +67,7 @@ Kubernetes: `>=1.15.0-0`
 | activiti-cloud-consumer.messaging.role | string | `"consumer"` |  |
 | activiti-cloud-consumer.nameOverride | string | `"activiti-cloud-consumer"` |  |
 | activiti-cloud-consumer.postgresql.enabled | bool | `true` |  |
+| activiti-cloud-consumer.postgresql.passwordKey | string | `"postgresql-password"` |  |
 | activiti-cloud-consumer.readinessProbe.path | string | `"{{ tpl .Values.ingress.path . | trimSuffix \"/\" }}/actuator/health/readiness"` |  |
 | activiti-cloud-consumer.resources.limits.cpu | string | `"1"` |  |
 | activiti-cloud-consumer.resources.limits.memory | string | `"2048Mi"` |  |
@@ -286,6 +287,7 @@ Kubernetes: `>=1.15.0-0`
 | activiti-cloud-query.messaging.role | string | `"consumer"` |  |
 | activiti-cloud-query.nameOverride | string | `"activiti-cloud-query"` |  |
 | activiti-cloud-query.postgresql.enabled | bool | `true` |  |
+| activiti-cloud-query.postgresql.passwordKey | string | `"postgresql-password"` |  |
 | activiti-cloud-query.readinessProbe.path | string | `"{{ tpl .Values.ingress.path . | trimSuffix \"/\" }}/actuator/health/readiness"` |  |
 | activiti-cloud-query.resources.limits.cpu | string | `"1.5"` |  |
 | activiti-cloud-query.resources.limits.memory | string | `"2048Mi"` |  |
@@ -315,6 +317,7 @@ Kubernetes: `>=1.15.0-0`
 | kafka.enabled | bool | `false` |  |
 | kafka.fullnameOverride | string | `"kafka"` |  |
 | kafka.image.repository | string | `"bitnamilegacy/kafka"` |  |
+| kafka.image.tag | string | `"2.8.1"` |  |
 | kafka.offsetsTopicReplicationFactor | int | `1` |  |
 | kafka.replicaCount | int | `1` |  |
 | kafka.zookeeper.fullnameOverride | string | `"zookeeper"` |  |
@@ -356,6 +359,7 @@ Kubernetes: `>=1.15.0-0`
 | runtime-bundle.messaging.role | string | `"producer"` |  |
 | runtime-bundle.nameOverride | string | `"runtime-bundle"` |  |
 | runtime-bundle.postgresql.enabled | bool | `true` |  |
+| runtime-bundle.postgresql.passwordKey | string | `"postgresql-password"` |  |
 | runtime-bundle.readinessProbe.path | string | `"{{ tpl .Values.ingress.path . | trimSuffix \"/\" }}/actuator/health/readiness"` |  |
 | runtime-bundle.resources.limits.cpu | string | `"2"` |  |
 | runtime-bundle.resources.limits.memory | string | `"2048Mi"` |  |
