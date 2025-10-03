@@ -608,8 +608,14 @@ kafka:
   ##
   ## https://github.com/bitnami/charts/blob/master/bitnami/zookeeper/values.yaml
   ##
+  extraEnvVars:
+    - name: ALLOW_PLAINTEXT_LISTENER
+      value: "yes"
   zookeeper:
     image:
       tag: 3.7.2
     fullnameOverride: zookeeper
     replicaCount: 1
+    extraEnvVars:
+      - name: ALLOW_PLAINTEXT_LISTENER
+        value: "yes"
