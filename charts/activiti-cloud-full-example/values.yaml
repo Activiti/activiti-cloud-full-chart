@@ -421,6 +421,7 @@ runtime-bundle:
       nginx.ingress.kubernetes.io/cors-allow-headers: Authorization, Content-Type, Accept
   postgresql:
     enabled: true
+    passwordKey: postgresql-password
   messaging:
     enabled: true
     role: producer
@@ -472,6 +473,7 @@ activiti-cloud-query:
       nginx.ingress.kubernetes.io/session-cookie-name: activiti-cloud-query-session
   postgresql:
     enabled: true
+    passwordKey: postgresql-password
   messaging:
     enabled: true
     role: consumer
@@ -529,6 +531,7 @@ activiti-cloud-consumer:
       nginx.ingress.kubernetes.io/cors-allow-headers: Authorization, Content-Type, Accept
   postgresql:
     enabled: true
+    passwordKey: postgresql-password
   messaging:
     enabled: true
     role: consumer
