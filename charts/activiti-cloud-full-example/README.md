@@ -20,8 +20,8 @@ Kubernetes: `>=1.15.0-0`
 | https://activiti.github.io/activiti-cloud-helm-charts | activiti-cloud-connector(common) | 8.8.0-alpha.15 |
 | https://activiti.github.io/activiti-cloud-helm-charts | activiti-cloud-consumer(common) | 8.8.0-alpha.15 |
 | https://codecentric.github.io/helm-charts | activiti-cloud-identity(keycloak) | 11.0.1 |
-| https://raw.githubusercontent.com/bitnami/charts/archive-full-index/bitnami/ | kafka | 12.x.x |
-| https://raw.githubusercontent.com/bitnami/charts/archive-full-index/bitnami/ | postgresql | 15.5.11 |
+| https://raw.githubusercontent.com/bitnami/charts/archive-full-index/bitnami/ | kafka | 12.20.0 |
+| https://raw.githubusercontent.com/bitnami/charts/archive-full-index/bitnami/ | postgresql | 9.1.1 |
 | https://raw.githubusercontent.com/bitnami/charts/archive-full-index/bitnami/ | rabbitmq | 7.8.0 |
 
 ## Values
@@ -67,6 +67,7 @@ Kubernetes: `>=1.15.0-0`
 | activiti-cloud-consumer.messaging.role | string | `"consumer"` |  |
 | activiti-cloud-consumer.nameOverride | string | `"activiti-cloud-consumer"` |  |
 | activiti-cloud-consumer.postgresql.enabled | bool | `true` |  |
+| activiti-cloud-consumer.postgresql.passwordKey | string | `"postgresql-password"` |  |
 | activiti-cloud-consumer.readinessProbe.path | string | `"{{ tpl .Values.ingress.path . | trimSuffix \"/\" }}/actuator/health/readiness"` |  |
 | activiti-cloud-consumer.resources.limits.cpu | string | `"1"` |  |
 | activiti-cloud-consumer.resources.limits.memory | string | `"2048Mi"` |  |
@@ -286,6 +287,7 @@ Kubernetes: `>=1.15.0-0`
 | activiti-cloud-query.messaging.role | string | `"consumer"` |  |
 | activiti-cloud-query.nameOverride | string | `"activiti-cloud-query"` |  |
 | activiti-cloud-query.postgresql.enabled | bool | `true` |  |
+| activiti-cloud-query.postgresql.passwordKey | string | `"postgresql-password"` |  |
 | activiti-cloud-query.readinessProbe.path | string | `"{{ tpl .Values.ingress.path . | trimSuffix \"/\" }}/actuator/health/readiness"` |  |
 | activiti-cloud-query.resources.limits.cpu | string | `"1.5"` |  |
 | activiti-cloud-query.resources.limits.memory | string | `"2048Mi"` |  |
@@ -321,12 +323,12 @@ Kubernetes: `>=1.15.0-0`
 | kafka.zookeeper.fullnameOverride | string | `"zookeeper"` |  |
 | kafka.zookeeper.image.tag | string | `"3.7.2"` |  |
 | kafka.zookeeper.replicaCount | int | `1` |  |
-| postgresql.auth.username | string | `"alfresco"` |  |
 | postgresql.commonAnnotations.application | string | `"activiti"` |  |
-| postgresql.database | string | `"postgres"` |  |
 | postgresql.enabled | bool | `true` |  |
 | postgresql.image.repository | string | `"bitnamilegacy/postgresql"` |  |
-| postgresql.image.tag | string | `"11.22.0"` |  |
+| postgresql.image.tag | string | `"11.8.0"` |  |
+| postgresql.passwordKey | string | `"postgresql-password"` |  |
+| postgresql.postgresqlPassword | string | `"password"` |  |
 | postgresql.resources.requests.cpu | string | `"350m"` |  |
 | postgresql.resources.requests.memory | string | `"512Mi"` |  |
 | rabbitmq.auth.erlangCookie | string | `"ylY79lOdNUWsJEwAGdVQnhjSazV4QZKO="` |  |
@@ -357,6 +359,7 @@ Kubernetes: `>=1.15.0-0`
 | runtime-bundle.messaging.role | string | `"producer"` |  |
 | runtime-bundle.nameOverride | string | `"runtime-bundle"` |  |
 | runtime-bundle.postgresql.enabled | bool | `true` |  |
+| runtime-bundle.postgresql.passwordKey | string | `"postgresql-password"` |  |
 | runtime-bundle.readinessProbe.path | string | `"{{ tpl .Values.ingress.path . | trimSuffix \"/\" }}/actuator/health/readiness"` |  |
 | runtime-bundle.resources.limits.cpu | string | `"2"` |  |
 | runtime-bundle.resources.limits.memory | string | `"2048Mi"` |  |
