@@ -598,7 +598,7 @@ activiti-cloud-connector:
 kafka:
   image:
     repository: bitnamilegacy/kafka
-    tag: 2.8.1
+ ##   tag: 2.8.1
   nameOverride: kafka
   fullnameOverride: kafka
   enabled: false
