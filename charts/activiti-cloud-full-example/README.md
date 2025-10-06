@@ -1,6 +1,6 @@
 # activiti-cloud-full-example
 
-![Version: 8.8.0-SNAPSHOT](https://img.shields.io/badge/Version-8.8.0--SNAPSHOT-informational?style=flat-square)
+![Version: 8.8.0-alpha.131](https://img.shields.io/badge/Version-8.8.0--alpha.131-informational?style=flat-square)
 
 A Helm chart for Activiti Cloud Full Example
 
