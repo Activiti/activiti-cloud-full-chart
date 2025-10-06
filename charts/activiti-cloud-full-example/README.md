@@ -321,6 +321,7 @@ Kubernetes: `>=1.15.0-0`
 | kafka.offsetsTopicReplicationFactor | int | `1` |  |
 | kafka.replicaCount | int | `1` |  |
 | kafka.zookeeper.fullnameOverride | string | `"zookeeper"` |  |
+| kafka.zookeeper.image.repository | string | `"bitnamilegacy/zookeeper"` |  |
 | kafka.zookeeper.image.tag | string | `"3.7.2"` |  |
 | kafka.zookeeper.replicaCount | int | `1` |  |
 | postgresql.commonAnnotations.application | string | `"activiti"` |  |
