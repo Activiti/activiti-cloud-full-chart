@@ -1,0 +1,26 @@
+runtime-bundle:
+  replicaCount: 2
+  podDisruptionBudget:
+    enabled: true
+    minAvailable: 1
+  env:
+    ACTIVITI_CLOUD_MESSAGING_FUNCTION_ROUTER_ENABLED: 'false'
+activiti-cloud-query:
+  liquibase:
+    enabled: false
+  args:
+    - -jar
+    - rest.jar
+  replicaCount: 2
+  podDisruptionBudget:
+    enabled: true
+    minAvailable: 1
+  env:
+    ACTIVITI_CLOUD_MESSAGING_FUNCTION_ROUTER_ENABLED: 'false'
+activiti-cloud-consumer:
+  enabled: true
+  env:
+    ACTIVITI_CLOUD_MESSAGING_FUNCTION_ROUTER_ENABLED: 'false'
+activiti-cloud-connector:
+  env:
+    ACTIVITI_CLOUD_MESSAGING_FUNCTION_ROUTER_ENABLED: 'false'
