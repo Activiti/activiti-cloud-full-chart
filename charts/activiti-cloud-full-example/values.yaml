@@ -64,6 +64,8 @@ global:
     # global.messaging.partitionCount -- configures number of partitioned consumers
     partitionCount: 2
   rabbitmq:
+    image:
+      repository: bitnamilegacy/rabbitmq
     host: 'rabbitmq'
     username: guest
     password: guest
