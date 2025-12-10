@@ -1,0 +1,15 @@
+global:
+  messaging:
+    partitioned: false
+runtime-bundle:
+  env:
+    ACTIVITI_CLOUD_MESSAGING_RABBITMQ_PREFIX: '{{ tpl .Values.global.application.name $ }}.'
+activiti-cloud-query:
+  env:
+    ACTIVITI_CLOUD_MESSAGING_RABBITMQ_PREFIX: '{{ tpl .Values.global.application.name $ }}.'
+activiti-cloud-consumer:
+  env:
+    ACTIVITI_CLOUD_MESSAGING_RABBITMQ_PREFIX: '{{ tpl .Values.global.application.name $ }}.'
+activiti-cloud-connector:
+  env:
+    ACTIVITI_CLOUD_MESSAGING_RABBITMQ_PREFIX: '{{ tpl .Values.global.application.name $ }}.'
