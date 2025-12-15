@@ -14,11 +14,11 @@ Kubernetes: `>=1.15.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://activiti.github.io/activiti-cloud-helm-charts | activiti-cloud-identity-adapter(common) | 8.8.0-alpha.20 |
-| https://activiti.github.io/activiti-cloud-helm-charts | runtime-bundle(common) | 8.8.0-alpha.20 |
-| https://activiti.github.io/activiti-cloud-helm-charts | activiti-cloud-query(common) | 8.8.0-alpha.20 |
-| https://activiti.github.io/activiti-cloud-helm-charts | activiti-cloud-connector(common) | 8.8.0-alpha.20 |
-| https://activiti.github.io/activiti-cloud-helm-charts | activiti-cloud-consumer(common) | 8.8.0-alpha.20 |
+| https://activiti.github.io/activiti-cloud-helm-charts | activiti-cloud-identity-adapter(common) | 8.8.0-alpha.21 |
+| https://activiti.github.io/activiti-cloud-helm-charts | runtime-bundle(common) | 8.8.0-alpha.21 |
+| https://activiti.github.io/activiti-cloud-helm-charts | activiti-cloud-query(common) | 8.8.0-alpha.21 |
+| https://activiti.github.io/activiti-cloud-helm-charts | activiti-cloud-connector(common) | 8.8.0-alpha.21 |
+| https://activiti.github.io/activiti-cloud-helm-charts | activiti-cloud-consumer(common) | 8.8.0-alpha.21 |
 | https://codecentric.github.io/helm-charts | activiti-cloud-identity(keycloak) | 11.0.1 |
 | https://raw.githubusercontent.com/bitnami/charts/archive-full-index/bitnami/ | kafka | 12.20.0 |
 | https://raw.githubusercontent.com/bitnami/charts/archive-full-index/bitnami/ | postgresql | 9.1.1 |
