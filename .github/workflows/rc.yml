@@ -40,7 +40,7 @@ jobs:
           token: ${{ secrets.BOT_GITHUB_TOKEN }}
           git-username: ${{ secrets.BOT_GITHUB_USERNAME }}
 
-      - uses: Activiti/activiti-scripts/.github/actions/wait-for-chart@e77a659797b6557aeb079b816574e3545b441fef # 8.8.0
+      - uses: Activiti/activiti-scripts/.github/actions/wait-for-chart@dabe8f78a1f944f77a2e1fe0c001ae404a88d0f0 # 9.0.0
         with:
           chart-name: ${{ env.CHART_NAME }}
           version: ${{ env.VERSION }}
