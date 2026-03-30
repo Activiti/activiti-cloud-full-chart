@@ -25,12 +25,12 @@ jobs:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
       - name: Check dependabot/fork build
         if: github.secret_source == 'Dependabot' || (github.secret_source == 'None' && github.event.action != 'milestoned')
-        uses: Alfresco/alfresco-build-tools/.github/actions/github-require-secrets@0f483aca096ad614dbee2a4b0c9222437c285d1c # v15.12.0
+        uses: Alfresco/alfresco-build-tools/.github/actions/github-require-secrets@661ab6a0d23f6a269da039831907cffad37cc061 # v15.12.1
         with:
           dependabot-error-message: "This PR requires additional validation, please set the milestone to 'Validating' or ask a reviewer to approve it."
           none-error-message: "This PR requires additional validation, please set the milestone to 'Validating'."
       - name: Setup Helm Docs
-        uses: Alfresco/alfresco-build-tools/.github/actions/setup-helm-docs@0f483aca096ad614dbee2a4b0c9222437c285d1c # v15.12.0
+        uses: Alfresco/alfresco-build-tools/.github/actions/setup-helm-docs@661ab6a0d23f6a269da039831907cffad37cc061 # v15.12.1
         with:
           version: 1.13.1
       - name: Run Checkov
@@ -38,11 +38,11 @@ jobs:
         with:
           framework: kubernetes
       - name: pre-commit
-        uses: Alfresco/alfresco-build-tools/.github/actions/pre-commit@0f483aca096ad614dbee2a4b0c9222437c285d1c # v15.12.0
+        uses: Alfresco/alfresco-build-tools/.github/actions/pre-commit@661ab6a0d23f6a269da039831907cffad37cc061 # v15.12.1
         with:
           skip_checkout: true
       - name: Ensure SHA pinned actions
-        uses: zgosalvez/github-actions-ensure-sha-pinned-actions@471d5ace1f08e3c4df1c4c2f7e6341aa75da434a # v5.0.3
+        uses: zgosalvez/github-actions-ensure-sha-pinned-actions@ca46236c6ce584ae24bc6283ba8dcf4b3ec8a066 # v5.0.4
 
   build:
     runs-on: ubuntu-latest
@@ -51,15 +51,15 @@ jobs:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
 
       - name: Build
-        uses: Alfresco/alfresco-build-tools/.github/actions/helm-build-chart@0f483aca096ad614dbee2a4b0c9222437c285d1c # v15.12.0
+        uses: Alfresco/alfresco-build-tools/.github/actions/helm-build-chart@661ab6a0d23f6a269da039831907cffad37cc061 # v15.12.1
         with:
           chart-dir: ${{ env.CHART_DIR }}
 
-      - uses: Alfresco/alfresco-build-tools/.github/actions/resolve-preview-name@0f483aca096ad614dbee2a4b0c9222437c285d1c # v15.12.0
+      - uses: Alfresco/alfresco-build-tools/.github/actions/resolve-preview-name@661ab6a0d23f6a269da039831907cffad37cc061 # v15.12.1
         id: resolve-preview
 
       - name: Setup Cluster
-        uses: Alfresco/alfresco-build-tools/.github/actions/setup-kind@0f483aca096ad614dbee2a4b0c9222437c285d1c # v15.12.0
+        uses: Alfresco/alfresco-build-tools/.github/actions/setup-kind@661ab6a0d23f6a269da039831907cffad37cc061 # v15.12.1
 
       - name: Compute Keycloak Client Secret
         id: compute-keycloak-secret
@@ -93,14 +93,14 @@ jobs:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
       - name: Parse next release
         id: parse-next-release
-        uses: Alfresco/alfresco-build-tools/.github/actions/helm-parse-next-release@0f483aca096ad614dbee2a4b0c9222437c285d1c # v15.12.0
+        uses: Alfresco/alfresco-build-tools/.github/actions/helm-parse-next-release@661ab6a0d23f6a269da039831907cffad37cc061 # v15.12.1
         with:
           chart-dir: ${{ env.CHART_DIR }}
 
   publish:
     needs: parse-next-release
     if: github.event_name == 'push'
-    uses: Alfresco/alfresco-build-tools/.github/workflows/helm-publish-new-package-version.yml@0f483aca096ad614dbee2a4b0c9222437c285d1c # v15.12.0
+    uses: Alfresco/alfresco-build-tools/.github/workflows/helm-publish-new-package-version.yml@661ab6a0d23f6a269da039831907cffad37cc061 # v15.12.1
     with:
       next-version: ${{ needs.parse-next-release.outputs.next-release }}
       chart-dir: charts/activiti-cloud-full-example
@@ -119,7 +119,7 @@ jobs:
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
       - run: echo ACTIVITI_CLOUD_APPLICATION_VERSION=`yq .runtime-bundle.image.tag charts/activiti-cloud-full-example/values.yaml` >> $GITHUB_ENV
-      - uses: Alfresco/alfresco-build-tools/.github/actions/jx-updatebot-pr@0f483aca096ad614dbee2a4b0c9222437c285d1c # v15.12.0
+      - uses: Alfresco/alfresco-build-tools/.github/actions/jx-updatebot-pr@661ab6a0d23f6a269da039831907cffad37cc061 # v15.12.1
         env:
           GH_TOKEN: ${{ secrets.BOT_GITHUB_TOKEN }}
         with:
@@ -140,6 +140,6 @@ jobs:
     if: always() && failure() && github.event_name == 'push'
     steps:
       - name: Teams Notification
-        uses: Alfresco/alfresco-build-tools/.github/actions/send-teams-notification@0f483aca096ad614dbee2a4b0c9222437c285d1c # v15.12.0
+        uses: Alfresco/alfresco-build-tools/.github/actions/send-teams-notification@661ab6a0d23f6a269da039831907cffad37cc061 # v15.12.1
         with:
           webhook-url: ${{ secrets.TEAMS_NOTIFICATION_WORKFLOW_WEBHOOK }}
