@@ -461,12 +461,14 @@ activiti-cloud-query:
     enabled: true
   ingress:
     path: /
+    pathType: ImplementationSpecific
     subPaths:
       - /query/?(.*)
       - /audit/?(.*)
       - /notifications/?(.*)
     annotations:
       kubernetes.io/ingress.class: nginx
+      nginx.ingress.kubernetes.io/use-regex: "true"
       nginx.ingress.kubernetes.io/enable-cors: "true"
       nginx.ingress.kubernetes.io/cors-allow-headers: Authorization, Content-Type, Accept
       nginx.ingress.kubernetes.io/rewrite-target: /$1
