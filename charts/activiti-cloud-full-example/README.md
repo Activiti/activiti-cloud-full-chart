@@ -275,7 +275,9 @@ Kubernetes: `>=1.15.0-0`
 | activiti-cloud-query.ingress.annotations."nginx.ingress.kubernetes.io/rewrite-target" | string | `"/$1"` |  |
 | activiti-cloud-query.ingress.annotations."nginx.ingress.kubernetes.io/session-cookie-change-on-failure" | string | `"true"` |  |
 | activiti-cloud-query.ingress.annotations."nginx.ingress.kubernetes.io/session-cookie-name" | string | `"activiti-cloud-query-session"` |  |
+| activiti-cloud-query.ingress.annotations."nginx.ingress.kubernetes.io/use-regex" | string | `"true"` |  |
 | activiti-cloud-query.ingress.path | string | `"/"` |  |
+| activiti-cloud-query.ingress.pathType | string | `"ImplementationSpecific"` |  |
 | activiti-cloud-query.ingress.subPaths[0] | string | `"/query/?(.*)"` |  |
 | activiti-cloud-query.ingress.subPaths[1] | string | `"/audit/?(.*)"` |  |
 | activiti-cloud-query.ingress.subPaths[2] | string | `"/notifications/?(.*)"` |  |
