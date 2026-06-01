@@ -6,6 +6,8 @@ updates:
     directory: "/"
     schedule:
       interval: "weekly"
+    cooldown:
+      default-days: 3
     ignore:
       - dependency-name: "bridgecrewio/checkov-action"
         update-types: ["version-update:semver-minor", "version-update:semver-patch"]
