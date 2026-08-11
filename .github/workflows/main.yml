@@ -120,16 +120,17 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       - run: echo ACTIVITI_CLOUD_APPLICATION_VERSION=`yq .runtime-bundle.image.tag charts/activiti-cloud-full-example/values.yaml` >> $GITHUB_ENV
       - uses: Alfresco/alfresco-build-tools/.github/actions/jx-updatebot-pr@ac0009fd55b474dbf50864caa4f9da36a41e5ffe # v18.21.2
-        env:
-          GH_TOKEN: ${{ secrets.BOT_GITHUB_TOKEN }}
         with:
           version: ${{ env.VERSION }}
           auto-merge: 'true'
           labels: 'be-propagation,${{ env.DEVELOPMENT_BRANCH }}'
           base-branch-name: ${{ env.DEVELOPMENT_BRANCH }}
-          git-username: ${{ secrets.BOT_GITHUB_USERNAME }}
+          git-username: ${{ vars.HXPS_GIT_USERNAME }}
           git-token: ${{ secrets.BOT_GITHUB_TOKEN }}
-          git-author-name: ${{ secrets.BOT_GITHUB_USERNAME }}
+          git-author-name: ${{ vars.HXPS_GIT_USERNAME }}
+          git-author-email: ${{ vars.HXPS_GIT_EMAIL }}
+          gpg-private-key: ${{ secrets.HXPS_GIT_COMMIT_SIGNING_PRIVATE_KEY }}
+          gpg-private-key-fingerprint: ${{ secrets.HXPS_GIT_COMMIT_SIGNING_FINGERPRINT }}
 
   notify:
     runs-on: ubuntu-latest
