@@ -25,3 +25,10 @@ updates:
       interval: "weekly"
     cooldown:
       default-days: 3
+    groups:
+      pre-commit:
+        patterns:
+          - "*"
+        update-types:
+          - "minor"
+          - "patch"
