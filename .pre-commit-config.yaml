@@ -1,15 +1,15 @@
 repos:
   - repo: https://github.com/norwoodj/helm-docs
-    rev: a66bb9c69c0bb38ff86ec7dccb1c11e7b70654c0  # frozen: v1.13.1
+    rev: a66bb9c69c0bb38ff86ec7dccb1c11e7b70654c0 # frozen: v1.13.1
     hooks:
       - id: helm-docs
   - repo: https://github.com/Alfresco/alfresco-build-tools
-    rev: 692f336894abea26ff555cdef6e098f415c47286  # frozen: v5.28.3
+    rev: 692f336894abea26ff555cdef6e098f415c47286 # frozen: v5.28.3
     hooks:
       - id: helm-deps
       - id: helm-lint
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: 2c9f875913ee60ca25ce70243dc24d5b6415598c  # frozen: v4.6.0
+    rev: 2c9f875913ee60ca25ce70243dc24d5b6415598c # frozen: v4.6.0
     hooks:
       - id: check-merge-conflict
       - id: fix-byte-order-marker
@@ -21,14 +21,14 @@ repos:
         args: [--allow-multiple-documents]
         exclude: charts/.*/templates
   - repo: https://github.com/pre-commit/mirrors-prettier
-    rev: f12edd9c7be1c20cfa42420fd0e6df71e42b51ea  # frozen: v4.0.0-alpha.8
+    rev: f12edd9c7be1c20cfa42420fd0e6df71e42b51ea # frozen: v4.0.0-alpha.8
     hooks:
       - id: prettier
         types_or:
           - markdown
         exclude: charts/.*/README.md
   - repo: https://github.com/sirosen/check-jsonschema
-    rev: 12e63946db2c5cfcc9030fac21c3883ba88c6ed8  # frozen: 0.38.0
+    rev: 12e63946db2c5cfcc9030fac21c3883ba88c6ed8 # frozen: 0.38.0
     hooks:
       - id: check-dependabot
       - id: check-github-actions
