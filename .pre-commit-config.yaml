@@ -4,7 +4,7 @@ repos:
     hooks:
       - id: helm-docs
   - repo: https://github.com/Alfresco/alfresco-build-tools
-    rev: 567a9393acca033008ce34eafcb200469e4ea2f5 # frozen: v18.27.0
+    rev: a297ff6c5bf20c667047db658dd23f60241b270a # frozen: v18.28.0
     hooks:
       - id: helm-deps
       - id: helm-lint
