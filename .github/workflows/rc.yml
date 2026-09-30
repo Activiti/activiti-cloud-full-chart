@@ -24,7 +24,7 @@ jobs:
 
       - id: helm-package-chart
         name: Package Helm chart
-        uses: Alfresco/alfresco-build-tools/.github/actions/helm-package-chart@f1bae5a4bdb3b12030a350e52b8f661dbcb2f849 # v18.28.3
+        uses: Alfresco/alfresco-build-tools/.github/actions/helm-package-chart@0fa2704957dfff688af2371cc7a935de53d26610 # v19.1.0
         with:
           chart-dir: ${{ env.CHART_DIR }}
 
