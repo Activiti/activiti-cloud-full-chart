@@ -42,7 +42,7 @@ jobs:
         with:
           skip_checkout: true
       - name: Ensure SHA pinned actions
-        uses: zgosalvez/github-actions-ensure-sha-pinned-actions@62574f011e0d1967d555a862bd28a7abba8684fe # v5.0.9
+        uses: zgosalvez/github-actions-ensure-sha-pinned-actions@c4e71056006d29f90204b2d063be337109507d62 # v5.0.10
 
   build:
     runs-on: ubuntu-latest
@@ -51,7 +51,7 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
       - name: Build
-        uses: Alfresco/alfresco-build-tools/.github/actions/helm-build-chart@0fa2704957dfff688af2371cc7a935de53d26610 # v19.1.0
+        uses: Alfresco/alfresco-build-tools/.github/actions/helm-build-chart@c176315c6b0b3e3bbf022ea444944fb903c47e0e # v19.2.1
         with:
           chart-dir: ${{ env.CHART_DIR }}
 
@@ -93,7 +93,7 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       - name: Parse next release
         id: parse-next-release
-        uses: Alfresco/alfresco-build-tools/.github/actions/helm-parse-next-release@0fa2704957dfff688af2371cc7a935de53d26610 # v19.1.0
+        uses: Alfresco/alfresco-build-tools/.github/actions/helm-parse-next-release@c176315c6b0b3e3bbf022ea444944fb903c47e0e # v19.2.1
         with:
           chart-dir: ${{ env.CHART_DIR }}
 
