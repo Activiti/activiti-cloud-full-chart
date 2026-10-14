@@ -59,7 +59,7 @@ jobs:
         id: resolve-preview
 
       - name: Setup Cluster
-        uses: Alfresco/alfresco-build-tools/.github/actions/setup-kind@f1bae5a4bdb3b12030a350e52b8f661dbcb2f849 # v18.28.3
+        uses: Alfresco/alfresco-build-tools/.github/actions/setup-kind@f2ba011b2bd8bee8d7418b046541ce2f75d1fbed # v19.4.0
 
       - name: Compute Keycloak Client Secret
         id: compute-keycloak-secret
