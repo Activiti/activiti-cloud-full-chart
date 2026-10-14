@@ -119,7 +119,7 @@ jobs:
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       - run: echo ACTIVITI_CLOUD_APPLICATION_VERSION=`yq .runtime-bundle.image.tag charts/activiti-cloud-full-example/values.yaml` >> $GITHUB_ENV
-      - uses: Alfresco/alfresco-build-tools/.github/actions/jx-updatebot-pr@f1bae5a4bdb3b12030a350e52b8f661dbcb2f849 # v18.28.3
+      - uses: Alfresco/alfresco-build-tools/.github/actions/jx-updatebot-pr@f2ba011b2bd8bee8d7418b046541ce2f75d1fbed # v19.4.0
         env:
           GH_TOKEN: ${{ secrets.BOT_GITHUB_TOKEN }}
         with:
