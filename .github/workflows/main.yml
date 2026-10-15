@@ -25,7 +25,7 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       - name: Check dependabot/fork build
         if: github.secret_source == 'Dependabot' || (github.secret_source == 'None' && github.event.action != 'milestoned')
-        uses: Alfresco/alfresco-build-tools/.github/actions/github-require-secrets@c176315c6b0b3e3bbf022ea444944fb903c47e0e # v19.2.1
+        uses: Alfresco/alfresco-build-tools/.github/actions/github-require-secrets@f2ba011b2bd8bee8d7418b046541ce2f75d1fbed # v19.4.0
         with:
           dependabot-error-message: "This PR requires additional validation, please set the milestone to 'Validating' or ask a reviewer to approve it."
           none-error-message: "This PR requires additional validation, please set the milestone to 'Validating'."
@@ -51,11 +51,11 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
       - name: Build
-        uses: Alfresco/alfresco-build-tools/.github/actions/helm-build-chart@c176315c6b0b3e3bbf022ea444944fb903c47e0e # v19.2.1
+        uses: Alfresco/alfresco-build-tools/.github/actions/helm-build-chart@f2ba011b2bd8bee8d7418b046541ce2f75d1fbed # v19.4.0
         with:
           chart-dir: ${{ env.CHART_DIR }}
 
-      - uses: Alfresco/alfresco-build-tools/.github/actions/resolve-preview-name@c176315c6b0b3e3bbf022ea444944fb903c47e0e # v19.2.1
+      - uses: Alfresco/alfresco-build-tools/.github/actions/resolve-preview-name@f2ba011b2bd8bee8d7418b046541ce2f75d1fbed # v19.4.0
         id: resolve-preview
 
       - name: Setup Cluster
@@ -93,7 +93,7 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       - name: Parse next release
         id: parse-next-release
-        uses: Alfresco/alfresco-build-tools/.github/actions/helm-parse-next-release@c176315c6b0b3e3bbf022ea444944fb903c47e0e # v19.2.1
+        uses: Alfresco/alfresco-build-tools/.github/actions/helm-parse-next-release@f2ba011b2bd8bee8d7418b046541ce2f75d1fbed # v19.4.0
         with:
           chart-dir: ${{ env.CHART_DIR }}
 
@@ -143,6 +143,6 @@ jobs:
     if: always() && failure() && github.event_name == 'push'
     steps:
       - name: Teams Notification
-        uses: Alfresco/alfresco-build-tools/.github/actions/send-teams-notification@c176315c6b0b3e3bbf022ea444944fb903c47e0e # v19.2.1
+        uses: Alfresco/alfresco-build-tools/.github/actions/send-teams-notification@f2ba011b2bd8bee8d7418b046541ce2f75d1fbed # v19.4.0
         with:
           webhook-url: ${{ secrets.TEAMS_NOTIFICATION_WORKFLOW_WEBHOOK }}
